@@ -1,3 +1,3 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-base
 
-RUN apt-get install -y asciidoctor
+RUN sudo apt-get install -y asciidoctor
