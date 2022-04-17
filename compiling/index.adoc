@@ -1,0 +1,45 @@
+Building From Source
+--------------------
+
+FormKiQ-Core was built using Java and JavaScript languages. In order to build from source you will need to install the development tools listed below.
+
+**Required Development Tools**
+
+* [JDK 11+](https://openjdk.java.net)
+* [Gradle 6.7+](https://gradle.org)
+* [NodeJS 6+](https://nodejs.org)
+* [Docker 3.0.0+](https://www.docker.com/products/docker-desktop)
+* [AWS CLI 2.1+](https://aws.amazon.com/cli)
+* [AWS SAM 1.15+](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+* [JQ 1.6+](https://stedolan.github.io/jq)
+* [Box 5.2+](https://commandbox.ortusbooks.com)
+* [YQ 3.4+](https://github.com/mikefarah/yq)
+
+**Running Build**
+
+FormKiQ-Core uses [Gradle](https://gradle.org) as the main build tool. 
+
+To compile:
+
+```
+./gradlew clean build
+```
+
+Building configuration is controlled through the `gradle.properties` file located in the root folder.
+
+**Gradle parameters**
+
+```
+# gradle.properties
+#
+# testregion - the name of the AWS Region to deploy to (us-east-1,us-east-2,etc)
+# testappenvironment - the name of the FormKiQ App Environment (test,prd,dev)
+
+# testprofile - the name of the AWS CLI profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+# testadminemail - an email address that administration account will be setup under
+#
+```
+
+`testregion` & `testappenvironment` are required for the `./gradlew build` task.
+
+After a successful build all the artifacts will be placed in the build/distributions/formkiq-core/formkiq-core-${version}.zip.

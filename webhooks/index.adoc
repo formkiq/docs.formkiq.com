@@ -1,0 +1,8 @@
+Webhooks
+--------
+
+Many services today allow you to uses webhooks to notify your application when an event happens in the service. For example, https://stripe.com/docs/webhooks[Stripe] allow you to specify a webhooks to notify your application when an event happens in your account.
+
+With FormKiQ you can create webhook endpoints that you can use to receive and store event notifications from other services. Using the /webhooks API (or from the console), you can create a webhook and then enter that webhook in Stripe or other supporting services and immediately start receiving notifications.
+
+FormKiQ allows you to take this one step further and using the link:#_document_events[Document Events] (that are created every time a webhook notification is received), you can easily write custom code that is automatically executed.

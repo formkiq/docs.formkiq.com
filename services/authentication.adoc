@@ -1,0 +1,13 @@
+==== Authentication
+
+Security is of the utmost importants for any system. However, flexibility is required to be able to integrate securely with other systems. This is why both JSON Web Tokens (JWTs) and AWS Identity and Access Management (IAM) are supported ways to authenticate.
+
+===== JSON Web Tokens (JWTs)
+
+JSON Web Tokens (JWTs) as a part of https://openid.net/specs/openid-connect-core-1_0.html[OpenID Connect (OIDC)] and https://oauth.net/2/[OAuth 2.0] frameworks to restrict client access to the APIs.
+
+https://aws.amazon.com/cognito[Amazon Cognito] is used as the default JWT authorizer to ensure the JWT tokens are authentic and valid. But any JWT authorizer could be used.
+
+===== AWS Identity and Access Management (IAM)
+
+AWS Identity and Access Management (IAM) is the access control used across all of AWS services. Using IAM policies, one could https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-iam-policy-examples-for-api-execution.html[provide a service the ability call any API]. This allows an automatic way for backend services to integrate with the FormKiQ API without having to retrieve a JWT token first.
