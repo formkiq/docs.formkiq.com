@@ -5,27 +5,19 @@ All endpoints require either Cognito / IAM Authentication unless the URL starts 
 Public URLs are disabled by default and can be enabled through the CloudFormation installation.
 
 [.DocumentSearch]
-=== DocumentSearch
+=== Document Search
 
 
 [.searchPost]
-==== searchPost
-
-`POST /search`
-
-
+==== `POST /search`
 
 ===== Description
 
-Document search query request
-
+**Document search query request**; documents are searched primarily using a document tag key and optional tag value, while an optional `documentIds` parameter is also available in the `DocumentSearchBody` to filter within up to 100 documentIds
 
 // markup not found, no include::{specDir}search/POST/spec.adoc[opts=optional]
 
-
-
 ===== Parameters
-
 
 ====== Body Parameter
 
@@ -40,8 +32,6 @@ Document search query request
 | 
 
 |===
-
-
 
 ====== Query Parameters
 
@@ -94,52 +84,32 @@ Document search query request
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentSearchResults>>
 
 |===
 
-===== Samples
-
-
+// ===== Samples
 // markup not found, no include::{snippetDir}search/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}search/POST/http-response.adoc[opts=optional]
-
-
-
 // file not found, no * wiremock data link :search/POST/POST.json[]
-
 
 ifdef::internal-generation[]
 ===== Implementation
-
 // markup not found, no include::{specDir}search/POST/implementation.adoc[opts=optional]
-
-
 endif::internal-generation[]
 
-
 [.DocumentTags]
-=== DocumentTags
-
+=== Document Tags
 
 [.documentsDocumentIdTagsGet]
-==== documentsDocumentIdTagsGet
-
-`GET /documents/{documentId}/tags`
-
-
+==== `GET /documents/{documentId}/tags`
 
 ===== Description
 
-Get a listing of a document's tags
-
+**Get a listing of a document's tags**
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/GET/spec.adoc[opts=optional]
-
-
 
 ===== Parameters
 
@@ -156,9 +126,6 @@ Get a listing of a document's tags
 | 
 
 |===
-
-
-
 
 ====== Query Parameters
 
@@ -211,23 +178,16 @@ Get a listing of a document's tags
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentItemsTags>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/GET/http-response.adoc[opts=optional]
 
-
-
 // file not found, no * wiremock data link :documents/{documentId}/tags/GET/GET.json[]
-
 
 ifdef::internal-generation[]
 ===== Implementation
@@ -239,19 +199,13 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdTagsPost]
-==== documentsDocumentIdTagsPost
-
-`POST /documents/{documentId}/tags`
-
-
+==== `POST /documents/{documentId}/tags`
 
 ===== Description
 
-Add tag(s) to a document
-
+**Add a single tag to a document**; endpoint also accepts a different body parameter for adding multiple tags at one time
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/POST/spec.adoc[opts=optional]
-
 
 
 ===== Parameters
@@ -303,8 +257,6 @@ Add tag(s) to a document
 
 ===== Return Type
 
-
-
 -
 
 
@@ -322,15 +274,9 @@ Add tag(s) to a document
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/POST/http-response.adoc[opts=optional]
-
-
 
 // file not found, no * wiremock data link :documents/{documentId}/tags/POST/POST.json[]
 
@@ -345,16 +291,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdTagsPost_1]
-==== documentsDocumentIdTagsPost_1
-
-`POST /documents/{documentId}/tags#`
-
+==== `POST /documents/{documentId}/tags`
 
 
 ===== Description
 
-Add tag(s) to a document
-
+**Add multiple tags to a document**; endpoint also accepts a different body parameter for adding a single tag
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags#/POST/spec.adoc[opts=optional]
 
@@ -428,12 +370,8 @@ Add tag(s) to a document
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags#/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags#/POST/http-response.adoc[opts=optional]
 
 
@@ -451,15 +389,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdTagsTagKeyDelete]
-==== documentsDocumentIdTagsTagKeyDelete
-
-`DELETE /documents/{documentId}/tags/{tagKey}`
-
+==== `DELETE /documents/{documentId}/tags/{tagKey}`
 
 
 ===== Description
 
-Delete a document's tag
+**Delete a document tag by using its key;** if a document has multiple values for this tag key, no deletion will be performed
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/\{tagKey\}/DELETE/spec.adoc[opts=optional]
@@ -527,12 +462,8 @@ Delete a document's tag
 
 |===
 
-===== Samples
-
-
+// ===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/DELETE/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/DELETE/http-response.adoc[opts=optional]
 
 
@@ -550,16 +481,11 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdTagsTagKeyGet]
-==== documentsDocumentIdTagsTagKeyGet
-
-`GET /documents/{documentId}/tags/{tagKey}`
-
-
+==== `GET /documents/{documentId}/tags/{tagKey}`
 
 ===== Description
 
-Get a document's tag by key
-
+**Get a document tag by using its key**
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/\{tagKey\}/GET/spec.adoc[opts=optional]
 
@@ -623,20 +549,14 @@ Get a document's tag by key
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentItemTag>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/GET/http-response.adoc[opts=optional]
-
-
 
 // file not found, no * wiremock data link :documents/{documentId}/tags/{tagKey}/GET/GET.json[]
 
@@ -651,15 +571,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdTagsTagKeyPut]
-==== documentsDocumentIdTagsTagKeyPut
-
-`PUT /documents/{documentId}/tags/{tagKey}`
-
+==== `PUT /documents/{documentId}/tags/{tagKey}`
 
 
 ===== Description
 
-Update the value(s) of a document's tag
+**Update any and all values of a document tag, by using its key**; you can supply one tag value or a list of tag values in the request body
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/\{tagKey\}/PUT/spec.adoc[opts=optional]
@@ -740,14 +657,9 @@ Update the value(s) of a document's tag
 
 |===
 
-===== Samples
-
-
+// ===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/PUT/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/PUT/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/{documentId}/tags/{tagKey}/PUT/PUT.json[]
@@ -763,19 +675,14 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdTagsTagKeyTagValueDelete]
-==== documentsDocumentIdTagsTagKeyTagValueDelete
-
-`DELETE /documents/{documentId}/tags/{tagKey}/{tagValue}`
-
+==== `DELETE /documents/{documentId}/tags/{tagKey}/{tagValue}`
 
 
 ===== Description
 
-Delete a document's valid tag/value combination
-
+**Delete a specific document tag's key/value combination**; the request will be ignored if there is no valid key/value combination found
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/\{tagKey\}/\{tagValue\}/DELETE/spec.adoc[opts=optional]
-
 
 
 ===== Parameters
@@ -845,12 +752,8 @@ Delete a document's valid tag/value combination
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/\{tagValue\}/DELETE/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/tags/\{tagKey\}/\{tagValue\}/DELETE/http-response.adoc[opts=optional]
 
 
@@ -872,15 +775,13 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdContentGet]
-==== documentsDocumentIdContentGet
-
-`GET /documents/{documentId}/content`
+==== `GET /documents/{documentId}/content`
 
 
 
 ===== Description
 
-Get a document's contents
+**Get a document's contents**
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/content/GET/spec.adoc[opts=optional]
@@ -945,17 +846,13 @@ Get a document's contents
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentContent>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/content/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/content/GET/http-response.adoc[opts=optional]
 
 
@@ -973,16 +870,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdDelete]
-==== documentsDocumentIdDelete
-
-`DELETE /documents/{documentId}`
-
+==== `DELETE /documents/{documentId}`
 
 
 ===== Description
 
-Delete a document
-
+**Delete a document**
 
 // markup not found, no include::{specDir}documents/\{documentId\}/DELETE/spec.adoc[opts=optional]
 
@@ -1043,12 +936,8 @@ Delete a document
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/DELETE/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/DELETE/http-response.adoc[opts=optional]
 
 
@@ -1066,15 +955,11 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdGet]
-==== documentsDocumentIdGet
-
-`GET /documents/{documentId}`
-
-
+==== `GET /documents/{documentId}`
 
 ===== Description
 
-Retrieves a document details
+**Retrieves a document's details**, i.e., metadata
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/GET/spec.adoc[opts=optional]
@@ -1133,19 +1018,14 @@ Retrieves a document details
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentItem>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/{documentId}/GET/GET.json[]
@@ -1161,15 +1041,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdPatch]
-==== documentsDocumentIdPatch
-
-`PATCH /documents/{documentId}`
-
+==== `PATCH /documents/{documentId}`
 
 
 ===== Description
 
-Update a document details
+**Update a document's details**, i.e., metadata
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/PATCH/spec.adoc[opts=optional]
@@ -1241,19 +1118,14 @@ Update a document details
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentPostResponse>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/PATCH/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/PATCH/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/{documentId}/PATCH/PATCH.json[]
@@ -1269,20 +1141,14 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdUploadGet]
-==== documentsDocumentIdUploadGet
-
-`GET /documents/{documentId}/upload`
-
+==== `GET /documents/{documentId}/upload`
 
 
 ===== Description
 
-Returns a url that can be used to upload documents larger than 5 MB for a specific documentId
-
+**Returns a URL that can be used to upload documents for a specific documentId** (required for documents larger than 5 MB)
 
 // markup not found, no include::{specDir}documents/\{documentId\}/upload/GET/spec.adoc[opts=optional]
-
-
 
 ===== Parameters
 
@@ -1348,19 +1214,14 @@ Returns a url that can be used to upload documents larger than 5 MB for a specif
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentUrl>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/upload/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/upload/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/{documentId}/upload/GET/GET.json[]
@@ -1376,15 +1237,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdUrlGet]
-==== documentsDocumentIdUrlGet
-
-`GET /documents/{documentId}/url`
-
+==== `GET /documents/{documentId}/url`
 
 
 ===== Description
 
-Returns a url for the document's contents that expires (default 48 hours)
+**Returns a URL for the document's contents that expires** (default is 48 hours)
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/url/GET/spec.adoc[opts=optional]
@@ -1455,19 +1313,14 @@ Returns a url for the document's contents that expires (default 48 hours)
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentUrl>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/url/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/url/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/{documentId}/url/GET/GET.json[]
@@ -1483,15 +1336,12 @@ endif::internal-generation[]
 
 
 [.documentsDocumentIdVersionsGet]
-==== documentsDocumentIdVersionsGet
-
-`GET /documents/{documentId}/versions`
-
+==== `GET /documents/{documentId}/versions`
 
 
 ===== Description
 
-Get a listing of document content versions
+**Get a listing of document content versions**
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/versions/GET/spec.adoc[opts=optional]
@@ -1556,19 +1406,14 @@ Get a listing of document content versions
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentItemsVersions>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/\{documentId\}/versions/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/\{documentId\}/versions/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/{documentId}/versions/GET/GET.json[]
@@ -1584,15 +1429,11 @@ endif::internal-generation[]
 
 
 [.documentsGet]
-==== documentsGet
-
-`GET /documents`
-
-
+==== `GET /documents`
 
 ===== Description
 
-Returns a list of most recent added documents order by inserted DESC
+**Returns a list of the most recent documents added**, ordered by inserted, descending
 
 
 // markup not found, no include::{specDir}documents/GET/spec.adoc[opts=optional]
@@ -1600,8 +1441,6 @@ Returns a list of most recent added documents order by inserted DESC
 
 
 ===== Parameters
-
-
 
 
 
@@ -1668,19 +1507,14 @@ Returns a list of most recent added documents order by inserted DESC
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentItemsResults>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/GET/GET.json[]
@@ -1696,19 +1530,14 @@ endif::internal-generation[]
 
 
 [.documentsPost]
-==== documentsPost
-
-`POST /documents`
-
+==== `POST /documents`
 
 
 ===== Description
 
-Saves a new document
-
+**Creates a new document**; body may include document content if less than 5 MB
 
 // markup not found, no include::{specDir}documents/POST/spec.adoc[opts=optional]
-
 
 
 ===== Parameters
@@ -1768,12 +1597,8 @@ Saves a new document
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/POST/http-response.adoc[opts=optional]
 
 
@@ -1791,16 +1616,13 @@ endif::internal-generation[]
 
 
 [.documentsUploadGet]
-==== documentsUploadGet
-
-`GET /documents/upload`
+==== `GET /documents/upload`
 
 
 
 ===== Description
 
-Returns a url that can be used to upload a document that is larger than 5 MB
-
+**Returns a URL that can be used to upload document content and create a new document**; required to add content that is larger than 5 MB
 
 // markup not found, no include::{specDir}documents/upload/GET/spec.adoc[opts=optional]
 
@@ -1863,19 +1685,14 @@ Returns a url that can be used to upload a document that is larger than 5 MB
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentUrl>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}documents/upload/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}documents/upload/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :documents/upload/GET/GET.json[]
@@ -1895,15 +1712,12 @@ endif::internal-generation[]
 
 
 [.sitesGet]
-==== sitesGet
-
-`GET /sites`
-
+==== `GET /sites`
 
 
 ===== Description
 
-Returns the list of sites the user has access to
+**Returns the list of sites that the user has access to**
 
 
 // markup not found, no include::{specDir}sites/GET/spec.adoc[opts=optional]
@@ -1911,9 +1725,6 @@ Returns the list of sites the user has access to
 
 
 ===== Parameters
-
-
-
 
 
 
@@ -1936,20 +1747,14 @@ Returns the list of sites the user has access to
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<Sites>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}sites/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}sites/GET/http-response.adoc[opts=optional]
-
-
 
 // file not found, no * wiremock data link :sites/GET/GET.json[]
 
@@ -1964,15 +1769,12 @@ endif::internal-generation[]
 
 
 [.versionGet]
-==== versionGet
-
-`GET /version`
-
+==== `GET /version`
 
 
 ===== Description
 
-Return the version of FormKiQ
+**Return the version of FormKiQ**
 
 
 // markup not found, no include::{specDir}version/GET/spec.adoc[opts=optional]
@@ -1980,10 +1782,6 @@ Return the version of FormKiQ
 
 
 ===== Parameters
-
-
-
-
 
 
 
@@ -2005,19 +1803,14 @@ Return the version of FormKiQ
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<Version>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}version/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}version/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :version/GET/GET.json[]
@@ -2037,15 +1830,12 @@ endif::internal-generation[]
 
 
 [.publicDocumentsPost]
-==== publicDocumentsPost
-
-`POST /public/documents`
-
+==== `POST /public/documents`
 
 
 ===== Description
 
-Allows unauthenticated creation of new documents, must be enabled during installation (disabled by default)
+**Allows unauthenticated creation of new documents**; must be enabled during installation (disabled by default)
 
 
 // markup not found, no include::{specDir}public/documents/POST/spec.adoc[opts=optional]
@@ -2109,14 +1899,9 @@ Allows unauthenticated creation of new documents, must be enabled during install
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}public/documents/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}public/documents/POST/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :public/documents/POST/POST.json[]
@@ -2132,15 +1917,12 @@ endif::internal-generation[]
 
 
 [.publicWebhooksWebhooksPost]
-==== publicWebhooksWebhooksPost
-
-`POST /public/webhooks/{webhooks+}`
-
+==== `POST /public/webhooks/{webhooks+}`
 
 
 ===== Description
 
-Incoming public webhook, must be enabled during installation (disabled by default)
+**Receives an incoming public post to a specified webhook and creates a document based on the data sent**; must be enabled during installation (disabled by default)
 
 
 // markup not found, no include::{specDir}public/webhooks/\{webhooks+\}/POST/spec.adoc[opts=optional]
@@ -2212,19 +1994,14 @@ Incoming public webhook, must be enabled during installation (disabled by defaul
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentId>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}public/webhooks/\{webhooks+\}/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}public/webhooks/\{webhooks+\}/POST/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :public/webhooks/{webhooks+}/POST/POST.json[]
@@ -2244,15 +2021,13 @@ endif::internal-generation[]
 
 
 [.privateWebhooksWebhooksPost]
-==== privateWebhooksWebhooksPost
-
-`POST /private/webhooks/{webhooks+}`
+==== `POST /private/webhooks/{webhooks+}`
 
 
 
 ===== Description
 
-Incoming private webhook
+**Receives an incoming private post to a specified webhook and creates a document based on the data sent**; requires authentication
 
 
 // markup not found, no include::{specDir}private/webhooks/\{webhooks+\}/POST/spec.adoc[opts=optional]
@@ -2324,19 +2099,14 @@ Incoming private webhook
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<DocumentId>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}private/webhooks/\{webhooks+\}/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}private/webhooks/\{webhooks+\}/POST/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :private/webhooks/{webhooks+}/POST/POST.json[]
@@ -2352,15 +2122,13 @@ endif::internal-generation[]
 
 
 [.webhooksGet]
-==== webhooksGet
-
-`GET /webhooks`
+==== `GET /webhooks`
 
 
 
 ===== Description
 
-Returns a list of webhooks
+**Returns a list of webhooks**; each webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
 
 
 // markup not found, no include::{specDir}webhooks/GET/spec.adoc[opts=optional]
@@ -2406,19 +2174,14 @@ Returns a list of webhooks
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<WebhookResults>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :webhooks/GET/GET.json[]
@@ -2434,15 +2197,13 @@ endif::internal-generation[]
 
 
 [.webhooksPost]
-==== webhooksPost
-
-`POST /webhooks`
+==== `POST /webhooks`
 
 
 
 ===== Description
 
-Save a new webhook
+**Create a new webhook**; once created, a webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
 
 
 // markup not found, no include::{specDir}webhooks/POST/spec.adoc[opts=optional]
@@ -2506,14 +2267,9 @@ Save a new webhook
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/POST/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :webhooks/POST/POST.json[]
@@ -2529,15 +2285,12 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdDelete]
-==== webhooksWebhookIdDelete
-
-`DELETE /webhooks/{webhookId}`
-
+==== `DELETE /webhooks/{webhookId}`
 
 
 ===== Description
 
-Deletes a webhook
+**Deletes a webhook**; this will disable sending, receiving, or processing of data from external services to this webhook
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/DELETE/spec.adoc[opts=optional]
@@ -2599,14 +2352,9 @@ Deletes a webhook
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/DELETE/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/DELETE/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/DELETE/DELETE.json[]
@@ -2627,10 +2375,9 @@ endif::internal-generation[]
 `GET /webhooks/{webhookId}`
 
 
-
 ===== Description
 
-Returns a webhook details
+**Returns a webhook's details**, i.e., its metadata
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/GET/spec.adoc[opts=optional]
@@ -2689,19 +2436,14 @@ Returns a webhook details
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<Webhook>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/GET/GET.json[]
@@ -2717,15 +2459,12 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdPatch]
-==== webhooksWebhookIdPatch
-
-`PATCH /webhooks/{webhookId}`
-
+==== `PATCH /webhooks/{webhookId}`
 
 
 ===== Description
 
-Updates a webhook
+**Updates a webhook's details**, i.e., its metadata
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/PATCH/spec.adoc[opts=optional]
@@ -2800,12 +2539,8 @@ Updates a webhook
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/PATCH/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/PATCH/http-response.adoc[opts=optional]
 
 
@@ -2823,15 +2558,12 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdTagsGet]
-==== webhooksWebhookIdTagsGet
-
-`GET /webhooks/{webhookId}/tags`
-
+==== `GET /webhooks/{webhookId}/tags`
 
 
 ===== Description
 
-Get a webhook's tags
+**Get a webhook's tags**
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/tags/GET/spec.adoc[opts=optional]
@@ -2890,19 +2622,14 @@ Get a webhook's tags
 
 
 | 200
-| 200 response
+| 200 Response
 |  <<WebhookTags>>
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/GET/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/GET/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/tags/GET/GET.json[]
@@ -2918,15 +2645,11 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdTagsPost]
-==== webhooksWebhookIdTagsPost
-
-`POST /webhooks/{webhookId}/tags`
-
-
+==== `POST /webhooks/{webhookId}/tags`
 
 ===== Description
 
-Add a tag to a webhook
+**Add a tag to a webhook**
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/tags/POST/spec.adoc[opts=optional]
@@ -3001,14 +2724,9 @@ Add a tag to a webhook
 
 |===
 
-===== Samples
-
-
+//===== Samples
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/POST/http-request.adoc[opts=optional]
-
-
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/POST/http-response.adoc[opts=optional]
-
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/tags/POST/POST.json[]

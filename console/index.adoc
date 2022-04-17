@@ -1,7 +1,7 @@
 Console
 -------
 
-While FormKiQ Core was built using an API First design methodology that allows easy integration with existing applications, you can also use the console interface that is set up with FormKiQ Core.
+While FormKiQ Core was built using an API-First design methodology that allows easy integration with existing applications, you can also use the console interface that is set up with FormKiQ Core.
 
 The FormKiQ Console supports:
 
@@ -11,7 +11,7 @@ The FormKiQ Console supports:
 
 ✅ Search Documents
 
-✅ Executing FormKiQ API Calls within the API Explorer - you can use API methods directly from the console
+✅ Executing FormKiQ API Calls within the API Explorer: i.e., you can use API methods directly from within the console
 
 The FormKiQ Console is open source and can be found on https://github.com/formkiq/formkiq-console[Github].
 
@@ -37,6 +37,6 @@ Users in the "Admins" group have full access to all documents in FormKiQ Core.
 
 Users in the "default" group will have read/write access to documents in the default siteid.
 
-Users in the "default_read" group will have read only access to documents in the default siteid.
+Users in the "default_read" group will have read-only access to documents in the default siteid.
 
 All group maintenance operations can be done via the Amazon Cognito console. To learn how to add users to a cognito group see https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-user-groups.html[Amazon Cognito's Developer Guide] for instructions.

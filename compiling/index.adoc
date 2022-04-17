@@ -5,19 +5,19 @@ FormKiQ-Core was built using Java and JavaScript languages. In order to build fr
 
 **Required Development Tools**
 
-* [JDK 11+](https://openjdk.java.net)
-* [Gradle 6.7+](https://gradle.org)
-* [NodeJS 6+](https://nodejs.org)
-* [Docker 3.0.0+](https://www.docker.com/products/docker-desktop)
-* [AWS CLI 2.1+](https://aws.amazon.com/cli)
-* [AWS SAM 1.15+](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-* [JQ 1.6+](https://stedolan.github.io/jq)
-* [Box 5.2+](https://commandbox.ortusbooks.com)
-* [YQ 3.4+](https://github.com/mikefarah/yq)
+* https://openjdk.java.net[JDK 11+]
+* https://gradle.org[Gradle 6.7+]
+* https://nodejs.org[NodeJS 6+]
+* https://www.docker.com/products/docker-desktop[Docker 3.0.0+]
+* https://aws.amazon.com/cli[AWS CLI 2.1+]
+* https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html[AWS SAM 1.15+]
+* https://stedolan.github.io/jq[JQ 1.6+]
+* https://commandbox.ortusbooks.com[Box 5.2+]
+* https://github.com/mikefarah/yq[YQ 3.4+]
 
 **Running Build**
 
-FormKiQ-Core uses [Gradle](https://gradle.org) as the main build tool. 
+FormKiQ-Core uses https://gradle.org[Gradle] as the main build tool. 
 
 To compile:
 
@@ -25,7 +25,7 @@ To compile:
 ./gradlew clean build
 ```
 
-Building configuration is controlled through the `gradle.properties` file located in the root folder.
+Build configuration is controlled through the `gradle.properties` file located in the root folder.
 
 **Gradle parameters**
 
@@ -36,10 +36,10 @@ Building configuration is controlled through the `gradle.properties` file locate
 # testappenvironment - the name of the FormKiQ App Environment (test,prd,dev)
 
 # testprofile - the name of the AWS CLI profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-# testadminemail - an email address that administration account will be setup under
+# testadminemail - an email address to use for the administration account
 #
 ```
 
 `testregion` & `testappenvironment` are required for the `./gradlew build` task.
 
-After a successful build all the artifacts will be placed in the build/distributions/formkiq-core/formkiq-core-${version}.zip.
+After a successful build, all of the artifacts will be placed in the build/distributions/formkiq-core/formkiq-core-${version}.zip.

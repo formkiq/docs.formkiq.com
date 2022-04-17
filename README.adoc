@@ -21,9 +21,9 @@ FormKiQ Core is an Open Source Headless Document Management System (DMS) that ru
 
 You can use **FormKiQ** to power:
 
-* Easily store Documents / Form data from your website
-* Quickly Tag and Organize your Documents
-* Flexible integrate into existing application or build custom workflows
+* Easy storage of Documents / Form data from your website
+* Quick Tagging and Organization of your Documents
+* Flexible integration into existing application or building custom workflows
 
 FormKiQ is built for any size organization, from personal websites to large, enterprise organizations requiring full control of any number of internal and external documents. 
 
@@ -55,11 +55,11 @@ Please visit [our website](https://formkiq.com) to see the full list of features
 
 ✅ Includes an Intuitive User Interface (FormKiQ Console) for Document Management
 
-FormKiQ has an [enterprise](https://formkiq.com) edition that provides support and enterprise battle tested modules.
+FormKiQ has an [enterprise edition](https://formkiq.com) that provides support and enterprise battle-tested modules.
 
-To learn more about the FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
+To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
 
-To learn more about the FormKiQ Enterprise, please visit https://formkiq.com.
+To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
 
 include::services/overview.adoc[Services & Introduction]
 

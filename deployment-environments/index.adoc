@@ -3,7 +3,11 @@ Installation
 
 FormKiQ was built using the https://aws.amazon.com/serverless/sam[AWS Serverless Application Model (SAM)] framework.
 
-https://github.com/formkiq/formkiq-core[FormKiQ Core] uses AWS resources, including DynamoDB, CloudFront, Lambda functions, and an API Gateway API. These resources are defined in the `template.yaml` file in this project. You can customize FormKiQ by updating the template, adding AWS resources through the same deployment process that updates your application code.
+https://github.com/formkiq/formkiq-core[FormKiQ Core] uses AWS resources, including DynamoDB, CloudFront, Lambda functions, and API Gateway. These resources are defined in the `template.yaml` file in this project. You can customize FormKiQ by updating the template and adding AWS resources through the same deployment process that updates your application code.
+
+=== Download
+
+The latest version of FormKiQ Core can be found on the https://github.com/formkiq/formkiq-core/releases[FormKiQ Core Releases page on GitHub]. Download the source code (tar.gz or zip) to your local computer and expand/unzip into its own folder, `formkiq-core-x.x.x`.
 
 === Deploy
 
@@ -22,27 +26,27 @@ sam deploy --guided --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND CAPABIL
 
 The command will package and deploy your application to AWS, with a series of prompts:
 
-* **Stack Name**: The name of the stack to deploy to CloudFormation. This should be unique to your account and region, and a good starting point would be `formkiq-core-&lt;AppEnvironment&gt;` where AppEnvironment matches your installation environment, e.g. prod, dev, test.
-* **AWS Region**: The AWS region you want to deploy your app to.
-* **AdminEmail**: The Administration Email you want FormKiQ to use.
-* **AppEnvironment**: Your installation environment, e.g. prod, dev, test. Must be unique per account.
-* **EnablePublicUrls**: Whether to Enable `/public/` urls.
-* **PasswordMinimumLength**: Minimum Password Length for User Accounts.
-* **PasswordRequireLowercase**: Whether at least one lowercase letter is required in User Passwords.
-* **PasswordRequireNumbers**: Whether at least one number is required in User Passwords.
-* **PasswordRequireSymbols**: Whether at least one symbol is required in User Passwords.
-* **PasswordRequireUppercase**: Whether at least one uppercase letter is required in User Passwords.
-* **Confirm changes before deploy**: If set to yes, any change sets will be shown to you before execution for manual review. If set to no, the AWS SAM CLI will automatically deploy application changes.
-* **Allow SAM CLI IAM role creation**: FormKiQ Core's AWS SAM templates create AWS IAM roles required for the AWS Lambda function(s) included to access AWS services. The permissions are passed in by the `sam deploy` command above. Set Value to 'Y'
-* **Save arguments to samconfig.toml**: If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application.
+* **Stack Name**: the name of the stack to deploy to CloudFormation; this should be unique to your account and region, and a good starting point would be `formkiq-core-&lt;AppEnvironment&gt;` where AppEnvironment matches your installation environment, e.g. prod, dev, test
+* **AWS Region**: the AWS region you want to deploy your app to
+* **AdminEmail**: the Administration Email you want FormKiQ to use
+* **AppEnvironment**: your installation environment, e.g. prod, dev, test; must be unique per account
+* **EnablePublicUrls**: whether to Enable `/public/` urls.
+* **PasswordMinimumLength**: the minimum Password Length for User Accounts
+* **PasswordRequireLowercase**: whether at least one lowercase letter is required in User Passwords
+* **PasswordRequireNumbers**: whether at least one number is required in User Passwords
+* **PasswordRequireSymbols**: whether at least one symbol is required in User Passwords
+* **PasswordRequireUppercase**: whether at least one uppercase letter is required in User Passwords
+* **Confirm changes before deploy**: if set to yes, any change sets will be shown to you before execution for manual review; if set to no, the AWS SAM CLI will automatically deploy application changes
+* **Allow SAM CLI IAM role creation**: FormKiQ Core's AWS SAM templates create AWS IAM roles required for the AWS Lambda function(s) included to access AWS services; the permissions are passed in by the `sam deploy` command above, so **this value should be set to "Y"**
+* **Save arguments to samconfig.toml**: if set to "Y", your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application
 
-Once you have set all of these options, SAM CLI will create a changeset and will display a list of all actions that will be performed as part of the changeset. If you have set "confirm changes before deploy" to "y", you will then be asked whether or nor to deploy this changeset. Choose "y" to complete the installation.
+Once you have set all of these options, SAM CLI will create a changeset and will display a list of all actions that will be performed as part of the changeset. If you have set "confirm changes before deploy" to "Y", you will then be asked whether or nor to deploy this changeset. Choose "Y" to complete the installation.
 
-Once the FormKiQ Core stack has been deployed, you will be able to find your API Gateway Endpoint URL in the output values displayed after deployment.
+Once the FormKiQ Core stack has been deployed, you will be able to find your two available API Gateway Endpoint URLs (HTTP/Cognito and IAM) in the output values displayed after deployment.
 
 ==== Outputs
 
-After the FormKiQ Cloudformation Stack completes output values from the deployment are made available in the CloudFormation Outputs and in the SSM Parameter Store. Below you'll find a description of the outputs.
+After the FormKiQ Cloudformation Stack completes, output values from the deployment are made available in the CloudFormation Outputs and in the SSM Parameter Store. Below you'll find a description of the outputs.
 
 **CloudFormation Outputs**
 
@@ -58,7 +62,7 @@ After the FormKiQ Cloudformation Stack completes output values from the deployme
 
 **SSM Parameter Store**
 
-SSM parameters made it easy for applications to automatically lookup FormKiQ configuration. All configuration keys start with '/formkiq/{AppEnvironment}'
+SSM parameters made it easy for applications to automatically look up FormKiQ configuration settings. All configuration keys start with '/formkiq/{AppEnvironment}'
 
 |=======================================================================
 | Parameter | Description                
@@ -101,9 +105,9 @@ SSM parameters made it easy for applications to automatically lookup FormKiQ con
 
 === Uninstall
 
-FormKiQ uses https://aws.amazon.com/cloudformation[AWS CloudFormation] to provision all resources. Uninstalling FormKiQ is as easy as login into the https://us-east-1.console.aws.amazon.com/cloudformation/home[AWS CloudFormation Console] and deleting the `formkiq-core` stack.
+FormKiQ uses https://aws.amazon.com/cloudformation[AWS CloudFormation] to provision all resources. Uninstalling FormKiQ is as easy as logging into the https://us-east-1.console.aws.amazon.com/cloudformation/home[AWS CloudFormation Console] and deleting the `formkiq-core` stack.
 
-Or you can use the AWS CLI. Assuming you used the suggested stack name (formkiq-core-&lt;AppEnvironment&gt;) for the stack name, you can run the following:
+Alternatively, you can use the AWS CLI. Assuming you used the suggested stack name (formkiq-core-&lt;AppEnvironment&gt;) for the stack name, you can run the following:
 
 ```bash
 aws cloudformation delete-stack --stack-name formkiq-core-&lt;AppEnvironment&gt;
@@ -111,4 +115,4 @@ aws cloudformation delete-stack --stack-name formkiq-core-&lt;AppEnvironment&gt;
 
 === Upgrading
 
-FormKiQ is designed to be N-1 compatible for updates, with automatic upgrades of database schema and similar whenever possible.
+FormKiQ is designed to be N-1 compatible for updates, with automatic upgrades of database schema and other components whenever possible.
