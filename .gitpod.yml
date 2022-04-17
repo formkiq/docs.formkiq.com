@@ -6,6 +6,8 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: ./make
+  - init: > 
+    RUN sudo apt-get install -y asciidoctor
+    make
 
 
