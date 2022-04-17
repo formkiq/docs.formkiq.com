@@ -15,7 +15,7 @@ toc::[]
 Introduction
 ------------
 
-image::https://github.com/formkiq/formkiq-core/blob/master/logo.png?raw=true[FormKiQ,250,350]
+image::https://github.com/formkiq/formkiq-core/blob/master/logo.png?raw=true[FormKiQ]
 
 FormKiQ Core is an Open Source Headless Document Management System (DMS) that runs completely in *YOUR* https://aws.amazon.com[Amazon Web Services (AWS) Cloud].
 
