@@ -394,7 +394,7 @@ endif::internal-generation[]
 
 ===== Description
 
-**Delete a document tag by using its key;** if a document has multiple values for this tag key, no deletion will be performed
+**Delete a document tag by using its key;** if a document has multiple values for this tag key, ALL values for that tag key will be deleted
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/\{tagKey\}/DELETE/spec.adoc[opts=optional]
