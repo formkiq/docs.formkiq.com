@@ -1,0 +1,20 @@
+site:
+  title: FormKiQ Documentation
+  # the 404 page and sitemap files only get generated when the url property is set
+  url: https://docs.formkiq.com
+  start_page: formkiqdocs::index.adoc
+content:
+  sources:
+  - url: .
+    start_path: docs
+asciidoc:
+  attributes:
+    experimental: ''
+    idprefix: ''
+    idseparator: '-'
+    page-pagination: ''
+ui:
+  bundle:
+    url: ./build/ui-bundle.zip
+    #url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    #snapshot: true

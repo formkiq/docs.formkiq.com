@@ -1,5 +1,8 @@
 default : 
-	  asciidoctor README.adoc -o index.html
+	  #asciidoctor README.adoc -o index.html
+	  mkdir -p build
+	  cd ui-bundle && zip -r ../build/ui-bundle.zip *
+	  antora antora-playbook.yml
 
 deploy : default
 	  aws s3 cp index.html s3://${S3_BUCKET}/docs/index.html
