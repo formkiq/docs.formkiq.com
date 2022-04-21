@@ -3186,7 +3186,7 @@ endif::internal-generation[]
 
 | documents
 | 
-| List  of <<object>>
+| List  of <<DocumentItemResult>>
 | List of documents
 |  
 
@@ -3416,7 +3416,7 @@ Document search tag criteria
 
 | documents
 | 
-| List  of <<object>>
+| List  of <<SearchDocumentItem>>
 | List of search result documents
 |  
 
