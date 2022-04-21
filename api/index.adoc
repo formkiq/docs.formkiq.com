@@ -84,7 +84,7 @@ Public URLs are disabled by default and can be enabled through the CloudFormatio
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentSearchResults>>
 
 |===
@@ -178,7 +178,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentItemsTags>>
 
 |===
@@ -269,7 +269,7 @@ endif::internal-generation[]
 
 
 | 201
-| Options Response
+| 201 CREATED
 |  <<>>
 
 |===
@@ -365,7 +365,7 @@ endif::internal-generation[]
 
 
 | 201
-| Options Response
+| 201 CREATED
 |  <<>>
 
 |===
@@ -457,7 +457,7 @@ endif::internal-generation[]
 
 
 | 200
-| Options Response
+| 200 OK
 |  <<>>
 
 |===
@@ -549,7 +549,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentItemTag>>
 
 |===
@@ -652,7 +652,7 @@ endif::internal-generation[]
 
 
 | 200
-| Options Response
+| 200 OK
 |  <<>>
 
 |===
@@ -747,7 +747,7 @@ endif::internal-generation[]
 
 
 | 200
-| Options Response
+| 200 OK
 |  <<>>
 
 |===
@@ -846,7 +846,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentContent>>
 
 |===
@@ -931,7 +931,7 @@ endif::internal-generation[]
 
 
 | 200
-| Options Response
+| 200 OK
 |  <<>>
 
 |===
@@ -1018,7 +1018,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentItem>>
 
 |===
@@ -1118,7 +1118,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentPostResponse>>
 
 |===
@@ -1214,7 +1214,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentUrl>>
 
 |===
@@ -1313,7 +1313,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentUrl>>
 
 |===
@@ -1406,7 +1406,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentItemsVersions>>
 
 |===
@@ -1507,7 +1507,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentItemsResults>>
 
 |===
@@ -1592,7 +1592,7 @@ endif::internal-generation[]
 
 
 | 201
-| 201 response
+| 201 CREATED
 |  <<DocumentPostResponse>>
 
 |===
@@ -1685,7 +1685,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentUrl>>
 
 |===
@@ -1747,7 +1747,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<Sites>>
 
 |===
@@ -1803,7 +1803,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<Version>>
 
 |===
@@ -1894,7 +1894,7 @@ endif::internal-generation[]
 
 
 | 201
-| 201 response
+| 201 CREATED
 |  <<DocumentId>>
 
 |===
@@ -1994,7 +1994,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentId>>
 
 |===
@@ -2099,7 +2099,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<DocumentId>>
 
 |===
@@ -2174,7 +2174,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<WebhookResults>>
 
 |===
@@ -2262,7 +2262,7 @@ endif::internal-generation[]
 
 
 | 201
-| 201 response
+| 201 CREATED
 |  <<WebhookPostResponse>>
 
 |===
@@ -2347,7 +2347,7 @@ endif::internal-generation[]
 
 
 | 200
-| Options Response
+| 200 OK
 |  <<>>
 
 |===
@@ -2436,7 +2436,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<Webhook>>
 
 |===
@@ -2534,7 +2534,7 @@ endif::internal-generation[]
 
 
 | 200
-| Options Response
+| 200 OK
 |  <<>>
 
 |===
@@ -2622,7 +2622,7 @@ endif::internal-generation[]
 
 
 | 200
-| 200 Response
+| 200 OK
 |  <<WebhookTags>>
 
 |===
@@ -2719,7 +2719,7 @@ endif::internal-generation[]
 
 
 | 201
-| Options Response
+| 201 CREATED
 |  <<>>
 
 |===
