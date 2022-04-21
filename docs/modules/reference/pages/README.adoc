@@ -1,9 +1,9 @@
 FormKiQ Docs
 ============
-:navtitle: Developer Reference
+:navtitle: Reference
 :docinfo: shared
 :data-uri:
-:title: Developer Reference
+:title: Reference
 :toc: left
 :toclevels: 2
 :sectanchors:

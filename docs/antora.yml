@@ -4,4 +4,5 @@ version: 1.6.0
 nav:
 - modules/ROOT/nav.adoc
 - modules/reference/nav.adoc
-- modules/module-one/nav.adoc
+- modules/tutorials/nav.adoc
+- modules/howto/nav.adoc

@@ -1,0 +1,9 @@
+= Tutorials
+
+These tutorials provide a deeper exploration of FormKiQ.
+
+== xref:tutorials:install.adoc[FormKiQ Installation]
+
+This xref:tutorials:install.adoc[tutorial] takes you through downloading https://github.com/formkiq/formkiq-core[FormKiQ Core] and installing it into your AWS account.
+
+Time: 20 minutes

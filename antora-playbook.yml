@@ -17,4 +17,5 @@ ui:
   bundle:
     url: ./build/ui-bundle.zip
     #url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    #url: https://github.com/evidentsystems/docs-ui/releases/download/v0.1.6/ui-bundle.zip
     #snapshot: true
