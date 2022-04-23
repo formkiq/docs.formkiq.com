@@ -2,7 +2,11 @@
 
 Throughout this tutorial, we’ll walk you through the downloading of FormKiQ Core and installing it into your AWS account.
 
+image::sam.png[Sam,200,200]
+
 FormKiQ was built using the https://aws.amazon.com/serverless/sam/[AWS Serverless Application Model (AWS SAM)]. The https://aws.amazon.com/serverless/sam/[AWS SAM] is an open-source framework that you can use to build serverless applications on https://aws.amazon.com[AWS].
+
+This tutorial assume you have access to an https://aws.amazon.com[Amazon Web Services (AWS)] account that has access to create https://aws.amazon.com/cloudformation[CloudFormation] stacks.
 
 == Install AWS SAM CLI
 
@@ -16,17 +20,194 @@ sam --version
 
 On successful installation, you should see output like the following:
 ----
-SAM CLI, version 1.46.0
+SAM CLI, version X.XX.X
+----
+
+== Setting up AWS credentials
+
+https://aws.amazon.com/serverless/sam/[AWS SAM] depends on a access / secret key set up on your AWS user account.
+
+If you already have a access / secret key set up you can skip this step.
+
+=== Get user access key ID / secret access key
+
+* Open the IAM console at https://console.aws.amazon.com/iam/
+
+* On the navigation menu, choose Users.
+
+* Choose your IAM user name.
+
+* Open the Security credentials tab, and then choose Create access key.
+
+* To see the new access key, choose Show. Your credentials resemble the following:
+----
+Access key ID: AKIAIOSFODNN7EXAMPLE
+Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+----
+
+=== To set your AWS credentials, 
+
+Now that you have the access key ID and secret access key you can use the `aws` command to configure.
+
+----
+$ aws configure
+AWS Access Key ID [None]: your_access_key_id
+AWS Secret Access Key [None]: your_secret_access_key
+Default region name [None]: 
+Default output format [None]: 
 ----
 
 == Get FormKiQ Core
 
-image::../images/formkiq-core.png[FormKiQ Core Github page]
+FormKiQ Core is the open sourced distribution of FormKiQ and is available on https://github.com/formkiq/formkiq-core[GitHub] under the MIT License.
+
+image::formkiq-core.png[FormKiQ Core Github page]
+
+You will find the latest version under the https://github.com/formkiq/formkiq-core/releases[FormKiQ Core releases]. 
+
+Under the `Assets` download the formkiq-core-X.X.X.zip file to your computer.
+
+Unzip the formkiq-core-X.X.X.zip file into it's own directory.
+
+----
+unzip ../formkiq-core-X.X.X.zip
+----
 
 == SAM Deploy
 
-== Subscription Confirmation Email
+We are now ready to use the SAM CLI to deploy the FormKiQ CloudFormation stack to your AWS account.
 
-== Welcome to FormKiQ Email
+image::sam-deploy.png[SAM Deploy,200,200]
 
+In the directory with the `template.yaml` file, run the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html[sam deploy] command as shown below.
 
+----
+sam deploy --guided --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM
+----
+
+The SAM CLI will guide you through a series of deployment arguments to configure.
+
+The following is the recommended values to use. A detail description of each option is below.
+
+[subs="quotes"]
+----
+Configuring SAM deploy
+======================
+
+	Looking for config file [samconfig.toml] :  Not found
+
+	Setting default arguments for 'sam deploy'
+	=========================================
+	Stack Name [sam-app]: *formkiq-core-test*
+	AWS Region [us-east-2]: *us-east-2*
+	Parameter AdminEmail []: *&lt;your email address&gt;*
+	Parameter AppEnvironment [prod]: *test*
+	Parameter AllowAdminCreateUserOnly [true]: *true*
+	Parameter EnablePublicUrls [false]: *false*
+	Parameter PasswordMinimumLength [8]: *8*
+	Parameter PasswordRequireLowercase [false]: *false*
+	Parameter PasswordRequireNumbers [false]: *false*
+	Parameter PasswordRequireSymbols [false]: *false*
+	Parameter PasswordRequireUppercase [false]: *false*
+	#Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+	Confirm changes before deploy [y/N]: *N*
+	Allow SAM CLI IAM role creation [Y/n]: *Y*
+	#Preserves the state of previously provisioned resources when an operation fails
+	Disable rollback [y/N]: *N*
+	Save arguments to configuration file [Y/n]: *Y*
+	SAM configuration file [samconfig.toml]: *samconfig.toml*
+	SAM configuration environment [default]: *default*
+----
+
+|=======================================================================
+| Argument | Description                
+| `Stack Name` | The name of the stack to deploy to CloudFormation. The name unique to your account and region., and a good starting point would be `formkiq-core-&lt;AppEnvironment&gt;` where AppEnvironment matches your installation environment, e.g. *prod, dev, test*.
+| `AWS Region` | The AWS region you want to deploy your app to. e.g. *us-east-2*
+| `AdminEmail` | The Administration Email address.
+| `AppEnvironment` | Your installation environment, e.g. *prod, dev, test*. Must be unique per account.
+| `EnablePublicUrls` | Enables `/public/` API urls. (default false)
+| `PasswordMinimumLength` | Minimum Password Length for User Accounts.
+| `PasswordRequireLowercase` | Whether at least one lowercase letter is required in User Passwords.
+| `PasswordRequireNumbers` | Whether at least one number is required in User Passwords.
+| `PasswordRequireSymbols` | Whether at least one symbol is required in User Passwords.
+| `PasswordRequireUppercase` | Whether at least one uppercase letter is required in User Passwords.
+| `Confirm changes before deploy` | If set to yes, any change sets will be shown to you before execution for manual review. If set to no, the AWS SAM CLI will automatically deploy application changes.
+| `Allow SAM CLI IAM role creation` | FormKiQ Core's AWS SAM templates create AWS IAM roles required for the AWS Lambda function(s) included to access AWS services. The permissions are passed in by the `sam deploy` command above. Set Value to 'Y'
+| `Save arguments to samconfig.toml` | If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application.
+|=======================================================================
+
+SAM will deploy FormKiQ as CloudFormation stacks. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console] and you can see the stacks being created and the process of the FormKiQ deployment.
+
+Wait until the `sam deploy` command completes with output.
+
+----
+Outputs
+----------------------------------------------------------------------------------
+...
+Key                 ConsoleUrl
+Description         The URL for the FormKiQ Console
+Value               https://XXXXXXXXX.cloudfront.net
+...
+Key                 IamApiUrl
+Description         The URL for the API endpoint that uses IAM authorization
+Value               https://6c2wkkk8gj.execute-api.us-east-2.amazonaws.com
+...
+Key                 HttpApiUrl
+Description         The URL for the API endpoint that uses Cognito authorization
+Value               https://123pgcpz6k.execute-api.us-east-2.amazonaws.com
+----------------------------------------------------------------------------------
+----
+
+The `Outputs` list resources created during the installation. 
+
+== Installation Emails
+
+During the FormKiQ installation, the `AdminEmail` address will receive two emails.
+
+Open the email of the `AdminEmail` address.
+
+image::amazon-simple-notification-email.png[Email Notification,100,100]
+
+=== Document Notification Subscription
+
+The first email will be for an email subscription that allows you to be notified whenever a document is added to FormKiQ, along with a link to the document. If you wish to be notified, click the *Confirm subscription* link.
+
+If you do not wish to be notified, you can ignore this email.
+
+[subs="quotes"]
+----
+AWS Notification - Subscription Confirmation
+
+You have chosen to subscribe to the topic:
+arn:aws:sns:<AWS_REGION>:XXXXXXXXXXXX:formkiq-core-XXXX-ModuleEmailNotify-XXXXX-DocumentsEmailNotification-XXXXXXXXXXXXXX
+
+To confirm this subscription, click or visit the link below (If this was in error no action is necessary):
+*Confirm subscription*
+----
+
+=== Finalize Set up
+
+The second email is `Welcome to FormKiQ`, which contains a link to finalize the set up of FormKiQ.
+
+[subs="quotes"]
+----
+Welcome to FormKiQ
+
+Your account has been created. *Click this link to finalize your account*.
+----
+
+In the email, *click the link to finalize your account*.
+
+The link will bring you to the `FormKiQ Console` and allow you to set an administrator password.
+
+image::set-admin-password.png[Set Administrator Password,500,500]
+
+Now you can use the administrator email address and the password you just set up to log into the console.
+
+image::login-page.png[Login Page,500,500]
+
+== Summary
+
+Throughout this tutorial, you have successfully deployed FormKiQ to your AWS account using the AWS SAM CLI.
+
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms see xref:tutorials:documentapi.adoc[Tutorial on the Document API].

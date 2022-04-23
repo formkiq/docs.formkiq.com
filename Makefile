@@ -1,5 +1,6 @@
 default : 
 	  #asciidoctor README.adoc -o index.html
+	  rm -r -f build
 	  mkdir -p build
 	  cd ui-bundle && zip -r ../build/ui-bundle.zip *
 	  antora antora-playbook.yml
