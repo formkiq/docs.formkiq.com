@@ -13,3 +13,9 @@ Time: 30 minutes
 This xref:tutorials:documentapi.adoc[tutorial] will take you through the basic of the FormKiQ API including: adding document, document tags and searching for documents.
 
 Time: 30 minutes
+
+== xref:tutorials:multitenant.adoc[Multi-Tenant Users]
+
+This xref:tutorials:multitenant.adoc[tutorial] will take you through using FormKiQ as a multi-tenancy document management system.
+
+Time: 30 minutes

@@ -11,8 +11,8 @@ xref:reference:README.adoc[Reference] guide contains installation / configuratio
 == Tutorials
 
 xref:tutorials:README.adoc[Tutorials] take you by the hand through a series of steps to install FormKiQ Core.
-
+////
 == How-to guides
 
 xref:howto:README.adoc[Guides] you through the steps involved in using FormKiQ in specific scenarios.
-
+////
