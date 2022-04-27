@@ -4,13 +4,15 @@ FormKiQ supports multi-tenant environments where you can set up multiple groups 
 
 ## Cognito Groups
 
-To create our first `SiteId`, start by visiting the https://console.aws.amazon.com/cognito[Amazon Cognito Console] and select `User pool name` matching your naming of your FormKiQ installation.
+To create a `SiteId`, start by visiting the https://console.aws.amazon.com/cognito[Amazon Cognito Console] and select the `User pool name` matching your naming of your FormKiQ installation.
 
 image::cognito-user-pools.png[Cognito User Pools,600,600]
 
 Select the `Groups` tab and you'll see the Cognito groups that FormKiQ creates during installation. Each group is a `siteId` (except for the Admins) group.
 
 image::cognito-groups-default.png[FormKiQ default Cognito Groups,600,600]
+
+### Create Tenant
 
 We are now going to create a siteId named `site1`. This involves creating two Cognito groups.
 
@@ -77,7 +79,7 @@ Welcome to FormKiQ
 Your account has been created. *Click this link to finalize your account*.
 `````
 
-## Add Document to Site1
+## Add Document to Site
 
 Log into the FormKiQ Console and click the `Add Documents` from the left menu. Drag and drop a file into the `Upload New` box. Once the document is uploaded it will be displayed in the *Documents Added* table.
 

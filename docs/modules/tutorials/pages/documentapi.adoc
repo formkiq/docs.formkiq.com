@@ -1,4 +1,4 @@
-== Getting Started with Document API
+= Getting Started with Document API
 
 This tutorial will take you through the basic of the FormKiQ API including: adding document, document tags and searching for documents.
 
@@ -29,11 +29,15 @@ The following are outputs we'll need to know.
 
 The first thing we need is a https://jwt.io[JSON Web Tokens (JWT)] that will tell the API we are authorized to make the API request.
 
+### Get Cognito JWT
+
 Authenticating can be done using https://aws.amazon.com/cli[AWS CLI] with the following command. The descriptions of the required arguments are in the table below.
 
+[source%nowrap]
 ----
 aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH \
---auth-parameters USERNAME=<ADMIN_EMAIL>,PASSWORD=<PASSWORD> --client-id <CognitoClientId> --region <AWS_REGION>
+--auth-parameters USERNAME=<ADMIN_EMAIL>,PASSWORD=<PASSWORD> \
+--client-id <CognitoClientId> --region <AWS_REGION>
 ----
 
 |=======================================================================
@@ -56,6 +60,8 @@ The JSON response should return successful response like below:
 }
 ----
 
+### Set Environment Variable: AccessToken
+
 Using the `AccessToken` value from above, we can create an Environment Variable which we can reuse for all the cURL commands below (skip this step if using an API Client). If you are using an API Client you can add an HTTP Header with key `Authentication` and value of the **ACCESS_TOKEN** instead.
 ----
 export COGNITO_AUTH=<ACCESS_TOKEN>
@@ -63,7 +69,8 @@ export COGNITO_AUTH=<ACCESS_TOKEN>
 
 To speed up authentication for future sessions, you can use https://stedolan.github.io/jq[jq], a command-line JSON processor, to receive an access token and set to an environment variable in one line of code:
 ----
-export COGNITO_AUTH=`aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH \
+export COGNITO_AUTH=`aws cognito-idp initiate-auth \
+--auth-flow USER_PASSWORD_AUTH \
 --auth-parameters USERNAME=<ADMIN_EMAIL>,PASSWORD=<PASSWORD> \
 --client-id <CognitoClientId> | jq -r '.AuthenticationResult.AccessToken'`
 ----
@@ -83,7 +90,7 @@ The JSON response should return successful response like below:
 
 *NOTE:* A Cognito `ACCESS_TOKEN` is only good for **1 hour**. For the purposes of this demo, you can run the above login command again if the token expires. 
 
-### A shortcut for your HTTP API URL
+### Set Environment Variable: HTTP API URL
 
 To make this demo easier to copy and paste, we reference an additional Environment Variable, for the HTTP API URL. You can create it the same way you created the COGNITO_AUTH variable:
 ----
@@ -227,8 +234,8 @@ You can retrieve this document content using a simple cURL command, using only t
 
 Run the following cURL command to search by a specific key:
 ----
-curl -X POST -H "Authorization: $COGNITO_AUTH" -d '{"query": {"tag": {"key": "author"}}}' \
-"$HttpApiUrl/search"
+curl -X POST -H "Authorization: $COGNITO_AUTH" \
+-d '{"query": {"tag": {"key": "author"}}}' "$HttpApiUrl/search"
 ----
 JSON response
 ----
