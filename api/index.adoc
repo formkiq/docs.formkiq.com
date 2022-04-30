@@ -3352,6 +3352,12 @@ Document search tag criteria
 | Searches for strings that eq
 |  
 
+| eqOr
+| 
+| List of [string] 
+| Searches for ANY strings that eq
+| 
+
 | key
 | X
 | String 
