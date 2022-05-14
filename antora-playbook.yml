@@ -4,6 +4,7 @@ site:
   url: https://docs.formkiq.com
   start_page: formkiqdocs::index.adoc
 content:
+  edit_url: false
   sources:
   - url: .
     start_path: docs
