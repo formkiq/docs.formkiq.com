@@ -1,21 +1,23 @@
-= Tutorials
+= FormKiQ Documentation
+:navtitle: Tutorials
+:title: FormKiQ Core Tutorials
 
-These tutorials provide a deeper exploration of FormKiQ.
+These tutorials provide a deeper exploration of FormKiQ Core.
 
-== xref:tutorials:install.adoc[FormKiQ Installation]
+== xref:tutorials:install.adoc[FormKiQ Core Installation]
 
-This xref:tutorials:install.adoc[tutorial] takes you through downloading https://github.com/formkiq/formkiq-core[FormKiQ Core] and installing it into your AWS account.
+xref:tutorials:install.adoc[This tutorial] takes you through downloading https://github.com/formkiq/formkiq-core[FormKiQ Core] and installing it into your AWS account.
 
 Time: 30 minutes
 
-== xref:tutorials:documentapi.adoc[Getting Started with Document API]
+== xref:tutorials:documentapi.adoc[Getting Started with the FormKiQ Document API]
 
-This xref:tutorials:documentapi.adoc[tutorial] will take you through the basic of the FormKiQ API including: adding document, document tags and searching for documents.
+xref:tutorials:documentapi.adoc[This tutorial] will take you through the basic of the FormKiQ Document API including: adding documents, working with document tags, and searching for documents.
 
 Time: 30 minutes
 
 == xref:tutorials:multitenant.adoc[Multi-Tenant Users]
 
-This xref:tutorials:multitenant.adoc[tutorial] will take you through using FormKiQ as a multi-tenancy document management system.
+xref:tutorials:multitenant.adoc[This tutorial] will take you through using FormKiQ Core as a multi-tenancy document management system.
 
 Time: 30 minutes

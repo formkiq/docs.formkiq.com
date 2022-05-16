@@ -4,50 +4,50 @@ Throughout this tutorial, we’ll walk you through the downloading of FormKiQ Co
 
 image::sam.png[Sam,200,200]
 
-FormKiQ was built using the https://aws.amazon.com/serverless/sam/[AWS Serverless Application Model (AWS SAM)]. The https://aws.amazon.com/serverless/sam/[AWS SAM] is an open-source framework that you can use to build serverless applications on https://aws.amazon.com[AWS].
+FormKiQ was built using the https://aws.amazon.com/serverless/sam/[AWS Serverless Application Model (AWS SAM)]. https://aws.amazon.com/serverless/sam/[AWS SAM] is an open-source framework that you can use to build serverless applications on https://aws.amazon.com[AWS].
 
-This tutorial assume you have access to an https://aws.amazon.com[Amazon Web Services (AWS)] account that has access to create https://aws.amazon.com/cloudformation[CloudFormation] stacks.
+This tutorial assumes you have access to an https://aws.amazon.com[Amazon Web Services (AWS)] account, along with the required permissions to create https://aws.amazon.com/cloudformation[CloudFormation Stacks].
 
 == Install AWS SAM CLI
 
-In order to install FormKiQ you first need to install the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html[AWS SAM CLI] by following the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html[installation instructions] for your particular platform.
+In order to install FormKiQ, you first need to install the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html[AWS SAM CLI] by following the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html[installation instructions] for your particular platform.
 
-Once installed you can verify installation.
+Once installed, you can verify your installation.
 
 ----
 sam --version
 ----
 
-On successful installation, you should see output like the following:
+Once you've installed SAM successfully, you should see output like the following:
 ----
 SAM CLI, version X.XX.X
 ----
 
-== Setting up AWS credentials
+== Set Up AWS credentials
 
-https://aws.amazon.com/serverless/sam/[AWS SAM] depends on a access / secret key set up on your AWS user account.
+https://aws.amazon.com/serverless/sam/[AWS SAM] depends on and Access Key ID and Secret Key set up for your AWS IAM User. (It's also possible to use https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html[AWS SSO or other identity providers].)
 
-If you already have a access / secret key set up you can skip this step.
+If you already have your Access Key ID and Secret Key Access set up, you can skip this step.
 
-=== Get user access key ID / secret access key
+=== Create Your User Access Key ID / Secret Access Key
 
 * Open the IAM console at https://console.aws.amazon.com/iam/
 
 * On the navigation menu, choose Users.
 
-* Choose your IAM user name.
+* Choose your IAM user name
 
-* Open the Security credentials tab, and then choose Create access key.
+* Choose the "Security credentials" tab, and then click "Create access key"
 
-* To see the new access key, choose Show. Your credentials resemble the following:
+* To see the new access key, choose "Show". Your credentials resemble the following:
 ----
 Access key ID: AKIAIOSFODNN7EXAMPLE
 Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 ----
 
-=== To set your AWS credentials, 
+=== Configure AWS CLI (and SAM) with your AWS Credentials
 
-Now that you have the access key ID and secret access key you can use the `aws` command to configure.
+Now that you have the access key ID and secret access key, you can use the `aws configure` command to set up your credentials.
 
 ----
 $ aws configure
@@ -57,29 +57,29 @@ Default region name [None]:
 Default output format [None]: 
 ----
 
-== Get FormKiQ Core
+== Download FormKiQ Core
 
-FormKiQ Core is the open sourced distribution of FormKiQ and is available on https://github.com/formkiq/formkiq-core[GitHub] under the MIT License.
+FormKiQ Core is the open source distribution of FormKiQ and is available on https://github.com/formkiq/formkiq-core[GitHub], under the MIT License.
 
 image::formkiq-core.png[FormKiQ Core Github page]
 
 You will find the latest version under the https://github.com/formkiq/formkiq-core/releases[FormKiQ Core releases]. 
 
-Under the `Assets` download the formkiq-core-X.X.X.zip file to your computer.
+Under `Assets`, download `formkiq-core-X.X.X.zip` to your computer.
 
-Unzip the formkiq-core-X.X.X.zip file into it's own directory.
+Unzip `formkiq-core-X.X.X.zip` into its own directory.
 
 ----
-unzip ../formkiq-core-X.X.X.zip
+unzip ../≈.zip
 ----
 
-== SAM Deploy
+== Deploy FormKiQ Core using AWS SAM
 
-We are now ready to use the SAM CLI to deploy the FormKiQ CloudFormation stack to your AWS account.
+We are now ready to use the SAM CLI to deploy the FormKiQ Core CloudFormation stack to your AWS account.
 
 image::sam-deploy.png[SAM Deploy,200,200]
 
-In the directory with the `template.yaml` file, run the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html[sam deploy] command as shown below.
+In the root of the `formkiq-core-X.X.X.zip` directory (where the `template.yaml` file is located), run the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html[sam deploy] command as shown below.
 
 ----
 sam deploy --guided --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM
@@ -87,7 +87,7 @@ sam deploy --guided --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND CAPABIL
 
 The SAM CLI will guide you through a series of deployment arguments to configure.
 
-The following is the recommended values to use. A detail description of each option is below.
+The following is the recommended values to use. A detailed description of each option is listed below.
 
 [subs="quotes"]
 ----
@@ -196,9 +196,7 @@ Welcome to FormKiQ
 Your account has been created. *Click this link to finalize your account*.
 ----
 
-In the email, *click the link to finalize your account*.
-
-The link will bring you to the `FormKiQ Console` and allow you to set an administrator password.
+Click the link in the email. This link will bring you to the `FormKiQ Console` and allow you to set an administrator password.
 
 image::set-admin-password.png[Set Administrator Password,500,500]
 
@@ -210,4 +208,4 @@ image::login-page.png[Login Page,500,500]
 
 Throughout this tutorial, you have successfully deployed FormKiQ to your AWS account using the AWS SAM CLI.
 
-To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms see xref:tutorials:documentapi.adoc[Tutorial on the Document API].
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see xref:tutorials:documentapi.adoc[Tutorial on the Document API].

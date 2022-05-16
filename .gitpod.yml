@@ -2,14 +2,14 @@
 # Please adjust to your needs (see https://www.gitpod.io/docs/config-gitpod-file)
 # and commit this file to your remote git repository to share the goodness with others.
 
-image:
-  file: .gitpod.Dockerfile
-
 ports:
   - port: 8080
     onOpen: open-browser
 
 tasks:
-  - init: sudo apt-get install -y zip && npm i -g @antora/cli@3.0.0 @antora/site-generator@3.0.0
-  - command: python3 -m http.server --directory ./build/site
-  - command: gp await-port 8080 && gp preview $(gp url 8080)
+  - init: >
+      sudo apt-get install -y zip
+      npm i -g @antora/cli@3.0.0 @antora/site-generator@3.0.0 make-watch
+    command: >
+      python3 -m http.server --directory ./build/site
+      gp await-port 8080 && gp preview $(gp url 8080)

@@ -1,6 +1,6 @@
 # Multi-Tenant Users
 
-FormKiQ supports multi-tenant environments where you can set up multiple groups of users and each group of users can have access to only their documents. This is done through a `siteId`. In this tutorial we are going to create two different siteIds, and add users / documents to each siteId.
+FormKiQ supports multi-tenant environments where you can set up multiple groups of users and provide each group of users access to their specific documents. This is done through a `siteId`. In this tutorial we are going to create two different siteIds, and then add both users and documents to each siteId.
 
 ## Cognito Groups
 
@@ -24,7 +24,7 @@ Enter the Group name of `site1` and click `Create group` button.
 
 image::cognito-group-site1.png[Cognito Group Site1,600,600]
 
-The second group will be called `site1_read`. This group will give users read only access to documents in the `site1` siteId. 
+The second group will be called `site1_read`. This group will give users read-only access to documents in the `site1` siteId. 
 
 Enter the Group name of `site1_read` and click `Create group` button.
 
@@ -36,7 +36,7 @@ image::cognito-user-pools-site1.png[Cognito User Pools Site1,600,600]
 
 ## Cognito Users
 
-The administrator created during the FormKiQ installation was placed in the `default` siteId. Now that `site1` Cognito group has been created, we are now going to create a new user and add the user to the `site1` Cognito group. This means we will end up with two users, each in their own `siteId`.
+The administrator created during the FormKiQ installation was placed in the `default` siteId. Now that the `site1` Cognito group has been created, we are now going to create a new user and add that user to the `site1` Cognito group. This means we will end up with two users, each in their own `siteId` group.
 
 Click the `Create user` button to add a new user.
 
@@ -49,19 +49,19 @@ On the *Create User* page,
 * click `Mark email address as verified`
 * select `Generate a password`
 
-Click the `Create user` button to finish creating the new user. You'll receive an email with a link to finalize setting up your account.
+Click the `Create user` button to finish creating the new user. The user receive an email at the specified email address, with a link to finalize setting up their account.
 
 image::cognito-create-user.png[Cognito Create User,600,600]
 
-You'll now see both the user you just created and the administrator user listed.
+You'll now see both the user you just created and the administration user listed.
 
 image::cognito-user-list.png[Cognito User List,600,600]
 
-Click your newly created user and scroll down to the `User Group Membership`. Right now the user does not belong to any groups/siteIds.
+Click your newly-created user and scroll down to the `User Group Membership`. At this point, the user does not belong to any groups/siteIds.
 
 image::user-group-membership.png[User Group Membership,600,600]
 
-Click the `Add user to group` and select the `site1` and click the `Add` button.
+Click `Add user to group` and select `site1`. Click the `Add` button.
 
 image::add-user-to-group.png[Add User to Group,600,600]
 
@@ -69,9 +69,7 @@ The user is now a member of `site1`.
 
 image::user-group-site1.png[Add User to Group,600,600]
 
-Lastly, check the email of your newly created user's email for your `Welcome to FormKiQ` email. 
-
-Open the email and *Click this link to finalize your account*. The link will open the FormKiQ console and allow you to set your password for your account.
+Lastly, ask your newly-created user to check their inbox for the `Welcome to FormKiQ` email. They can click the link within the email to finalize their account; this link will open the FormKiQ Console and will allow the newly-created user to set a password for their account.
 
 ````
 Welcome to FormKiQ
@@ -79,18 +77,18 @@ Welcome to FormKiQ
 Your account has been created. *Click this link to finalize your account*.
 `````
 
-## Add Document to Site
+## Adding a New Document as the Site User
 
-Log into the FormKiQ Console and click the `Add Documents` from the left menu. Drag and drop a file into the `Upload New` box. Once the document is uploaded it will be displayed in the *Documents Added* table.
+Once logged into the FormKiQ Console, the user can click `Add Documents` from the menu on the left side of the screen. They can drag and drop a file into the `Upload New` box. Once the document has been uploaded, it will be displayed in the *Documents Added* table.
 
 image::add-document-site1.png[Add Document to Site1,600,600]
 
-Click the `Recent Documents` from the left menu and you'll see the newly added document.
+Clicking on `Recent Documents` from the left menu will display the newly-added document.
 
 image::site1-documents.png[Site 1 Documents,600,600]
 
 == Summary
 
-Throughout this tutorial, you have successfully created a new FormKiQ user in Cognito. The newly created user was attached to a new siteId and we successfully added a document to this newly created siteId.
+Throughout this tutorial, you have successfully created a new FormKiQ user in Cognito. The newly created user was attached to a new siteId and was able to successfully add a document to this newly created siteId.
 
-To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms see xref:tutorials:documentapi.adoc[Tutorial on the Document API].
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:tutorials:overview.adoc[FormKiQ Tutorials].

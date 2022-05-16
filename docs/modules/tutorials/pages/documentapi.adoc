@@ -1,6 +1,6 @@
-= Getting Started with Document API
+= Getting Started with the FormKiQ Document API
 
-This tutorial will take you through the basic of the FormKiQ API including: adding document, document tags and searching for documents.
+This tutorial will take you through the basic of the FormKiQ Document API, including: adding documents, working with document tags, and searching for documents.
 
 ## Prerequisite
 
@@ -102,7 +102,7 @@ As with COGNITO_AUTH, you would skip this step if you are using an API Client, a
 
 FormKiQ can receive documents or data in a variety of formats. 
 
-*Note:* Upload POST requests have a filesize limit of 10 MB. For larger files, use GET /documents/upload endpoints which generates an Amazon S3 Presigned URL you can send a PUT request to. See below for an example. 
+*Note:* Upload POST requests have a filesize limit of 10 MB. For larger files, you can use the GET /documents/upload endpoint, which generates an Amazon S3 Presigned URL you can send a PUT request to. See below for an example. 
 
 ### Content
 
@@ -123,11 +123,11 @@ The JSON response should provide a Document ID that can be used to make further 
 
 ### Base64
 
-Document content can be Base64 encoded before uploading. You can use a utility like https://www.base64encode.org or, if you have OpenSSL installed, you can create a quick test document: 
+Document content can be Base64-encoded before uploading. You can use a utility like https://www.base64encode.org or, if you have OpenSSL installed, you can create a quick test document: 
 ----
 echo -n 'This is a test content' | openssl base64
 ----
-The above command should create the following Base64 encoded string: 
+The above command should create the following Base64-encoded string: 
 ----
 VGhpcyBpcyBhIHRlc3QgY29udGVudA==
 ----
@@ -441,6 +441,6 @@ JSON response
 
 == Summary
 
-Throughout this tutorial, you have successfully used the FormKiQ documents API to add documents, add tags to those documents and be able to search for documents.
+Throughout this tutorial, you have successfully used the FormKiQ Document API to add documents, add tags to those documents, and search for documents.
 
-To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms see xref:tutorials:overview.adoc[FormKiQ Tutorials].
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:tutorials:overview.adoc[FormKiQ Tutorials].
