@@ -5,5 +5,5 @@ default :
 	  antora antora-playbook.yml
 
 deploy : default
-          aws s3 sync build/site s3://${S3_BUCKET}
+	  aws s3 sync build/site s3://${S3_BUCKET}
 	  aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --path "/*"
