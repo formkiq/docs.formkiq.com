@@ -1,8 +1,9 @@
 FormKiQ Docs
 ============
+:navtitle: Reference
 :docinfo: shared
 :data-uri:
-:title: FormKiQ Documentation
+:title: FormKiQ Reference Guide
 :toc: left
 :toclevels: 2
 :sectanchors:
@@ -39,7 +40,7 @@ This means that there are no servers for you to maintain or manage, and all of y
 
 === Features
 
-Please visit [our website](https://formkiq.com) to see the full list of features.
+Please https://www.formkiq.com[visit our website] to see the full list of features.
 
 ✅ API First (FormKiQ API) and Cloud-Native Architecture
 
@@ -55,7 +56,7 @@ Please visit [our website](https://formkiq.com) to see the full list of features
 
 ✅ Includes an Intuitive User Interface (FormKiQ Console) for Document Management
 
-FormKiQ has an [enterprise edition](https://formkiq.com) that provides support and enterprise battle-tested modules.
+FormKiQ has an https://www.formkiq.com/pricing[enterprise edition] that provides support and battle-tested enterprise add-on modules.
 
 To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
 

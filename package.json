@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@antora/cli": "3.0.0",
+    "@antora/site-generator": "3.0.0"
+  },
+  "dependencies": {
+    "http-server": "^14.1.0"
+  }
+}

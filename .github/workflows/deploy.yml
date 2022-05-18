@@ -6,9 +6,9 @@ name: Deploy to S3
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ main, v2 ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, v2 ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,6 +27,9 @@ jobs:
 
       - name: Install dependencies
         run: sudo apt-get -y install asciidoctor awscli
+        
+      - name: Install antora
+        run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
         
       # Runs a single command using the runners shell
       - name: Set AWS credentials
