@@ -1,0 +1,12 @@
+Antivirus Module
+-----------------
+
+✅ Automatically scan every newly added document
+
+✅ Automatically tag document with scan status and timestamp 
+
+image::antivirus-architecture.svg[Antivirus Architecture,700,700]
+
+The FormKiQ Antivirus Module is a module for the FormKiQ Headless Document Management System that provides document security by detecting trojans, viruses, malware & other malicious threats for every newly created document, using the http://www.clamav.net[ClamAV] antivirus engine.
+
+Using the FormKiQ's Document Events, each newly created document is automatically added to an ClamAV Scanning SQS queue. The ClamAV virus scanning AWS Lambda pulls each document from the queue and scans it for trojans, viruses, malware & other malicious threats. The results from the scan are added as S3 Tags to the document as well as attached to the document in DynamoDB. Finally, a message is posted to an ClamAV Scan Events SNS topic which allows other systems to be notified of the document's scan status.
