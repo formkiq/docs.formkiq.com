@@ -1,0 +1,54 @@
+FormKiQ Docs
+============
+:navtitle: Enterprise Reference
+:docinfo: shared
+:data-uri:
+:title: FormKiQ Enterprise Guide
+:toc: left
+:toclevels: 2
+:sectanchors:
+:sectlinks:
+:sectnums:
+:favicon: favicon.ico
+
+toc::[] 
+
+Introduction
+------------
+
+image::formkiq-enterprise-logo.png[FormKiQ Enterprise,600,600]
+
+FormKiQ Enterprise are enterprise extensions added to FormKiQ Core to bring enterprise features and functionality that are required for today's enterprises.
+
+**FormKiQ Enterprise** modules include:
+
+✅ link:#tag-schema-module[Document Tag Schemas Module]
+
+✅ Custom Domains Module
+
+✅ Antivirus Protection Module
+
+✅ Document Email Processing Module
+
+✅ Document OCR
+
+✅ Fulltext Document Search Module
+
+✅ Network Share and Sync Module
+
+✅ Intelligent Document Processing Module
+
+✅ Full Encryption Module
+
+✅ Document Archive and Lifecycle Module
+
+✅ Single Sign-On and Custom JWT Authorizer Module
+
+To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
+
+To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
+
+include::module-tagschema/overview.adoc[Services & Introduction]
+
+include::appendix.adoc[Appendix]
+

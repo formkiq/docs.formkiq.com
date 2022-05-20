@@ -1,0 +1,68 @@
+Tag Schema Module
+-----------------
+
+✅ Enforce Required/Optional Tags / Values
+
+✅ Extends Search functionality through Composite Keys
+
+✅ Optionally return Tags during /search API
+
+Overview
+~~~~~~~~
+
+The FormKiQ Enterprise Tag Schema is a module for the FormKiQ Headless Document Management System that provides the enforcement of a tag schema on a document and enhance the query ability of tags.
+
+With the tag schema module you can create different sets of required or optional keys. When a document is added the document will be reject if it is missing any of the required tags or if a tag is added that is not an optional tag.
+
+When searching for documents, can you optionally request that the tags in the schema are returned.
+
+The tag schema also allows the adding of `compositeKeys` which allows for the searching of multiple tags at once.
+
+API
+~~~
+
+The Tag Schema Module adds the following API endpoints.
+
+* `GET /tagSchemas` - Returns a list of TagSchema
+* `GET /tagSchemas/{TagSchemaId}` - Returns a specific TagSchema
+* `POST /tagSchemas` - Add a new TagSchema
+
+#### POST /tagSchemas Example
+
+The following POST /tagSchemas body creates two required fields `playerId` & `caseId`. There is an optional tag of `category`. 
+
+When the document is save a `compositeKey` is created automatically to allow the searching of both `playerId` and `caseId`.
+
+----
+{
+  "schema": {
+    "tags": {
+      "compositeKeys": [
+        {
+          "key": [
+            "playerId",
+            "caseId"
+          ]
+        }
+      ],
+      "required": [
+        {
+          "key": "playerId"
+        },
+        {
+          "key": "caseId"
+        }
+      ],
+      "optional": [
+        {
+          "key": "category",
+          "values": [
+            "person",
+            "city"
+          ]
+        }
+      ]
+    }
+  }
+}
+----

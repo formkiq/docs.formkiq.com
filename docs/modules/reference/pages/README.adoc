@@ -1,6 +1,6 @@
 FormKiQ Docs
 ============
-:navtitle: Reference
+:navtitle: Core Reference
 :docinfo: shared
 :data-uri:
 :title: FormKiQ Reference Guide

@@ -1,7 +1,8 @@
 name: docs
-title: FormKiQ Core
+title: FormKiQ
 version: 1.6.0
 nav:
 - modules/ROOT/nav.adoc
 - modules/reference/nav.adoc
+- modules/enterprise/nav.adoc
 - modules/tutorials/nav.adoc
