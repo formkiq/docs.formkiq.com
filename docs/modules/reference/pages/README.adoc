@@ -68,7 +68,7 @@ include::deployment-environments/index.adoc[Installation & Deployment]
 
 include::compiling/index.adoc[Compiling]
 
-include::console/index.adoc[Console]
+include::s3buckets/index.adoc[S3 Buckets]
 
 include::webhooks/index.adoc[Webhooks]
 
