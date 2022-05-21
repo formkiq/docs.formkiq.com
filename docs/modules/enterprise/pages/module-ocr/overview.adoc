@@ -1,0 +1,321 @@
+Document OCR Module
+-------------------
+
+✅ Use Amazon Textract to extract text and structured table/form data from documents
+
+Overview
+~~~~~~~~
+
+The FormKiQ Enterprise Document OCR is a module for the FormKiQ Headless Document Management System that provides optical character recognition (OCR) for the extractation of text and structured table/form data from documents.
+
+The module uses https://aws.amazon.com/textract[Amazon Textract] as the OCR engine. Amazon Textract uses advanced machine learning (ML) algorithms to identify, understand, and extract text and data from forms and tables.
+
+
+API
+~~~
+
+==== `GET /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Get Document optical character recognition (OCR) result; if exists. ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcr>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcr>>
+
+|===
+
+
+==== `POST /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Document optical character recognition (OCR) request; extract text and data from a document. ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| OcrBody
+|  <<OcrBody>>
+| -
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcrResult>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcrResult>>
+
+|===
+
+[#DocumentOcr]
+==== _DocumentOcr_ 
+
+
+
+[.fields-DocumentOcr]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| data
+| 
+| String 
+| OCR text result
+|  
+
+| ocrEngine
+| 
+| String 
+| The OCR technique used
+|  
+
+| ocrStatus
+| 
+| String 
+| The status of the OCR request
+|  
+
+| contentType
+| 
+| String 
+| Document Content-Type
+|  
+
+| isBase64
+| 
+| Boolean 
+| Is Content Base64 encoded
+|  
+
+| userId
+| 
+| String 
+| User who requested the OCR
+|  
+
+| documentId
+| 
+| UUID 
+| Document Identifier
+| uuid 
+
+|===
+
+
+[#DocumentOcrResult]
+==== _DocumentOcrResult_ 
+
+
+
+[.fields-DocumentOcrResult]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| message
+| 
+| String 
+| OCR processing message
+|  
+
+|===
+
+
+[#DocumentPostResponse]
+==== _DocumentPostResponse_ 
+
+
+
+[.fields-DocumentPostResponse]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| documentId
+| 
+| UUID 
+| Document Identifier
+| uuid 
+
+| siteId
+| 
+| String 
+| Site Identifier
+|  
+
+| uploadUrl
+| 
+| String 
+| Url to upload document to
+|  
+
+| documents
+| 
+| List  of <<DocumentPostResponse_documents>>
+| List of related documents
+|  
+
+|===
+
+
+[#DocumentPostResponseDocuments]
+==== _DocumentPostResponseDocuments_ 
+
+
+
+[.fields-DocumentPostResponseDocuments]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| documentId
+| 
+| String 
+| Document Identifier
+|  
+
+| uploadUrl
+| 
+| String 
+| Url to upload document to
+|  
+
+|===
+[#OcrBody]
+==== _OcrBody_ 
+
+
+
+[.fields-OcrBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| parseTypes
+| 
+| List  of <<string>>
+| OCR Parse types - TEXT, FORMS, TABLES
+|  
+
+|===

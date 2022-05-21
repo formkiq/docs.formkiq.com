@@ -30,7 +30,7 @@ FormKiQ Enterprise are enterprise extensions added to FormKiQ Core to bring ente
 
 ✅ Document Email Processing Module
 
-✅ Document OCR
+✅ link:#tag-schema-document-ocr[Document Ocr Module]
 
 ✅ Fulltext Document Search Module
 
@@ -53,6 +53,8 @@ include::module-tagschema/overview.adoc[Tag Schema Module]
 include::module-custom-domains/overview.adoc[Custom Domains Module]
 
 include::module-antivirus/overview.adoc[Antivirus Module]
+
+include::module-ocr/overview.adoc[Document Ocr Module]
 
 include::appendix.adoc[Appendix]
 
