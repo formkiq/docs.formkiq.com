@@ -24,7 +24,7 @@ FormKiQ Enterprise are enterprise extensions added to FormKiQ Core to bring ente
 
 ✅ link:#tag-schema-module[Document Tag Schemas Module]
 
-✅ Custom Domains Module
+✅ link:#tag-schema-custom-domains[Custom Domains Module]
 
 ✅ link:#tag-schema-antivirus[Antivirus Protection Module]
 
@@ -49,6 +49,8 @@ To learn more about FormKiQ Core, please visit https://github.com/formkiq/formki
 To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
 
 include::module-tagschema/overview.adoc[Tag Schema Module]
+
+include::module-custom-domains/overview.adoc[Custom Domains Module]
 
 include::module-antivirus/overview.adoc[Antivirus Module]
 
