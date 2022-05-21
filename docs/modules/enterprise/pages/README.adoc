@@ -38,7 +38,7 @@ FormKiQ Enterprise are enterprise extensions added to FormKiQ Core to bring ente
 
 ✅ Intelligent Document Processing Module
 
-✅ Full Encryption Module
+✅ link:#full-encryption-module[Full Encryption Module]
 
 ✅ Document Archive and Lifecycle Module
 
@@ -55,6 +55,8 @@ include::module-custom-domains/overview.adoc[Custom Domains Module]
 include::module-antivirus/overview.adoc[Antivirus Module]
 
 include::module-ocr/overview.adoc[Document Ocr Module]
+
+include::module-full-encryption/overview.adoc[Full Encryption Module]
 
 include::appendix.adoc[Appendix]
 
