@@ -1,0 +1,16 @@
+Single Sign-On and Custom JWT Authorizer Module
+-----------------------------------------------
+
+image::saml-architecture.svg[SAML Architecture,700,700]
+
+The FormKiQ Single Sign-On and Custom JWT Authorizer Module is a module for the FormKiQ Headless Document Management System that enables the ability to customize the authorizer used for FormKiQ console, and API endpoints. FormKiQ by default uses https://aws.amazon.com/cognito[Amazon Cognito] as the JWT authorizer.
+
+Using this module the authorizer can be changed to another authorizer such as:
+
+* Another JWT authorizer such as https://auth0.com[Auth0]
+
+* SAML identity providers through Security Assertion Markup Language 2.0 (SAML 2.0)
+
+* Public providers: https://docs.aws.amazon.com/cognito/latest/developerguide/facebook.html[FaceBook], https://docs.aws.amazon.com/cognito/latest/developerguide/google.html[Google], or https://docs.aws.amazon.com/cognito/latest/developerguide/apple.html[Apple]
+
+* OpenID Connect provider
