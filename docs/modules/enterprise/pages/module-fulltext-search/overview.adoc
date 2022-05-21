@@ -1,0 +1,11 @@
+Fulltext Search Module
+----------------------
+
+✅ Extend Search Functionality, including multiple tag parameters and fulltext queries, through OpenSearch
+
+✅ Optionally Include OCR Results in fulltext queries
+
+Overview
+~~~~~~~~
+
+Fulltext Search is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enhances built-in search functionality by integrating OpenSearch.

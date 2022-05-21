@@ -3,7 +3,7 @@ FormKiQ Docs
 :navtitle: Enterprise Reference
 :docinfo: shared
 :data-uri:
-:title: FormKiQ Enterprise Guide
+:title: FormKiQ Enterprise Reference Guide
 :toc: left
 :toclevels: 2
 :sectanchors:
@@ -18,21 +18,21 @@ Introduction
 
 image::formkiq-enterprise-logo.png[FormKiQ Enterprise,600,600]
 
-FormKiQ Enterprise are enterprise extensions added to FormKiQ Core to bring enterprise features and functionality that are required for today's enterprises.
+FormKiQ Enterprise is made up of Enterprise Add-Ons that are available for FormKiQ Core, bringing enterprise-level features and functionality that may be required for some organizations.
 
-**FormKiQ Enterprise** modules include:
+**FormKiQ Enterprise Add-On Modules** include:
 
 ✅ link:#tag-schema-module[Document Tag Schemas Module]
 
-✅ link:#tag-schema-custom-domains[Custom Domains Module]
+✅ link:#custom-domains-module[Custom Domains Module]
 
-✅ link:#tag-schema-antivirus[Antivirus Protection Module]
+✅ link:#antivirus-module[Antivirus Protection Module]
 
 ✅ Document Email Processing Module
 
-✅ link:#tag-schema-document-ocr[Document Ocr Module]
+✅ link:#document-ocr-module[Document OCR Module]
 
-✅ Fulltext Document Search Module
+✅ link:#fulltext-search-module[Fulltext Search Module]
 
 ✅ Network Share and Sync Module
 
@@ -42,7 +42,7 @@ FormKiQ Enterprise are enterprise extensions added to FormKiQ Core to bring ente
 
 ✅ Document Archive and Lifecycle Module
 
-✅ link:#full-encryption-module[Single Sign-On and Custom JWT Authorizer Module]
+✅ link:#custom-authorizer-module[Single Sign-On and Custom JWT Authorizer Module]
 
 To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
 
@@ -54,7 +54,9 @@ include::module-custom-domains/overview.adoc[Custom Domains Module]
 
 include::module-antivirus/overview.adoc[Antivirus Module]
 
-include::module-ocr/overview.adoc[Document Ocr Module]
+include::module-ocr/overview.adoc[Document OCR Module]
+
+include::module-fulltext-search/overview.adoc[Fulltext Search Module]
 
 include::module-full-encryption/overview.adoc[Full Encryption Module]
 

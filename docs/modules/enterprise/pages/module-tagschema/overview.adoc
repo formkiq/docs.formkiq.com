@@ -1,37 +1,60 @@
 Tag Schema Module
 -----------------
 
-✅ Enforce Required/Optional Tags / Values
+✅ Enforce Required and Optional Tag Keys/Values
 
-✅ Extends Search functionality through Composite Keys
+✅ Extend Search Functionality through Composite Keys for Tags
 
-✅ Optionally return Tags during /search API
+✅ Optionally Return Tags while using the `POST /search` API Endpoint
 
 Overview
 ~~~~~~~~
 
-The FormKiQ Enterprise Tag Schema is a module for the FormKiQ Headless Document Management System that provides the enforcement of a tag schema on a document and enhance the query ability of tags.
+Tag Schema is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that provides the enforcement of a tag schema on specific documents and enhances search functionality through composite keys for tags.
 
-With the tag schema module you can create different sets of required or optional keys. When a document is added the document will be reject if it is missing any of the required tags or if a tag is added that is not an optional tag.
+====
+_**Use Cases:**_
+[loweralpha] 
+. _If you have multiple input methods, such as having more than one application using the API, you can ensure that your documents are properly and consistently tagged no matter the source_
+. _If you expect your application(s) to search often using two tag keys, e.g., customerID and projectID, you can automate the creation and maintenance of composite keys to search in one request_
+====
 
-When searching for documents, can you optionally request that the tags in the schema are returned.
+With the Tag Schema Add-On Module, you can create different sets of required or optional keys, i.e., the Tag Schemas, and each schema can be associated to any number of documents. You can also specify both a default value and a list of accepted values for both required and optional keys.
 
-The tag schema also allows the adding of `compositeKeys` which allows for the searching of multiple tags at once.
+Each tag schema can have up to 10 required and 10 optional keys, for a total of 20. **IT WOULD BE GREAT IF WE CAN BUMP THIS UP, BUT I'M WORRIED ABOUT SETTING A HIGH NUMBER AND IT STARTING TO RUN INTO PERFORMANCE ISSUES WHEN WE ADD ADDITIONAL VALIDATION IN FUTURE, LIKE REGEX**
+
+A tag schema can specify any of the following options as its rules:
+
+* only documents with the **required tag keys** can be accepted, with no optional keys allowed
+* only documents with the **required tag keys** can be accepted, with only the specified optional keys allowed
+* only documents with the **required tag keys** can be accepted, with any other keys being optional
+* documents have **no required tag keys**, but only the specified optional keys allowed
+* documents have **no required or optional tag keys** specified, and the schema is only used to create **composite keys** for searches (see below)
+
+When a document is added with an associated tag schema, the document will be rejected if it does not conform to the rules of the schema.
+
+When searching for documents, can you request that the tags in the schema are returned by using an optional boolean parameter, `includeTagsFromSchema`. Only documents with tag schemas will return their tags directly within search results. If a tag allows any number of optional tags, this optional parameter will only return the required tags. This is done to maintain a reasonable response size for these requests.
+
+A tag schema also allows the creation of composite keys, i.e, `compositeKeys`, which allow for the searching of two tags at once. This allows FormKiQ to maintain its high scalability while remaining cost efficient.
+
+There is no requirement that these composite keys be made up of required or specified optional tags, so you will want to ensure that you keep this in mind when creating any composite keys. Up to three separate composite keys can be created for a specific tag schema, while each composite key combines only two tag keys. For more complex searches, we recommend our link:#fulltext-search-module[Fulltext Search Module].
 
 API
 ~~~
 
-The Tag Schema Module adds the following API endpoints.
+The Tag Schema Module adds the following API endpoints:
 
-* `GET /tagSchemas` - Returns a list of TagSchema
+* `GET /tagSchemas` - Returns a list of TagSchemas
 * `GET /tagSchemas/{TagSchemaId}` - Returns a specific TagSchema
-* `POST /tagSchemas` - Add a new TagSchema
+* `POST /tagSchemas` - Adds a new TagSchema
+
+**NOTE:** all FormKiQ API endpoints are case-sensitive
 
 #### POST /tagSchemas Example
 
-The following POST /tagSchemas body creates two required fields `playerId` & `caseId`. There is an optional tag of `category`. 
+The following POST /tagSchemas body creates two required fields, `playerId` and `caseId`. There is also an optional tag of `category`. 
 
-When the document is save a `compositeKey` is created automatically to allow the searching of both `playerId` and `caseId`.
+When the document is saved, a `compositeKey` is created automatically that will allow for a search using both `playerId` and `caseId` as search parameters.
 
 ----
 {
@@ -61,8 +84,11 @@ When the document is save a `compositeKey` is created automatically to allow the
             "city"
           ]
         }
-      ]
+      ],
+      "allowAdditionalTags": false,
     }
   }
 }
 ----
+
+**NOTE:** as `allowAdditionalTags` is set to false, any attempt to add additional tags with keys other than `playerId`, `caseId`, or `category` will cause the request to fail. As well, any `category` tag which has a value other than the ones specified, i.e., not `person` or `city`, will also be rejected.

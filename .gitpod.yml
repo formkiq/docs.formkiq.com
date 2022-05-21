@@ -9,7 +9,7 @@ ports:
 tasks:
   - init: >
       sudo apt-get install -y zip
-      npm i -g @antora/cli@3.0.0 @antora/site-generator@3.0.0 make-watch
+      npm i -g @antora/cli@3.0.0 @antora/site-generator@3.0.0
     command: >
       python3 -m http.server --directory ./build/site
       gp await-port 8080 && gp preview $(gp url 8080)

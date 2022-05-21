@@ -3,7 +3,7 @@ Full Encryption Module
 
 image::full-encryption-kms.svg[Full Encryption,700,700]
 
-The FormKiQ Custom Domains Module is a module for the FormKiQ Headless Document Management System that enables full encryption for the AWS services used by FormKiQ.
+Full Encryption is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enables full encryption for the AWS services used by FormKiQ.
 
 The module uses the https://aws.amazon.com/kms[AWS Key Management Service (AWS KMS)] service to create and manage cryptographic keys and control the use of the keys. AWS KMS integrates with all the services used by FormKiQ:
 
