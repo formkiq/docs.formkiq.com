@@ -6,4 +6,3 @@ make
 
 ## Run python http server (new terminal window)
 python3 -m http.server --directory ./build/site
-gp await-port 8080 && gp preview $(gp url 8080)

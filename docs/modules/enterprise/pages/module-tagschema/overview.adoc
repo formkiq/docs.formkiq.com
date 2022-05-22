@@ -21,7 +21,7 @@ _**Use Cases:**_
 
 With the Tag Schema Add-On Module, you can create different sets of required or optional keys, i.e., the Tag Schemas, and each schema can be associated to any number of documents. You can also specify both a default value and a list of accepted values for both required and optional keys.
 
-Each tag schema can have up to 10 required and 10 optional keys, for a total of 20. **IT WOULD BE GREAT IF WE CAN BUMP THIS UP, BUT I'M WORRIED ABOUT SETTING A HIGH NUMBER AND IT STARTING TO RUN INTO PERFORMANCE ISSUES WHEN WE ADD ADDITIONAL VALIDATION IN FUTURE, LIKE REGEX**
+Each tag schema can have up to 5 required and 10 optional keys, for a total of 15; you should consider prioritizing tags used for searches in cases where your document content may have more than five required key/value pairs, vs. attempting to store all document key/value pairs as tags. In cases where you expect to search for more than 15 keys, we recommend our link:#fulltext-search-module[Fulltext Search Module].
 
 A tag schema can specify any of the following options as its rules:
 
@@ -33,11 +33,13 @@ A tag schema can specify any of the following options as its rules:
 
 When a document is added with an associated tag schema, the document will be rejected if it does not conform to the rules of the schema.
 
-When searching for documents, can you request that the tags in the schema are returned by using an optional boolean parameter, `includeTagsFromSchema`. Only documents with tag schemas will return their tags directly within search results. If a tag allows any number of optional tags, this optional parameter will only return the required tags. This is done to maintain a reasonable response size for these requests.
+When searching for documents, can you request that the tags in the schema are returned by using an optional boolean parameter, `includeTagsFromSchema`. Only documents with tag schemas will return their tags directly within search results. If a tag allows any number of optional tags (i.e., if `allowAdditionalTags` is not disabled in the schema), this optional parameter will only return the required tags. This is done to maintain a reasonable response size for these requests.
 
-A tag schema also allows the creation of composite keys, i.e, `compositeKeys`, which allow for the searching of two tags at once. This allows FormKiQ to maintain its high scalability while remaining cost efficient.
+A tag schema also allows the creation of composite keys, i.e, `compositeKeys`, which allow for the searching of 2-3 tags at once. This allows FormKiQ to maintain its high scalability while remaining cost efficient.
 
-There is no requirement that these composite keys be made up of required or specified optional tags, so you will want to ensure that you keep this in mind when creating any composite keys. Up to three separate composite keys can be created for a specific tag schema, while each composite key combines only two tag keys. For more complex searches, we recommend our link:#fulltext-search-module[Fulltext Search Module].
+There is no requirement that these composite keys be made up of required or specified optional tags, so you will want to ensure that you keep this in mind when creating any composite keys. Up to five separate composite keys can be created for a specific tag schema, while each composite key combines two or three tag keys. For more complex searches, we recommend our link:#fulltext-search-module[Fulltext Search Module].
+
+**NOTE:** when using composite keys involving three tag keys, searching for these keys requires that all three tag keys are specified; if you require an additional search for only two of the three keys, you would need to create a separate composite key consisting of only those two tag keys.
 
 API
 ~~~
@@ -91,4 +93,43 @@ When the document is saved, a `compositeKey` is created automatically that will 
 }
 ----
 
-**NOTE:** as `allowAdditionalTags` is set to false, any attempt to add additional tags with keys other than `playerId`, `caseId`, or `category` will cause the request to fail. As well, any `category` tag which has a value other than the ones specified, i.e., not `person` or `city`, will also be rejected.
+**NOTE:** as `allowAdditionalTags` is set to false in this example, any attempt to add additional tags with keys other than `playerId`, `caseId`, or `category` will cause the request to fail. As well, any `category` tag which has a value other than the ones specified, i.e., not `person` or `city`, will also be rejected. By default, this value is true, i.e., additional tags are allowed, if not specified in the schema.
+
+#### Specifying Default Values
+
+Default values can be set for both required and optional tags, and can include one or more values as the default (up to the maximum of five values per tag key, consistent with the multi-value tag specification in FormKiQ Core):
+
+----
+{
+  "schema": {
+    "tags": {
+      "required": [
+        {
+          "key": "planId",
+          "default": 1,
+        },
+        {
+          "key": "userId"
+        },
+        {
+          "key": "applicationId"
+        }
+      ],
+      "optional": [
+        {
+          "key": "components",
+          "values": [
+            "idCheck",
+            "creditCheck",
+            "criticalIllnessInfo"
+          ],
+          "default": [
+            "idCheck",
+            "creditCheck"
+          ]
+        }
+      ]
+    }
+  }
+}
+----
