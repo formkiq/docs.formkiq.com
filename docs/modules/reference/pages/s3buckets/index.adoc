@@ -17,28 +17,28 @@ By default FormKiQ installs with `two` S3 buckets.
 
 image::s3-architecture.svg[S3 Architecture,600,600]
 
-Documents can be added to S3 via the FormKiQ API or directly to the `Staging` S3 bucket. While it is recommended to only use the API, it can be advantageous to add to the `Staging` S3 bucket for operations like document migration.
+Documents can be added to S3 via the FormKiQ API or directly to the `Staging` S3 bucket. While it is recommended to only use the API for your standard workflow, it can be advantageous to add documents directly to the `Staging` S3 bucket, for operations such as initial document migration.
 
-When a document is added to the `Staging` S3 bucket a S3 object create event is created which calls the Document Create https://aws.amazon.com/lambda/[AWS Lambda]. The Document Create Lambda writes a record to https://aws.amazon.com/documentdb/[Amazon DynamoDB] and moves the document to the `Documents` S3 bucket.
+When a document is added to the `Staging` S3 bucket, an S3 object create event is created that calls the Document Create https://aws.amazon.com/lambda/[AWS Lambda]. The Document Create Lambda writes a record to https://aws.amazon.com/documentdb/[Amazon DynamoDB], and moves the document to the `Documents` S3 bucket.
 
-Once the document is added to the `Documents` S3 bucket, another S3 event is created which adds a message to the Update Document https://aws.amazon.com/sqs[Amazon SQS queue]. A Update Document Lambda is listened to the Update Document SQS queue and add/updates document meta data along with any S3 tags.
+Once the document is added to the `Documents` S3 bucket, another S3 event is created which adds a message to the Update Document https://aws.amazon.com/sqs[Amazon SQS queue]. An Update Document Lambda is listening to the Update Document SQS queue and adds and updates document metadata whenever an event is added to the queue. Any S3 object tags that have been specified will also be included as document metadata.
 
-*NOTE:* Each time a document is create or updated the AWS Lambdas also post a message to https://aws.amazon.com/sns[Amazon Simple Notification Service] which can drive additional document processing.
+*NOTE:* Each time a document is create or updated the AWS Lambda function also posts a message to https://aws.amazon.com/sns[Amazon Simple Notification Service], which can be used to trigger additional document processing.
 
-### Using to S3 (without API)
+### Using S3 Directly (without the API)
 
-While it is recommended to only use the API, it can be advantageous to add to the `Staging` S3 bucket for operations like document migration.
+For initial document migration or other occasional uses, the `Staging` S3 bucket does allow direct uploads.
 
-*WARNING:* Writing files directly to the `Documents` S3 bucket is NOT supported and may cause stability issues.
+*WARNING:* Writing files directly to the `Documents` S3 bucket (i.e., not the `Staging` bucket) is NOT supported and may cause stability issues.
 
 #### S3 Layout
 
-FormKiQ is a multi-tenant application so a specific S3 key structure is used to identify which tenant own the document.
+FormKiQ is a multi-tenant application, so a specific S3 key structure is used to identify which tenant owns the document.
 
 
 ##### Documents added to ROOT
 
-Any documents that are added to the "ROOT" of the S3 bucket, e.g. S3 key of `document1.txt` as assumed to be part of the `DEFAULT` siteId.
+Any documents that are added to the "ROOT" of the S3 bucket, e.g. a document with S3 key of `document1.txt`, are assumed to be part of the `DEFAULT` siteId.
 
 Documents can also be added to the `DEFAULT` siteId if the key starts with `default`, e.g. S3 key of `default/document1.txt`.
 

@@ -52,6 +52,8 @@ The Tag Schema Module adds the following API endpoints:
 
 **NOTE:** all FormKiQ API endpoints are case-sensitive
 
+As this module interacts with the FormKiQ Core API Endpoints, a `tagSchemaId` will also be available on most document endpoints, such as `POST /documents/`.
+
 #### POST /tagSchemas Example
 
 The following POST /tagSchemas body creates two required fields, `playerId` and `caseId`. There is also an optional tag of `category`. 
