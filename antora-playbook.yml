@@ -8,6 +8,7 @@ content:
   sources:
   - url: .
     start_path: docs
+    branches: HEAD
 asciidoc:
   attributes:
     experimental: ''
