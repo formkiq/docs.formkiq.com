@@ -20,7 +20,9 @@ image::formkiq-enterprise-logo.png[FormKiQ Enterprise,600,600]
 
 FormKiQ Enterprise is made up of Enterprise Add-Ons that are available for FormKiQ Core, bringing enterprise-level features and functionality that may be required for some organizations.
 
-**FormKiQ Enterprise Add-On Modules** include:
+_**NOTE:** this is a preview of our in-progress documentation of these modules, as opposed to the full specification._
+
+**FormKiQ Enterprise Add-On Modules include:**
 
 ✅ link:#tag-schema-module[Document Tag Schemas Module]
 
@@ -32,7 +34,7 @@ FormKiQ Enterprise is made up of Enterprise Add-Ons that are available for FormK
 
 ✅ link:#document-ocr-module[Document OCR Module]
 
-✅ link:#fulltext-search-module[Fulltext Search Module]
+✅ Fulltext Search Module
 
 ✅ Network Share and Sync Module
 
@@ -55,8 +57,6 @@ include::module-custom-domains/overview.adoc[Custom Domains Module]
 include::module-antivirus/overview.adoc[Antivirus Module]
 
 include::module-ocr/overview.adoc[Document OCR Module]
-
-include::module-fulltext-search/overview.adoc[Fulltext Search Module]
 
 include::module-full-encryption/overview.adoc[Full Encryption Module]
 

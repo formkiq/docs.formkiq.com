@@ -20,8 +20,14 @@ _**Use Case:**_
 API
 ~~~
 
-==== `GET /documents/{documentId}/ocr`
+The Document OCR Module adds the following API endpoints:
 
+* link:#get-documentsdocumentidocr[`GET /documents/{documentId}/ocr`] - Returns the result of the OCR, if it exists
+* link:#post-documentsdocumentidocr[`POST /documents/{documentId}/ocr`] - Requests a new OCR extraction
+
+**NOTE:** all FormKiQ API endpoints are case-sensitive
+
+==== `GET /documents/{documentId}/ocr`
 
 
 ===== Description
@@ -242,68 +248,6 @@ Document optical character recognition (OCR) request; extract text and data from
 | 
 | String 
 | OCR processing message
-|  
-
-|===
-
-
-[#DocumentPostResponse]
-==== _DocumentPostResponse_ 
-
-
-
-[.fields-DocumentPostResponse]
-[cols="2,1,2,4,1"]
-|===
-| Field Name| Required| Type| Description| Format
-
-| documentId
-| 
-| UUID 
-| Document Identifier
-| uuid 
-
-| siteId
-| 
-| String 
-| Site Identifier
-|  
-
-| uploadUrl
-| 
-| String 
-| Url to upload document to
-|  
-
-| documents
-| 
-| List  of <<DocumentPostResponse_documents>>
-| List of related documents
-|  
-
-|===
-
-
-[#DocumentPostResponseDocuments]
-==== _DocumentPostResponseDocuments_ 
-
-
-
-[.fields-DocumentPostResponseDocuments]
-[cols="2,1,2,4,1"]
-|===
-| Field Name| Required| Type| Description| Format
-
-| documentId
-| 
-| String 
-| Document Identifier
-|  
-
-| uploadUrl
-| 
-| String 
-| Url to upload document to
 |  
 
 |===
