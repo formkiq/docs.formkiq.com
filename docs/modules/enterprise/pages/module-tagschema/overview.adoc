@@ -19,7 +19,7 @@ _**Use Cases:**_
 . _If you expect your application(s) to search often using two tag keys, e.g., customerID and projectID, you can automate the creation and maintenance of composite keys to search in one request_
 ====
 
-With the Tag Schema Add-On Module, you can create different sets of required or optional keys, i.e., the Tag Schemas, and each schema can be associated to any number of documents. You can also specify both a default value and a list of accepted values for both required and optional keys.
+With the Tag Schema Add-On Module, you can create different sets of required or optional keys, i.e., the Tag Schemas, and each schema can be associated to any number of documents. You can also specify both a default value and a list of allowed values for both required and optional keys.
 
 Each tag schema can have up to 5 required and 10 optional keys, for a total of 15; you should consider prioritizing tags used for searches in cases where your document content may have more than five required key/value pairs, vs. attempting to store all document key/value pairs as tags. In cases where you expect to search for more than 15 keys, we recommend our link:#fulltext-search-module[Fulltext Search Module].
 
@@ -83,7 +83,7 @@ When the document is saved, a `compositeKey` is created automatically that will 
       "optional": [
         {
           "key": "category",
-          "values": [
+          "allowedValues": [
             "person",
             "city"
           ]
@@ -120,7 +120,7 @@ Default values can be set for both required and optional tags, and can include o
       "optional": [
         {
           "key": "components",
-          "values": [
+          "allowedValues": [
             "idCheck",
             "creditCheck",
             "criticalIllnessInfo"
