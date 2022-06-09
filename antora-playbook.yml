@@ -6,9 +6,12 @@ site:
 content:
   edit_url: false
   sources:
-  - url: .
+#  - url: .
+#    start_path: docs
+#    branches: [v1.6.0, HEAD]
+  - url: https://github.com/formkiq/docs.formkiq.com.git
     start_path: docs
-    branches: [v1.6.0, HEAD]
+
 asciidoc:
   attributes:
     experimental: ''
