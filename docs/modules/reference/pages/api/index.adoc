@@ -1707,17 +1707,715 @@ ifdef::internal-generation[]
 endif::internal-generation[]
 
 
+[.documentsUploadPost]
+
+`POST /documents/upload`
+
+
+
+===== Description
+
+Returns a URL that can be used to upload document content and create a new document; required to add content that is larger than 5 MB
+
+
+// markup not found, no include::{specDir}documents/upload/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| DocumentUploadBody
+|  <<DocumentUploadBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| duration
+| Indicates the number of hours request is valid for 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 201
+| 201 CREATED
+|  <<DocumentPostResponse>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/upload/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/upload/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/upload/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/upload/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.EnterpriseAPI]
+=== EnterpriseAPI
+
+
+[.documentsDocumentIdOcrGet]
+//==== documentsDocumentIdOcrGet
+
+`GET /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Get Document optical character recognition (OCR) result; if exists. ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcr>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcr>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdOcrPost]
+//==== documentsDocumentIdOcrPost
+
+`POST /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Document optical character recognition (OCR) request; extract text and data from a document. ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| OcrBody
+|  <<OcrBody>>
+| -
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcrResult>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcrResult>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasGet]
+//==== tagSchemasGet
+
+`GET /tagSchemas`
+
+
+
+===== Description
+
+Returns the list of tagSchemas
+
+
+// markup not found, no include::{specDir}tagSchemas/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| limit
+| Limit Results 
+| -
+| null
+| 
+
+| next
+| Next page of results token 
+| -
+| null
+| 
+
+| previous
+| Previous page of results token 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<TagSchemas>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<TagSchemas>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasPost]
+//==== tagSchemasPost
+
+`POST /tagSchemas`
+
+
+
+===== Description
+
+Creates a new TagSchema
+
+
+// markup not found, no include::{specDir}tagSchemas/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| TagSchemaBody
+|  <<TagSchemaBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<TagSchemaPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 201
+| 201 CREATED
+|  <<TagSchemaPostResponse>>
+
+
+| 400
+| 400 BAD REQUEST
+|  <<ErrorsResponse>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasTagSchemaIdDelete]
+//==== tagSchemasTagSchemaIdDelete
+
+`DELETE /tagSchemas/{tagSchemaId}`
+
+
+
+===== Description
+
+Delete a TagSchema
+
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| tagSchemaId
+| Tag Schema Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasTagSchemaIdGet]
+//==== tagSchemasTagSchemaIdGet
+
+`GET /tagSchemas/{tagSchemaId}`
+
+
+
+===== Description
+
+Retrieves a TagSchema's details, i.e., metadata
+
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| tagSchemaId
+| Tag Schema Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<TagSchema>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<TagSchema>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
 [.Miscellaneous]
 === Miscellaneous
 
 
 [.sitesGet]
-==== `GET /sites`
+//==== sitesGet
+
+`GET /sites`
+
 
 
 ===== Description
 
-**Returns the list of sites that the user has access to**
+Returns the list of sites that the user has access to
 
 
 // markup not found, no include::{specDir}sites/GET/spec.adoc[opts=optional]
@@ -1725,6 +2423,9 @@ endif::internal-generation[]
 
 
 ===== Parameters
+
+
+
 
 
 
@@ -1753,8 +2454,14 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}sites/GET/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}sites/GET/http-response.adoc[opts=optional]
+
+
 
 // file not found, no * wiremock data link :sites/GET/GET.json[]
 
@@ -1769,12 +2476,15 @@ endif::internal-generation[]
 
 
 [.versionGet]
-==== `GET /version`
+//==== versionGet
+
+`GET /version`
+
 
 
 ===== Description
 
-**Return the version of FormKiQ**
+Return the version of FormKiQ
 
 
 // markup not found, no include::{specDir}version/GET/spec.adoc[opts=optional]
@@ -1782,6 +2492,10 @@ endif::internal-generation[]
 
 
 ===== Parameters
+
+
+
+
 
 
 
@@ -1809,8 +2523,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}version/GET/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}version/GET/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :version/GET/GET.json[]
@@ -1826,16 +2545,19 @@ endif::internal-generation[]
 
 
 [.Public]
-=== Public
+//=== Public
 
 
 [.publicDocumentsPost]
-==== `POST /public/documents`
+//==== publicDocumentsPost
+
+`POST /public/documents`
+
 
 
 ===== Description
 
-**Allows unauthenticated creation of new documents**; must be enabled during installation (disabled by default)
+Allows unauthenticated creation of new documents; must be enabled during installation (disabled by default)
 
 
 // markup not found, no include::{specDir}public/documents/POST/spec.adoc[opts=optional]
@@ -1900,8 +2622,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}public/documents/POST/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}public/documents/POST/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :public/documents/POST/POST.json[]
@@ -1917,12 +2644,15 @@ endif::internal-generation[]
 
 
 [.publicWebhooksWebhooksPost]
-==== `POST /public/webhooks/{webhooks+}`
+//==== publicWebhooksWebhooksPost
+
+`POST /public/webhooks/{webhooks+}`
+
 
 
 ===== Description
 
-**Receives an incoming public post to a specified webhook and creates a document based on the data sent**; must be enabled during installation (disabled by default)
+Receives an incoming public post to a specified webhook and creates a document based on the data sent; must be enabled during installation (disabled by default)
 
 
 // markup not found, no include::{specDir}public/webhooks/\{webhooks+\}/POST/spec.adoc[opts=optional]
@@ -2000,8 +2730,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}public/webhooks/\{webhooks+\}/POST/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}public/webhooks/\{webhooks+\}/POST/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :public/webhooks/{webhooks+}/POST/POST.json[]
@@ -2021,13 +2756,15 @@ endif::internal-generation[]
 
 
 [.privateWebhooksWebhooksPost]
-==== `POST /private/webhooks/{webhooks+}`
+//==== privateWebhooksWebhooksPost
+
+`POST /private/webhooks/{webhooks+}`
 
 
 
 ===== Description
 
-**Receives an incoming private post to a specified webhook and creates a document based on the data sent**; requires authentication
+Receives an incoming private webhook and creates a document based on the webhook's body; requires authentication
 
 
 // markup not found, no include::{specDir}private/webhooks/\{webhooks+\}/POST/spec.adoc[opts=optional]
@@ -2105,8 +2842,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}private/webhooks/\{webhooks+\}/POST/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}private/webhooks/\{webhooks+\}/POST/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :private/webhooks/{webhooks+}/POST/POST.json[]
@@ -2122,13 +2864,15 @@ endif::internal-generation[]
 
 
 [.webhooksGet]
-==== `GET /webhooks`
+//==== webhooksGet
+
+`GET /webhooks`
 
 
 
 ===== Description
 
-**Returns a list of webhooks**; each webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
+Returns a list of webhooks; each webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
 
 
 // markup not found, no include::{specDir}webhooks/GET/spec.adoc[opts=optional]
@@ -2180,8 +2924,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/GET/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/GET/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :webhooks/GET/GET.json[]
@@ -2197,13 +2946,15 @@ endif::internal-generation[]
 
 
 [.webhooksPost]
-==== `POST /webhooks`
+//==== webhooksPost
+
+`POST /webhooks`
 
 
 
 ===== Description
 
-**Create a new webhook**; once created, a webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
+Create a new webhook; once created, a webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
 
 
 // markup not found, no include::{specDir}webhooks/POST/spec.adoc[opts=optional]
@@ -2268,8 +3019,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/POST/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/POST/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :webhooks/POST/POST.json[]
@@ -2285,12 +3041,15 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdDelete]
-==== `DELETE /webhooks/{webhookId}`
+//==== webhooksWebhookIdDelete
+
+`DELETE /webhooks/{webhookId}`
+
 
 
 ===== Description
 
-**Deletes a webhook**; this will disable sending, receiving, or processing of data from external services to this webhook
+Deletes a webhook; this will disable sending, receiving, or processing of data from external services to this webhook
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/DELETE/spec.adoc[opts=optional]
@@ -2353,8 +3112,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/DELETE/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/DELETE/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/DELETE/DELETE.json[]
@@ -2370,14 +3134,15 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdGet]
-==== webhooksWebhookIdGet
+//==== webhooksWebhookIdGet
 
 `GET /webhooks/{webhookId}`
 
 
+
 ===== Description
 
-**Returns a webhook's details**, i.e., its metadata
+Returns a webhook's details, i.e., its metadata
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/GET/spec.adoc[opts=optional]
@@ -2442,8 +3207,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/GET/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/GET/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/GET/GET.json[]
@@ -2459,12 +3229,15 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdPatch]
-==== `PATCH /webhooks/{webhookId}`
+//==== webhooksWebhookIdPatch
+
+`PATCH /webhooks/{webhookId}`
+
 
 
 ===== Description
 
-**Updates a webhook's details**, i.e., its metadata
+Updates a webhook's details, i.e., its metadata
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/PATCH/spec.adoc[opts=optional]
@@ -2540,7 +3313,11 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/PATCH/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/PATCH/http-response.adoc[opts=optional]
 
 
@@ -2558,12 +3335,15 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdTagsGet]
-==== `GET /webhooks/{webhookId}/tags`
+//==== webhooksWebhookIdTagsGet
+
+`GET /webhooks/{webhookId}/tags`
+
 
 
 ===== Description
 
-**Get a webhook's tags**
+Get a webhook's tags
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/tags/GET/spec.adoc[opts=optional]
@@ -2628,8 +3408,13 @@ endif::internal-generation[]
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/GET/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/GET/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/tags/GET/GET.json[]
@@ -2645,11 +3430,15 @@ endif::internal-generation[]
 
 
 [.webhooksWebhookIdTagsPost]
-==== `POST /webhooks/{webhookId}/tags`
+//==== webhooksWebhookIdTagsPost
+
+`POST /webhooks/{webhookId}/tags`
+
+
 
 ===== Description
 
-**Add a tag to a webhook**
+Add a tag to a webhook
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/tags/POST/spec.adoc[opts=optional]
@@ -2719,14 +3508,19 @@ endif::internal-generation[]
 
 
 | 201
-| 201 CREATED
+| 200 OK
 |  <<>>
 
 |===
 
 //===== Samples
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/POST/http-request.adoc[opts=optional]
+
+
 // markup not found, no include::{snippetDir}webhooks/\{webhookId\}/tags/POST/http-response.adoc[opts=optional]
+
 
 
 // file not found, no * wiremock data link :webhooks/{webhookId}/tags/POST/POST.json[]
@@ -2742,7 +3536,51 @@ endif::internal-generation[]
 
 
 [#models]
-== API Models
+== Models
+
+
+[#DocumentAction]
+=== _DocumentAction_ 
+
+Document action
+
+[.fields-DocumentAction]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| type
+| 
+| String 
+| Type of action (supported values: ocr)
+|  
+
+| parameters
+| 
+| DocumentAction_parameters 
+| 
+|  
+
+|===
+
+
+[#DocumentActionParameters]
+=== _DocumentActionParameters_ 
+
+
+
+[.fields-DocumentActionParameters]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| ocrParseTypes
+| 
+| String 
+| OCR Parse types - TEXT, FORMS, TABLES
+|  
+
+|===
 
 
 [#DocumentBody]
@@ -2754,6 +3592,12 @@ endif::internal-generation[]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
+
+| tagSchemaId
+| 
+| String 
+| Tag Schema Id
+|  
 
 | path
 | 
@@ -2781,25 +3625,31 @@ endif::internal-generation[]
 
 | tags
 | 
-| List  of <<WebhookBody_tags>>
+| List  of <<WebhookBody_tags_inner>>
 | List of tags
+|  
+
+| actions
+| 
+| List  of <<DocumentAction>>
+| List of document actions
 |  
 
 | documents
 | 
-| List  of <<DocumentBody_documents>>
+| List  of <<DocumentBody_documents_inner>>
 | List of related documents
 |  
 
 |===
 
 
-[#DocumentBodyDocuments]
-=== _DocumentBodyDocuments_ 
+[#DocumentBodyDocumentsInner]
+=== _DocumentBodyDocumentsInner_ 
 
 
 
-[.fields-DocumentBodyDocuments]
+[.fields-DocumentBodyDocumentsInner]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
@@ -2830,7 +3680,7 @@ endif::internal-generation[]
 
 | tags
 | 
-| List  of <<WebhookBody_tags>>
+| List  of <<WebhookBody_tags_inner>>
 | List of tags
 |  
 
@@ -2983,19 +3833,19 @@ endif::internal-generation[]
 
 | documents
 | 
-| List  of <<DocumentItem_documents>>
+| List  of <<DocumentItem_documents_inner>>
 | List of related documents
 |  
 
 |===
 
 
-[#DocumentItemDocuments]
-=== _DocumentItemDocuments_ 
+[#DocumentItemDocumentsInner]
+=== _DocumentItemDocumentsInner_ 
 
 
 
-[.fields-DocumentItemDocuments]
+[.fields-DocumentItemDocumentsInner]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
@@ -3052,6 +3902,73 @@ endif::internal-generation[]
 | 
 | String 
 | Parent Document Identifier
+|  
+
+|===
+
+
+[#DocumentItemResult]
+=== _DocumentItemResult_ 
+
+
+
+[.fields-DocumentItemResult]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| siteId
+| 
+| String 
+| Site Identifier
+|  
+
+| path
+| 
+| String 
+| Path or Name of document
+|  
+
+| insertedDate
+| 
+| Date 
+| Inserted Timestamp
+| date-time 
+
+| checksum
+| 
+| String 
+| Document checksum, changes when document file changes
+|  
+
+| documentId
+| 
+| UUID 
+| Document Identifier
+| uuid 
+
+| contentType
+| 
+| String 
+| Document Content-Type
+|  
+
+| userId
+| 
+| String 
+| User who added document
+|  
+
+| contentLength
+| 
+| Integer 
+| Document size
+|  
+
+| versionId
+| 
+| String 
+| Document version
 |  
 
 |===
@@ -3249,6 +4166,80 @@ endif::internal-generation[]
 |===
 
 
+[#DocumentOcr]
+=== _DocumentOcr_ 
+
+
+
+[.fields-DocumentOcr]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| data
+| 
+| String 
+| OCR text result
+|  
+
+| ocrEngine
+| 
+| String 
+| The OCR technique used
+|  
+
+| ocrStatus
+| 
+| String 
+| The status of the OCR request
+|  
+
+| contentType
+| 
+| String 
+| Document Content-Type
+|  
+
+| isBase64
+| 
+| Boolean 
+| Is Content Base64 encoded
+|  
+
+| userId
+| 
+| String 
+| User who requested the OCR
+|  
+
+| documentId
+| 
+| UUID 
+| Document Identifier
+| uuid 
+
+|===
+
+
+[#DocumentOcrResult]
+=== _DocumentOcrResult_ 
+
+
+
+[.fields-DocumentOcrResult]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| message
+| 
+| String 
+| OCR processing message
+|  
+
+|===
+
+
 [#DocumentPostResponse]
 === _DocumentPostResponse_ 
 
@@ -3279,19 +4270,19 @@ endif::internal-generation[]
 
 | documents
 | 
-| List  of <<DocumentPostResponse_documents>>
+| List  of <<DocumentPostResponse_documents_inner>>
 | List of related documents
 |  
 
 |===
 
 
-[#DocumentPostResponseDocuments]
-=== _DocumentPostResponseDocuments_ 
+[#DocumentPostResponseDocumentsInner]
+=== _DocumentPostResponseDocumentsInner_ 
 
 
 
-[.fields-DocumentPostResponseDocuments]
+[.fields-DocumentPostResponseDocumentsInner]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
@@ -3354,9 +4345,9 @@ Document search tag criteria
 
 | eqOr
 | 
-| List of [string] 
+| List  of <<string>>
 | Searches for ANY strings that eq
-| 
+|  
 
 | key
 | X
@@ -3473,6 +4464,43 @@ Document tag search criteria
 |===
 
 
+[#DocumentUploadBody]
+=== _DocumentUploadBody_ 
+
+
+
+[.fields-DocumentUploadBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| tagSchemaId
+| 
+| String 
+| Tag Schema Id
+|  
+
+| path
+| 
+| String 
+| Path or Name of document
+|  
+
+| tags
+| 
+| List  of <<WebhookBody_tags_inner>>
+| List of tags
+|  
+
+| actions
+| 
+| List  of <<DocumentAction>>
+| List of document actions
+|  
+
+|===
+
+
 [#DocumentUrl]
 === _DocumentUrl_ 
 
@@ -3493,6 +4521,142 @@ Document tag search criteria
 | 
 | String 
 | Document content url
+|  
+
+|===
+
+
+[#Error]
+=== _Error_ 
+
+
+
+[.fields-Error]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| key
+| 
+| String 
+| Error Key
+|  
+
+| error
+| 
+| String 
+| Error Message
+|  
+
+|===
+
+
+[#ErrorsResponse]
+=== _ErrorsResponse_ 
+
+
+
+[.fields-ErrorsResponse]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| errors
+| 
+| List  of <<Error>>
+| List of errors
+|  
+
+|===
+
+
+[#OcrBody]
+=== _OcrBody_ 
+
+
+
+[.fields-OcrBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| parseTypes
+| 
+| List  of <<string>>
+| OCR Parse types - TEXT, FORMS, TABLES
+|  
+
+|===
+
+
+[#SearchDocumentItem]
+=== _SearchDocumentItem_ 
+
+
+
+[.fields-SearchDocumentItem]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| siteId
+| 
+| String 
+| Site Identifier
+|  
+
+| path
+| 
+| String 
+| Path or Name of document
+|  
+
+| insertedDate
+| 
+| Date 
+| Inserted Timestamp
+| date-time 
+
+| checksum
+| 
+| String 
+| Document checksum, changes when document file changes
+|  
+
+| documentId
+| 
+| UUID 
+| Document Identifier
+| uuid 
+
+| contentType
+| 
+| String 
+| Document Content-Type
+|  
+
+| userId
+| 
+| String 
+| User who added document
+|  
+
+| contentLength
+| 
+| Integer 
+| Document size
+|  
+
+| versionId
+| 
+| String 
+| Document version
+|  
+
+| matchedTag
+| 
+| DocumentSearchMatchTag 
+| 
 |  
 
 |===
@@ -3537,6 +4701,279 @@ Document tag search criteria
 | 
 | List  of <<Site>>
 | List of sites
+|  
+
+|===
+
+
+[#TagSchema]
+=== _TagSchema_ 
+
+
+
+[.fields-TagSchema]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| tagSchemaId
+| 
+| String 
+| 
+|  
+
+| name
+| 
+| String 
+| 
+|  
+
+| userId
+| 
+| String 
+| 
+|  
+
+| insertedDate
+| 
+| Date 
+| Inserted Timestamp
+| date-time 
+
+| tags
+| 
+| TagSchemaBody_tags 
+| 
+|  
+
+|===
+
+
+[#TagSchemaBody]
+=== _TagSchemaBody_ 
+
+
+
+[.fields-TagSchemaBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| name
+| 
+| String 
+| 
+|  
+
+| tags
+| 
+| TagSchemaBody_tags 
+| 
+|  
+
+|===
+
+
+[#TagSchemaBodyTags]
+=== _TagSchemaBodyTags_ 
+
+
+
+[.fields-TagSchemaBodyTags]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| compositeKeys
+| 
+| List  of <<TagSchemaCompositeKey>>
+| List of Composite Keys
+|  
+
+| required
+| 
+| List  of <<TagSchemaRequired>>
+| List of Required Tags
+|  
+
+| optional
+| 
+| List  of <<TagSchemaOptional>>
+| List of Optional Tags
+|  
+
+| allowAdditionalTags
+| 
+| Boolean 
+| 
+|  
+
+|===
+
+
+[#TagSchemaCompositeKey]
+=== _TagSchemaCompositeKey_ 
+
+
+
+[.fields-TagSchemaCompositeKey]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| key
+| 
+| List  of <<string>>
+| 
+|  
+
+|===
+
+
+[#TagSchemaOptional]
+=== _TagSchemaOptional_ 
+
+
+
+[.fields-TagSchemaOptional]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| key
+| 
+| String 
+| 
+|  
+
+| defaultValues
+| 
+| List  of <<string>>
+| Default values
+|  
+
+| allowedValues
+| 
+| List  of <<string>>
+| Only valid values
+|  
+
+|===
+
+
+[#TagSchemaPostResponse]
+=== _TagSchemaPostResponse_ 
+
+
+
+[.fields-TagSchemaPostResponse]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| tagSchemaId
+| 
+| UUID 
+| Tag Schema Identifier
+| uuid 
+
+|===
+
+
+[#TagSchemaRequired]
+=== _TagSchemaRequired_ 
+
+
+
+[.fields-TagSchemaRequired]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| key
+| 
+| String 
+| 
+|  
+
+| defaultValues
+| 
+| List  of <<string>>
+| Default values
+|  
+
+| allowedValues
+| 
+| List  of <<string>>
+| Only valid values
+|  
+
+|===
+
+
+[#TagSchemaSummary]
+=== _TagSchemaSummary_ 
+
+
+
+[.fields-TagSchemaSummary]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| tagSchemaId
+| 
+| String 
+| 
+|  
+
+| name
+| 
+| String 
+| 
+|  
+
+| userId
+| 
+| String 
+| 
+|  
+
+| insertedDate
+| 
+| Date 
+| Inserted Timestamp
+| date-time 
+
+|===
+
+
+[#TagSchemas]
+=== _TagSchemas_ 
+
+
+
+[.fields-TagSchemas]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| schemas
+| 
+| List  of <<TagSchemaSummary>>
+| List of Tag Schemas
+|  
+
+| next
+| 
+| String 
+| 
+|  
+
+| previous
+| 
+| String 
+| 
 |  
 
 |===
@@ -3646,19 +5083,19 @@ Document tag search criteria
 
 | tags
 | 
-| List  of <<WebhookBody_tags>>
+| List  of <<WebhookBody_tags_inner>>
 | List of tags
 |  
 
 |===
 
 
-[#WebhookBodyTags]
-=== _WebhookBodyTags_ 
+[#WebhookBodyTagsInner]
+=== _WebhookBodyTagsInner_ 
 
 
 
-[.fields-WebhookBodyTags]
+[.fields-WebhookBodyTagsInner]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
