@@ -13,7 +13,7 @@ FormKiQ-Core was built using Java and JavaScript languages. In order to build fr
 * https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html[AWS SAM 1.15+]
 * https://stedolan.github.io/jq[JQ 1.6+]
 * https://commandbox.ortusbooks.com[Box 5.2+]
-* https://github.com/mikefarah/yq[YQ 3.4+]
+* https://github.com/vmware-tanzu/carvel-ytt[YTT 0.40.1+]
 
 **Running Build**
 
