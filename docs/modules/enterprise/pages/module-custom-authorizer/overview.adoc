@@ -84,9 +84,9 @@ Choose "Edit Claim Issuance Policy":
 
 image::ad-fs-edit-claim-issuance-policy.png['Editing Your Claim Issuance Policy']
 
-You can now add a new Claim Issuance Polic Rule for the Windows account name:
+You can now add a new Claim Issuance Policy Rule for the Windows account name:
 
-image::ad-fs-claim-issuance-add-new-rule.png['Adding a new Claim Issuance Policy Rule for Windows account name']
+image::ad-fs-claim-issuance-add-name-rule.png['Adding a new Claim Issuance Policy Rule for Windows account name']
 
 Next, create a rule for the email:
 
