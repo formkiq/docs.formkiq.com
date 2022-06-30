@@ -5,6 +5,10 @@ FormKiQ was built using the https://aws.amazon.com/serverless/sam[AWS Serverless
 
 https://github.com/formkiq/formkiq-core[FormKiQ Core] uses AWS resources, including DynamoDB, CloudFront, Lambda functions, and API Gateway. These resources are defined in the `template.yaml` file in this project. You can customize FormKiQ by updating the template and adding AWS resources through the same deployment process that updates your application code.
 
+**A Note about AWS Accounts:** we recommend creating a dev or staging account as well as a prod account, as opposed to deploying two instances of FormKiQ with different stages/environments. This isn't due to any issues with running two FormKiQ instances, but to help better separate your non-prod integration from your production instance.
+
+To have more than one account, you can set up a new AWS account to be your organization management account, and then use AWS Organizations to add two or more additional accounts, one for each stage/environment you plan to use. If you have an existing AWS account with active AWS services/resources, you should import that into a new management account, rather than use that account as your management account, as AWS Best Practices is to not run workloads in your management account.
+
 === Download
 
 The latest version of FormKiQ Core can be found on the https://github.com/formkiq/formkiq-core/releases[FormKiQ Core Releases page on GitHub]. Download the source code (tar.gz or zip) to your local computer and expand/unzip into its own folder, `formkiq-core-x.x.x`.
