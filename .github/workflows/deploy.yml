@@ -29,7 +29,7 @@ jobs:
         run: sudo apt-get -y install asciidoctor awscli
         
       - name: Install antora
-        run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+        run: npm i -g @antora/cli@3.0 @antora/site-generator-default@3.0
       
       - name: antora version
         run: antora --version

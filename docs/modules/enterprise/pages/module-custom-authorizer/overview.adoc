@@ -23,8 +23,7 @@ _**Use Case:**_
 . _If you would like to maintain your ActiveDirectory or Google Apps login from your organization into the FormKiQ API or Console, this module allows that with minimal configuration_
 ====
 
-Integration Instructions - Microsoft Active Directory Federation Services
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Integration Instructions - Microsoft Active Directory Federation Services
 
 ==== Retrieve Your Amazon Cognito Info
 
@@ -40,6 +39,12 @@ image::cognito-user-pool-domain.png['Cognito User Pool Domain']
 
 
 ==== Open AD FS Management in Windows Server Manager
+
+**NOTE:** Ensure that 
+
+- AD FS server(s) has https network access to `amazoncognito.com`
+
+- When using multiple AD FS servers, apply the following changes to all servers 
 
 Go to "Server Manager" and select "AD FS":
 
@@ -105,3 +110,12 @@ image::formkiq-console-sign-in.png['FormKiQ Console Corporate ID',700]
 You can then securely sign in with your Active Directory credentials:
 
 image::formkiq-console-secure-sign-in.png['Signing in Securely with AD',700]
+
+
+==== User Group Access
+
+FormKiQ access is determined by the group(s) the user belongs to, see xref:reference:README.adoc#multi-tenant[Multi-Tenant]
+
+The only difference is all user groups need to be prefixed with `formkiq_`.
+
+At a minimum you need to create a group called `formkiq_default` which will give users read / write access to the default siteId.

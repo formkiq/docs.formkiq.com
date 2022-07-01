@@ -66,7 +66,7 @@ After the FormKiQ Cloudformation Stack completes, output values from the deploym
 
 **SSM Parameter Store**
 
-SSM parameters made it easy for applications to automatically look up FormKiQ configuration settings. All configuration keys start with '/formkiq/{AppEnvironment}'
+SSM parameters made it easy for applications to automatically look up FormKiQ configuration settings. All configuration keys start with '/formkiq/&#123;AppEnvironment&#125;'
 
 |=======================================================================
 | Parameter | Description                
