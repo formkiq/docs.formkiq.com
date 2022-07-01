@@ -11,6 +11,7 @@ content:
 #    branches: [v1.6.0, HEAD]
   - url: https://github.com/formkiq/docs.formkiq.com.git
     start_path: docs
+    branches: v*
 
 asciidoc:
   attributes:
