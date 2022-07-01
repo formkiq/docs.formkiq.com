@@ -34,12 +34,6 @@ jobs:
       - name: antora version
         run: npx antora -v
         
-      - name: setup alias
-        run: alias antora='npx antora'
-        
-      - name: antora version
-        run: antora --version
-        
       # Runs a single command using the runners shell
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
