@@ -42,4 +42,4 @@ Build configuration is controlled through the `gradle.properties` file located i
 
 `testregion` & `testappenvironment` are required for the `./gradlew build` task.
 
-After a successful build, all of the artifacts will be placed in the build/distributions/formkiq-core/formkiq-core-${version}.zip.
+After a successful build, all of the artifacts will be placed in the build/distributions/formkiq-core/formkiq-core-$&#123;version&#125;.zip.
