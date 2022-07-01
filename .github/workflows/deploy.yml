@@ -33,6 +33,9 @@ jobs:
       
       - name: antora version
         run: antora --version
+
+      - name: npm install
+        run: npm install
         
       # Runs a single command using the runners shell
       - name: Set AWS credentials
