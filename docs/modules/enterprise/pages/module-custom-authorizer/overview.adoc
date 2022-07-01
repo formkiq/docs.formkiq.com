@@ -114,7 +114,7 @@ image::formkiq-console-secure-sign-in.png['Signing in Securely with AD',700]
 
 ==== User Group Access
 
-FormKiQ access is determined by the group(s) the user belongs to, see xref:1.7.5@docs:reference:README.adoc#multi-tenant[Multi-Tenant]
+FormKiQ access is determined by the group(s) the user belongs to, see https://docs.formkiq.com/docs/1.7.5/reference/README.html#multi-tenant[Multi-Tenant]
 
 The only difference is all user groups need to be prefixed with `formkiq_`.
 
