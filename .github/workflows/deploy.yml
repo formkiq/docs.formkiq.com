@@ -30,7 +30,10 @@ jobs:
         
       - name: Install antora
         run: npm i -D -E @antora/cli@3.0 @antora/site-generator@3.0
-              
+
+      - name: setup alias
+        run: alias antora='npx antora'
+        
       - name: antora version
         run: antora --version
         
