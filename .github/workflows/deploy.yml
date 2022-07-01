@@ -29,13 +29,10 @@ jobs:
         run: sudo apt-get -y install asciidoctor awscli
         
       - name: Install antora
-        run: npm i -g @antora/cli@3.0 @antora/site-generator-default@3.0
-      
+        run: npm i -D -E @antora/cli@3.0 @antora/site-generator@3.0
+              
       - name: antora version
         run: antora --version
-
-      - name: npm install
-        run: npm install
         
       # Runs a single command using the runners shell
       - name: Set AWS credentials
