@@ -2,7 +2,7 @@ default :
 	  rm -r -f build
 	  mkdir -p build
 	  cd ui-bundle && zip -r ../build/ui-bundle.zip *
-	  antora antora-playbook.yml
+	  npx antora antora-playbook.yml
 	  ls -l build/site/docs
 
 deploy : default
