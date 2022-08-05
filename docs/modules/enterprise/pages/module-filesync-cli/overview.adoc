@@ -1,0 +1,22 @@
+= FileSync CLI
+
+FileSync CLI is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enables syncing of documents from a local file system to FormKiQ installation.
+
+== CloudFormation installation
+
+The FileSync CLI needs to have permissions configured to give it access to FormKiQ. This can be done via the CloudFormation script found on your https://github.com/formkiq[FormKiQ GitHub] page.
+
+After installation on the if you look at the `Outputs` tab of the CloudFormation Stack you'll get the Access/Secret Key the CLI needs to use.
+
+image::cf-filesync-cli-outputs.png[CloudFormation FileSync CLI Outputs,600,600]
+
+== Configure
+
+Using the Access/Secret Key created in the section above. Use those values to configure the CLI tool.
+
+```
+fk --configure --access-key <ACCESS_KEY> --secret-key <SECRET_KEY> --region <AWS_REGION>
+```
+
+== Usage
+
