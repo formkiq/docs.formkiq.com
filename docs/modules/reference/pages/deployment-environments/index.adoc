@@ -13,11 +13,13 @@ FormKiQ can be installed either through a `Single Click` or using the `SAM CLI`.
 
 === Single Click Installation
 
-TODO add picture
+image::github-click-install.png[GitHub Click Install,300,300]
 
 The easiest way to install FormKiQ is via the single click the installation link found on the https://github.com/formkiq/formkiq-core[FormKiQ Core] GitHub page. The link will automatically launch you into your AWS console and autocomplete the FormKiQ installation url.
 
 For FormKiQ Enterprise users, you'll find the same single click installation url in your custom https://github.com[GitHub] repository you were provided.
+
+image::github-enterprise-install.png[GitHub Enterprise Click Install,600,600]
 
 ==== CloudFormation Create Stack
 
