@@ -26,6 +26,8 @@ _**NOTE:** this is a preview of our in-progress documentation of these modules, 
 
 ✅ link:#tag-schema-module[Document Tag Schemas Module]
 
+✅ link:#fulltext-search-module[Fulltext Search Module]
+
 ✅ link:#custom-domains-module[Custom Domains Module]
 
 ✅ link:#antivirus-module[Antivirus Protection Module]
@@ -51,6 +53,8 @@ To learn more about FormKiQ Core, please visit https://github.com/formkiq/formki
 To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
 
 include::module-tagschema/overview.adoc[Tag Schema Module]
+
+include::module-fulltext-search/overview.adoc[Fulltext Search Module]
 
 include::module-custom-domains/overview.adoc[Custom Domains Module]
 
