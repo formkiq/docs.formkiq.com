@@ -20,7 +20,7 @@ image::formkiq-enterprise-logo.png[FormKiQ Enterprise,600,600]
 
 FormKiQ Enterprise is made up of Enterprise Add-Ons that are available for FormKiQ Core, bringing enterprise-level features and functionality that may be required for some organizations.
 
-_**NOTE:** this is a preview of our in-progress documentation of these modules, as opposed to the full specification._
+_**NOTE:** we have included the full link:../reference/README.html#enterprise-api-reference[Enterprise API Reference] as a section below the FormKiQ Core API Reference, while including a link to the specific module APIs in the reference sections below._
 
 **FormKiQ Enterprise Add-On Modules include:**
 

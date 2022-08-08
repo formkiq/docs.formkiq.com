@@ -4,9 +4,1134 @@ All endpoints require either Cognito / IAM Authentication unless the URL starts 
 
 Public URLs are disabled by default and can be enabled through the CloudFormation installation.
 
+[.Documents]
+=== Documents
+
+[.documentsGet]
+==== `GET /documents`
+
+===== Description
+
+**Returns a list of the most recent documents added**, ordered by inserted, descending
+
+
+// markup not found, no include::{specDir}documents/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| date
+| Fetch documents inserted on a certain date (yyyy-MM-dd) 
+| -
+| null
+| 
+
+| tz
+| UTC offset to apply to date parameter (IE: -0600) 
+| -
+| null
+| 
+
+| next
+| Next page of results token 
+| -
+| null
+| 
+
+| previous
+| Previous page of results token 
+| -
+| null
+| 
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| limit
+| Limit Results 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentItemsResults>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentItemsResults>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/GET/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsPost]
+==== `POST /documents`
+
+
+===== Description
+
+**Creates a new document**; body may include document content if less than 5 MB
+
+// markup not found, no include::{specDir}documents/POST/spec.adoc[opts=optional]
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| DocumentBody
+|  <<DocumentBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 201
+| 201 CREATED
+|  <<DocumentPostResponse>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+[.documentsDocumentIdGet]
+==== `GET /documents/{documentId}`
+
+===== Description
+
+**Retrieves a document's details**, i.e., metadata
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentItem>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentItem>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/GET/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/{documentId}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdPatch]
+==== `PATCH /documents/{documentId}`
+
+
+===== Description
+
+**Update a document's details**, i.e., metadata
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/PATCH/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| DocumentBody
+|  <<DocumentBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentPostResponse>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/PATCH/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/PATCH/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/{documentId}/PATCH/PATCH.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/PATCH/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+[.documentsDocumentIdContentGet]
+==== `GET /documents/{documentId}/content`
+
+
+
+===== Description
+
+**Get a document's contents**
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/content/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| versionId
+| Version Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentContent>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentContent>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/content/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/content/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/content/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/content/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdDelete]
+==== `DELETE /documents/{documentId}`
+
+
+===== Description
+
+**Delete a document**
+
+// markup not found, no include::{specDir}documents/\{documentId\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdUploadGet]
+==== `GET /documents/{documentId}/upload`
+
+
+===== Description
+
+**Returns a URL that can be used to upload documents for a specific documentId** (required for documents larger than 5 MB)
+
+// markup not found, no include::{specDir}documents/\{documentId\}/upload/GET/spec.adoc[opts=optional]
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| contentLength
+| Indicates the size of the entity-body 
+| -
+| null
+| 
+
+| duration
+| Indicates the number of hours request is valid for 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentUrl>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentUrl>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/upload/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/upload/GET/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/{documentId}/upload/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/upload/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdUrlGet]
+==== `GET /documents/{documentId}/url`
+
+
+===== Description
+
+**Returns a URL for the document's contents that expires** (default is 48 hours)
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/url/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| versionId
+| Version Identifier 
+| -
+| null
+| 
+
+| duration
+| Indicates the number of hours request is valid for 
+| X
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentUrl>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentUrl>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/url/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/url/GET/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/{documentId}/url/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/url/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdVersionsGet]
+==== `GET /documents/{documentId}/versions`
+
+
+===== Description
+
+**Get a listing of document content versions**
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/versions/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| next
+| Next page of results token 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentItemsVersions>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentItemsVersions>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/\{documentId\}/versions/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/\{documentId\}/versions/GET/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/{documentId}/versions/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/versions/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsUploadGet]
+==== `GET /documents/upload`
+
+
+
+===== Description
+
+**Returns a URL that can be used to upload document content and create a new document**; required to add content that is larger than 5 MB
+
+// markup not found, no include::{specDir}documents/upload/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| path
+| The upload file&#39;s path 
+| -
+| null
+| 
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| contentLength
+| Indicates the size of the entity-body 
+| -
+| null
+| 
+
+| duration
+| Indicates the number of hours request is valid for 
+| X
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentUrl>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentUrl>>
+
+|===
+
+//===== Samples
+// markup not found, no include::{snippetDir}documents/upload/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}documents/upload/GET/http-response.adoc[opts=optional]
+
+
+// file not found, no * wiremock data link :documents/upload/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/upload/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsUploadPost]
+==== `POST /documents/upload`
+
+
+
+===== Description
+
+**Returns a URL that can be used to upload document content and create a new document;** required to add content that is larger than 5 MB
+
+
+// markup not found, no include::{specDir}documents/upload/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| DocumentUploadBody
+|  <<DocumentUploadBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| duration
+| Indicates the number of hours request is valid for 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 201
+| 201 CREATED
+|  <<DocumentPostResponse>>
+
+|===
+
+//===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/upload/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/upload/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/upload/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/upload/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+[.DocumentActions]
+=== Document Actions
+
+[.getDocumentActions]
+==== `GET /documents/{documentId}/actions`
+
+
+===== Description
+
+**Document actions request**; Get Document Actions and their Status
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/actions/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentActions>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentActions>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/actions/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/actions/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/actions/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/actions/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
 [.DocumentSearch]
 === Document Search
-
 
 [.searchPost]
 ==== `POST /search`
@@ -14,6 +1139,8 @@ Public URLs are disabled by default and can be enabled through the CloudFormatio
 ===== Description
 
 **Document search query request**; documents are searched primarily using a document tag key and optional tag value, while an optional `documentIds` parameter is also available in the `DocumentSearchBody` to filter within up to 100 documentIds
+
+**NOTE: for fulltext search queries, see link:#post-searchfulltext[`Enterprise API Reference: POST /searchFulltext`]**
 
 // markup not found, no include::{specDir}search/POST/spec.adoc[opts=optional]
 
@@ -98,6 +1225,8 @@ ifdef::internal-generation[]
 ===== Implementation
 // markup not found, no include::{specDir}search/POST/implementation.adoc[opts=optional]
 endif::internal-generation[]
+
+
 
 [.DocumentTags]
 === Document Tags
@@ -768,1639 +1897,6 @@ ifdef::internal-generation[]
 
 
 endif::internal-generation[]
-
-
-[.Documents]
-=== Documents
-
-
-[.documentsDocumentIdContentGet]
-==== `GET /documents/{documentId}/content`
-
-
-
-===== Description
-
-**Get a document's contents**
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/content/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| versionId
-| Version Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentContent>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentContent>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/content/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/content/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/content/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/content/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdDelete]
-==== `DELETE /documents/{documentId}`
-
-
-===== Description
-
-**Delete a document**
-
-// markup not found, no include::{specDir}documents/\{documentId\}/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/DELETE/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdGet]
-==== `GET /documents/{documentId}`
-
-===== Description
-
-**Retrieves a document's details**, i.e., metadata
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentItem>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentItem>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/GET/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/{documentId}/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdPatch]
-==== `PATCH /documents/{documentId}`
-
-
-===== Description
-
-**Update a document's details**, i.e., metadata
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/PATCH/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| DocumentBody
-|  <<DocumentBody>>
-| X
-| 
-| 
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentPostResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentPostResponse>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/PATCH/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/PATCH/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/{documentId}/PATCH/PATCH.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/PATCH/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdUploadGet]
-==== `GET /documents/{documentId}/upload`
-
-
-===== Description
-
-**Returns a URL that can be used to upload documents for a specific documentId** (required for documents larger than 5 MB)
-
-// markup not found, no include::{specDir}documents/\{documentId\}/upload/GET/spec.adoc[opts=optional]
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| contentLength
-| Indicates the size of the entity-body 
-| -
-| null
-| 
-
-| duration
-| Indicates the number of hours request is valid for 
-| X
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentUrl>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentUrl>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/upload/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/upload/GET/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/{documentId}/upload/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/upload/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdUrlGet]
-==== `GET /documents/{documentId}/url`
-
-
-===== Description
-
-**Returns a URL for the document's contents that expires** (default is 48 hours)
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/url/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| versionId
-| Version Identifier 
-| -
-| null
-| 
-
-| duration
-| Indicates the number of hours request is valid for 
-| X
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentUrl>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentUrl>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/url/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/url/GET/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/{documentId}/url/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/url/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdVersionsGet]
-==== `GET /documents/{documentId}/versions`
-
-
-===== Description
-
-**Get a listing of document content versions**
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/versions/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| next
-| Next page of results token 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentItemsVersions>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentItemsVersions>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/\{documentId\}/versions/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/\{documentId\}/versions/GET/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/{documentId}/versions/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/versions/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsGet]
-==== `GET /documents`
-
-===== Description
-
-**Returns a list of the most recent documents added**, ordered by inserted, descending
-
-
-// markup not found, no include::{specDir}documents/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| date
-| Fetch documents inserted on a certain date (yyyy-MM-dd) 
-| -
-| null
-| 
-
-| tz
-| UTC offset to apply to date parameter (IE: -0600) 
-| -
-| null
-| 
-
-| next
-| Next page of results token 
-| -
-| null
-| 
-
-| previous
-| Previous page of results token 
-| -
-| null
-| 
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| limit
-| Limit Results 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentItemsResults>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentItemsResults>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/GET/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsPost]
-==== `POST /documents`
-
-
-===== Description
-
-**Creates a new document**; body may include document content if less than 5 MB
-
-// markup not found, no include::{specDir}documents/POST/spec.adoc[opts=optional]
-
-
-===== Parameters
-
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| DocumentBody
-|  <<DocumentBody>>
-| X
-| 
-| 
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentPostResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 201
-| 201 CREATED
-|  <<DocumentPostResponse>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/POST/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsUploadGet]
-==== `GET /documents/upload`
-
-
-
-===== Description
-
-**Returns a URL that can be used to upload document content and create a new document**; required to add content that is larger than 5 MB
-
-// markup not found, no include::{specDir}documents/upload/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| path
-| The upload file&#39;s path 
-| -
-| null
-| 
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| contentLength
-| Indicates the size of the entity-body 
-| -
-| null
-| 
-
-| duration
-| Indicates the number of hours request is valid for 
-| X
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentUrl>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentUrl>>
-
-|===
-
-//===== Samples
-// markup not found, no include::{snippetDir}documents/upload/GET/http-request.adoc[opts=optional]
-// markup not found, no include::{snippetDir}documents/upload/GET/http-response.adoc[opts=optional]
-
-
-// file not found, no * wiremock data link :documents/upload/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/upload/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsUploadPost]
-
-`POST /documents/upload`
-
-
-
-===== Description
-
-Returns a URL that can be used to upload document content and create a new document; required to add content that is larger than 5 MB
-
-
-// markup not found, no include::{specDir}documents/upload/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| DocumentUploadBody
-|  <<DocumentUploadBody>>
-| X
-| 
-| 
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| duration
-| Indicates the number of hours request is valid for 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentPostResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 201
-| 201 CREATED
-|  <<DocumentPostResponse>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/upload/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/upload/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/upload/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/upload/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.EnterpriseAPI]
-=== EnterpriseAPI
-
-
-[.documentsDocumentIdOcrGet]
-//==== documentsDocumentIdOcrGet
-
-`GET /documents/{documentId}/ocr`
-
-
-
-===== Description
-
-Get Document optical character recognition (OCR) result; if exists. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentOcr>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentOcr>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/ocr/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.documentsDocumentIdOcrPost]
-//==== documentsDocumentIdOcrPost
-
-`POST /documents/{documentId}/ocr`
-
-
-
-===== Description
-
-Document optical character recognition (OCR) request; extract text and data from a document. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier 
-| X
-| null
-| 
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| OcrBody
-|  <<OcrBody>>
-| -
-| 
-| 
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<DocumentOcrResult>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentOcrResult>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/ocr/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.tagSchemasGet]
-//==== tagSchemasGet
-
-`GET /tagSchemas`
-
-
-
-===== Description
-
-Returns the list of tagSchemas
-
-
-// markup not found, no include::{specDir}tagSchemas/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-| limit
-| Limit Results 
-| -
-| null
-| 
-
-| next
-| Next page of results token 
-| -
-| null
-| 
-
-| previous
-| Previous page of results token 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<TagSchemas>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<TagSchemas>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.tagSchemasPost]
-//==== tagSchemasPost
-
-`POST /tagSchemas`
-
-
-
-===== Description
-
-Creates a new TagSchema
-
-
-// markup not found, no include::{specDir}tagSchemas/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| TagSchemaBody
-|  <<TagSchemaBody>>
-| X
-| 
-| 
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<TagSchemaPostResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 201
-| 201 CREATED
-|  <<TagSchemaPostResponse>>
-
-
-| 400
-| 400 BAD REQUEST
-|  <<ErrorsResponse>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.tagSchemasTagSchemaIdDelete]
-//==== tagSchemasTagSchemaIdDelete
-
-`DELETE /tagSchemas/{tagSchemaId}`
-
-
-
-===== Description
-
-Delete a TagSchema
-
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| tagSchemaId
-| Tag Schema Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.tagSchemasTagSchemaIdGet]
-//==== tagSchemasTagSchemaIdGet
-
-`GET /tagSchemas/{tagSchemaId}`
-
-
-
-===== Description
-
-Retrieves a TagSchema's details, i.e., metadata
-
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| tagSchemaId
-| Tag Schema Identifier 
-| X
-| null
-| 
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier 
-| -
-| null
-| 
-
-|===
-
-
-===== Return Type
-
-<<TagSchema>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<TagSchema>>
-
-|===
-
-//===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
 
 [.Miscellaneous]
 === Miscellaneous
@@ -3535,49 +3031,1564 @@ ifdef::internal-generation[]
 endif::internal-generation[]
 
 
+Enterprise API Reference
+------------------------
+
+[.fulltextSearchModule]
+=== Fulltext Search Module
+
+[.searchFulltextPost]
+==== `POST /searchFulltext`
+
+
+===== Description
+
+**Document fulltext search** (and more robust multi-tag search queries, powered by OpenSearch); ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}searchFulltext/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| DocumentFulltextSearchBody
+|  <<DocumentFulltextSearchBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| limit
+| Limit Results 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<FulltextSearchResults>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<FulltextSearchResults>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}searchFulltext/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}searchFulltext/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :searchFulltext/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}searchFulltext/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+[.documentsDocumentIdFulltextDelete]
+==== `DELETE /documents/{documentId}/fulltext`
+
+
+
+===== Description
+
+**Removes full text search for a document;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdFulltextPatch]
+==== `PATCH /documents/{documentId}/fulltext`
+
+
+===== Description
+
+**Updates Opensearch document;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PATCH/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| FulltextUpdateBody
+|  <<FulltextUpdateBody>>
+| -
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<FulltextResult>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<FulltextResult>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PATCH/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PATCH/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/PATCH/PATCH.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PATCH/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdFulltextPut]
+==== `PUT /documents/{documentId}/fulltext`
+
+
+
+===== Description
+
+**Set all text/tags found within a document to OpenSearch;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| FulltextBody
+|  <<FulltextBody>>
+| -
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<FulltextResult>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<FulltextResult>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdFulltextTagsTagKeyDelete]
+==== `DELETE /documents/{documentId}/fulltext/tags/{tagKey}`
+
+
+
+===== Description
+
+**Removes document tags from full text search;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+| tagKey
+| Tag Key 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/tags/{tagKey}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdFulltextTagsTagKeyTagValueDelete]
+==== `DELETE /documents/{documentId}/fulltext/tags/{tagKey}/{tagValue}`
+
+
+===== Description
+
+**Removes document tag/value from full text search;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+| tagKey
+| Tag Key 
+| X
+| null
+| 
+
+| tagValue
+| Tag Key Value 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/tags/{tagKey}/{tagValue}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+[.ocrModule]
+=== Document Optical Character Recognition (OCR) Module
+
+[.documentsDocumentIdOcrDelete]
+==== `DELETE /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+**Delete a document optical character recognition (OCR) result, if exists;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdOcrGet]
+==== `GET /documents/{documentId}/ocr`
+
+
+===== Description
+
+**Get document optical character recognition (OCR) result, if exists;** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcr>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcr>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdOcrPost]
+==== `POST /documents/{documentId}/ocr`
+
+
+===== Description
+
+**Document optical character recognition (OCR) request;** extract text and data from a document. ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| OcrBody
+|  <<OcrBody>>
+| -
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcrResult>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcrResult>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentsDocumentIdOcrPut]
+==== `PUT /documents/{documentId}/ocr`
+
+
+===== Description
+
+**Sets a Document optical character recognition (OCR) document.** ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier 
+| X
+| null
+| 
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| SetOcrBody
+|  <<SetOcrBody>>
+| -
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<DocumentOcrResult>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentOcrResult>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasModule]
+=== Tag Schemas Module
+
+[.tagSchemasGet]
+==== `GET /tagSchemas`
+
+
+
+===== Description
+
+**Returns the list of tagSchemas**; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+| limit
+| Limit Results 
+| -
+| null
+| 
+
+| next
+| Next page of results token 
+| -
+| null
+| 
+
+| previous
+| Previous page of results token 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<TagSchemas>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<TagSchemas>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasPost]
+==== `POST /tagSchemas`
+
+
+
+===== Description
+
+**Creates a new TagSchema**; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| TagSchemaBody
+|  <<TagSchemaBody>>
+| X
+| 
+| 
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<TagSchemaPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 201
+| 201 CREATED
+|  <<TagSchemaPostResponse>>
+
+
+| 400
+| 400 BAD REQUEST
+|  <<ErrorsResponse>>
+
+|===
+
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+**POST /tagSchemas Examples**
+
+The following POST /tagSchemas body creates two required fields, `playerId` and `caseId`. There is also an optional tag of `category`. 
+
+When the document is saved, a `compositeKey` is created automatically that will allow for a search using both `playerId` and `caseId` as search parameters.
+
+----
+{
+  "schema": {
+    "tags": {
+      "compositeKeys": [
+        {
+          "key": [
+            "playerId",
+            "caseId"
+          ]
+        }
+      ],
+      "required": [
+        {
+          "key": "playerId"
+        },
+        {
+          "key": "caseId"
+        }
+      ],
+      "optional": [
+        {
+          "key": "category",
+          "allowedValues": [
+            "person",
+            "city"
+          ]
+        }
+      ],
+      "allowAdditionalTags": false,
+    }
+  }
+}
+----
+
+**NOTE:** as `allowAdditionalTags` is set to false in this example, any attempt to add additional tags with keys other than `playerId`, `caseId`, or `category` will cause the request to fail. As well, any `category` tag which has a value other than the ones specified, i.e., not `person` or `city`, will also be rejected. By default, this value is true, i.e., additional tags are allowed, if not specified in the schema.
+
+**Specifying Default Values**
+
+Default values can be set for both required and optional tags, and can include one or more values as the default (up to the maximum of five values per tag key, consistent with the multi-value tag specification in FormKiQ Core):
+
+----
+{
+  "schema": {
+    "tags": {
+      "required": [
+        {
+          "key": "planId",
+          "default": 1,
+        },
+        {
+          "key": "userId"
+        },
+        {
+          "key": "applicationId"
+        }
+      ],
+      "optional": [
+        {
+          "key": "components",
+          "allowedValues": [
+            "idCheck",
+            "creditCheck",
+            "criticalIllnessInfo"
+          ],
+          "default": [
+            "idCheck",
+            "creditCheck"
+          ]
+        }
+      ]
+    }
+  }
+}
+----
+
+
+[.tagSchemasTagSchemaIdDelete]
+==== `DELETE /tagSchemas/{tagSchemaId}`
+
+
+
+===== Description
+
+**Delete a TagSchema**; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| tagSchemaId
+| Tag Schema Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.tagSchemasTagSchemaIdGet]
+==== `GET /tagSchemas/{tagSchemaId}`
+
+
+
+===== Description
+
+**Retrieves a TagSchema's details, i.e., metadata**; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| tagSchemaId
+| Tag Schema Identifier 
+| X
+| null
+| 
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier 
+| -
+| null
+| 
+
+|===
+
+
+===== Return Type
+
+<<TagSchema>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<TagSchema>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+
 [#models]
 == Models
+
+[#DeleteFulltextTags]
+=== _DeleteFulltextTags_ 
+
+
+
+[.fields-DeleteFulltextTags]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| tags
+| 
+| List  of <<DeleteFulltextTags_tags_inner>>
+| List of tags
+|  
+
+|===
+
+
+[#DeleteFulltextTagsTagsInner]
+=== _DeleteFulltextTagsTagsInner_ 
+
+
+
+[.fields-DeleteFulltextTagsTagsInner]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| key
+| 
+| String 
+| Tag key
+|  
+
+| value
+| 
+| String 
+| Tag value
+|  
+
+| values
+| 
+| List  of <<string>>
+| Tag values
+|  
+
+|===
 
 
 [#DocumentAction]
 === _DocumentAction_ 
 
-Document action
+
 
 [.fields-DocumentAction]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
 
+| status
+| 
+| String 
+| Status of the Document Action (PENDING, COMPLETE, FAILED)
+|  
+
 | type
 | 
 | String 
-| Type of action (supported values: ocr)
+| Type of Document Action
+|  
+
+| userId
+| 
+| String 
+| User who requested the Action
 |  
 
 | parameters
 | 
-| DocumentAction_parameters 
+| DocumentBodyAction_parameters 
 | 
 |  
 
 |===
 
 
-[#DocumentActionParameters]
-=== _DocumentActionParameters_ 
+[#DocumentActions]
+=== _DocumentActions_ 
 
 
 
-[.fields-DocumentActionParameters]
+[.fields-DocumentActions]
 [cols="2,1,2,4,1"]
 |===
 | Field Name| Required| Type| Description| Format
 
-| ocrParseTypes
+| actions
 | 
-| String 
-| OCR Parse types - TEXT, FORMS, TABLES
+| List  of <<DocumentAction>>
+| List of document actions
 |  
 
 |===
@@ -3631,7 +4642,7 @@ Document action
 
 | actions
 | 
-| List  of <<DocumentAction>>
+| List  of <<DocumentBodyAction>>
 | List of document actions
 |  
 
@@ -3639,6 +4650,50 @@ Document action
 | 
 | List  of <<DocumentBody_documents_inner>>
 | List of related documents
+|  
+
+|===
+
+
+[#DocumentBodyAction]
+=== _DocumentBodyAction_ 
+
+Document action
+
+[.fields-DocumentBodyAction]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| type
+| 
+| String 
+| Type of action (supported values: ocr, fulltext)
+|  
+
+| parameters
+| 
+| DocumentBodyAction_parameters 
+| 
+|  
+
+|===
+
+
+[#DocumentBodyActionParameters]
+=== _DocumentBodyActionParameters_ 
+
+
+
+[.fields-DocumentBodyActionParameters]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| ocrParseTypes
+| 
+| String 
+| OCR Parse types - TEXT, FORMS, TABLES
 |  
 
 |===
@@ -3719,6 +4774,87 @@ Document action
 | 
 | Boolean 
 | Is Content Base64 encoded
+|  
+
+|===
+
+
+[#DocumentFulltextSearch]
+=== _DocumentFulltextSearch_ 
+
+Document full text search criteria
+
+[.fields-DocumentFulltextSearch]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| text
+| 
+| String 
+| Full text search
+|  
+
+| tags
+| 
+| List  of <<DocumentFulltextTag>>
+| List of search tags
+|  
+
+|===
+
+
+[#DocumentFulltextSearchBody]
+=== _DocumentFulltextSearchBody_ 
+
+Document full text search
+
+[.fields-DocumentFulltextSearchBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| query
+| X
+| DocumentFulltextSearch 
+| 
+|  
+
+| responseFields
+| 
+| SearchResponseFields 
+| 
+|  
+
+|===
+
+
+[#DocumentFulltextTag]
+=== _DocumentFulltextTag_ 
+
+
+
+[.fields-DocumentFulltextTag]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| eq
+| 
+| String 
+| Searches for strings that eq
+|  
+
+| eqOr
+| 
+| List  of <<string>>
+| Searches for ANY strings that eq
+|  
+
+| key
+| X
+| String 
+| Tag key to search
 |  
 
 |===
@@ -4318,6 +5454,12 @@ Document search tag criteria
 | 
 |  
 
+| responseFields
+| 
+| SearchResponseFields 
+| 
+|  
+
 |===
 
 
@@ -4494,7 +5636,7 @@ Document tag search criteria
 
 | actions
 | 
-| List  of <<DocumentAction>>
+| List  of <<DocumentBodyAction>>
 | List of document actions
 |  
 
@@ -4565,6 +5707,155 @@ Document tag search criteria
 | 
 | List  of <<Error>>
 | List of errors
+|  
+
+|===
+
+
+[#FulltextBody]
+=== _FulltextBody_ 
+
+
+
+[.fields-FulltextBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| contentType
+| 
+| String 
+| Document Content-Type
+|  
+
+| content
+| 
+| String 
+| Document content
+|  
+
+| contentUrl
+| 
+| String 
+| Url which contains Document content
+|  
+
+|===
+
+
+[#FulltextDocument]
+=== _FulltextDocument_ 
+
+
+
+[.fields-FulltextDocument]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| siteId
+| 
+| String 
+| Site Identifier
+|  
+
+| path
+| 
+| String 
+| Path or Name of document
+|  
+
+| insertedDate
+| 
+| Date 
+| Inserted Timestamp
+| date-time 
+
+| documentId
+| 
+| UUID 
+| Document Identifier
+| uuid 
+
+| createdBy
+| 
+| String 
+| User who added document
+|  
+
+| tags
+| 
+| Object 
+| 
+|  
+
+|===
+
+
+[#FulltextResult]
+=== _FulltextResult_ 
+
+
+
+[.fields-FulltextResult]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| message
+| 
+| String 
+| Full text processing message
+|  
+
+|===
+
+
+[#FulltextSearchResults]
+=== _FulltextSearchResults_ 
+
+
+
+[.fields-FulltextSearchResults]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| documents
+| 
+| List  of <<FulltextDocument>>
+| List of search result documents
+|  
+
+|===
+
+
+[#FulltextUpdateBody]
+=== _FulltextUpdateBody_ 
+
+
+
+[.fields-FulltextUpdateBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| path
+| 
+| String 
+| Path or Name of document
+|  
+
+| content
+| 
+| String 
+| Document content
+|  
+
+| tags
+| 
+| List  of <<DeleteFulltextTags_tags_inner>>
+| List of tags
 |  
 
 |===
@@ -4657,6 +5948,62 @@ Document tag search criteria
 | 
 | DocumentSearchMatchTag 
 | 
+|  
+
+| tags
+| 
+| Object 
+| 
+|  
+
+|===
+
+
+[#SearchResponseFields]
+=== _SearchResponseFields_ 
+
+
+
+[.fields-SearchResponseFields]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| tags
+| 
+| List  of <<string>>
+| 
+|  
+
+|===
+
+
+[#SetOcrBody]
+=== _SetOcrBody_ 
+
+
+
+[.fields-SetOcrBody]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| contentType
+| 
+| String 
+| Document Content-Type
+|  
+
+| isBase64
+| 
+| Boolean 
+| Is Content Base64 encoded
+|  
+
+| content
+| X
+| String 
+| Document content
 |  
 
 |===
@@ -5237,5 +6584,4 @@ Document tag search criteria
 |  
 
 |===
-
 
