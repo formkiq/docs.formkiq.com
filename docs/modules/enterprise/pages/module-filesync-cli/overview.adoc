@@ -4,13 +4,36 @@ FileSync CLI is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headles
 
 == CloudFormation installation
 
-The FileSync CLI needs to have permissions configured to give it access to FormKiQ. This can be done via the CloudFormation script found on your https://github.com/formkiq[FormKiQ GitHub] page.
+The FileSync CLI needs to have permissions configured to give it access to FormKiQ. This can be done via the CloudFormation script found in the FileSync CLI .zip release file.
 
 After installation on the if you look at the `Outputs` tab of the CloudFormation Stack you'll get the Access/Secret Key the CLI needs to use.
 
 image::cf-filesync-cli-outputs.png[CloudFormation FileSync CLI Outputs,600,600]
 
+== Parameters
+
+The FileSync CLI top level parameters are shown below.
+
+```
+usage: fk
+    --configure   configure AWS credentials
+    --sync        sync files with FormKiQ
+    --watch       watch directorie(s) for file changes and syncs with
+                  FormKiQ
+```
+
 == Configure
+
+The configure parameter allows configuring the AWS credentials for the CLI.
+
+```
+usage: fk --configure
+    --access-key <arg>     AWS Access Key
+    --endpoint-url <arg>   Override command's default URL with the given
+                           URL
+    --region <arg>         The AWS region FormKiQ is installed in
+    --secret-key <arg>     AWS Secret Key
+```
 
 Using the Access/Secret Key created in the section above. Use those values to configure the CLI tool.
 
@@ -18,5 +41,69 @@ Using the Access/Secret Key created in the section above. Use those values to co
 fk --configure --access-key <ACCESS_KEY> --secret-key <SECRET_KEY> --region <AWS_REGION>
 ```
 
+== Sync / Watch
+
+The CLI can be used used sync a directory with FormKiQ or to watch a directory for changes and sync those changes with FormKiQ.
+
+The required parameters are:
+
+|=======================================================================
+| Argument | Description                
+| `--appenvironment` | The FormKiQ's AppEnvironment configured during installation
+| `--dir` | Directory to sync/watch changes
+| `--virtualfolder` | virtual folder name/path to organize documents within FormKiQ
+|=======================================================================
+
+```
+usage: fk --sync / --watch
+ -a,--appenvironment <arg>   FormKiQ AppEnvironment
+    --actions <arg>          Actions to perform on file (OCR / FULLTEXT)
+ -d,--dir <arg>              Directory to watch for changes
+    --dry-run                show what would have been transferred
+    --max-file-queue         maximum number of files to queue (default:
+                             500)
+    --mtime <arg>            file modification time subtracted from the
+                             initialization time (IE: --mtime -5 find
+                             files modified last 5 minutes to sync)
+ -r,--recursive              recurse into directories
+    --siteId <arg>           FormKiQ Site Id to Sync files to
+ -v,--verbose                increase verbosity
+    --virtualfolder <arg>    A virtual folder name/path to organize
+                             documents within FormKiQ
+```
+
+
 == Usage
 
+The following are example commands of fk usage.
+
+*Basic Directory Syncing*
+```
+fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose
+```
+
+*Sync files modified in the last 24 hours*
+```
+fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose --mtime 0
+```
+
+*Sync files modified more than 7 days ago*
+```
+fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose --mtime 7
+```
+
+*Sync files modified in the last 30 days*
+```
+fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose --mtime -30
+```
+
+*Sync the /documents directory and performs the OCR & Fulltext actions to all documents*
+
+```
+fk --sync -a dev --virtualfolder windowsShare --actions ocr,fulltext -d /documents --verbose
+```
+
+*Basic Directory Watching*
+```
+fk --watch -a dev --virtualfolder windowsShare -d /documents --verbose
+```
