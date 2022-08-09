@@ -48,6 +48,8 @@ _**NOTE:** we have included the full link:../reference/README.html#enterprise-ap
 
 ✅ link:#custom-authorizer-module[Single Sign-On and Custom JWT Authorizer Module]
 
+✅ link:#module-filesync-cli[FileSync CLI Module]
+
 To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
 
 To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
@@ -65,5 +67,7 @@ include::module-ocr/overview.adoc[Document OCR Module]
 include::module-full-encryption/overview.adoc[Full Encryption Module]
 
 include::module-custom-authorizer/overview.adoc[Single Sign-On and Custom JWT Authorizer Module]
+
+include::module-filesync-cli/overview.adoc[FileSync CLI Module]
 
 include::appendix.adoc[Appendix]
