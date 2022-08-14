@@ -12,9 +12,11 @@ Fulltext Search is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Head
 
 === Installation
 
-image::cf-enterprise-scripts.png[CloudFormation Enterprise Scripts,600,600]
+video::brvHNrICnXE[youtube,title=Install Fulltext Document Search powered by OpenSearch to your FormKiQ Enterprise installation,width=640,height=480]
 
 On your https://github.com/formkiq[FormKiQ Enterprise] page, you'll find CloudFormation single-click installation links.
+
+image::cf-enterprise-scripts.png[CloudFormation Enterprise Scripts,600,600]
 
 The Fulltext Search module uses the AWS OpenSearch service. The OpenSearch service can be inside of a VPC or outside of a VPC. FormKiQ provides methods for doing either type of installation.
 
