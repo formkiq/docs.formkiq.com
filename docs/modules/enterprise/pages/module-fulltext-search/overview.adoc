@@ -1,6 +1,8 @@
 Fulltext Search Module
 ----------------------
 
+image::architecture_formkiq_and_opensearch.png[FormKiQ OpenSearch Architecture]
+
 
 ✅ Extend Search Functionality, including multiple tag parameters and fulltext queries, through OpenSearch
 

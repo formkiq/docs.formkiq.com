@@ -16,6 +16,8 @@ FormKiQ has been architected using https://aws.amazon.com[Amazon Web Services (A
 Components
 ~~~~~~~~~~
 
+image::architecture_formkiq_core.png[FormKiQ Core Architecture]
+
 * link:#_data_storage[Data Storage] - The data storage stores the document's data and any metadata (tags, related documents) attached to the document.
 * link:#_api[API] - API is an interface to the documents that provides a well-defined method for working with documents.
 * link:#_processing[Processing] - The processing component sit in between the API and data storage component and translates requests between the two components.

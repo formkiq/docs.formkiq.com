@@ -1,6 +1,8 @@
 Document OCR Module
 -------------------
 
+image::architecture_formkiq_and_ocr.png[FormKiQ OCR Architecture]
+
 ✅ Use Amazon Textract to extract text and structured table or form data from documents
 
 Overview
