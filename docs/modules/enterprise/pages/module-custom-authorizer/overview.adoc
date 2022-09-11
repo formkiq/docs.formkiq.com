@@ -119,3 +119,35 @@ FormKiQ access is determined by the group(s) the user belongs to, see https://do
 The only difference is all user groups need to be prefixed with `formkiq_`.
 
 At a minimum you need to create a group called `formkiq_default` which will give users read / write access to the default siteId.
+
+=== OpenSearch Dashboards/Kibana using SAML Authentication
+
+SAML authentication for OpenSearch Dashboards lets you use your existing identity provider to offer single sign-on (SSO) for Dashboards/Kibana on Amazon OpenSearch Service.
+
+Start by visiting the https://us-east-2.console.aws.amazon.com/opensearch/domains[AWS OpenSearch Console] and selecting the domain to change the authentication source.
+
+Select the `Security configuration` tab and then the `Edit` button.
+
+image::opensearch-security-configuration.png['OpenSearch Security Configuration']
+
+First, Disable Cognito Authentication
+
+image::opensearch-cognito-authentication.png['Cognito Authentication']
+
+Next, Enable SAML authentication
+
+image::opensearch-saml-authentication.png['SAML Authentication']
+
+After enabling SAML authentication, you are provided the following configuration urls:
+
+* Service provider entity ID
+
+* IdP-initiated SSO URL
+
+* SP-initiated SSO URL
+
+Using the above urls to create a new application with SAML support in your IdP. To configure authentication through your IdP's application directory, use the IdP-initiated SSO URL. To configure authentication through the OpenSearch Dashboards/Kibana URL, use the SP-initiated SSO URL.
+
+The following link provides additional information on configuring 
+https://docs.aws.amazon.com/opensearch-service/latest/developerguide/saml.html[SAML authentication for OpenSearch Dashboards].
+
