@@ -1,14 +1,34 @@
 = FormKiQ Documentation
 :navtitle: Tutorials
 :title: FormKiQ Core Tutorials
+:docinfo: shared
+:data-uri:
+:toc: left
+:toclevels: 2
+:sectanchors:
+:sectlinks:
+:sectnums:
+:favicon: favicon.ico
 
 These tutorials provide a deeper exploration of FormKiQ Core.
 
-== xref:tutorials:install.adoc[FormKiQ Core Installation]
+== xref:tutorials:install.adoc[FormKiQ Core SAM Installation]
 
-xref:tutorials:install.adoc[This tutorial] takes you through downloading https://github.com/formkiq/formkiq-core[FormKiQ Core] and installing it into your AWS account.
+xref:tutorials:install.adoc[This tutorial] takes you through downloading https://github.com/formkiq/formkiq-core[FormKiQ Core] and using the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html[SAM CLI] to install it into your AWS account.
 
 Time: 30 minutes
+
+== xref:tutorials:jwt-authentication-token.adoc[Getting an JWT Authentication Token]
+
+xref:tutorials:jwt-authentication-token.adoc[This tutorial] will take you through getting an authentication token (JWT) that can be used to access the FormKiQ API.
+
+Time: 5 minutes
+
+== xref:tutorials:postman-formkiq-openapi.adoc[Using Postman and FormKiQ API]
+
+xref:tutorials:postman-formkiq-openapi.adoc[This tutorial] will take you through importing the FormKiQ API into Postman.
+
+Time: 10 minutes
 
 == xref:tutorials:documentapi.adoc[Getting Started with the FormKiQ Document API]
 
