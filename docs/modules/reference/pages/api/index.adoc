@@ -33,10 +33,10 @@ Get a document's contents. text/*, application/json, application/x-www-form-urle
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -50,16 +50,16 @@ Get a document's contents. text/*, application/json, application/x-www-form-urle
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | versionId
-| Version Identifier 
+| Version Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -134,10 +134,10 @@ Delete a document
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -151,10 +151,10 @@ Delete a document
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -227,10 +227,10 @@ Retrieves a document's details, i.e., metadata
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -244,10 +244,10 @@ Retrieves a document's details, i.e., metadata
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -322,10 +322,10 @@ Update a document's details, i.e., metadata
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -338,8 +338,8 @@ Update a document's details, i.e., metadata
 | AddDocumentRequest
 |  <<AddDocumentRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -352,10 +352,10 @@ Update a document's details, i.e., metadata
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -430,10 +430,10 @@ Returns a URL that can be used to upload documents for a specific documentId (re
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -447,22 +447,22 @@ Returns a URL that can be used to upload documents for a specific documentId (re
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | contentLength
-| Indicates the size of the entity-body 
+| Indicates the size of the entity-body
 | -
 | null
-| 
+|
 
 | duration
-| Indicates the number of hours request is valid for 
+| Indicates the number of hours request is valid for
 | -
 | null
-| 
+|
 
 |===
 
@@ -537,10 +537,10 @@ Returns a URL for the document's contents that expires (default is 48 hours)
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -554,22 +554,22 @@ Returns a URL for the document's contents that expires (default is 48 hours)
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | versionId
-| Version Identifier 
+| Version Identifier
 | -
 | null
-| 
+|
 
 | duration
-| Indicates the number of hours request is valid for 
+| Indicates the number of hours request is valid for
 | -
 | null
-| 
+|
 
 |===
 
@@ -644,10 +644,10 @@ Get a listing of document content versions
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -661,16 +661,16 @@ Get a listing of document content versions
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | next
-| Next page of results token 
+| Next page of results token
 | -
 | null
-| 
+|
 
 |===
 
@@ -749,40 +749,40 @@ Returns a list of the most recent documents added, ordered by inserted, descendi
 |Name| Description| Required| Default| Pattern
 
 | date
-| Fetch documents inserted on a certain date (yyyy-MM-dd) 
+| Fetch documents inserted on a certain date (yyyy-MM-dd)
 | -
 | null
-| 
+|
 
 | tz
-| UTC offset to apply to date parameter (IE: -0600) 
+| UTC offset to apply to date parameter (IE: -0600)
 | -
 | null
-| 
+|
 
 | next
-| Next page of results token 
+| Next page of results token
 | -
 | null
-| 
+|
 
 | previous
-| Previous page of results token 
+| Previous page of results token
 | -
 | null
-| 
+|
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | limit
-| Limit Results 
+| Limit Results
 | -
 | 10
-| 
+|
 
 |===
 
@@ -860,8 +860,8 @@ Creates a new document; body may include document content if less than 5 MB
 | AddDocumentRequest
 |  <<AddDocumentRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -874,10 +874,10 @@ Creates a new document; body may include document content if less than 5 MB
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -956,28 +956,28 @@ Returns a URL that can be used to upload document content and create a new docum
 |Name| Description| Required| Default| Pattern
 
 | path
-| The upload file&#39;s path 
+| The upload file&#39;s path
 | -
 | null
-| 
+|
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | contentLength
-| Indicates the size of the entity-body 
+| Indicates the size of the entity-body
 | -
 | null
-| 
+|
 
 | duration
-| Indicates the number of hours request is valid for 
+| Indicates the number of hours request is valid for
 | -
 | null
-| 
+|
 
 |===
 
@@ -1055,8 +1055,8 @@ Returns a URL that can be used to upload document content and create a new docum
 | AddDocumentUploadRequest
 |  <<AddDocumentUploadRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -1069,16 +1069,16 @@ Returns a URL that can be used to upload document content and create a new docum
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | duration
-| Indicates the number of hours request is valid for 
+| Indicates the number of hours request is valid for
 | -
 | null
-| 
+|
 
 |===
 
@@ -1157,10 +1157,10 @@ Get Document Actions and their Status
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -1174,10 +1174,10 @@ Get Document Actions and their Status
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -1252,10 +1252,10 @@ Add action to a document
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -1268,8 +1268,8 @@ Add action to a document
 | AddDocumentActionsRequest
 |  <<AddDocumentActionsRequest>>
 | -
-| 
-| 
+|
+|
 
 |===
 
@@ -1282,10 +1282,10 @@ Add action to a document
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -1366,8 +1366,8 @@ Document full text search (and more robust multi-tag search queries, powered by 
 | DocumentFulltextRequest
 |  <<DocumentFulltextRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -1380,16 +1380,16 @@ Document full text search (and more robust multi-tag search queries, powered by 
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | limit
-| Limit Results 
+| Limit Results
 | -
 | 10
-| 
+|
 
 |===
 
@@ -1467,8 +1467,8 @@ Document search query request; documents are searched primarily using a document
 | DocumentSearchRequest
 |  <<DocumentSearchRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -1481,28 +1481,28 @@ Document search query request; documents are searched primarily using a document
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | limit
-| Limit Results 
+| Limit Results
 | -
 | 10
-| 
+|
 
 | next
-| Next page of results token 
+| Next page of results token
 | -
 | null
-| 
+|
 
 | previous
-| Previous page of results token 
+| Previous page of results token
 | -
 | null
-| 
+|
 
 |===
 
@@ -1551,6 +1551,100 @@ ifdef::internal-generation[]
 
 endif::internal-generation[]
 
+[.queryFulltextPost]
+==== queryFulltextPost
+
+`POST /queryFulltext`
+
+
+
+===== Description
+
+Endpoint for allowing custom, complex queries using the OpenSearch search API (https://opensearch.org/docs/latest/opensearch/rest-api/search/) ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}queryFulltext/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| body
+|  <<object>>
+| X
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+
+<<QueryFulltextResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<QueryFulltextResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}queryFulltext/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}queryFulltext/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :queryFulltext/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}queryFulltext/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
 
 [.DocumentTags]
 === DocumentTags
@@ -1581,10 +1675,10 @@ Get a listing of a document's tags
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -1598,28 +1692,28 @@ Get a listing of a document's tags
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | limit
-| Limit Results 
+| Limit Results
 | -
 | 10
-| 
+|
 
 | next
-| Next page of results token 
+| Next page of results token
 | -
 | null
-| 
+|
 
 | previous
-| Previous page of results token 
+| Previous page of results token
 | -
 | null
-| 
+|
 
 |===
 
@@ -1694,10 +1788,10 @@ Add a single tag to a document; endpoint also accepts a different body parameter
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -1710,8 +1804,8 @@ Add a single tag to a document; endpoint also accepts a different body parameter
 | AddDocumentTagRequest
 |  <<AddDocumentTagRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -1724,10 +1818,10 @@ Add a single tag to a document; endpoint also accepts a different body parameter
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -1800,10 +1894,10 @@ Add multiple tags to a document; endpoint also accepts a different body paramete
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -1816,8 +1910,8 @@ Add multiple tags to a document; endpoint also accepts a different body paramete
 | AddDocumentTagsRequest
 |  <<AddDocumentTagsRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -1830,10 +1924,10 @@ Add multiple tags to a document; endpoint also accepts a different body paramete
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -1906,16 +2000,16 @@ Delete a document tag by using its key
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 | tagKey
-| Tag Key 
+| Tag Key
 | X
 | null
-| 
+|
 
 |===
 
@@ -1929,10 +2023,10 @@ Delete a document tag by using its key
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2005,16 +2099,16 @@ Get a document tag by using its key
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 | tagKey
-| Tag Key 
+| Tag Key
 | X
 | null
-| 
+|
 
 |===
 
@@ -2028,10 +2122,10 @@ Get a document tag by using its key
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2106,16 +2200,16 @@ Update any and all values of a document tag, by using its key; you can supply on
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 | tagKey
-| Tag Key 
+| Tag Key
 | X
 | null
-| 
+|
 
 |===
 
@@ -2128,8 +2222,8 @@ Update any and all values of a document tag, by using its key; you can supply on
 | SetDocumentTagKeyRequest
 |  <<SetDocumentTagKeyRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -2142,10 +2236,10 @@ Update any and all values of a document tag, by using its key; you can supply on
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2218,22 +2312,22 @@ Delete a specific document tag's key/value combination; the request will be igno
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 | tagKey
-| Tag Key 
+| Tag Key
 | X
 | null
-| 
+|
 
 | tagValue
-| Tag Key Value 
+| Tag Key Value
 | X
 | null
-| 
+|
 
 |===
 
@@ -2247,10 +2341,10 @@ Delete a specific document tag's key/value combination; the request will be igno
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2472,8 +2566,8 @@ Allows unauthenticated creation of new documents; must be enabled during install
 | DocumentBody
 |  <<DocumentBody>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -2486,10 +2580,10 @@ Allows unauthenticated creation of new documents; must be enabled during install
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2564,10 +2658,10 @@ Receives an incoming public post to a specified webhook and creates a document b
 |Name| Description| Required| Default| Pattern
 
 | webhooks+
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -2580,8 +2674,8 @@ Receives an incoming public post to a specified webhook and creates a document b
 | body
 |  <<object>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -2594,10 +2688,10 @@ Receives an incoming public post to a specified webhook and creates a document b
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2676,10 +2770,10 @@ Receives an incoming private webhook and creates a document based on the webhook
 |Name| Description| Required| Default| Pattern
 
 | webhooks+
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -2692,8 +2786,8 @@ Receives an incoming private webhook and creates a document based on the webhook
 | body
 |  <<object>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -2706,10 +2800,10 @@ Receives an incoming private webhook and creates a document based on the webhook
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2788,10 +2882,10 @@ Returns a list of webhooks; each webhook's id can be provided to an external ser
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2869,8 +2963,8 @@ Create a new webhook; once created, a webhook's id can be provided to an externa
 | AddWebhookRequest
 |  <<AddWebhookRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -2883,10 +2977,10 @@ Create a new webhook; once created, a webhook's id can be provided to an externa
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -2961,10 +3055,10 @@ Deletes a webhook; this will disable sending, receiving, or processing of data f
 |Name| Description| Required| Default| Pattern
 
 | webhookId
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -2978,10 +3072,10 @@ Deletes a webhook; this will disable sending, receiving, or processing of data f
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3054,10 +3148,10 @@ Returns a webhook's details, i.e., its metadata
 |Name| Description| Required| Default| Pattern
 
 | webhookId
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -3071,10 +3165,10 @@ Returns a webhook's details, i.e., its metadata
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3149,10 +3243,10 @@ Updates a webhook's details, i.e., its metadata
 |Name| Description| Required| Default| Pattern
 
 | webhookId
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -3165,8 +3259,8 @@ Updates a webhook's details, i.e., its metadata
 | AddWebhookRequest
 |  <<AddWebhookRequest>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -3179,10 +3273,10 @@ Updates a webhook's details, i.e., its metadata
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3255,10 +3349,10 @@ Get a webhook's tags
 |Name| Description| Required| Default| Pattern
 
 | webhookId
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -3272,10 +3366,10 @@ Get a webhook's tags
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3350,10 +3444,10 @@ Add a tag to a webhook
 |Name| Description| Required| Default| Pattern
 
 | webhookId
-| Web Hook Param 
+| Web Hook Param
 | X
 | null
-| 
+|
 
 |===
 
@@ -3366,8 +3460,8 @@ Add a tag to a webhook
 | GetDocumentTagResponse
 |  <<GetDocumentTagResponse>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -3380,10 +3474,10 @@ Add a tag to a webhook
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3460,10 +3554,10 @@ Performs Antivirus scan on a document. ONLY available with FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -3476,8 +3570,8 @@ Performs Antivirus scan on a document. ONLY available with FormKiQ Enterprise
 | body
 |  <<object>>
 | -
-| 
-| 
+|
+|
 
 |===
 
@@ -3490,10 +3584,10 @@ Performs Antivirus scan on a document. ONLY available with FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3572,10 +3666,10 @@ Removes full text search for a document; ONLY available with FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -3589,10 +3683,10 @@ Removes full text search for a document; ONLY available with FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3665,10 +3759,10 @@ Retrieves an OpenSearch document's details, i.e., metadata
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -3682,10 +3776,10 @@ Retrieves an OpenSearch document's details, i.e., metadata
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3760,10 +3854,10 @@ Updates Opensearch document; ONLY available with FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -3776,8 +3870,8 @@ Updates Opensearch document; ONLY available with FormKiQ Enterprise
 | UpdateDocumentFulltextRequest
 |  <<UpdateDocumentFulltextRequest>>
 | -
-| 
-| 
+|
+|
 
 |===
 
@@ -3790,10 +3884,10 @@ Updates Opensearch document; ONLY available with FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3868,10 +3962,10 @@ Set all text/tags found within a document to OpenSearch; ONLY available with For
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -3884,8 +3978,8 @@ Set all text/tags found within a document to OpenSearch; ONLY available with For
 | SetDocumentFulltextRequest
 |  <<SetDocumentFulltextRequest>>
 | -
-| 
-| 
+|
+|
 
 |===
 
@@ -3898,10 +3992,10 @@ Set all text/tags found within a document to OpenSearch; ONLY available with For
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -3976,16 +4070,16 @@ Removes document tags from full text search; ONLY available with FormKiQ Enterpr
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 | tagKey
-| Tag Key 
+| Tag Key
 | X
 | null
-| 
+|
 
 |===
 
@@ -3999,10 +4093,10 @@ Removes document tags from full text search; ONLY available with FormKiQ Enterpr
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4075,22 +4169,22 @@ Removes document tag/value from full text search; ONLY available with FormKiQ En
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 | tagKey
-| Tag Key 
+| Tag Key
 | X
 | null
-| 
+|
 
 | tagValue
-| Tag Key Value 
+| Tag Key Value
 | X
 | null
-| 
+|
 
 |===
 
@@ -4104,10 +4198,10 @@ Removes document tag/value from full text search; ONLY available with FormKiQ En
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4184,10 +4278,10 @@ Delete a Document optical character recognition (OCR) result; if exists. ONLY av
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -4201,10 +4295,10 @@ Delete a Document optical character recognition (OCR) result; if exists. ONLY av
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4277,10 +4371,10 @@ Get Document optical character recognition (OCR) result; if exists. ONLY availab
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -4294,22 +4388,22 @@ Get Document optical character recognition (OCR) result; if exists. ONLY availab
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | contentUrl
-| Whether to return a \&quot;contentUrl\&quot;, set value to &#39;true&#39; 
+| Whether to return a \&quot;contentUrl\&quot;, set value to &#39;true&#39;
 | -
 | null
-| 
+|
 
 | text
-| Returns raw &#39;text&#39; of OCR content. e.g. AWS Textract returns JSON, setting parameter to &#39;true&#39; converts JSON to Text 
+| Returns raw &#39;text&#39; of OCR content. e.g. AWS Textract returns JSON, setting parameter to &#39;true&#39; converts JSON to Text
 | -
 | null
-| 
+|
 
 |===
 
@@ -4384,10 +4478,10 @@ Document optical character recognition (OCR) request; extract text and data from
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -4400,8 +4494,8 @@ Document optical character recognition (OCR) request; extract text and data from
 | AddDocumentOcrRequest
 |  <<AddDocumentOcrRequest>>
 | -
-| 
-| 
+|
+|
 
 |===
 
@@ -4414,10 +4508,10 @@ Document optical character recognition (OCR) request; extract text and data from
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4492,10 +4586,10 @@ Sets a Document optical character recognition (OCR) document. ONLY available wit
 |Name| Description| Required| Default| Pattern
 
 | documentId
-| Document Identifier 
+| Document Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -4508,8 +4602,8 @@ Sets a Document optical character recognition (OCR) document. ONLY available wit
 | SetDocumentOcrRequest
 |  <<SetDocumentOcrRequest>>
 | -
-| 
-| 
+|
+|
 
 |===
 
@@ -4522,10 +4616,10 @@ Sets a Document optical character recognition (OCR) document. ONLY available wit
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4608,28 +4702,28 @@ Returns the list of tagSchemas; ONLY available in FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 | limit
-| Limit Results 
+| Limit Results
 | -
 | 10
-| 
+|
 
 | next
-| Next page of results token 
+| Next page of results token
 | -
 | null
-| 
+|
 
 | previous
-| Previous page of results token 
+| Previous page of results token
 | -
 | null
-| 
+|
 
 |===
 
@@ -4707,8 +4801,8 @@ Creates a new TagSchema; ONLY available in FormKiQ Enterprise
 | AddTagSchema
 |  <<AddTagSchema>>
 | X
-| 
-| 
+|
+|
 
 |===
 
@@ -4721,10 +4815,10 @@ Creates a new TagSchema; ONLY available in FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4804,10 +4898,10 @@ Delete a TagSchema; ONLY available in FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | tagSchemaId
-| Tag Schema Identifier 
+| Tag Schema Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -4821,10 +4915,10 @@ Delete a TagSchema; ONLY available in FormKiQ Enterprise
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -4897,10 +4991,10 @@ Retrieves a TagSchema's details, i.e., metadata; ONLY available in FormKiQ Enter
 |Name| Description| Required| Default| Pattern
 
 | tagSchemaId
-| Tag Schema Identifier 
+| Tag Schema Identifier
 | X
 | null
-| 
+|
 
 |===
 
@@ -4914,10 +5008,10 @@ Retrieves a TagSchema's details, i.e., metadata; ONLY available in FormKiQ Enter
 |Name| Description| Required| Default| Pattern
 
 | siteId
-| Site Identifier 
+| Site Identifier
 | -
 | null
-| 
+|
 
 |===
 
@@ -5046,7 +5140,7 @@ endif::internal-generation[]
 
 
 [#AddAction]
-=== _AddAction_ 
+=== _AddAction_
 
 
 
@@ -5057,21 +5151,21 @@ endif::internal-generation[]
 
 | type
 | X
-| String 
+| String
 | Type of Document Action
-|  _Enum:_ OCR, FULLTEXT, ANTIVIRUS, WEBHOOK, 
+|  _Enum:_ OCR, FULLTEXT, ANTIVIRUS, WEBHOOK,
 
 | parameters
-| 
-| AddActionParameters 
-| 
-|  
+|
+| AddActionParameters
+|
+|
 
 |===
 
 
 [#AddActionParameters]
-=== _AddActionParameters_ 
+=== _AddActionParameters_
 
 
 
@@ -5081,28 +5175,28 @@ endif::internal-generation[]
 | Field Name| Required| Type| Description| Format
 
 | ocrParseTypes
-| 
-| String 
+|
+| String
 | OCR Parse types - TEXT, FORMS, TABLES
-|  
+|
 
 | addPdfDetectedCharactersAsText
-| 
-| Boolean 
+|
+| Boolean
 | OCR action for rewrite PDF document, converting any Image text to searchable text
-|  
+|
 
 | url
-| 
-| String 
+|
+| String
 | Webhook action for the callback URL
-|  
+|
 
 |===
 
 
 [#AddChildDocument]
-=== _AddChildDocument_ 
+=== _AddChildDocument_
 
 List of related documents
 
@@ -5112,34 +5206,34 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | isBase64
-| 
-| Boolean 
+|
+| Boolean
 | Is Content Base64 encoded
-|  
+|
 
 | content
 | X
-| String 
+| String
 | Document content
-|  
+|
 
 |===
 
 
 [#AddChildDocumentResponse]
-=== _AddChildDocumentResponse_ 
+=== _AddChildDocumentResponse_
 
 
 
@@ -5149,22 +5243,22 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | documentId
-| 
-| String 
+|
+| String
 | Document Identifier
-|  
+|
 
 | uploadUrl
-| 
-| String 
+|
+| String
 | Url to upload document to
-|  
+|
 
 |===
 
 
 [#AddDocumentActionsRequest]
-=== _AddDocumentActionsRequest_ 
+=== _AddDocumentActionsRequest_
 
 
 
@@ -5174,16 +5268,16 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | actions
-| 
+|
 | List  of <<AddAction>>
 | List of Actions
-|  
+|
 
 |===
 
 
 [#AddDocumentActionsResponse]
-=== _AddDocumentActionsResponse_ 
+=== _AddDocumentActionsResponse_
 
 
 
@@ -5193,16 +5287,16 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | message
-| 
-| String 
+|
+| String
 | Document Action message
-|  
+|
 
 |===
 
 
 [#AddDocumentOcrRequest]
-=== _AddDocumentOcrRequest_ 
+=== _AddDocumentOcrRequest_
 
 
 
@@ -5212,22 +5306,22 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | parseTypes
-| 
+|
 | List  of <<string>>
 | OCR Parse types - TEXT, FORMS, TABLES
-|  
+|
 
 | addPdfDetectedCharactersAsText
-| 
-| Boolean 
+|
+| Boolean
 | Rewrite PDF document, converting any Image text to searchable text
-|  
+|
 
 |===
 
 
 [#AddDocumentOcrResponse]
-=== _AddDocumentOcrResponse_ 
+=== _AddDocumentOcrResponse_
 
 
 
@@ -5237,16 +5331,16 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | message
-| 
-| String 
+|
+| String
 | OCR processing message
-|  
+|
 
 |===
 
 
 [#AddDocumentRequest]
-=== _AddDocumentRequest_ 
+=== _AddDocumentRequest_
 
 
 
@@ -5256,58 +5350,58 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | tagSchemaId
-| 
-| String 
+|
+| String
 | Tag Schema Id
-|  
+|
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | isBase64
-| 
-| Boolean 
+|
+| Boolean
 | Is Content Base64 encoded
-|  
+|
 
 | content
 | X
-| String 
+| String
 | Document content
-|  
+|
 
 | tags
-| 
+|
 | List  of <<AddDocumentTagRequest>>
 | List of document tags
-|  
+|
 
 | actions
-| 
+|
 | List  of <<AddAction>>
 | List of Actions
-|  
+|
 
 | documents
-| 
+|
 | List  of <<AddChildDocument>>
 | List of child documents
-|  
+|
 
 |===
 
 
 [#AddDocumentResponse]
-=== _AddDocumentResponse_ 
+=== _AddDocumentResponse_
 
 
 
@@ -5317,34 +5411,34 @@ List of related documents
 | Field Name| Required| Type| Description| Format
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | uploadUrl
-| 
-| String 
+|
+| String
 | Url to upload document to
-|  
+|
 
 | documents
-| 
+|
 | List  of <<AddChildDocumentResponse>>
 | List of child documents
-|  
+|
 
 |===
 
 
 [#AddDocumentTagRequest]
-=== _AddDocumentTagRequest_ 
+=== _AddDocumentTagRequest_
 
 List of Document Tags (use either &#39;value&#39; or &#39;values&#39; not both)
 
@@ -5355,27 +5449,27 @@ List of Document Tags (use either &#39;value&#39; or &#39;values&#39; not both)
 
 | key
 | X
-| String 
+| String
 | Tag key
-|  
+|
 
 | value
-| 
-| String 
+|
+| String
 | Tag value
-|  
+|
 
 | values
-| 
+|
 | List  of <<string>>
 | Tag values
-|  
+|
 
 |===
 
 
 [#AddDocumentTagsRequest]
-=== _AddDocumentTagsRequest_ 
+=== _AddDocumentTagsRequest_
 
 Add List of document tags
 
@@ -5385,16 +5479,16 @@ Add List of document tags
 | Field Name| Required| Type| Description| Format
 
 | tags
-| 
+|
 | List  of <<AddDocumentTagRequest>>
 | List of document tags
-|  
+|
 
 |===
 
 
 [#AddDocumentUploadRequest]
-=== _AddDocumentUploadRequest_ 
+=== _AddDocumentUploadRequest_
 
 
 
@@ -5404,34 +5498,34 @@ Add List of document tags
 | Field Name| Required| Type| Description| Format
 
 | tagSchemaId
-| 
-| String 
+|
+| String
 | Tag Schema Id
-|  
+|
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | tags
-| 
+|
 | List  of <<AddDocumentTagRequest>>
 | List of document tags
-|  
+|
 
 | actions
-| 
+|
 | List  of <<AddAction>>
 | List of Actions
-|  
+|
 
 |===
 
 
 [#AddTagSchemaRequest]
-=== _AddTagSchemaRequest_ 
+=== _AddTagSchemaRequest_
 
 
 
@@ -5441,22 +5535,22 @@ Add List of document tags
 | Field Name| Required| Type| Description| Format
 
 | name
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | tags
-| 
-| AddTagSchemaTags 
-| 
-|  
+|
+| AddTagSchemaTags
+|
+|
 
 |===
 
 
 [#AddTagSchemaTags]
-=== _AddTagSchemaTags_ 
+=== _AddTagSchemaTags_
 
 
 
@@ -5466,34 +5560,34 @@ Add List of document tags
 | Field Name| Required| Type| Description| Format
 
 | compositeKeys
-| 
+|
 | List  of <<TagSchemaCompositeKey>>
 | List of Composite Keys
-|  
+|
 
 | required
-| 
+|
 | List  of <<TagSchemaRequired>>
 | List of Required Tags
-|  
+|
 
 | optional
-| 
+|
 | List  of <<TagSchemaOptional>>
 | List of Optional Tags
-|  
+|
 
 | allowAdditionalTags
-| 
-| Boolean 
-| 
-|  
+|
+| Boolean
+|
+|
 
 |===
 
 
 [#AddWebhookRequest]
-=== _AddWebhookRequest_ 
+=== _AddWebhookRequest_
 
 
 
@@ -5504,33 +5598,33 @@ Add List of document tags
 
 | name
 | X
-| String 
+| String
 | Name of webhook
-|  
+|
 
 | ttl
-| 
-| String 
+|
+| String
 | Webhook time to live (expiry)
-|  
+|
 
 | enabled
-| 
-| String 
+|
+| String
 | Is webhook enabled
-|  
+|
 
 | tags
-| 
+|
 | List  of <<AddDocumentTagRequest>>
 | List of document tags
-|  
+|
 
 |===
 
 
 [#AddWebhookResponse]
-=== _AddWebhookResponse_ 
+=== _AddWebhookResponse_
 
 
 
@@ -5540,22 +5634,22 @@ Add List of document tags
 | Field Name| Required| Type| Description| Format
 
 | id
-| 
-| UUID 
-| 
-| uuid 
+|
+| UUID
+|
+| uuid
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 |===
 
 
 [#DocumentAction]
-=== _DocumentAction_ 
+=== _DocumentAction_
 
 
 
@@ -5565,34 +5659,34 @@ Add List of document tags
 | Field Name| Required| Type| Description| Format
 
 | status
-| 
-| String 
+|
+| String
 | Status of the Document Action
-|  
+|
 
 | type
-| 
-| String 
+|
+| String
 | Type of Document Action
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who requested the Action
-|  
+|
 
 | parameters
-| 
-| Object 
+|
+| Object
 | Action parameters
-|  
+|
 
 |===
 
 
 [#DocumentFulltextRequest]
-=== _DocumentFulltextRequest_ 
+=== _DocumentFulltextRequest_
 
 Document full text search
 
@@ -5603,21 +5697,21 @@ Document full text search
 
 | query
 | X
-| DocumentFulltextSearch 
-| 
-|  
+| DocumentFulltextSearch
+|
+|
 
 | responseFields
-| 
-| SearchResponseFields 
-| 
-|  
+|
+| SearchResponseFields
+|
+|
 
 |===
 
 
 [#DocumentFulltextResponse]
-=== _DocumentFulltextResponse_ 
+=== _DocumentFulltextResponse_
 
 
 
@@ -5627,16 +5721,16 @@ Document full text search
 | Field Name| Required| Type| Description| Format
 
 | documents
-| 
+|
 | List  of <<FulltextSearchItem>>
 | List of search result documents
-|  
+|
 
 |===
 
 
 [#DocumentFulltextSearch]
-=== _DocumentFulltextSearch_ 
+=== _DocumentFulltextSearch_
 
 Document full text search criteria
 
@@ -5646,28 +5740,28 @@ Document full text search criteria
 | Field Name| Required| Type| Description| Format
 
 | page
-| 
-| Integer 
+|
+| Integer
 | Result page to return (starting at 1)
-|  
+|
 
 | text
-| 
-| String 
+|
+| String
 | Full text search
-|  
+|
 
 | tags
-| 
+|
 | List  of <<DocumentFulltextTag>>
 | List of search tags
-|  
+|
 
 |===
 
 
 [#DocumentFulltextTag]
-=== _DocumentFulltextTag_ 
+=== _DocumentFulltextTag_
 
 
 
@@ -5677,28 +5771,28 @@ Document full text search criteria
 | Field Name| Required| Type| Description| Format
 
 | eq
-| 
-| String 
+|
+| String
 | Searches for strings that eq
-|  
+|
 
 | eqOr
-| 
+|
 | List  of <<string>>
 | Searches for ANY strings that eq
-|  
+|
 
 | key
 | X
-| String 
+| String
 | Tag key to search
-|  
+|
 
 |===
 
 
 [#DocumentId]
-=== _DocumentId_ 
+=== _DocumentId_
 
 
 
@@ -5709,21 +5803,21 @@ Document full text search criteria
 
 | documentId
 | X
-| UUID 
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 |===
 
 
 [#DocumentItemResult]
-=== _DocumentItemResult_ 
+=== _DocumentItemResult_
 
 
 
@@ -5733,70 +5827,70 @@ Document full text search criteria
 | Field Name| Required| Type| Description| Format
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | lastModifiedDate
-| 
-| Date 
+|
+| Date
 | Last Modified Timestamp
-| date-time 
+| date-time
 
 | checksum
-| 
-| String 
+|
+| String
 | Document checksum, changes when document file changes
-|  
+|
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | contentLength
-| 
-| Integer 
+|
+| Integer
 | Document size
-|  
+|
 
 | versionId
-| 
-| String 
+|
+| String
 | Document version
-|  
+|
 
 |===
 
 
 [#DocumentItemVersion]
-=== _DocumentItemVersion_ 
+=== _DocumentItemVersion_
 
 
 
@@ -5807,21 +5901,21 @@ Document full text search criteria
 
 | versionId
 | X
-| String 
+| String
 | Document version
-|  
+|
 
 | lastModifiedDate
-| 
-| String 
+|
+| String
 | Last modified date
-|  
+|
 
 |===
 
 
 [#DocumentSearchItemTag]
-=== _DocumentSearchItemTag_ 
+=== _DocumentSearchItemTag_
 
 
 
@@ -5831,34 +5925,34 @@ Document full text search criteria
 | Field Name| Required| Type| Description| Format
 
 | beginsWith
-| 
-| String 
+|
+| String
 | Searches for strings that begin with
-|  
+|
 
 | eq
-| 
-| String 
+|
+| String
 | Searches for strings that eq
-|  
+|
 
 | eqOr
-| 
+|
 | List  of <<string>>
 | Searches for ANY strings that eq
-|  
+|
 
 | key
 | X
-| String 
+| String
 | Tag key to search
-|  
+|
 
 |===
 
 
 [#DocumentSearchMatchTag]
-=== _DocumentSearchMatchTag_ 
+=== _DocumentSearchMatchTag_
 
 
 
@@ -5868,28 +5962,28 @@ Document full text search criteria
 | Field Name| Required| Type| Description| Format
 
 | key
-| 
-| String 
+|
+| String
 | Tag key
-|  
+|
 
 | value
-| 
-| String 
+|
+| String
 | Tag value
-|  
+|
 
 | type
-| 
-| String 
+|
+| String
 | Tag type
-|  
+|
 
 |===
 
 
 [#DocumentSearchRequest]
-=== _DocumentSearchRequest_ 
+=== _DocumentSearchRequest_
 
 Document search tag criteria
 
@@ -5900,21 +5994,21 @@ Document search tag criteria
 
 | query
 | X
-| DocumentSearchTag 
-| 
-|  
+| DocumentSearchTag
+|
+|
 
 | responseFields
-| 
-| SearchResponseFields 
-| 
-|  
+|
+| SearchResponseFields
+|
+|
 
 |===
 
 
 [#DocumentSearchResponse]
-=== _DocumentSearchResponse_ 
+=== _DocumentSearchResponse_
 
 
 
@@ -5924,28 +6018,28 @@ Document search tag criteria
 | Field Name| Required| Type| Description| Format
 
 | next
-| 
-| String 
+|
+| String
 | Next page of results token
-|  
+|
 
 | previous
-| 
-| String 
+|
+| String
 | Previous page of results token
-|  
+|
 
 | documents
-| 
+|
 | List  of <<SearchDocumentItem>>
 | List of search result documents
-|  
+|
 
 |===
 
 
 [#DocumentSearchTag]
-=== _DocumentSearchTag_ 
+=== _DocumentSearchTag_
 
 Document tag search criteria
 
@@ -5956,40 +6050,21 @@ Document tag search criteria
 
 | tag
 | X
-| DocumentSearchItemTag 
-| 
-|  
+| DocumentSearchItemTag
+|
+|
 
 | documentIds
-| 
+|
 | List  of <<string>>
 | List of DocumentIds to filter search results on
-|  
-
-|===
-
-
-[#DocumentTagsPost]
-=== _DocumentTagsPost_ 
-
-
-
-[.fields-DocumentTagsPost]
-[cols="2,1,2,4,1"]
-|===
-| Field Name| Required| Type| Description| Format
-
-| tags
-| X
-| List  of <<GetDocumentTagResponse>>
-| List of tags
-|  
+|
 
 |===
 
 
 [#Error]
-=== _Error_ 
+=== _Error_
 
 
 
@@ -5999,22 +6074,22 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | key
-| 
-| String 
+|
+| String
 | Error Key
-|  
+|
 
 | error
-| 
-| String 
+|
+| String
 | Error Message
-|  
+|
 
 |===
 
 
 [#ErrorsResponse]
-=== _ErrorsResponse_ 
+=== _ErrorsResponse_
 
 
 
@@ -6024,16 +6099,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | errors
-| 
+|
 | List  of <<Error>>
 | List of errors
-|  
+|
 
 |===
 
 
 [#FulltextSearchItem]
-=== _FulltextSearchItem_ 
+=== _FulltextSearchItem_
 
 
 
@@ -6043,46 +6118,46 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | createdBy
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | tags
-| 
-| Object 
-| 
-|  
+|
+| Object
+|
+|
 
 |===
 
 
 [#GetDocumentActionsResponse]
-=== _GetDocumentActionsResponse_ 
+=== _GetDocumentActionsResponse_
 
 
 
@@ -6092,16 +6167,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | actions
-| 
+|
 | List  of <<DocumentAction>>
 | List of document actions
-|  
+|
 
 |===
 
 
 [#GetDocumentContentResponse]
-=== _GetDocumentContentResponse_ 
+=== _GetDocumentContentResponse_
 
 
 
@@ -6111,34 +6186,34 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | content
-| 
-| String 
+|
+| String
 | Document content
-|  
+|
 
 | contentUrl
-| 
-| String 
+|
+| String
 | Url to document content
-|  
+|
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | isBase64
-| 
-| Boolean 
+|
+| Boolean
 | Is Content Base64 encoded
-|  
+|
 
 |===
 
 
 [#GetDocumentFulltextResponse]
-=== _GetDocumentFulltextResponse_ 
+=== _GetDocumentFulltextResponse_
 
 
 
@@ -6148,52 +6223,52 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | content
-| 
-| String 
+|
+| String
 | Content of document
-|  
+|
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | createdBy
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | tags
-| 
-| Object 
-| 
-|  
+|
+| Object
+|
+|
 
 |===
 
 
 [#GetDocumentOcrResponse]
-=== _GetDocumentOcrResponse_ 
+=== _GetDocumentOcrResponse_
 
 
 
@@ -6203,52 +6278,52 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | data
-| 
-| String 
+|
+| String
 | OCR text result
-|  
+|
 
 | ocrEngine
-| 
-| String 
+|
+| String
 | The OCR technique used
-|  
+|
 
 | ocrStatus
-| 
-| String 
+|
+| String
 | The status of the OCR request
-|  
+|
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | isBase64
-| 
-| Boolean 
+|
+| Boolean
 | Is Content Base64 encoded
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who requested the OCR
-|  
+|
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 |===
 
 
 [#GetDocumentResponse]
-=== _GetDocumentResponse_ 
+=== _GetDocumentResponse_
 
 
 
@@ -6258,94 +6333,94 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | next
-| 
-| String 
+|
+| String
 | Next page of results token
-|  
+|
 
 | previous
-| 
-| String 
+|
+| String
 | Previous page of results token
-|  
+|
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | path
 | X
-| String 
+| String
 | Path or Name of document
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | lastModifiedDate
-| 
-| Date 
+|
+| Date
 | Last Modified Timestamp
-| date-time 
+| date-time
 
 | checksum
-| 
-| String 
+|
+| String
 | Document checksum, changes when document file changes
-|  
+|
 
 | documentId
 | X
-| UUID 
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | contentLength
-| 
-| Integer 
+|
+| Integer
 | Document size
-|  
+|
 
 | versionId
-| 
-| String 
+|
+| String
 | Document version
-|  
+|
 
 | belongsToDocumentId
-| 
-| String 
+|
+| String
 | Parent Document Identifier
-|  
+|
 
 | documents
-| 
+|
 | List  of <<GetDocumentResponse_documents_inner>>
 | List of related documents
-|  
+|
 
 |===
 
 
 [#GetDocumentResponseDocumentsInner]
-=== _GetDocumentResponseDocumentsInner_ 
+=== _GetDocumentResponseDocumentsInner_
 
 
 
@@ -6355,70 +6430,70 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | lastModifiedDate
-| 
-| Date 
+|
+| Date
 | Last Modified Timestamp
-| date-time 
+| date-time
 
 | checksum
-| 
-| String 
+|
+| String
 | Document checksum, changes when document file changes
-|  
+|
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | contentLength
-| 
-| Integer 
+|
+| Integer
 | Document size
-|  
+|
 
 | versionId
-| 
-| String 
+|
+| String
 | Document version
-|  
+|
 
 | belongsToDocumentId
-| 
-| String 
+|
+| String
 | Parent Document Identifier
-|  
+|
 
 |===
 
 
 [#GetDocumentTagResponse]
-=== _GetDocumentTagResponse_ 
+=== _GetDocumentTagResponse_
 
 
 
@@ -6428,52 +6503,52 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | insertedDate
-| 
-| String 
+|
+| String
 | Inserted Timestamp
-|  
+|
 
 | documentId
-| 
-| String 
+|
+| String
 | Document Identifier
-|  
+|
 
 | type
-| 
-| String 
+|
+| String
 | Tag type
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | value
 | X
-| String 
+| String
 | Tag value
-|  
+|
 
 | values
-| 
+|
 | List  of <<string>>
 | Tag values
-|  
+|
 
 | key
 | X
-| String 
+| String
 | Tag key
-|  
+|
 
 |===
 
 
 [#GetDocumentTagsResponse]
-=== _GetDocumentTagsResponse_ 
+=== _GetDocumentTagsResponse_
 
 
 
@@ -6483,28 +6558,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | next
-| 
-| String 
+|
+| String
 | Next page of results token
-|  
+|
 
 | previous
-| 
-| String 
+|
+| String
 | Previous page of results token
-|  
+|
 
 | tags
-| 
+|
 | List  of <<GetDocumentTagResponse>>
 | List of tags
-|  
+|
 
 |===
 
 
 [#GetDocumentUrlRequest]
-=== _GetDocumentUrlRequest_ 
+=== _GetDocumentUrlRequest_
 
 
 
@@ -6514,22 +6589,22 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | documentId
-| 
-| String 
+|
+| String
 | Document Identifier
-|  
+|
 
 | url
-| 
-| String 
+|
+| String
 | Document content url
-|  
+|
 
 |===
 
 
 [#GetDocumentVersionsResponse]
-=== _GetDocumentVersionsResponse_ 
+=== _GetDocumentVersionsResponse_
 
 
 
@@ -6539,22 +6614,22 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | next
-| 
-| String 
+|
+| String
 | Next page of results token
-|  
+|
 
 | versions
-| 
+|
 | List  of <<DocumentItemVersion>>
 | List of document versions
-|  
+|
 
 |===
 
 
 [#GetDocumentsResponse]
-=== _GetDocumentsResponse_ 
+=== _GetDocumentsResponse_
 
 
 
@@ -6564,28 +6639,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | next
-| 
-| String 
+|
+| String
 | Next page of results token
-|  
+|
 
 | previous
-| 
-| String 
+|
+| String
 | Previous page of results token
-|  
+|
 
 | documents
-| 
+|
 | List  of <<DocumentItemResult>>
 | List of documents
-|  
+|
 
 |===
 
 
 [#GetSitesRequest]
-=== _GetSitesRequest_ 
+=== _GetSitesRequest_
 
 
 
@@ -6595,16 +6670,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | sites
-| 
+|
 | List  of <<Site>>
 | List of sites
-|  
+|
 
 |===
 
 
 [#GetTagSchemaRequest]
-=== _GetTagSchemaRequest_ 
+=== _GetTagSchemaRequest_
 
 
 
@@ -6614,40 +6689,40 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | tagSchemaId
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | name
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | userId
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | tags
-| 
-| GetTagSchemaRequest_tags 
-| 
-|  
+|
+| GetTagSchemaRequest_tags
+|
+|
 
 |===
 
 
 [#GetTagSchemaRequestTags]
-=== _GetTagSchemaRequestTags_ 
+=== _GetTagSchemaRequestTags_
 
 
 
@@ -6657,34 +6732,34 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | compositeKeys
-| 
+|
 | List  of <<TagSchemaCompositeKey>>
 | List of Composite Keys
-|  
+|
 
 | required
-| 
+|
 | List  of <<TagSchemaRequired>>
 | List of Required Tags
-|  
+|
 
 | optional
-| 
+|
 | List  of <<TagSchemaOptional>>
 | List of Optional Tags
-|  
+|
 
 | allowAdditionalTags
-| 
-| Boolean 
-| 
-|  
+|
+| Boolean
+|
+|
 
 |===
 
 
 [#GetTagSchemasRequest]
-=== _GetTagSchemasRequest_ 
+=== _GetTagSchemasRequest_
 
 
 
@@ -6694,28 +6769,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | schemas
-| 
+|
 | List  of <<TagSchemaSummary>>
 | List of Tag Schemas
-|  
+|
 
 | next
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | previous
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 |===
 
 
 [#GetVersionRequest]
-=== _GetVersionRequest_ 
+=== _GetVersionRequest_
 
 
 
@@ -6725,28 +6800,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | version
-| 
-| String 
+|
+| String
 | FormKiQ version
-|  
+|
 
 | type
-| 
-| String 
+|
+| String
 | FormKiQ type
-|  
+|
 
 | modules
-| 
+|
 | List  of <<string>>
 | List of installed modules
-|  
+|
 
 |===
 
 
 [#GetWebhookResponse]
-=== _GetWebhookResponse_ 
+=== _GetWebhookResponse_
 
 
 
@@ -6756,46 +6831,46 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | name
-| 
-| String 
+|
+| String
 | Webhook name
-|  
+|
 
 | url
-| 
-| String 
+|
+| String
 | Webhook url
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | id
-| 
-| UUID 
+|
+| UUID
 | Webhook Identifier
-| uuid 
+| uuid
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 |===
 
 
 [#GetWebhookTagsResponse]
-=== _GetWebhookTagsResponse_ 
+=== _GetWebhookTagsResponse_
 
 
 
@@ -6805,28 +6880,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | next
-| 
-| String 
+|
+| String
 | Next page of results token
-|  
+|
 
 | previous
-| 
-| String 
+|
+| String
 | Previous page of results token
-|  
+|
 
 | tags
-| 
+|
 | List  of <<WebhookTag>>
 | List of webhook tags
-|  
+|
 
 |===
 
 
 [#GetWebhooksResponse]
-=== _GetWebhooksResponse_ 
+=== _GetWebhooksResponse_
 
 
 
@@ -6836,16 +6911,35 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | webhooks
-| 
-| List  of <<Webhook>>
+|
+| List  of <<GetWebhookResponse>>
 | List of webhooks
-|  
+|
+
+|===
+
+
+[#QueryFulltextResponse]
+=== _QueryFulltextResponse_
+
+
+
+[.fields-QueryFulltextResponse]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| result
+|
+| Object
+|
+|
 
 |===
 
 
 [#SearchDocumentItem]
-=== _SearchDocumentItem_ 
+=== _SearchDocumentItem_
 
 
 
@@ -6855,76 +6949,76 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 | checksum
-| 
-| String 
+|
+| String
 | Document checksum, changes when document file changes
-|  
+|
 
 | documentId
-| 
-| UUID 
+|
+| UUID
 | Document Identifier
-| uuid 
+| uuid
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | contentLength
-| 
-| Integer 
+|
+| Integer
 | Document size
-|  
+|
 
 | versionId
-| 
-| String 
+|
+| String
 | Document version
-|  
+|
 
 | matchedTag
-| 
-| DocumentSearchMatchTag 
-| 
-|  
+|
+| DocumentSearchMatchTag
+|
+|
 
 | tags
-| 
-| Object 
-| 
-|  
+|
+| Object
+|
+|
 
 |===
 
 
 [#SearchResponseFields]
-=== _SearchResponseFields_ 
+=== _SearchResponseFields_
 
 
 
@@ -6934,16 +7028,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | tags
-| 
+|
 | List  of <<string>>
-| 
-|  
+|
+|
 
 |===
 
 
 [#SetAntivirusResponse]
-=== _SetAntivirusResponse_ 
+=== _SetAntivirusResponse_
 
 
 
@@ -6953,16 +7047,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | message
-| 
-| String 
+|
+| String
 | Antivirus processing message
-|  
+|
 
 |===
 
 
 [#SetDocumentFulltextRequest]
-=== _SetDocumentFulltextRequest_ 
+=== _SetDocumentFulltextRequest_
 
 
 
@@ -6972,28 +7066,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | content
-| 
-| String 
+|
+| String
 | Document content
-|  
+|
 
 | contentUrls
-| 
+|
 | List  of <<string>>
 | Url which contains Document content
-|  
+|
 
 |===
 
 
 [#SetDocumentFulltextResponse]
-=== _SetDocumentFulltextResponse_ 
+=== _SetDocumentFulltextResponse_
 
 
 
@@ -7003,16 +7097,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | message
-| 
-| String 
+|
+| String
 | Full text processing message
-|  
+|
 
 |===
 
 
 [#SetDocumentOcrRequest]
-=== _SetDocumentOcrRequest_ 
+=== _SetDocumentOcrRequest_
 
 
 
@@ -7022,28 +7116,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | contentType
-| 
-| String 
+|
+| String
 | Document Content-Type
-|  
+|
 
 | isBase64
-| 
-| Boolean 
+|
+| Boolean
 | Is Content Base64 encoded
-|  
+|
 
 | content
 | X
-| String 
+| String
 | Document content
-|  
+|
 
 |===
 
 
 [#SetDocumentTagKeyRequest]
-=== _SetDocumentTagKeyRequest_ 
+=== _SetDocumentTagKeyRequest_
 
 
 
@@ -7053,22 +7147,22 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | value
-| 
-| String 
+|
+| String
 | Tag value
-|  
+|
 
 | values
-| 
+|
 | List  of <<string>>
 | Tag values
-|  
+|
 
 |===
 
 
 [#Site]
-=== _Site_ 
+=== _Site_
 
 
 
@@ -7078,22 +7172,22 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | siteId
-| 
-| String 
+|
+| String
 | Site Identifier
-|  
+|
 
 | uploadEmail
-| 
-| String 
+|
+| String
 | SiteId document upload email address
-|  
+|
 
 |===
 
 
 [#TagSchemaCompositeKey]
-=== _TagSchemaCompositeKey_ 
+=== _TagSchemaCompositeKey_
 
 
 
@@ -7103,16 +7197,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | key
-| 
+|
 | List  of <<string>>
-| 
-|  
+|
+|
 
 |===
 
 
 [#TagSchemaOptional]
-=== _TagSchemaOptional_ 
+=== _TagSchemaOptional_
 
 
 
@@ -7122,28 +7216,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | key
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | defaultValues
-| 
+|
 | List  of <<string>>
 | Default values
-|  
+|
 
 | allowedValues
-| 
+|
 | List  of <<string>>
 | Only valid values
-|  
+|
 
 |===
 
 
 [#TagSchemaPostResponse]
-=== _TagSchemaPostResponse_ 
+=== _TagSchemaPostResponse_
 
 
 
@@ -7153,16 +7247,16 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | tagSchemaId
-| 
-| UUID 
+|
+| UUID
 | Tag Schema Identifier
-| uuid 
+| uuid
 
 |===
 
 
 [#TagSchemaRequired]
-=== _TagSchemaRequired_ 
+=== _TagSchemaRequired_
 
 
 
@@ -7172,28 +7266,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | key
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | defaultValues
-| 
+|
 | List  of <<string>>
 | Default values
-|  
+|
 
 | allowedValues
-| 
+|
 | List  of <<string>>
 | Only valid values
-|  
+|
 
 |===
 
 
 [#TagSchemaSummary]
-=== _TagSchemaSummary_ 
+=== _TagSchemaSummary_
 
 
 
@@ -7203,34 +7297,34 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | tagSchemaId
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | name
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | userId
-| 
-| String 
-| 
-|  
+|
+| String
+|
+|
 
 | insertedDate
-| 
-| Date 
+|
+| Date
 | Inserted Timestamp
-| date-time 
+| date-time
 
 |===
 
 
 [#UpdateDocumentFulltextRequest]
-=== _UpdateDocumentFulltextRequest_ 
+=== _UpdateDocumentFulltextRequest_
 
 
 
@@ -7240,28 +7334,28 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | path
-| 
-| String 
+|
+| String
 | Path or Name of document
-|  
+|
 
 | content
-| 
-| String 
+|
+| String
 | Document content
-|  
+|
 
 | tags
-| 
+|
 | List  of <<AddDocumentTagRequest>>
 | List of document tags
-|  
+|
 
 |===
 
 
 [#WebhookTag]
-=== _WebhookTag_ 
+=== _WebhookTag_
 
 
 
@@ -7271,40 +7365,40 @@ Document tag search criteria
 | Field Name| Required| Type| Description| Format
 
 | insertedDate
-| 
-| String 
+|
+| String
 | Inserted Timestamp
-|  
+|
 
 | webhookId
-| 
-| String 
+|
+| String
 | Webhook Identifier
-|  
+|
 
 | type
-| 
-| String 
+|
+| String
 | Tag type
-|  
+|
 
 | userId
-| 
-| String 
+|
+| String
 | User who added document
-|  
+|
 
 | value
 | X
-| String 
+| String
 | Tag value
-|  
+|
 
 | key
 | X
-| String 
+| String
 | Tag key
-|  
+|
 
 |===
 
