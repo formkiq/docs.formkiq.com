@@ -6,7 +6,7 @@ This tutorial will take you through setting up the FormKiQ API inside of https:/
 
 * You have installed FormKiQ, see the xref:tutorials:install.adoc[FormKiQ Installation tutorial]
 * You have installed https://www.postman.com[Postman].
-* You have an FormKiQ Access Token xref:tutorials:jwt-authentication-token.adoc[Getting Cognito JWT Access Token tutorial]
+* You have an FormKiQ Access Token xref:howto:jwt-authentication-token.adoc[Getting Cognito JWT Access Token tutorial]
 
 ## CloudFormation Outputs
 

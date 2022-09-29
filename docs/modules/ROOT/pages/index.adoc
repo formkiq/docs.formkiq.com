@@ -8,11 +8,10 @@ This documentation should provide everything you need to know to install, use, a
 
 xref:reference:README.adoc[The FormKiQ Reference Guide] contains the installation / configuration instructions and the technical reference for the FormKiQ APIs. This describes how FormKiQ works and how to use it.
 
-== Tutorials
-
-xref:tutorials:overview.adoc[FormKiQ Core Tutorials] take you by the hand through a series of steps to install FormKiQ Core.
-////
 == How-to guides
 
-xref:howto:README.adoc[FormKiQ Guides] you through the steps involved in using FormKiQ in specific scenarios.
-////
+xref:howto:overview.adoc[FormKiQ HowTo] you through the steps involved in using FormKiQ in specific scenarios.
+
+== Tutorials!
+
+xref:tutorials:overview.adoc[FormKiQ Tutorials] take you by the hand through a series of steps to install FormKiQ Core.

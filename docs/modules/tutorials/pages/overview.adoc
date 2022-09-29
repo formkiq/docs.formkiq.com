@@ -18,12 +18,6 @@ xref:tutorials:install.adoc[This tutorial] takes you through downloading https:/
 
 Time: 30 minutes
 
-== xref:tutorials:jwt-authentication-token.adoc[Getting an JWT Authentication Token]
-
-xref:tutorials:jwt-authentication-token.adoc[This tutorial] will take you through getting an authentication token (JWT) that can be used to access the FormKiQ API.
-
-Time: 5 minutes
-
 == xref:tutorials:postman-formkiq-openapi.adoc[Using Postman and FormKiQ API]
 
 xref:tutorials:postman-formkiq-openapi.adoc[This tutorial] will take you through importing the FormKiQ API into Postman.
