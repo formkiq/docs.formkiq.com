@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: sudo apt-get -y install asciidoctor awscli
+        run: sudo apt-get -o Acquire::Retries=3 -y install asciidoctor awscli
         
       - name: Install antora
         run: npm i -D -E @antora/cli@3.0 @antora/site-generator@3.0
