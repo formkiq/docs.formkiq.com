@@ -1,0 +1,103 @@
+== One-click Installation Links
+
+FormKiQ is installed / updated using https://docs.aws.amazon.com/cloudformation[AWS CloudFormation] deployments. You need access to an AWS account that has permissions to use CloudFormation templates to install.
+
+You can sign up for a AWS Account at https://aws.amazon.com.
+
+You can find the one-click installation links for a variety of AWS Regions on the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page].
+
+image::github-click-install.png[GitHub Click Install,300,300]
+
+Clicking one of the above links will take your to the CloudFormation console.
+
+NOTE: For FormKiQ Enterprise users, you'll find the same single click installation url in your custom https://github.com[GitHub] repository you were provided.
+
+== CloudFormation Parameters
+
+*Create stack*
+
+After clicking one of the one-click installation links and logging into your AWS account. You'll be brought to the CloudFormation Create Stack console. The `Amazon S3 URL` is populated with the FormKiQ installation url.
+
+image::cf-createstack.png[CloudFormation Create Stack,800,800]
+
+After clicking `Next`.
+
+*Set Stack Name*
+
+When setting the CloudFormation Stack Name, it is recommended to use the naming formation, `formkiq-core-<app_environment>`, ie: formkiq-core-prod, formkiq-core-dev, etc.
+
+The <app_environment> allows you to differentiate between multiple installations of formkiq.
+
+image::cf-create-stack-name.png[CloudFormation Stack Name,800,800]
+
+*Set Parameters*
+
+Set the admin email address. After FormKiQ installation has completed, this email address will be automatically setup as administrator and be sent an email to set the password to the account.
+
+image::cf-create-parameter-adminemail.png[Set Admin Email,1200,800]
+
+AppEnvironment is a unique identifier for FormKiQ installations. The identifier should provider context to what kind of information is contained in the installation, IE: prod, staging, dev.
+
+image::cf-create-parameter-appenvironment.png[Set App Environment,1200,800]
+
+FormKiQ uses AWS Fargate service to run certain services. AWS Fargate supports using either FARGATE or FARGATE_SPOT capacity provider. While FARGATE_SPOT is much cheaper, it should only be used for development environments and FARGATE should be used for production environments.
+
+image::cf-create-parameter-capacityprovider.png[Set Capacity Provider,1200,800]
+
+Whether to enable "/public" endpoints, defaults to false.
+
+image::cf-create-parameter-enablepublic.png[Set Enable Public Urls,1200,800]
+
+Whether to enable "/public" endpoints, defaults to false.
+
+image::cf-create-parameter-passwords.png[Set Password Policy,1200,800]
+
+Optional: API Key to access the https://typesense.org[Typesense] server. Can be any random string of characters. Typesense also requires the `VpcStackName` to be set.
+
+image::cf-create-parameter-typesense.png[Configure TypesenseApiKey,1200,800]
+
+Optional: The name of the FormKiQ VPC CloudFormation stack. See *VPC CloudFormation*
+
+image::cf-create-parameter-vpc-stackname.png[Configure VPC,1200,800]
+
+*Submit Create Stack*
+
+Keep selecting `Next` until you get to the last `Submit Create Stack` page.
+
+image::cf-create-stack-submit.png[Submit Create Stack,1200,800]
+
+== VPC CloudFormation
+
+Certain features of FormKiQ require a VPC to be created and configured specifically for FormKiQ.
+
+You can find a one-click VPC installation links for a variety of AWS Regions on the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page].
+
+image::github-vpc-install.png[Github VPC Install,600,600]
+
+*Create stack*
+
+After clicking one of the one-click installation links and logging into your AWS account. You'll be brought to the CloudFormation Create Stack console. The `Amazon S3 URL` is populated with the FormKiQ installation url.
+
+image::cf-createstack-vpc.png[CloudFormation Create Stack,800,800]
+
+After clicking `Next`.
+
+*Set Stack Name*
+
+When creating the VPC, you need to specify a IPv4 network range for the VPC, in CIDR notation. For example, 10.1.0.0/16.
+
+The VPC is also configured with 3 public and 3 private subnets.
+
+image::cf-create-parameters-cidr.png[CloudFormation CIDR,1000,800]
+
+NOTE: For FormKiQ Enterprise users, make sure you set `EnableEnterpriseFeatures` to `true`.
+
+== Welcome to FormKiQ
+
+Once the FormKiQ CloudFormation installation has completed. You will receive an email that will provide a link to confirm your email address and set a password for your administrator account.
+
+image::welcome-to-formkiq.png[Welcome to FormKiQ,600,600]
+
+TODO Console Login Page
+
+video::jVIK2ZJZsKE[youtube,title=Install FormKiQ Core into any AWS Account,width=640,height=480]

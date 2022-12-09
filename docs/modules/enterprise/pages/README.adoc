@@ -1,26 +1,11 @@
-FormKiQ Docs
-============
-:navtitle: Enterprise Reference
-:docinfo: shared
-:data-uri:
-:title: FormKiQ Enterprise Reference Guide
-:toc: left
-:toclevels: 2
-:sectanchors:
-:sectlinks:
-:sectnums:
+= Enterprise Modules
 :favicon: favicon.ico
-
-toc::[] 
-
-Introduction
-------------
 
 image::formkiq-enterprise-logo.png[FormKiQ Enterprise,600,600]
 
 FormKiQ Enterprise is made up of Enterprise Add-Ons that are available for FormKiQ Core, bringing enterprise-level features and functionality that may be required for some organizations.
 
-_**NOTE:** we have included the full link:../reference/README.html#enterprise-api-reference[Enterprise API Reference] as a section below the FormKiQ Core API Reference, while including a link to the specific module APIs in the reference sections below._
+NOTE: we have included the full link:../reference/README.html#enterprise-api-reference[Enterprise API Reference] as a section below the FormKiQ Core API Reference, while including a link to the specific module APIs in the reference sections below._
 
 **FormKiQ Enterprise Add-On Modules include:**
 
@@ -50,7 +35,7 @@ _**NOTE:** we have included the full link:../reference/README.html#enterprise-ap
 
 ✅ link:#module-filesync-cli[FileSync CLI Module]
 
-To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
+To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core.
 
 To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
 
