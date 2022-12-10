@@ -98,6 +98,17 @@ Once the FormKiQ CloudFormation installation has completed. You will receive an 
 
 image::welcome-to-formkiq.png[Welcome to FormKiQ,600,600]
 
-TODO Console Login Page
+Clicking the `Verify Email` link will allow you to set your administrator password.
 
-video::jVIK2ZJZsKE[youtube,title=Install FormKiQ Core into any AWS Account,width=640,height=480]
+image::fk-console-setpassword.png[Set Admin Password,600,600]
+
+Once your password is set you can now login to the FormKiQ Console.
+
+image::fk-console-login.png[FormKiQ Console Login,600,600]
+
+Once in the FormKiQ Console, you can start working with FormKiQ.
+
+image::fk-console-home.png[FormKiQ Console Home,1000,600]
+
+
+// video::jVIK2ZJZsKE[youtube,title=Install FormKiQ Core into any AWS Account,width=640,height=480]
