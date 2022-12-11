@@ -4,9 +4,7 @@ version: 1.9.0
 nav:
 - modules/quickstart/nav.adoc
 - modules/platform-overview/nav.adoc
-- modules/authentication/nav.adoc
 - modules/api/nav.adoc
-- modules/reference/nav.adoc
 - modules/enterprise/nav.adoc
 - modules/howto/nav.adoc
 - modules/tutorials/nav.adoc

@@ -1,90 +1,102 @@
 = Platform Overview
-:keywords: Docs as Code, DocOps, content management system, docs writers, publish software documentation, CI and docs, CD and docs
 
-[discrete.tagline]
-=== The Static Site Generator for Tech Writers
+image::architecture_formkiq_core.png[FormKiQ Architecture,1000,1000]
 
-This site hosts the technical documentation for Antora.
-Antora makes it easy for tech writers to create documentation and publish it to the web.
-As a tech writer, you focus on authoring content in [AsciiDoc], Antora's content markup language.
-You organize those files into a standard project structure and store them in one or more content (git) repositories.
-Antora picks up your content from there and transforms it into a website.
-That's all there is to it!
+== What is FormKiQ
 
-////
-== Generator pipeline
+FormKiQ is a API-first, highly scalable document management system built on top on top of the latest in https://aws.amazon.com[Amazon Web Services(AWS)] infrastructure and technology.
 
-Antora's site generator pipeline is a complete end-to-end solution for publishing.
-While it can be extended, no additional scripts are needed.
+The API-first design allows anyone to quickly and easily to add document management functionality to any application and cut months off of development time. Or with FormKiQ's Web UI, it can be used as a fully-featured stand-alone application.
 
-Antora's generator pipeline kicks off by aggregating files from a variety of sources.
-Currently, these sources can be branches of one or more git repositories and a UI bundle.
+FormKiQ has been designed using a "headless" architecture principles. This means that the Web UI is completely decoupled from the backend API. This means that you can use your current UI to integrate with FormKiQ or you can build your own UI from scratch using our React Web UI as a reference.
 
-//NOTE: By leveraging Antora's open architecture, you can incorporate just about any other type of content too.
+FormKiQ is built to scale for any use case. It can be used by the largest corportation to the smallest team. FormKiQ uses serverless technology so you only pay for what you use.
 
-Next, Antora organizes the files into catalogs.
-It then uses Asciidoctor to convert all content files to embeddable HTML and resolve links between pages.
+FormKiQ is an https://github.com/formkiq/formkiq-core[Open Core] product. Where the core functionality is made available through an Open Source license. Additional document management function and modules and support are available from https://formkiq.com.
 
-Once conversion is complete, Antora passes the embeddable HTML as part of a UI data model to Handlebars templates provided by the UI bundle to create the web pages.
+== Document Features
 
-Finally, it publishes the pages and supporting content and UI assets to one or more local or remote destinations, where they can be viewed as a website.
+FormKiQ is a fully-featured document management system, that leverages the infrastructure and services of AWS to make it all possible.
 
-Antora's built-in orchestration makes it very CI-friendly.
-All the CI job has to do is prepare the environment and launch a single command, and out comes your site!
-////
+=== Document Tags
 
-== Manage docs as code
+A document tag is a key / value(s) pair assigned to a document in order to label or identify it. These document tags can then be used in a tag search to be able to quickly find the documents. FormKiQ supports adding an unlimited number of tag(s) to a document.
 
-With Antora, you manage *docs as code*.
-That means your documentation process benefits from the same practices used to produce successful software.
+NOTE: When using document versioning, a document tag(s) are NOT versioned.
 
-Some of these practices include:
+=== Document Metadata
 
-* Storing content in a version control system.
-* Separating content, configuration, and presentation.
-* Leveraging automation for compilation, validation, verification, and publishing.
-* Reusing shared materials (DRY).
+Document metadata is a custom data a user can attached to a document. Unlike a document tag, metadata can only be searched when using one of FormKiQ's full-text solutions (https://typesense.org/[Typesense] / https://aws.amazon.com/opensearch-service[OpenSearch]). Each document only support up to 25 Metadata entries.
 
-Antora helps you incorporate these practices into your documentation workflow.
-As a result, your documentation is much easier to manage, maintain, and enhance.
+NOTE: When using document versioning, a document metadata ARE versioned.
 
-////
-//== Content is sovereign
-== Documentation as Code
+=== Document Actions
 
-While it's considered a best practice to split source code into discrete, well-defined modules, documentation for that code often gets lumped into one massive "`book`".
-This situation has brought many documentation projects to a grinding halt.
+FormKiQ's document actions allow you to create processes the document will perform when it is created.
 
-By treating *docs as code*, the documentation process can benefit from the best practices that produce successful software.
-Antora helps you incorporate these practices into your documentation workflow.
+For example with document actions you could:
+- Have a WEBHOOK called when a document is created
+- Automatically OCR a document and send it to https://aws.amazon.com/opensearch-service[OpenSearch]
+- Automatically scan a document for viruses
 
-Antora favors a modular approach to managing documentation.
-It consists of a playbook, content repositories, a UI bundle, and the site generator pipeline, all of which are discrete parts.
-//The playbook controls how Antora generates and publishes your site, but it does not own any content itself.
+=== Document Events
 
-The separation of these domains keeps the configuration separate from content.
-The content repositories just contain content.
-They can be enlisted, per branch, into the site generation process.
+FormKiq is built using a message driven architecture. This means you can be notified on when different events happen.
 
-This strategy makes it possible for content branches to be reused, substituted, deactivated, or archived.
-This is a sharp contrast to many other site generators that intermix all of these concerns, making the documentation difficult to manage, maintain, and enhance.
-////
+For example you can subscribe to FormKiQ's document event https://aws.amazon.com/sns[Amazon SNS] topic and be notified when a document is create, updated or deleted. This makes it simple to extend FormKiQ functionality to mean your needs.
 
-== Where to begin
+=== Document Searching
 
-If you're just beginning your journey with Antora, you'll probably want to know [how Antora can help you].
-When you are familiar with the basic concepts, you can try out Antora using the [Antora quickstart guide].
+Out-of-the-box FormKiQ uses https://aws.amazon.com/dynamodb[Amazon DynamoDB] for performing document tag searches. Multi-tag searching is supported when used in combination with the xref:enterprise:module-tagschema/overview.adoc[FormKiQ TagSchema].
 
-If you're ready to set up a new documentation project, or you want to migrate an existing project to Antora, start by [organizing your documentation files] into the project structure Antora expects.
-You'll then need to [create a playbook] to tell Antora where to find the documentation and UI to use for your site.
+Document metadata and full text searching is support through https://typesense.org/[Typesense] or https://aws.amazon.com/opensearch-service[OpenSearch].
 
-If you already have a documentation component set up, and you're ready to create your first site, check that you've met Antora's [system requirements], then [install Antora], and finally [generate your site] using the `antora` command.
+== Multi-Tenant and Multi-Instance
 
-If you want to jump into writing, learn how to use the AsciiDoc syntax to [create documentation pages].
-You may find the https://intellij-asciidoc-plugin.ahus1.de/docs[IntelliJ AsciiDoc Plugin] to be an author's best friend.
-Not only does it assist with writing and previewing AsciiDoc content, it also provides state of the art tooling for creating and validating Antora configuration and resource references.
+FormKiQ Core supports usage as a multi-tenant application. This can be used for internal departments or teams, or for external clients. During deployment, a "default" SiteId is created; all documents are stored in that tenant by default.
 
-If you want to dive deeper into the details of the site generator pipeline, check out [how Antora works].
+To create another SiteId is as simple as adding a new https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-user-groups.html[Cognito group to the user pool]
 
-We hope you find making documentation sites with Antora enjoyable and rewarding.
-Happy writing!
+Creating a Cognito Group with the same name as the SiteId but ending in "_read" will create a read-only group. The users in this group will have read-only access to documents within that SiteId.
+
+Each API request has an optional "SiteId" parameter to specify which SiteId you would like to use.
+
+NOTE: This parameter is only needed if a user belongs to multiple SiteIds or if the user is in the "Admins" Group (full access) and wants to perform an operation in a SiteId other than "default". This allows groups such as external clients to access documents without requiring knowledge of their SiteId.
+
+== API Overview
+
+FormKiQ has a robust, battle tested, document management API. FormKiQ deploys with 2 APIs, one that uses JWT authentication and one that uses https://aws.amazon.com/iam[AWS IAM]. This allows the ulimate in flexibility for supporting users access as well as backend system access.
+
+FormKiQ API was built on top of https://www.openapis.org[OpenAPI specification] so it is easy to use the API spec file with any application that supports the OpenAPI specification.
+
+https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-jwt.yaml[Open API JWT Specification]
+
+https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-iam.yaml[Open API IAM Specification]
+
+The full FormKiQ API can be found
+xref:api:README.adoc[FormKiQ API]
+
+== Enterprise Features
+
+FormKiQ supports a wide array of enterprise modules and features. See xref:enterprise:README.adoc[List of Enterprise Modules]
+
+== AWS Costs
+
+FormKiQ was created using [serverless technology](https://aws.amazon.com/serverless/). This means that there are no servers to manage; everything is managed by AWS. All AWS services FormKiQ uses pay-per-usage billing. You can start using FormKiQ with very little cost.
+
+AWS provides a [free tier](https://aws.amazon.com/free) to all AWS accounts. This means that some AWS services you can use for **free** pending you stay under the usage limits. Below is the list of services FormKiQ uses and their approximate usage costs, so give you an idea on how much it costs to run FormKiQ. (All costs in USD)
+
+|===
+|Service |Cost
+
+// Space needed to maintain table headers
+| https://aws.amazon.com/api-gateway/pricing[Amazon Api Gateway] |   $1.00 per million requests
+| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB] (Storage)  |  First 25 GB Free
+| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB] (Writes) |Write request units - $1.25 per million write request units
+| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB] (Reads) |Read request units - $0.25 per million read request units
+| https://aws.amazon.com/cloudfront/pricing[Amazon CloudFront] |   $0.085 per GB of Data Transfer Out to Internet
+| https://aws.amazon.com/s3/pricing[Amazon S3] |   $0.023 per GB / Month
+| https://aws.amazon.com/lambda/pricing[AWS Lambda] |   approx. first 400,000 requests Free per Month
+| https://aws.amazon.com/lambda/pricing[AWS Lambda] |$0.0000168667 per additional request
+|===
+
