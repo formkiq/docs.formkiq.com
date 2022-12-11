@@ -3,14 +3,12 @@
 
 == What is FormKiQ?
 
-FormKiQ is a API-first, headless document management platform that can run in any AWS account.
+FormKiQ is a API-first, headless document management platform that can run in any https://aws.amazon.com[Amazon Web Services(AWS)] account.
 
-FormKiQ is designed API-first because all document management functionality (CRUD) is exposed through a robust API. This allows anyone to quickly and easily to add document management functionality to any application and cut months off of development time.
+Document management is at the core of most businesses. Most businesses have numerous documents that they need to store, track, manage and organize. FormKiQ strives to be the most flexible, customizable and cost-effective document management system on the market.
 
-FormKiQ comes with a React Web UI, but has been designed using a "headless" architecture principles. This means that the Web UI is completely decoupled from the backend API. This means that you can use your current UI to integrate with FormKiQ or you can build your own UI from scratch using our React Web UI as a reference.
+FormKiQ's flexibility and customizability comes from it's API-first design. All document management functionality (CRUD) is exposed through a robust set of APIs. This allows anyone to quickly and easily to add document management functionality to any application and cut months off of development time.
 
-FormKiQ was built to run in any AWS account. You maintain full control of your documents 100% of the time.
-
-FormKiQ is an https://github.com/formkiq/formkiq-core[Open Core] product. Where the core functionality is made available through an Open Source license. Additional document management function and modules and support are available from https://formkiq.com.
+FormKiQ was built to run in any AWS account. This ensures that you maintain full control of your documents 100% of the time.
 
 include::single-click-installation.adoc[Installation & Deployment]
