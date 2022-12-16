@@ -54,7 +54,7 @@ FormKiQ uses https://aws.amazon.com/cognito[Amazon Cognito] as the identity stor
 
 image::cf-create-parameter-typesense.png[Configure TypesenseApiKey,1200,800]
 
-Optional: API Key to access the https://typesense.org[Typesense] server. Can be any random string of characters. Typesense also requires the `VpcStackName` to be set.
+Optional: API Key to access the https://typesense.org[Typesense] server. https://typesense.org[Typesense] is used to provide text search support. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` to be set (see VPC CloudFormation).
 
 image::cf-create-parameter-vpc-stackname.png[Configure VPC,1200,800]
 
