@@ -1,6 +1,8 @@
 = Quickstart
 :favicon: favicon.ico
 
+image::formkiq_quickstart.png[FormKiQ Quickstart,400,400]
+
 == What is FormKiQ?
 
 FormKiQ is a API-first, headless document management platform that can run in any https://aws.amazon.com[Amazon Web Services(AWS)] account.
