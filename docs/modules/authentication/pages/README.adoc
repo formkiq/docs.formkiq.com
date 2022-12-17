@@ -1,7 +1,7 @@
 = Authentication / Authorization
 :favicon: favicon.ico
 
-Out-of-the-box FormKiQ supports using https://jwt.io/introduction[JSON Web Tokens(JWT)] through https://aws.amazon.com/cognito[Amazon Cognito] and https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)] to handle authentication to the platform. This provides the utmost in flexibilty when building customer facing and backend processing systems.
+Out-of-the-box FormKiQ supports using https://jwt.io/introduction[JSON Web Tokens (JWT)^] through https://aws.amazon.com/cognito[Amazon Cognito^] and https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)^] to handle authentication to the platform. This provides the utmost in flexibilty when building customer facing and backend processing systems.
 
 Authorization is handled through role-based access control assigned to each user.
 
@@ -9,15 +9,15 @@ NOTE: https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise] us
 
 == API
 
-FormKiQ uses https://aws.amazon.com/api-gateway[Amazon API Gateway] to handle and secure all API traffic.
+FormKiQ uses https://aws.amazon.com/api-gateway[Amazon API Gateway^] to handle and secure all API traffic.
 
-FormKiQ deploys 2 APIs, one is secured using https://aws.amazon.com/cognito[Amazon Cognito JWT authorizer] and the other one is secured using https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)]. Both urls can be found in the CloudFormation outputs of your FormKiQ stack.
+FormKiQ deploys 2 APIs, one is secured using https://aws.amazon.com/cognito[Amazon Cognito JWT authorizer^] and the other one is secured using https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)^]. Both urls can be found in the CloudFormation outputs of your FormKiQ stack.
 
 image::cf-outputs-apiurls.png[CloudFormation Outputs API Urls,800,800]
 
 The `HttpApiUrl` is secured using the JWT authorizers and access is typically granted through a username and password.
 
-The `IamApiUrl` is secured using https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)] and is used for backend processing. When IAM authorization is used, clients must use https://docs.aws.amazon.com/general/latest/gr/signing-aws-api-requests.html[Signature Version 4] to sign their requests with AWS credentials.
+The `IamApiUrl` is secured using https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)^] and is used for backend processing. When IAM authorization is used, clients must use https://docs.aws.amazon.com/general/latest/gr/signing-aws-api-requests.html[Signature Version 4^] to sign their requests with AWS credentials.
 
 NOTE: Examples of how to use the APIs can be found in
 xref:tutorials:overview.adoc[FormKiQ Tutorials]
@@ -28,13 +28,13 @@ FormKiQ comes with a fully functional console for interacting with documents. Th
 
 image::cf-outputs-consoleurl.png[CloudFormation Outputs Console Url,800,800]
 
-Console access is controlled through the https://aws.amazon.com/cognito[Amazon Cognito JWT authorizer]. By default the `AdminEmail` configured in the during the CloudFormation creation, is created as an administrator user.
+Console access is controlled through the https://aws.amazon.com/cognito[Amazon Cognito JWT authorizer^]. By default the `AdminEmail` configured in the during the CloudFormation creation, is created as an administrator user.
 
-Additional users can be added manually through the https://console.aws.amazon.com/cognito[Cognito Console].
+Additional users can be added manually through the https://console.aws.amazon.com/cognito[Cognito Console^].
 
 === Add User(s)
 
-To add a new user, start by visiting the https://console.aws.amazon.com/cognito[Cognito Console]. You should find the Cognito User pool with the configured `AppEnvironment` in the name.
+To add a new user, start by visiting the https://console.aws.amazon.com/cognito[Cognito Console^]. You should find the Cognito User pool with the configured `AppEnvironment` in the name.
 
 image::cognito-home.png[Cognito Home,800,800]
 
