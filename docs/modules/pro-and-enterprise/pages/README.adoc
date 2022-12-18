@@ -1,0 +1,73 @@
+= Pro and Enterprise Modules
+:favicon: favicon.ico
+
+FormKiQ Pro and Enterprise provide additional functionality on top of FormKiQ Core, as well as on-boarding and operational support from the FormKiQ team.
+
+'''
+
+image::formkiq-pro-logo.png[FormKiQ Pro,300,300]
+
+FormKiQ Pro enables the following modules:
+
+✅ link:#document-ocr-module[Document Optical Character Recognition (OCR) Module]
+
+✅ link:#tag-schema-module[Tag Schemas Module]
+
+✅ link:#antivirus-module[Anti-Malware / Antivirus Protection Module]
+
+✅ link:#full-encryption-module[Full Encryption Module]
+
+✅ link:#document-versioning-module[Document Versioning Module]
+
+'''
+
+image::formkiq-enterprise-logo.png[FormKiQ Enterprise,300,300]
+
+FormKiQ Enterprise enabled additional customization through its Enterprise Add-On Modules: +
+[small]**(NOTE: some modules are in closed beta and are not included in this documentation)**
+
+✅ link:#advanced-document-search-module[Advanced Document Search Module]
+
+✅ link:#onlyoffice-document-collaboration-module[ONLYOFFICE Document Collaboration Module]
+
+✅ link:#module-esignature[E-Signature Module]
+
+✅ link:#custom-domains-module[Custom Domains Module]
+
+✅ link:#custom-authorizer-module[Single Sign-On and Custom JWT Authorizer Module]
+
+✅ link:#module-filesync-cli[FileSync CLI Module]
+
+✅ Document Email Processing Module
+
+✅ Intelligent Document Processing Module
+
+✅ Document Archive and Lifecycle Module
+
+To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core.
+
+To learn more about FormKiQ Pro and Enterprise, please visit https://formkiq.com.
+
+include::module-ocr/overview.adoc[Document OCR Module]
+
+include::module-tagschema/overview.adoc[Tag Schema Module]
+
+include::module-antivirus/overview.adoc[Anti-Malware / Antivirus Module]
+
+include::module-full-encryption/overview.adoc[Full Encryption Module]
+
+include::module-versioning/overview.adoc[Document Versioning Module]
+
+include::module-advanced-document-search/overview.adoc[Advanced Document Search Module]
+
+include::module-onlyoffice/overview.adoc[ONLYOFFICE Document Collaboration Module]
+
+include::module-esignature/overview.adoc[E-Signature Module]
+
+include::module-custom-domains/overview.adoc[Custom Domains Module]
+
+include::module-custom-authorizer/overview.adoc[Single Sign-On and Custom JWT Authorizer Module]
+
+include::module-filesync-cli/overview.adoc[FileSync CLI Module]
+
+include::appendix.adoc[Appendix]

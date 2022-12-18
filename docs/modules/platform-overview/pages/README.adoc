@@ -34,7 +34,9 @@ https://formkiq.com/products/formkiq-pro[FormKiQ Pro^] provides additional funct
 
 * Anti-Malware / Anti-Virus Scanning
 
-* Document Actions for Customized Workflows
+* Document Versioning to enable Document Control
+
+* Additional Document Actions for Customized Workflows
 
 * Document Tag Schemas to enable required, optional, and default tags and metadata
 
@@ -115,9 +117,9 @@ https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-iam.yaml[O
 The full FormKiQ API can be found
 xref:api:README.adoc[FormKiQ API]
 
-== Enterprise Features
+== Pro and Enterprise Features
 
-FormKiQ supports a wide array of enterprise modules and features. See xref:enterprise:README.adoc[List of Enterprise Modules]
+FormKiQ supports a wide array of professional and enterprise modules and features. See xref:pro-and-enterprise:README.adoc[Pro and Enterprise Modules]
 
 == AWS Costs
 

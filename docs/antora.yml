@@ -6,7 +6,7 @@ nav:
 - modules/platform-overview/nav.adoc
 - modules/authentication/nav.adoc
 - modules/api/nav.adoc
-- modules/enterprise/nav.adoc
+- modules/pro-and-enterprise/nav.adoc
 - modules/howto/nav.adoc
 - modules/tutorials/nav.adoc
 - modules/page/nav.adoc

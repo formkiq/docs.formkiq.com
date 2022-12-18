@@ -1,5 +1,5 @@
-Fulltext Search Module
-----------------------
+Advanced Document Search Module
+-------------------------------
 
 image::architecture_formkiq_and_opensearch.png[FormKiQ OpenSearch Architecture]
 
@@ -10,7 +10,7 @@ image::architecture_formkiq_and_opensearch.png[FormKiQ OpenSearch Architecture]
 
 === Overview
 
-Fulltext Search is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enhances built-in search functionality by integrating OpenSearch.
+Advanced Document Search is a FormKiQ Enterprise Add-On Module that enhances built-in search functionality by integrating OpenSearch.
 
 === Installation
 
@@ -20,7 +20,7 @@ On your https://github.com/formkiq[FormKiQ Enterprise] page, you'll find CloudFo
 
 image::cf-enterprise-scripts.png[CloudFormation Enterprise Scripts,600,600]
 
-The Fulltext Search module uses the AWS OpenSearch service. The OpenSearch service can be inside of a VPC or outside of a VPC. FormKiQ provides methods for doing either type of installation.
+The Advanced Document Search module uses the AWS OpenSearch service. The OpenSearch service can be inside of a VPC or outside of a VPC. FormKiQ provides methods for doing either type of installation.
 
 If you are NOT using a VPC, you can skip the `Install VPC` section.
 
@@ -63,13 +63,11 @@ CloudFormation will then update FormKiQ installation to enable OpenSearch.
 
 === API
 
-The Fulltext Search Module adds several new endpoints, including the following API endpoint to the Documents section of the API:
+The Advanced Document Search Module adds several new endpoints, including the following API endpoint to the Documents section of the API:
 
-* `PUT /documents/{DocumentId}/fulltext` - Replaces the specified document's fulltext metadata (if exists)
+* `PUT /documents/{DocumentId}/fulltext` - Replaces the specified document's fulltext metadata for OpenSearch (if exists)
 
 **NOTE:** all FormKiQ API endpoints are case-sensitive
 
-The module also enables a new JSON body format for `POST /search`, allowing for fulltext and multi-clause queries on existing document metadata, including tags and OCR results.
-
-**You can view the full list of Fulltext Search Module endpoints in the link:../reference/README.html#fulltext-search-module[Enterprise API Reference].**
+**You can view the full list of Advanced Document Search Module endpoints in the link:../reference/README.html[API Reference].**
 

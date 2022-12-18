@@ -10,7 +10,7 @@ Tag Schema Module
 Overview
 ~~~~~~~~
 
-Tag Schema is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that provides the enforcement of a tag schema on specific documents and enhances search functionality through composite keys for tags.
+Tag Schema is a FormKiQ Module that provides the enforcement of a tag schema on specific documents and enhances search functionality through composite keys for tags.
 
 ====
 _**Use Cases:**_
@@ -46,4 +46,4 @@ API
 
 The Tag Schema Module adds API endpoints to create, retrieve, and delete tag schemas. As this module interacts with the FormKiQ Core API Endpoints, a `tagSchemaId` will also be available on most document endpoints, such as `POST /documents/`.
 
-**You can view the full list of Tag Schema Module endpoints in the link:../reference/README.html#tag-schemas-module[Enterprise API Reference].**
+**You can view the full list of Tag Schema Module endpoints in the link:../reference/README.html[API Reference].**
