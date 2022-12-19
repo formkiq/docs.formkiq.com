@@ -13,4 +13,4 @@ API
 
 The ONLYOFFICE Document Collaboration Module adds endpoints to create or edit documents and save changes to those documents.
 
-**You can view the full list of ONLYOFFICE Document Collaboration Module endpoints in the link:../reference/README.html[API Reference].**
+**You can view the full list of ONLYOFFICE Document Collaboration Module endpoints in the link:../api/README.html#onlyoffice[API Reference].**

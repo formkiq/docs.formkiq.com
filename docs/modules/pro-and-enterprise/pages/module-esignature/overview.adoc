@@ -13,4 +13,4 @@ API
 
 The E-Signature Module adds endpoints to configure e-signature settings and to create an e-signature envelope/workflow.
 
-**You can view the full list of E-Signature Module endpoints in the link:../reference/README.html[API Reference].**
+**You can view the full list of E-Signature Module endpoints in the link:../api/README.html#esignature[API Reference].**

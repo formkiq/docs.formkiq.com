@@ -24,4 +24,4 @@ API
 
 The Document Versioning Module adds endpoints to get version info, as well as to request specific versions when requesting a document for display or download. In addition, there is an endpoint to set the current version, allowing a change to be reverted by promoting a previous version to become the most recent, i.e., current, version of the document.
 
-**You can view the full list of Document Versioning Module endpoints in the link:../reference/README.html[API Reference].**
+**You can view the full list of Document Versioning Module endpoints in the link:../api/README.html#documentversions[API Reference].**

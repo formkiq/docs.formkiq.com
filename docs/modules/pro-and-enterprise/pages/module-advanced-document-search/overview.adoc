@@ -69,5 +69,5 @@ The Advanced Document Search Module adds several new endpoints, including the fo
 
 **NOTE:** all FormKiQ API endpoints are case-sensitive
 
-**You can view the full list of Advanced Document Search Module endpoints in the link:../reference/README.html[API Reference].**
+**You can view the full list of Advanced Document Search Module endpoints in the link:../api/README.html#advanceddocumentsearch[API Reference].**
 

@@ -24,4 +24,4 @@ API
 
 The Document OCR Module adds endpoints to request a document OCR processing, to retrieve the result, and to delete.
 
-**You can view the full list of Document OCR Module endpoints in the link:../reference/README.html[API Reference].**
+**You can view the full list of Document OCR Module endpoints in the link:../api/README.html#ocr[API Reference].**

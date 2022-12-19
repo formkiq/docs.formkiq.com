@@ -46,4 +46,4 @@ API
 
 The Tag Schema Module adds API endpoints to create, retrieve, and delete tag schemas. As this module interacts with the FormKiQ Core API Endpoints, a `tagSchemaId` will also be available on most document endpoints, such as `POST /documents/`.
 
-**You can view the full list of Tag Schema Module endpoints in the link:../reference/README.html[API Reference].**
+**You can view the full list of Tag Schema Module endpoints in the link:../api/README.html#tagschema[API Reference].**
