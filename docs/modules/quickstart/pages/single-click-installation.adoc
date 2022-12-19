@@ -1,22 +1,22 @@
 == One-click Installation Links
 
-FormKiQ is installed / updated using https://docs.aws.amazon.com/cloudformation[AWS CloudFormation] deployments. You will need access to an AWS account that has permissions to use CloudFormation templates in order to install FormKiQ.
+FormKiQ is installed / updated using https://docs.aws.amazon.com/cloudformation[AWS CloudFormation^] deployments. You will need access to an AWS account that has permissions to use CloudFormation templates in order to install FormKiQ.
 
 If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
 
-On the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page] you will find one-click installation links for a number of AWS Regions, as shown below.
+On the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page^] you will find one-click installation links for a number of AWS Regions, as shown below.
 
 image::github-click-install.png[GitHub Click Install,300,300,link="https://github.com/formkiq/formkiq-core#installation"]
 
 Clicking one of these one-click installation links will take you to the CloudFormation console "Create Stack" page.
 
-NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom https://github.com[GitHub] repository you were provided.
+NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom https://github.com[GitHub^] repository you were provided.
 
 == CloudFormation Parameters
 
 *Create stack*
 
-As mentioned above, after clicking one of the https://github.com/formkiq/formkiq-core#installation[one-click installation links] and logging into your AWS account, you'll be brought to the CloudFormation Create Stack page. You should see the `Amazon S3 URL` being set a FormKiQ installation URLs. Clicking the `Next` button will bring you to the next page, where you can customize your FormKiQ installation.
+As mentioned above, after clicking one of the https://github.com/formkiq/formkiq-core#installation[one-click installation links^] and logging into your AWS account, you'll be brought to the CloudFormation Create Stack page. You should see the `Amazon S3 URL` being set a FormKiQ installation URLs. Clicking the `Next` button will bring you to the next page, where you can customize your FormKiQ installation.
 
 image::cf-createstack.png[CloudFormation Create Stack,800,800]
 
@@ -54,11 +54,11 @@ NOTE: You can always enable/disable your public endpoints at any time by updatin
 
 image::cf-create-parameter-passwords.png[Set Password Policy,1200,800]
 
-FormKiQ uses https://aws.amazon.com/cognito[Amazon Cognito] as the identity store for all users. Cognito support number of different password policies that you can configure.
+FormKiQ uses https://aws.amazon.com/cognito[Amazon Cognito^] as the identity store for all users. Cognito support number of different password policies that you can configure.
 
 image::cf-create-parameter-typesense.png[Configure TypesenseApiKey,1200,800]
 
-Optional: API Key to access the https://typesense.org[Typesense] server. https://typesense.org[Typesense] is used to provide text search support. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` to be set (see VPC CloudFormation).
+Optional: API Key to access the https://typesense.org[Typesense^] server. https://typesense.org[Typesense^] is used to provide text search support. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` to be set (see VPC CloudFormation).
 
 NOTE: Typesense is optional, since it requires a VPC to be created, which can add to your AWS usage costs. Without Typesense, you will only be able to search documents using tags and the document's created date.
 
@@ -78,7 +78,7 @@ The operation to create your new FormKiQ stack should take between fifteen and t
 
 Certain FormKiQ features (currently Typesense and the OpenSearch add-on for FormKiQ Enterprise) require a VPC to be configured, and then the FormKiQ stack needs to be updated to use that VPC.
 
-On the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page] you can find one-click VPC installation links.
+On the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page^] you can find one-click VPC installation links.
 
 image::github-vpc-install.png[Github VPC Install,600,600]
 

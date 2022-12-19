@@ -7,6 +7,6 @@ nav:
 - modules/authentication/nav.adoc
 - modules/api/nav.adoc
 - modules/pro-and-enterprise/nav.adoc
-- modules/howto/nav.adoc
+- modules/how-to/nav.adoc
 - modules/tutorials/nav.adoc
 - modules/page/nav.adoc

@@ -17,7 +17,7 @@ xref:api:README.adoc[API Reference] shows all of the document management API end
 
 == How-to guides
 
-xref:howto:overview.adoc[FormKiQ HowTo] you through the steps involved in using FormKiQ for specific scenarios.
+xref:how-to:overview.adoc[FormKiQ How-To] you through the steps involved in using FormKiQ for specific scenarios.
 
 == Tutorials!
 

@@ -4,18 +4,18 @@ This tutorial will take you through different way to search for documents using 
 
 ## Prerequisite
 
-* You have installed FormKiQ, see the xref:tutorials:install.adoc[FormKiQ Installation tutorial]
-* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman].
-* Optionally install: https://stedolan.github.io/jq[JQ], a command-line JSON processor which formats JSON so it is more readable.
+* You have installed FormKiQ; see the xref:quickstart:README.adoc#one-click-installation-links[FormKiQ One-Click Installation Links] for more information
+* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman^].
+* Optionally install: https://stedolan.github.io/jq[JQ^], a command-line JSON processor which formats JSON so it is more readable.
 * All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
 
 ## Get JWT Authentication Token
 
-You first need to get an `authorization` token to access the FormKiQ API. See xref:howto:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
+You first need to get an `authorization` token to access the FormKiQ API. See xref:how-to:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
 
 ## CloudFormation Outputs
 
-We are going to need to know the name FormKiQ of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console], find your FormKiQ stack and click the `Outputs` tab.
+We are going to need to know the name FormKiQ of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console^], find your FormKiQ stack and click the `Outputs` tab.
 
 image::cf-outputs-apis.png[CloudFormation Outputs,500,500]
 
@@ -97,7 +97,7 @@ curl -X POST https://HTTP_API_URL/search \
 
 ## Search for Document Composite Key
 
-https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise] has a xref:enterprise:README.adoc#tag-schema-module[TagSchema Module] which allows defining document composite keys which allows for searching for multiple tags.
+https://www.formkiq.com/products/formkiq-pro[FormKiQ Pro and Enterprise^] have a xref:pro-and-enterprise:README.adoc#tag-schema-module[TagSchema Module] which allows defining document composite keys which allows for searching for multiple tags.
 
 
 [source%nowrap]
@@ -109,7 +109,7 @@ curl -X POST https://HTTP_API_URL/search \
 
 ## Search using Full Text Module
 
-https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise] has a xref:enterprise:README.adoc#fulltext-search-module[Fulltext Search Module] provides FormKiQ integration with https://aws.amazon.com/opensearch-service[AWS OpenSearch] which is an AWS fully managed https://www.elastic.co[ElasticSearch] compatible service.
+https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise^] has an xref:pro-and-enterprise:README.adoc#advanced-document-search-module[Advanced Document Search Module] provides FormKiQ integration with https://aws.amazon.com/opensearch-service[AWS OpenSearch^] which is an AWS fully managed https://www.elastic.co[Elasticsearch-compatible] service.
 
 [source%nowrap]
 ----
@@ -134,7 +134,7 @@ A successful response will return a list of documents:
 
 The `POST /queryFulltext` allows for custom, complex queries using the OpenSearch search API.
 
-The request body is set to any valid https://opensearch.org/docs/2.3/opensearch/query-dsl/index/[OpenSearch search api].
+The request body is set to any valid https://opensearch.org/docs/2.3/opensearch/query-dsl/index/[OpenSearch Search API^] request.
 
 [source%nowrap]
 ----
@@ -169,4 +169,4 @@ Query Results
 
 == Summary
 
-To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:howto:overview.adoc[FormKiQ How-To].
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:how-to:overview.adoc[FormKiQ How-To].

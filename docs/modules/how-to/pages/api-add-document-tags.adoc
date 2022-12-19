@@ -4,18 +4,18 @@ This tutorial will take you through different way to add tags to documents using
 
 ## Prerequisite
 
-* You have installed FormKiQ, see the xref:tutorials:install.adoc[FormKiQ Installation tutorial]
-* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman].
-* Optionally install: https://stedolan.github.io/jq[JQ], a command-line JSON processor which formats JSON so it is more readable.
+* You have installed FormKiQ; see the xref:quickstart:README.adoc#one-click-installation-links[FormKiQ One-Click Installation Links] for more information
+* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman^].
+* Optionally install: https://stedolan.github.io/jq[JQ^], a command-line JSON processor which formats JSON so it is more readable.
 * All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
 
 ## Get JWT Authentication Token
 
-You first need to get an `authorization` token to access the FormKiQ API. See xref:howto:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
+You first need to get an `authorization` token to access the FormKiQ API. See xref:how-to:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
 
 ## CloudFormation Outputs
 
-We are going to need to know the name FormKiQ of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console], find your FormKiQ stack and click the `Outputs` tab.
+We are going to need to know the name FormKiQ of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console^], find your FormKiQ stack and click the `Outputs` tab.
 
 image::cf-outputs-apis.png[CloudFormation Outputs,500,500]
 
@@ -116,4 +116,4 @@ curl -v -H "Content-Type: FILE_CONTENT_TYPE" --upload-file FILE_NAME "https://fo
 
 == Summary
 
-To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:howto:overview.adoc[FormKiQ How-To].
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:how-to:overview.adoc[FormKiQ How-To].

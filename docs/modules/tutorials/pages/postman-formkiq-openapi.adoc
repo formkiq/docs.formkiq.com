@@ -1,16 +1,16 @@
 = Using Postman and FormKiQ API
 
-This tutorial will take you through setting up the FormKiQ API inside of https://www.postman.com[Postman].
+This tutorial will take you through setting up the FormKiQ API inside of https://www.postman.com[Postman^].
 
 ## Prerequisite
 
-* You have installed FormKiQ, see the xref:tutorials:install.adoc[FormKiQ Installation tutorial]
-* You have installed https://www.postman.com[Postman].
-* You have an FormKiQ Access Token xref:howto:jwt-authentication-token.adoc[Getting Cognito JWT Access Token tutorial]
+* You have installed FormKiQ; see the xref:quickstart:README.adoc#one-click-installation-links[FormKiQ One-Click Installation Links] for more information
+* You have installed https://www.postman.com[Postman^].
+* You have a FormKiQ Access Token xref:how-to:jwt-authentication-token.adoc[Getting Cognito JWT Access Token tutorial]
 
 ## CloudFormation Outputs
 
-We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console], find your FormKiQ stack and click the `Outputs` tab.
+We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console^], find your FormKiQ stack and click the `Outputs` tab.
 
 image::cf-outputs-apis.png[CloudFormation Outputs,800,500]
 
@@ -23,13 +23,13 @@ The following are outputs we'll need to know.
 
 ## FormKiQ API Specification
 
-FormKiQ's API is built using the https://spec.openapis.org/oas/latest.html[OpenAPI Specification], which is an open standard for defining APIs.
+FormKiQ's API is built using the https://spec.openapis.org/oas/latest.html[OpenAPI Specification^], which is an open standard for defining APIs.
 
-The FormKiQ API specification can be found in the https://github.com/formkiq/formkiq-core[FormKiQ Core] Github repository, called `openapi-jwt.yaml`.
+The FormKiQ API specification can be found in the https://github.com/formkiq/formkiq-core[FormKiQ Core^] Github repository, called `openapi-jwt.yaml`.
 
 ## Import FormKiQ API
 
-Open https://www.postman.com[Postman] and select `File` -> `Import`.
+Open https://www.postman.com[Postman^] and select `File` -> `Import`.
 
 Select the `Link` tab and use the following URL for the FormKiQ API specification.
 

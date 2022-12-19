@@ -4,15 +4,15 @@ This tutorial will take you through the basic of the FormKiQ Document API, inclu
 
 ## Prerequisite
 
-* You have installed FormKiQ, see the xref:tutorials:install.adoc[FormKiQ Installation tutorial]
-* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman].
-* Optionally install: https://stedolan.github.io/jq[JQ], a command-line JSON processor which formats JSON so it is more readable.
+* You have installed FormKiQ; see the xref:quickstart:README.adoc#one-click-installation-links[FormKiQ One-Click Installation Links] for more information
+* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman^].
+* Optionally install: https://stedolan.github.io/jq[JQ^], a command-line JSON processor which formats JSON so it is more readable.
 * All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
 
 
 ## CloudFormation Outputs
 
-We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console], find your FormKiQ stack and click the `Outputs` tab.
+We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console^], find your FormKiQ stack and click the `Outputs` tab.
 
 image::cf-outputs-apis.png[CloudFormation Outputs,500,500]
 
@@ -25,7 +25,7 @@ The following are outputs we'll need to know.
 
 ## Get JWT Authentication Token
 
-The first thing we need is a https://jwt.io[JSON Web Tokens (JWT)] that will tell the API we are authorized to make the API request.
+The first thing we need is a https://jwt.io[JSON Web Tokens (JWT)^] that will tell the API we are authorized to make the API request.
 
 Authenticating can be done using the Cognito API Endpoint url with the following command. The descriptions of the required arguments are in the table below.
 

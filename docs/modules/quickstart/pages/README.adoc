@@ -5,7 +5,7 @@ image::formkiq_quickstart.png[FormKiQ Quickstart,400,400]
 
 == What is FormKiQ?
 
-FormKiQ is an API-first document management platform that can run in any https://aws.amazon.com[Amazon Web Services (AWS)] account.
+FormKiQ is an API-first document management platform that can run in any https://aws.amazon.com[Amazon Web Services (AWS)^] account.
 
 Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. FormKiQ strives to be the most flexible, customizable and cost-effective document management system available.
 

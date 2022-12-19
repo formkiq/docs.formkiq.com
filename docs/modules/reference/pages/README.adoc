@@ -61,8 +61,6 @@ To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
 
 include::services/overview.adoc[Services & Introduction]
 
-include::deployment-environments/index.adoc[Installation & Deployment]
-
 include::compiling/index.adoc[Compiling]
 
 include::s3buckets/index.adoc[S3 Buckets]

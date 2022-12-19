@@ -82,19 +82,19 @@ For example, with document actions you could:
 
 FormKiQ is built using a message-driven architecture. This means you can be notified when specific events happen.
 
-For example, you can subscribe to FormKiQ's document event https://aws.amazon.com/sns[Amazon SNS] topic and be notified when a document is created, updated or deleted. This makes it simple to extend FormKiQ functionality to meet your needs.
+For example, you can subscribe to FormKiQ's document event https://aws.amazon.com/sns[Amazon SNS^] topic and be notified when a document is created, updated or deleted. This makes it simple to extend FormKiQ functionality to meet your needs.
 
 === Document Searching
 
-FormKiQ Core uses https://aws.amazon.com/dynamodb[Amazon DynamoDB] for performing document tag searches. Multi-tag searching is supported when used in combination with the xref:enterprise:module-tagschema/overview.adoc[FormKiQ TagSchema].
+FormKiQ Core uses https://aws.amazon.com/dynamodb[Amazon DynamoDB^] for performing document tag searches. Multi-tag searching is supported when used in combination with the xref:pro-and-enterprise:module-tagschema/overview.adoc[FormKiQ TagSchema].
 
-Document metadata and full text searching is supported through https://typesense.org/[Typesense], with https://aws.amazon.com/opensearch-service[OpenSearch] and its more advanced customization and performance available as an add-on to FormKiQ Enterprise.
+Document metadata and full text searching is supported through https://typesense.org/[Typesense^], with https://aws.amazon.com/opensearch-service[OpenSearch^] and its more advanced customization and performance available as an add-on to FormKiQ Enterprise.
 
 == Multi-Tenant and Multi-Instance
 
 FormKiQ Core supports usage as a multi-tenant application. This can be used for internal departments or teams, or for external clients. During deployment, a "default" SiteId is created; all documents are stored in that tenant by default.
 
-To create another SiteId is as simple as adding a new https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-user-groups.html[Cognito group to the user pool]
+To create another SiteId is as simple as adding a new https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-user-groups.html[Cognito group to the user pool^]
 
 Creating a Cognito Group with the same name as the SiteId but ending in "_read" will create a read-only group. The users in this group will have read-only access to documents within that SiteId.
 
@@ -106,13 +106,13 @@ NOTE: This parameter is only needed if a user belongs to multiple SiteIds or if 
 
 == API Overview
 
-FormKiQ has a robust and battle-tested document management API. FormKiQ deploys with 2 APIs, one that uses JWT authentication and one that uses https://aws.amazon.com/iam[AWS IAM]. This allows flexibility in supporting both user access and backend system access.
+FormKiQ has a robust and battle-tested document management API. FormKiQ deploys with 2 APIs, one that uses JWT authentication and one that uses https://aws.amazon.com/iam[AWS IAM^]. This allows flexibility in supporting both user access and backend system access.
 
-FormKiQ API was built on top of https://www.openapis.org[OpenAPI specification], so it is easy to use the API spec file with any application that supports the OpenAPI specification.
+FormKiQ API was built on top of https://www.openapis.org[OpenAPI specification^], so it is easy to use the API spec file with any application that supports the OpenAPI specification.
 
-https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-jwt.yaml[Open API JWT Specification]
+https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-jwt.yaml[Open API JWT Specification^]
 
-https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-iam.yaml[Open API IAM Specification]
+https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-iam.yaml[Open API IAM Specification^]
 
 The full FormKiQ API can be found
 xref:api:README.adoc[FormKiQ API]
@@ -123,21 +123,21 @@ FormKiQ supports a wide array of professional and enterprise modules and feature
 
 == AWS Costs
 
-FormKiQ was created using [serverless technology](https://aws.amazon.com/serverless/). This means that there are no servers to manage; everything is managed by AWS. All AWS services FormKiQ uses have pay-per-usage billing. You can start using FormKiQ with very little cost.
+FormKiQ was created using https://aws.amazon.com/serverless/[serverless technology^]. This means that there are no servers to manage; everything is managed by AWS. All AWS services FormKiQ uses have pay-per-usage billing. You can start using FormKiQ with very little cost.
 
-In fact, AWS provides a [free tier](https://aws.amazon.com/free) to all AWS accounts. This means that some AWS services you can use for **free**, assuming you are able to stay within the usage limits. Below is the list of services FormKiQ uses and their approximate usage costs, so give you an idea on how much it costs to run FormKiQ. (All costs in USD)
+In fact, AWS provides a https://aws.amazon.com/free[free tier^] to all AWS accounts. This means that some AWS services you can use for **free**, assuming you are able to stay within the usage limits. Below is the list of services FormKiQ uses and their approximate usage costs, so give you an idea on how much it costs to run FormKiQ. (All costs in USD)
 
 |===
 |Service |Cost
 
 // Space needed to maintain table headers
-| https://aws.amazon.com/api-gateway/pricing[Amazon Api Gateway] |   $1.00 per million requests
-| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB] (Storage)  |  First 25 GB Free
-| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB] (Writes) |Write request units - $1.25 per million write request units
-| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB] (Reads) |Read request units - $0.25 per million read request units
-| https://aws.amazon.com/cloudfront/pricing[Amazon CloudFront] |   $0.085 per GB of Data Transfer Out to Internet
-| https://aws.amazon.com/s3/pricing[Amazon S3] |   $0.023 per GB / Month
-| https://aws.amazon.com/lambda/pricing[AWS Lambda] |   approx. first 400,000 requests Free per Month
-| https://aws.amazon.com/lambda/pricing[AWS Lambda] |$0.0000168667 per additional request
+| https://aws.amazon.com/api-gateway/pricing[Amazon Api Gateway^] |   $1.00 per million requests
+| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB^] (Storage)  |  First 25 GB Free
+| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB^] (Writes) |Write request units - $1.25 per million write request units
+| https://aws.amazon.com/dynamodb/pricing/on-demand[Amazon DynamoDB^] (Reads) |Read request units - $0.25 per million read request units
+| https://aws.amazon.com/cloudfront/pricing[Amazon CloudFront^] |   $0.085 per GB of Data Transfer Out to Internet
+| https://aws.amazon.com/s3/pricing[Amazon S3^] |   $0.023 per GB / Month
+| https://aws.amazon.com/lambda/pricing[AWS Lambda^] |   approx. first 400,000 requests Free per Month
+| https://aws.amazon.com/lambda/pricing[AWS Lambda^] |$0.0000168667 per additional request
 |===
 
