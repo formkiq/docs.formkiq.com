@@ -17,6 +17,926 @@ See xref:tutorials:overview.adoc[FormKiQ Tutorials] for examples on how to use t
 == Endpoints
 
 
+[.AdvancedDocumentSearch]
+=== AdvancedDocumentSearch
+
+
+[.deleteDocumentFulltext]
+==== deleteDocumentFulltext
+
+`DELETE /documents/{documentId}/fulltext`
+
+
+
+===== Description
+
+Remove full text search for a document from OpenSearch; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteDocumentFulltextTag]
+==== deleteDocumentFulltextTag
+
+`DELETE /documents/{documentId}/fulltext/tags/{tagKey}`
+
+
+
+===== Description
+
+Remove document tags from OpenSearch; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+| tagKey
+| Tag Key
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/tags/{tagKey}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteDocumentFulltextTagAndValue]
+==== deleteDocumentFulltextTagAndValue
+
+`DELETE /documents/{documentId}/fulltext/tags/{tagKey}/{tagValue}`
+
+
+
+===== Description
+
+Remove document tag/value from OpenSearch; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+| tagKey
+| Tag Key
+| X
+| null
+|
+
+| tagValue
+| Tag Key Value
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/tags/{tagKey}/{tagValue}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.documentFulltext]
+==== documentFulltext
+
+`POST /searchFulltext`
+
+
+
+===== Description
+
+Document full-text search (and more robust multi-tag search queries, powered by OpenSearch); ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}searchFulltext/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| DocumentFulltextRequest
+|  <<DocumentFulltextRequest>>
+| X
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+| limit
+| Limit Results
+| -
+| 10
+|
+
+|===
+
+
+===== Return Type
+
+<<DocumentFulltextResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<DocumentFulltextResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}searchFulltext/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}searchFulltext/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :searchFulltext/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}searchFulltext/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getDocumentFulltext]
+==== getDocumentFulltext
+
+`GET /documents/{documentId}/fulltext`
+
+
+
+===== Description
+
+Retrieve an OpenSearch document's details, i.e., metadata
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<GetDocumentFulltextResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<GetDocumentFulltextResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.queryFulltext]
+==== queryFulltext
+
+`POST /queryFulltext`
+
+
+
+===== Description
+
+Endpoint for allowing custom, complex queries using the OpenSearch search API (https://opensearch.org/docs/latest/opensearch/rest-api/search/); ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}queryFulltext/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| body
+|  <<object>>
+| X
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<QueryFulltextResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<QueryFulltextResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}queryFulltext/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}queryFulltext/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :queryFulltext/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}queryFulltext/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.setDocumentFulltext]
+==== setDocumentFulltext
+
+`PUT /documents/{documentId}/fulltext`
+
+
+
+===== Description
+
+Set all text/tags found within a document to OpenSearch; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| SetDocumentFulltextRequest
+|  <<SetDocumentFulltextRequest>>
+| -
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<SetDocumentFulltextResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<SetDocumentFulltextResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.updateDocumentFulltext]
+==== updateDocumentFulltext
+
+`PATCH /documents/{documentId}/fulltext`
+
+
+
+===== Description
+
+Update a document in OpenSearch; ONLY available with FormKiQ Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PATCH/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| UpdateDocumentFulltextRequest
+|  <<UpdateDocumentFulltextRequest>>
+| -
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<SetDocumentFulltextResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<SetDocumentFulltextResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PATCH/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PATCH/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/fulltext/PATCH/PATCH.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PATCH/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.Antivirus]
+=== Antivirus
+
+
+[.setAntivirus]
+==== setAntivirus
+
+`PUT /documents/{documentId}/antivirus`
+
+
+
+===== Description
+
+Perform an Anti-Malware / Antivirus scan on a document; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/antivirus/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| body
+|  <<object>>
+| -
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<SetAntivirusResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<SetAntivirusResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/antivirus/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/antivirus/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/antivirus/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/antivirus/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
 [.DocumentActions]
 === DocumentActions
 
@@ -30,7 +950,7 @@ See xref:tutorials:overview.adoc[FormKiQ Tutorials] for examples on how to use t
 
 ===== Description
 
-Add action to a document
+Add one or more actions to a document; this appends actions and does not replace previous actions
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/actions/POST/spec.adoc[opts=optional]
@@ -138,7 +1058,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Get Document Actions and their Status
+Get document actions and their status
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/actions/GET/spec.adoc[opts=optional]
@@ -228,107 +1148,6 @@ endif::internal-generation[]
 === DocumentSearch
 
 
-[.documentFulltext]
-==== documentFulltext
-
-`POST /searchFulltext`
-
-
-
-===== Description
-
-Document full text search (and more robust multi-tag search queries, powered by OpenSearch) ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}searchFulltext/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| DocumentFulltextRequest
-|  <<DocumentFulltextRequest>>
-| X
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-| limit
-| Limit Results
-| -
-| 10
-|
-
-|===
-
-
-===== Return Type
-
-<<DocumentFulltextResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<DocumentFulltextResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}searchFulltext/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}searchFulltext/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :searchFulltext/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}searchFulltext/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
 [.documentSearch]
 ==== documentSearch
 
@@ -338,7 +1157,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Document search query request; documents are searched primarily using a document tag key and optional tag value, while an optional documentIds parameter is also available in the DocumentSearchBody to filter within up to 100 documentIds
+Document search query request; documents are searched primarily using a document tag key and optional tag value, or if Typesense is enabled, searches on the document path and versioned metadata is also available. An optional documentIds parameter is also available in the DocumentSearchBody to filter, with up to 100 documentIds accepted.
 
 
 // markup not found, no include::{specDir}search/POST/spec.adoc[opts=optional]
@@ -442,101 +1261,6 @@ ifdef::internal-generation[]
 endif::internal-generation[]
 
 
-[.queryFulltext]
-==== queryFulltext
-
-`POST /queryFulltext`
-
-
-
-===== Description
-
-Endpoint for allowing custom, complex queries using the OpenSearch search API (https://opensearch.org/docs/latest/opensearch/rest-api/search/) ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}queryFulltext/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| body
-|  <<object>>
-| X
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<QueryFulltextResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<QueryFulltextResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}queryFulltext/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}queryFulltext/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :queryFulltext/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}queryFulltext/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
 [.DocumentTags]
 === DocumentTags
 
@@ -550,7 +1274,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Add a single tag to a document; endpoint also accepts a different body parameter for adding multiple tags at one time
+Add a single tag to a document; this endpoint also accepts a different body parameter for adding multiple tags in a single request
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags/POST/spec.adoc[opts=optional]
@@ -656,7 +1380,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Add multiple tags to a document; endpoint also accepts a different body parameter for adding a single tag
+Add multiple tags to a document; this endpoint also accepts a different body parameter for adding a single tag
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/tags#/POST/spec.adoc[opts=optional]
@@ -1296,7 +2020,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Get a listing of document content versions; ONLY available with FormKiQ Enterprise
+Get a listing of document content and metadata versions; ONLY available with FormKiQ Pro and Enterprise
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/versions/GET/spec.adoc[opts=optional]
@@ -1397,7 +2121,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Set Document to a previous document version; ONLY available with FormKiQ Enterprise
+Set document to a previous document version; ONLY available with FormKiQ Pro and Enterprise
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/versions/PUT/spec.adoc[opts=optional]
@@ -1609,7 +2333,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Returns a URL that can be used to upload document content and create a new document; required to add content that is larger than 5 MB
+Returns a URL that can be used to upload document content and create a new document, while allowing metadata to also be sent; this endpoint (whether GET or POST) is required in order to add content that is larger than 5 MB
 
 
 // markup not found, no include::{specDir}documents/upload/POST/spec.adoc[opts=optional]
@@ -1898,7 +2622,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Get a document's contents. text/*, application/json, application/x-www-form-urlencoded returns \"content\" field, all other content-types returns a 'contentUrl' for the content.
+Get a document's contents. Certain content types, text/*, application/json, and application/x-www-form-urlencoded. return the  \"content\" field, while all other content types return a 'contentUrl' for retrieving the content.
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/content/GET/spec.adoc[opts=optional]
@@ -1999,7 +2723,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Returns a URL that can be used to upload documents for a specific documentId (required for documents larger than 5 MB)
+Returns a URL that can be used to upload documents for a specific documentId; this endpoint is required in order to add content that is larger than 5 MB. If versions are enabled, this will create a new version of the document.
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/upload/GET/spec.adoc[opts=optional]
@@ -2106,7 +2830,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Returns a URL that can be used to upload document content and create a new document; required to add content that is larger than 5 MB
+Returns a URL that can be used to upload document content and create a new document; this endpoint (whether GET or POST) is required in order to add content that is larger than 5 MB
 
 
 // markup not found, no include::{specDir}documents/upload/GET/spec.adoc[opts=optional]
@@ -2206,7 +2930,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Returns a URL for the document's contents that expires (default is 48 hours)
+Returns a URL for the document's contents; this URL will expire (the default is 48 hours)
 
 
 // markup not found, no include::{specDir}documents/\{documentId\}/url/GET/spec.adoc[opts=optional]
@@ -2543,7 +3267,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Docusign callback URL handler; ONLY available in FormKiQ Enterprise
+DocuSign callback URL handler; ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}esignature/docusign/events/POST/spec.adoc[opts=optional]
@@ -2612,7 +3336,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Creates an Docusign E-Signature request; ONLY available in FormKiQ Enterprise
+Create a DocuSign E-Signature request; ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}esignature/docusign/\{documentId\}/POST/spec.adoc[opts=optional]
@@ -2725,7 +3449,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Configures Docusign configuration; ONLY available in FormKiQ Enterprise
+Get DocuSign configuration info; ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}esignature/docusign/config/GET/spec.adoc[opts=optional]
@@ -2807,7 +3531,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Sets Docusign configuration; ONLY available in FormKiQ Enterprise
+Set DocuSign configuration, required for integration; ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}esignature/docusign/config/PUT/spec.adoc[opts=optional]
@@ -2893,1542 +3617,6 @@ ifdef::internal-generation[]
 endif::internal-generation[]
 
 
-[.EnterpriseAntivirus]
-=== EnterpriseAntivirus
-
-
-[.setAntivirus]
-==== setAntivirus
-
-`PUT /documents/{documentId}/antivirus`
-
-
-
-===== Description
-
-Performs Antivirus scan on a document. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/antivirus/PUT/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| body
-|  <<object>>
-| -
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<SetAntivirusResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<SetAntivirusResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/antivirus/PUT/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/antivirus/PUT/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/antivirus/PUT/PUT.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/antivirus/PUT/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.EnterpriseFulltext]
-=== EnterpriseFulltext
-
-
-[.deleteDocumentFulltext]
-==== deleteDocumentFulltext
-
-`DELETE /documents/{documentId}/fulltext`
-
-
-
-===== Description
-
-Removes full text search for a document; ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/DELETE/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/fulltext/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.deleteDocumentFulltextTag]
-==== deleteDocumentFulltextTag
-
-`DELETE /documents/{documentId}/fulltext/tags/{tagKey}`
-
-
-
-===== Description
-
-Removes document tags from full text search; ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-| tagKey
-| Tag Key
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/fulltext/tags/{tagKey}/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.deleteDocumentFulltextTagAndValue]
-==== deleteDocumentFulltextTagAndValue
-
-`DELETE /documents/{documentId}/fulltext/tags/{tagKey}/{tagValue}`
-
-
-
-===== Description
-
-Removes document tag/value from full text search; ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-| tagKey
-| Tag Key
-| X
-| null
-|
-
-| tagValue
-| Tag Key Value
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/fulltext/tags/{tagKey}/{tagValue}/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/tags/\{tagKey\}/\{tagValue\}/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.getDocumentFulltext]
-==== getDocumentFulltext
-
-`GET /documents/{documentId}/fulltext`
-
-
-
-===== Description
-
-Retrieves an OpenSearch document's details, i.e., metadata
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<GetDocumentFulltextResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<GetDocumentFulltextResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/fulltext/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.setDocumentFulltext]
-==== setDocumentFulltext
-
-`PUT /documents/{documentId}/fulltext`
-
-
-
-===== Description
-
-Set all text/tags found within a document to OpenSearch; ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PUT/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| SetDocumentFulltextRequest
-|  <<SetDocumentFulltextRequest>>
-| -
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<SetDocumentFulltextResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<SetDocumentFulltextResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PUT/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PUT/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/fulltext/PUT/PUT.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PUT/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.updateDocumentFulltext]
-==== updateDocumentFulltext
-
-`PATCH /documents/{documentId}/fulltext`
-
-
-
-===== Description
-
-Updates Opensearch document; ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PATCH/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| UpdateDocumentFulltextRequest
-|  <<UpdateDocumentFulltextRequest>>
-| -
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<SetDocumentFulltextResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<SetDocumentFulltextResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PATCH/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/fulltext/PATCH/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/fulltext/PATCH/PATCH.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/fulltext/PATCH/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.EnterpriseOCR]
-=== EnterpriseOCR
-
-
-[.addDocumentOcr]
-==== addDocumentOcr
-
-`POST /documents/{documentId}/ocr`
-
-
-
-===== Description
-
-Document optical character recognition (OCR) request; extract text and data from a document. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| AddDocumentOcrRequest
-|  <<AddDocumentOcrRequest>>
-| -
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<AddDocumentOcrResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<AddDocumentOcrResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/ocr/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.deleteDocumentOcr]
-==== deleteDocumentOcr
-
-`DELETE /documents/{documentId}/ocr`
-
-
-
-===== Description
-
-Delete a Document optical character recognition (OCR) result; if exists. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/DELETE/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/ocr/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.getDocumentOcr]
-==== getDocumentOcr
-
-`GET /documents/{documentId}/ocr`
-
-
-
-===== Description
-
-Get Document optical character recognition (OCR) result; if exists. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-| contentUrl
-| Whether to return a \&quot;contentUrl\&quot;, set value to &#39;true&#39;
-| -
-| null
-|
-
-| text
-| Returns raw &#39;text&#39; of OCR content. e.g. AWS Textract returns JSON, setting parameter to &#39;true&#39; converts JSON to Text
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<GetDocumentOcrResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<GetDocumentOcrResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/ocr/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.setDocumentOcr]
-==== setDocumentOcr
-
-`PUT /documents/{documentId}/ocr`
-
-
-
-===== Description
-
-Sets a Document optical character recognition (OCR) document. ONLY available with FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/PUT/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| documentId
-| Document Identifier
-| X
-| null
-|
-
-|===
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| SetDocumentOcrRequest
-|  <<SetDocumentOcrRequest>>
-| -
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<AddDocumentOcrResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<AddDocumentOcrResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/PUT/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/PUT/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :documents/{documentId}/ocr/PUT/PUT.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}documents/\{documentId\}/ocr/PUT/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.EnterpriseTagSchema]
-=== EnterpriseTagSchema
-
-
-[.addTagSchema]
-==== addTagSchema
-
-`POST /tagSchemas`
-
-
-
-===== Description
-
-Creates a new TagSchema; ONLY available in FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}tagSchemas/POST/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-====== Body Parameter
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| AddTagSchemaRequest
-|  <<AddTagSchemaRequest>>
-| X
-|
-|
-
-|===
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<TagSchemaPostResponse>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 201
-| 201 CREATED
-|  <<TagSchemaPostResponse>>
-
-
-| 400
-| 400 BAD REQUEST
-|  <<ErrorsResponse>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/POST/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/POST/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/POST/POST.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/POST/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.deleteTagSchema]
-==== deleteTagSchema
-
-`DELETE /tagSchemas/{tagSchemaId}`
-
-
-
-===== Description
-
-Delete a TagSchema; ONLY available in FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| tagSchemaId
-| Tag Schema Identifier
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-
-
--
-
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/DELETE/DELETE.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.getTagSchema]
-==== getTagSchema
-
-`GET /tagSchemas/{tagSchemaId}`
-
-
-
-===== Description
-
-Retrieves a TagSchema's details, i.e., metadata; ONLY available in FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| tagSchemaId
-| Tag Schema Identifier
-| X
-| null
-|
-
-|===
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<GetTagSchemaRequest>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<GetTagSchemaRequest>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
-[.getTagSchemas]
-==== getTagSchemas
-
-`GET /tagSchemas`
-
-
-
-===== Description
-
-Returns the list of tagSchemas; ONLY available in FormKiQ Enterprise
-
-
-// markup not found, no include::{specDir}tagSchemas/GET/spec.adoc[opts=optional]
-
-
-
-===== Parameters
-
-
-
-
-
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| siteId
-| Site Identifier
-| -
-| null
-|
-
-| limit
-| Limit Results
-| -
-| 10
-|
-
-| next
-| Next page of results token
-| -
-| null
-|
-
-| previous
-| Previous page of results token
-| -
-| null
-|
-
-|===
-
-
-===== Return Type
-
-<<GetTagSchemasRequest>>
-
-
-===== Content Type
-
-* application/json
-
-===== Responses
-
-.http response codes
-[cols="2,3,1"]
-|===
-| Code | Message | Datatype
-
-
-| 200
-| 200 OK
-|  <<GetTagSchemasRequest>>
-
-|===
-
-===== Samples
-
-
-// markup not found, no include::{snippetDir}tagSchemas/GET/http-request.adoc[opts=optional]
-
-
-// markup not found, no include::{snippetDir}tagSchemas/GET/http-response.adoc[opts=optional]
-
-
-
-// file not found, no * wiremock data link :tagSchemas/GET/GET.json[]
-
-
-ifdef::internal-generation[]
-===== Implementation
-
-// markup not found, no include::{specDir}tagSchemas/GET/implementation.adoc[opts=optional]
-
-
-endif::internal-generation[]
-
-
 [.FolderIndex]
 === FolderIndex
 
@@ -4442,7 +3630,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Performs an delete on the Folder Index
+Perform a delete on the Folder Index
 
 
 // markup not found, no include::{specDir}indices/\{indexType\}/\{indexKey\}/DELETE/spec.adoc[opts=optional]
@@ -4549,7 +3737,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Performs an Folder Index Move
+Perform an Folder Index Move
 
 
 // markup not found, no include::{specDir}indices/\{indexType\}/move/POST/spec.adoc[opts=optional]
@@ -4662,7 +3850,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Performs an search on an index
+Perform a search on a index; this is currently only available for folder indices
 
 
 // markup not found, no include::{specDir}indices/search/POST/spec.adoc[opts=optional]
@@ -4913,8 +4101,428 @@ ifdef::internal-generation[]
 endif::internal-generation[]
 
 
-[.OnlyOffice]
-=== OnlyOffice
+[.OCR]
+=== OCR
+
+
+[.addDocumentOcr]
+==== addDocumentOcr
+
+`POST /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Document optical character recognition (OCR) request; extract text and data from a document; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| AddDocumentOcrRequest
+|  <<AddDocumentOcrRequest>>
+| -
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<AddDocumentOcrResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<AddDocumentOcrResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteDocumentOcr]
+==== deleteDocumentOcr
+
+`DELETE /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Delete a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getDocumentOcr]
+==== getDocumentOcr
+
+`GET /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Get a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+| contentUrl
+| Whether to return a \&quot;contentUrl\&quot;, set value to &#39;true&#39;
+| -
+| null
+|
+
+| text
+| Returns raw &#39;text&#39; of OCR content. e.g. AWS Textract returns JSON, setting parameter to &#39;true&#39; converts JSON to Text
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<GetDocumentOcrResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<GetDocumentOcrResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.setDocumentOcr]
+==== setDocumentOcr
+
+`PUT /documents/{documentId}/ocr`
+
+
+
+===== Description
+
+Set a document's optical character recognition (OCR) result for a document; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| documentId
+| Document Identifier
+| X
+| null
+|
+
+|===
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| SetDocumentOcrRequest
+|  <<SetDocumentOcrRequest>>
+| -
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<AddDocumentOcrResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<AddDocumentOcrResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}documents/\{documentId\}/ocr/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :documents/{documentId}/ocr/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}documents/\{documentId\}/ocr/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.Onlyoffice]
+=== Onlyoffice
 
 
 [.onlyOfficeDocumentEdit]
@@ -4926,7 +4534,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Provides OnlyOffice integration for editing Documents. ONLY available with FormKiQ Enterprise
+Provide ONLYOFFICE integration for editing documents; ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}onlyoffice/\{documentId\}/edit/POST/spec.adoc[opts=optional]
@@ -5034,7 +4642,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Provides OnlyOffice integration for creation Documents. ONLY available with FormKiQ Enterprise
+Provide ONLYOFFICE integration for the creation of new documents; ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}onlyoffice/new/POST/spec.adoc[opts=optional]
@@ -5129,7 +4737,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Saves Updated Documents for OnlyOffice integration. ONLY available with FormKiQ Enterprise
+Save an updated document for ONLYOFFICE integration. ONLY available with FormKiQ Enterprise
 
 
 // markup not found, no include::{specDir}onlyoffice/\{documentId\}/save/POST/spec.adoc[opts=optional]
@@ -5228,7 +4836,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Allows unauthenticated creation of new documents; must be enabled during installation (disabled by default)
+Allow unauthenticated creation of new documents; must be enabled during installation (disabled by default)
 
 
 // markup not found, no include::{specDir}public/documents/POST/spec.adoc[opts=optional]
@@ -5323,7 +4931,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Receives an incoming public post to a specified webhook and creates a document based on the data sent; must be enabled during installation (disabled by default)
+Receive an incoming public post to a specified webhook and creates a document based on the data sent; must be enabled during installation (disabled by default)
 
 
 // markup not found, no include::{specDir}public/webhooks/\{webhooks+\}/POST/spec.adoc[opts=optional]
@@ -5417,6 +5025,398 @@ ifdef::internal-generation[]
 ===== Implementation
 
 // markup not found, no include::{specDir}public/webhooks/\{webhooks+\}/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.TagSchema]
+=== TagSchema
+
+
+[.addTagSchema]
+==== addTagSchema
+
+`POST /tagSchemas`
+
+
+
+===== Description
+
+Creates a new TagSchema; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| AddTagSchemaRequest
+|  <<AddTagSchemaRequest>>
+| X
+|
+|
+
+|===
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<TagSchemaPostResponse>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 201
+| 201 CREATED
+|  <<TagSchemaPostResponse>>
+
+
+| 400
+| 400 BAD REQUEST
+|  <<ErrorsResponse>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteTagSchema]
+==== deleteTagSchema
+
+`DELETE /tagSchemas/{tagSchemaId}`
+
+
+
+===== Description
+
+Delete a TagSchema; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| tagSchemaId
+| Tag Schema Identifier
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+
+
+-
+
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getTagSchema]
+==== getTagSchema
+
+`GET /tagSchemas/{tagSchemaId}`
+
+
+
+===== Description
+
+Retrieves a TagSchema's details, i.e., metadata; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| tagSchemaId
+| Tag Schema Identifier
+| X
+| null
+|
+
+|===
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<GetTagSchemaRequest>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<GetTagSchemaRequest>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/\{tagSchemaId\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/{tagSchemaId}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/\{tagSchemaId\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getTagSchemas]
+==== getTagSchemas
+
+`GET /tagSchemas`
+
+
+
+===== Description
+
+Returns the list of tagSchemas; ONLY available with FormKiQ Pro and Enterprise
+
+
+// markup not found, no include::{specDir}tagSchemas/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| siteId
+| Site Identifier
+| -
+| null
+|
+
+| limit
+| Limit Results
+| -
+| 10
+|
+
+| next
+| Next page of results token
+| -
+| null
+|
+
+| previous
+| Previous page of results token
+| -
+| null
+|
+
+|===
+
+
+===== Return Type
+
+<<GetTagSchemasRequest>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| 200 OK
+|  <<GetTagSchemasRequest>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}tagSchemas/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}tagSchemas/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :tagSchemas/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}tagSchemas/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -5530,7 +5530,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Receives an incoming private webhook and creates a document based on the webhook's body; requires authentication
+Receive an incoming private webhook and creates a document based on the webhook's body; requires authentication
 
 
 // markup not found, no include::{specDir}private/webhooks/\{webhooks+\}/POST/spec.adoc[opts=optional]
@@ -5744,7 +5744,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Deletes a webhook; this will disable sending, receiving, or processing of data from external services to this webhook
+Delete a webhook; this will disable sending, receiving, or processing of data from external services to this webhook
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/DELETE/spec.adoc[opts=optional]
@@ -5837,7 +5837,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Returns a webhook's details, i.e., its metadata
+Return a webhook's details, i.e., its metadata
 
 
 // markup not found, no include::{specDir}webhooks/\{webhookId\}/GET/spec.adoc[opts=optional]
@@ -6027,7 +6027,7 @@ endif::internal-generation[]
 
 ===== Description
 
-Returns a list of webhooks; each webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
+Return a list of webhooks; each webhook's id can be provided to an external service, allowing data to be sent, received, and processed via that webhook
 
 
 // markup not found, no include::{specDir}webhooks/GET/spec.adoc[opts=optional]
@@ -6254,7 +6254,7 @@ endif::internal-generation[]
 | addPdfDetectedCharactersAsText
 |
 | Boolean
-| OCR action for rewrite PDF document, converting any Image text to searchable text
+| OCR action for the rewriting of the PDF document, converting any image text to searchable text
 |
 
 | url
@@ -6291,7 +6291,7 @@ List of related documents
 | isBase64
 |
 | Boolean
-| Is Content Base64 encoded
+| Is the content Base64-encoded?
 |
 
 | content
@@ -6472,7 +6472,7 @@ Document Metadata (use either &#39;value&#39; or &#39;values&#39; not both)
 | isBase64
 |
 | Boolean
-| Is Content Base64 encoded
+| Is the content Base64-encoded?
 |
 
 | content
@@ -7338,19 +7338,19 @@ Document search tag criteria
 | configured
 |
 | Boolean
-| Whether Docusign is configured
+| Whether DocuSign is configured
 |
 
 | userId
 |
 | String
-| Docusign UserId configured
+| DocuSign UserId configured
 |
 
 | clientId
 |
 | String
-| Docusign Client configured
+| DocuSign Client configured
 |
 
 |===
@@ -7424,19 +7424,19 @@ Document search tag criteria
 | signers
 |
 | List  of <<EsignatureDocusignSigner>>
-| List of Docusign Signers
+| List of DocuSign Signers
 |
 
 | carbonCopies
 |
 | List  of <<EsignatureDocusignCarbonCopy>>
-| List of Docusign Carbon Copies
+| List of DocuSign Carbon Copies
 |
 
 | recipientTabs
 |
 | List  of <<EsignatureDocusignRecipientTab>>
-| List of Docusign Recipient Tabs
+| List of DocuSign Recipient Tabs
 |
 
 |===
@@ -7455,7 +7455,7 @@ Document search tag criteria
 | redirect_url
 |
 | String
-| Redirect Url to complete Docusign workflow
+| Redirect Url to complete DocuSign workflow
 |
 
 | message
@@ -7505,19 +7505,19 @@ Document search tag criteria
 | privateKey
 | X
 | String
-| Docusign App RSA PRIVATE KEY
+| DocuSign App RSA PRIVATE KEY
 |
 
 | userId
 | X
 | String
-| Docusign App UserId
+| DocuSign App UserId
 |
 
 | clientId
 | X
 | String
-| Docusign App Client
+| DocuSign App Client
 |
 
 |===
@@ -7629,7 +7629,7 @@ Document search tag criteria
 | contentUrl
 |
 | String
-| Url to document content
+| URL to retrieve document content
 |
 
 | contentType
@@ -7641,7 +7641,7 @@ Document search tag criteria
 | isBase64
 |
 | Boolean
-| Is Content Base64 encoded
+| Is the content Base64-encoded?
 |
 
 |===
@@ -7739,7 +7739,7 @@ Document search tag criteria
 | isBase64
 |
 | Boolean
-| Is Content Base64 encoded
+| Is the content Base64-encoded?
 |
 
 | userId
@@ -8470,7 +8470,7 @@ Document search tag criteria
 [#OnlyOfficeDocumentNewRequest]
 === _OnlyOfficeDocumentNewRequest_
 
-Only Office New Document Request
+ONLYOFFICE New Document Request
 
 [.fields-OnlyOfficeDocumentNewRequest]
 [cols="2,1,2,4,1"]
@@ -8518,13 +8518,13 @@ Only Office New Document Request
 | onlyOfficeUrl
 |
 | String
-| Url of the OnlyOffice application
+| URL of the ONLYOFFICE application
 |
 
 | token
 |
 | String
-| OnlyOffice security token
+| ONLYOFFICE security token
 |
 
 | documentType
@@ -8802,7 +8802,7 @@ Only Office New Document Request
 | contentUrls
 |
 | List  of <<string>>
-| Url which contains Document content
+| URL(s) which contain document content
 |
 
 | path
@@ -8858,7 +8858,7 @@ Only Office New Document Request
 | isBase64
 |
 | Boolean
-| Is Content Base64 encoded
+| Is the content Base64-encoded?
 |
 
 | content
