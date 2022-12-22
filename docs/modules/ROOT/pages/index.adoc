@@ -1,17 +1,24 @@
 = FormKiQ Documentation
 :navtitle: Welcome
 
-This documentation should provide everything you need to know to install, use, and customize FormKiQ.
+image::formkiq-logo.png[FormKiQ,1000,1000]
 
+== Quickstart
 
-== Reference
+xref:quickstart:README.adoc[Quickstart] shows how to get started using FormKiQ with full installation and configuration instructions.
 
-xref:reference:README.adoc[The FormKiQ Reference Guide] contains the installation / configuration instructions and the technical reference for the FormKiQ APIs. This describes how FormKiQ works and how to use it.
+== Platform Overview
+
+xref:platform-overview:README.adoc[Platform Overview] walks you through the FormKiQ platform, and how it can be used as a full-featured document management system and/or integrated to provide document management features to an existing application.
+
+== API Reference
+
+xref:api:README.adoc[API Reference] shows all of the document management API endpoints available in FormKiQ.
 
 == How-to guides
 
-xref:howto:overview.adoc[FormKiQ HowTo] you through the steps involved in using FormKiQ in specific scenarios.
+xref:how-to:overview.adoc[FormKiQ How-To] you through the steps involved in using FormKiQ for specific scenarios.
 
 == Tutorials!
 
-xref:tutorials:overview.adoc[FormKiQ Tutorials] take you by the hand through a series of steps to install FormKiQ Core.
+xref:tutorials:overview.adoc[FormKiQ Tutorials] guide you through a series of tutorials to install and use FormKiQ Core.

@@ -4,16 +4,16 @@ This tutorial will take you through the basic of the FormKiQ Document API, inclu
 
 ## Prerequisite
 
-* You have installed FormKiQ, see the xref:tutorials:install.adoc[FormKiQ Installation tutorial]
-* Install the https://aws.amazon.com/cli[AWS CLI]
-* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman].
-* Optionally install: https://stedolan.github.io/jq[JQ], a command-line JSON processor which formats JSON so it is more readable.
+* You have installed FormKiQ; see the xref:quickstart:README.adoc#one-click-installation-links[FormKiQ One-Click Installation Links] for more information
+* Install the https://aws.amazon.com/cli[AWS CLI^]
+* Install either: cURL or your favorite API Client, like https://www.postman.com[Postman^].
+* Optionally install: https://stedolan.github.io/jq[JQ^], a command-line JSON processor which formats JSON so it is more readable.
 * All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
 
 
 ## CloudFormation Outputs
 
-We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console], find your FormKiQ stack and click the `Outputs` tab.
+We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the https://console.aws.amazon.com/cloudformation[CloudFormation console^], find your FormKiQ stack and click the `Outputs` tab.
 
 image::cf-outputs.png[CloudFormation Outputs,500,500]
 
@@ -27,11 +27,11 @@ The following are outputs we'll need to know.
 
 ## Cognito Authentication
 
-The first thing we need is a https://jwt.io[JSON Web Tokens (JWT)] that will tell the API we are authorized to make the API request.
+The first thing we need is a https://jwt.io[JSON Web Tokens (JWT)^] that will tell the API we are authorized to make the API request.
 
 ### Get Cognito JWT
 
-Authenticating can be done using https://aws.amazon.com/cli[AWS CLI] with the following command. The descriptions of the required arguments are in the table below.
+Authenticating can be done using https://aws.amazon.com/cli[AWS CLI^] with the following command. The descriptions of the required arguments are in the table below.
 
 [source%nowrap]
 ----
@@ -67,7 +67,7 @@ Using the `AccessToken` value from above, we can create an Environment Variable 
 export COGNITO_AUTH=<ACCESS_TOKEN>
 ----
 
-To speed up authentication for future sessions, you can use https://stedolan.github.io/jq[jq], a command-line JSON processor, to receive an access token and set to an environment variable in one line of code:
+To speed up authentication for future sessions, you can use https://stedolan.github.io/jq[jq^], a command-line JSON processor, to receive an access token and set to an environment variable in one line of code:
 ----
 export COGNITO_AUTH=`aws cognito-idp initiate-auth \
 --auth-flow USER_PASSWORD_AUTH \
@@ -88,7 +88,7 @@ The JSON response should return successful response like below:
 }
 ----
 
-*NOTE:* A Cognito `ACCESS_TOKEN` is only good for **1 hour**. For the purposes of this demo, you can run the above login command again if the token expires. 
+*NOTE:* A Cognito `ACCESS_TOKEN` is only good for **one hour**. For the purposes of this demo, you can run the above login command again if the token expires. 
 
 ### Set Environment Variable: HTTP API URL
 

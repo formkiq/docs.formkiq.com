@@ -12,12 +12,6 @@
 
 These tutorials provide a deeper exploration of FormKiQ Core.
 
-== xref:tutorials:install.adoc[FormKiQ Core SAM Installation]
-
-xref:tutorials:install.adoc[This tutorial] takes you through downloading https://github.com/formkiq/formkiq-core[FormKiQ Core] and using the https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html[SAM CLI] to install it into your AWS account.
-
-Time: 30 minutes
-
 == xref:tutorials:postman-formkiq-openapi.adoc[Using Postman and FormKiQ API]
 
 xref:tutorials:postman-formkiq-openapi.adoc[This tutorial] will take you through importing the FormKiQ API into Postman.

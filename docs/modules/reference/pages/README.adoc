@@ -3,15 +3,12 @@ FormKiQ Docs
 :navtitle: Core Reference
 :docinfo: shared
 :data-uri:
-:title: FormKiQ Core Reference Guide
-:toc: left
+:title: FormKiQ Reference Guide
 :toclevels: 2
 :sectanchors:
 :sectlinks:
 :sectnums:
 :favicon: favicon.ico
-
-toc::[] 
 
 Introduction
 ------------
@@ -26,10 +23,10 @@ You can use **FormKiQ** to power:
 * Quick Tagging and Organization of your Documents
 * Flexible integration into existing application or building custom workflows
 
-FormKiQ is built for any size organization, from personal websites to large, enterprise organizations requiring full control of any number of internal and external documents. 
+FormKiQ is built for any size organization, from personal websites to large, enterprise organizations requiring full control of any number of internal and external documents.
 
 FormKiQ Core is built using AWS Serverless services
- 
+
 * https://aws.amazon.com/lambda[AWS Lambda]
 * https://aws.amazon.com/api-gateway[Amazon API Gateway]
 * https://aws.amazon.com/dynamodb[Amazon DynamoDB]
@@ -58,13 +55,11 @@ Please https://www.formkiq.com[visit our website] to see the full list of featur
 
 FormKiQ has an https://www.formkiq.com/pricing[enterprise edition] that provides support and battle-tested enterprise add-on modules.
 
-To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core. 
+To learn more about FormKiQ Core, please visit https://github.com/formkiq/formkiq-core.
 
 To learn more about FormKiQ Enterprise, please visit https://formkiq.com.
 
 include::services/overview.adoc[Services & Introduction]
-
-include::deployment-environments/index.adoc[Installation & Deployment]
 
 include::compiling/index.adoc[Compiling]
 

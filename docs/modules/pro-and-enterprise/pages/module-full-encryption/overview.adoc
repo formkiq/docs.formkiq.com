@@ -1,0 +1,26 @@
+Full Encryption Module
+---------------------
+
+image::full-encryption-kms.svg[Full Encryption,700,700]
+
+Full Encryption is a FormKiQ Module that enables both in-transit and at-rest encryption for the AWS services used by FormKiQ.
+
+The module uses the https://aws.amazon.com/kms[AWS Key Management Service (AWS KMS)] service to create and manage cryptographic keys and control the use of the keys. AWS KMS integrates with all of the services used by FormKiQ:
+
+* https://aws.amazon.com/dynamodb[Amazon DynamoDB]
+
+* https://aws.amazon.com/s3[Amazon S3]
+
+* https://aws.amazon.com/sqs[Amazon Simple Queue Service]
+
+* https://aws.amazon.com/sqs[Amazon Simple Queue Service]
+
+* https://aws.amazon.com/sns[Amazon Simple Notification Service]
+
+As an option, FormKiQ provides AWS KMS integration with AWS CloudTrail, which delivers log files to your designated Amazon S3 bucket. By using CloudTrail, you can monitor and investigate how and when your KMS keys have been used and by which service or user. This integration if turned off by default, to avoid unexpected CloudTrail costs.
+
+====
+_**Use Case:**_
+[loweralpha] 
+. _If you have received certain compliance goals that require encryption of all documents used by the organization, this module can meet those goals without any additional effort_
+====

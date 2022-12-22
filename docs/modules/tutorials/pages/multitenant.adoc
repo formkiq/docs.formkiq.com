@@ -4,7 +4,7 @@ FormKiQ supports multi-tenant environments where you can set up multiple groups 
 
 ## Cognito Groups
 
-To create a `SiteId`, start by visiting the https://console.aws.amazon.com/cognito[Amazon Cognito Console] and select the `User pool name` matching your naming of your FormKiQ installation.
+To create a `SiteId`, start by visiting the https://console.aws.amazon.com/cognito[Amazon Cognito Console^] and select the `User pool name` matching your naming of your FormKiQ installation.
 
 image::cognito-user-pools.png[Cognito User Pools,600,600]
 
