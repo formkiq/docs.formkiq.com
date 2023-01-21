@@ -1,30 +1,30 @@
 == One-click Installation Links
 
-FormKiQ is installed / updated using https://docs.aws.amazon.com/cloudformation[AWS CloudFormation^] deployments. You will need access to an AWS account that has permissions to use CloudFormation templates in order to install FormKiQ.
+For this quickstart you will need access to an AWS account, preferably with administrator access. The FormKiQ installation will create a number of AWS services and using an account with administrator access will ensure you have the correct permissions.
+
+The FormKiQ installation process uses https://docs.aws.amazon.com/cloudformation[AWS CloudFormation]. https://docs.aws.amazon.com/cloudformation[AWS CloudFormation] is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
 
 If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
 
-On the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page^] you will find one-click installation links for a number of AWS Regions, as shown below.
+To install FormKiQ, start by visiting the https://github.com/formkiq/formkiq-core[FormKiQ github page].
+
+Scroll down to the installation section. Here is where you’ll find the FormKiQ installation links. Each installation link is tied to a specific AWS region. This allows you to create or update your FormKiQ installation with a single click!
 
 image::github-click-install.png[GitHub Click Install,300,300,link="https://github.com/formkiq/formkiq-core#installation"]
 
-Clicking one of these one-click installation links will take you to the CloudFormation console "Create Stack" page.
+NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom https://github.com[GitHub] repository you were provided.
 
-NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom https://github.com[GitHub^] repository you were provided.
+== Install FormKiQ
 
-== CloudFormation Parameters
+To install FormKiQ, select the installation link for the AWS region you want to install FormKiQ to from the https://github.com/formkiq/formkiq-core#installation[FormKiQ github page].
 
-*Create stack*
+image::github-click-install.png[GitHub Click Install,300,300,link="https://github.com/formkiq/formkiq-core#installation"]
 
-As mentioned above, after clicking one of the https://github.com/formkiq/formkiq-core#installation[one-click installation links^] and logging into your AWS account, you'll be brought to the CloudFormation Create Stack page. You should see the `Amazon S3 URL` being set a FormKiQ installation URLs. Clicking the `Next` button will bring you to the next page, where you can customize your FormKiQ installation.
+Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. As you can see the Amazon S3 URL is automatically populated with the FormKiQ installation url. This url tells CloudFormation where it can find the CloudFormation yaml files that describes all the FormKiQ resources to create.
 
 image::cf-createstack.png[CloudFormation Create Stack,800,800]
 
-*Specify stack details*
-
-On the `Specify stack details` page, you are able to customize your FormKiQ installation.
-
-*Set Stack Name*
+Clicking the `Next` button will take you to the stack details page. On this page we can configure FormKiQ.
 
 image::cf-create-stack-name.png[CloudFormation Stack Name,800,800]
 
@@ -32,11 +32,9 @@ The first thing you will need to set is the CloudFormation Stack Name. The Stack
 
 TIP: For production installations, we recommend using https://aws.amazon.com/organizations/[AWS Organizations^] to create a separate account to run your production version of FormKiQ. AWS makes it easy to switch between accounts within an organization, and best practice is to keep your production environment in a separate account from any non-production resources. This not only helps with security, but also to help organize your costs. Ideally, you would have a new AWS account within your AWS organization for each environment (e.g., dev, test/qa, staging/pre-prod, and production).
 
-*Set Parameters*
-
 image::cf-create-parameter-adminemail.png[Set Admin Email,1200,800]
 
-Set the admin email address. After FormKiQ installation has completed, this email address will be automatically set up as an administrator, and will be sent an email that provides a link to where the new administrator can set the password to their account.
+Set the admin email address. During the FormKiQ installation, this email address will be automatically set up with administrator access. An email will be sent to the address  that provides a link to where the administrator password can be set.
 
 image::cf-create-parameter-appenvironment.png[Set App Environment,1200,800]
 
@@ -58,21 +56,42 @@ FormKiQ uses https://aws.amazon.com/cognito[Amazon Cognito^] as the identity sto
 
 image::cf-create-parameter-typesense.png[Configure TypesenseApiKey,1200,800]
 
-Optional: API Key to access the https://typesense.org[Typesense^] server. https://typesense.org[Typesense^] is used to provide text search support. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` to be set (see VPC CloudFormation).
+Optional: API Key to access the https://typesense.org[Typesense^] server. https://typesense.org[Typesense^] is used to provide full text search support for document metadata. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` also needs to be set (see link:#vpc-cloudformation[VPC CloudFormation]).
 
 NOTE: Typesense is optional, since it requires a VPC to be created, which can add to your AWS usage costs. Without Typesense, you will only be able to search documents using tags and the document's created date.
 
 image::cf-create-parameter-vpc-stackname.png[Configure VPC,1200,800]
 
-Optional: The name of the FormKiQ VPC CloudFormation stack (currently used for both Typesense and OpenSearch). You will need to deploy the FormKiQ VPC stack in order to have a VPC Stack Name to provide here. We recommend that you create this main FormKiQ stack first, and then run the VPC stack, before finally updating the main stack with the VPC Stack Name. See *VPC CloudFormation* for instructions on configuring and deploying the VPC stack.
-
-*Submit Create Stack*
+Optional: The name of the FormKiQ VPC CloudFormation stack (currently used for both Typesense and OpenSearch). You will need to deploy the link:#vpc-cloudformation[VPC CloudFormation] in order to have a VPC Stack Name to provide here. We recommend that you create this main FormKiQ stack first, and then run the VPC stack, before finally updating the main stack with the VPC Stack Name.
 
 Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
 
 image::cf-create-stack-submit.png[Submit Create Stack,1200,800]
 
-The operation to create your new FormKiQ stack should take between fifteen and thirty minutes. 
+The operation to create your new FormKiQ stack should take between fifteen and thirty minutes.
+
+== Welcome to FormKiQ Email
+
+Once the FormKiQ CloudFormation installation has completed, an email will be sent to the email specified as the AdminEmail. This email will contain a link that will confirm the email address and allow the recipient to set a password for the administrator account.
+
+image::welcome-to-formkiq.png[Welcome to FormKiQ,600,600]
+
+Clicking the `Verify Email` link will allow you to set your administrator password.
+
+image::fk-console-setpassword.png[Set Admin Password,600,600]
+
+Once your password is set you can now login to the FormKiQ Console.
+
+image::fk-console-login.png[FormKiQ Console Login,600,600]
+
+Once in the FormKiQ Console, you can start working with FormKiQ.
+
+image::fk-console-home.png[FormKiQ Console Home,1000,600]
+
+NOTE: Additional FormKiQ users can be created using https://aws.amazon.com/cognito/[Amazon Cognito^]. See xref:authentication:README.adoc[Authentication / Authorization] for more information.
+
+
+// video::jVIK2ZJZsKE[youtube,title=Install FormKiQ Core into any AWS Account,width=640,height=480]
 
 == VPC CloudFormation
 
@@ -128,25 +147,7 @@ image::cf-create-parameter-vpc-stackname.png[Set VPC Stack Name,800,800]
 
 For the `VpcStackName` parameter, set the value to the same value you used for the VPC stack you created above.
 
-== Welcome to FormKiQ
+Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
 
-Once the FormKiQ CloudFormation installation has completed, an email will be sent to the email specified as the AdminEmail. This email will contain a link that will confirm the email address and allow the recipient to set a password for the administrator account.
+image::cf-create-stack-submit.png[Submit Create Stack,1200,800]
 
-image::welcome-to-formkiq.png[Welcome to FormKiQ,600,600]
-
-Clicking the `Verify Email` link will allow you to set your administrator password.
-
-image::fk-console-setpassword.png[Set Admin Password,600,600]
-
-Once your password is set you can now login to the FormKiQ Console.
-
-image::fk-console-login.png[FormKiQ Console Login,600,600]
-
-Once in the FormKiQ Console, you can start working with FormKiQ.
-
-image::fk-console-home.png[FormKiQ Console Home,1000,600]
-
-NOTE: Additional FormKiQ users can be created using https://aws.amazon.com/cognito/[Amazon Cognito^]. See xref:authentication:README.adoc[Authentication / Authorization] for more information.
-
-
-// video::jVIK2ZJZsKE[youtube,title=Install FormKiQ Core into any AWS Account,width=640,height=480]
