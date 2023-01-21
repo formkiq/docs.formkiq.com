@@ -15,32 +15,87 @@ FormKiQ was built to run in any AWS account. This ensures that you maintain full
 
 == Database
 
-The data storage component divides into two parts, the document storage and the document metadata storage.
+FormKiQ uses https://aws.amazon.com/dynamodb[Amazon DynamoDB] as the database for storing document data. DynamoDB provides fast, flexible NoSQL database service for single-digit millisecond performance at any scale. It is also fully-managed by AWS, so there are no database servers to manage.
 
-===== Document Storage
+FormKiQ uses a few different DynamoDB tables to store its data. FormKiQ for the most part uses a https://www.alexdebrie.com/posts/dynamodb-single-table[single table design]. Because all of the data is stored in a single table, querying and retrieving data is simplified, as there is no need to join multiple tables together. A single table design also allows for more efficient and flexible data access, as well as easier scalability and lower costs.
 
-Document storage is done using Amazon's S3 service. S3 provides industry-leading https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html[data durability and data protection] for all of your documents.
+Multiple DynamoDB tables are used in situations where data can get stale or out dated and there needs to be data archival implemented.
 
-Description of S3 Buckets:
+=== Documents
 
-|=======================================================================
-| Bucket | Description
-| `Staging` | A temporary holding place for documents waiting for processing
-| `Documents` | The permanent post-processing document storage
-|=======================================================================
+The `documents` tables stores document records along with all metadata.
 
-===== Metadata Storage
+NOTE: If siteId is used the `PK` is prefix with "{siteId}/"
 
-Each document's metadata is stored in Amazon's NoSQL database https://aws.amazon.com/dynamodb/[DynamoDB]. DynamoDB is a fast, flexible NoSQL database service for single-digit millisecond performance at any scale. It is also fully-managed by AWS, so there are no database servers to manage.
+==== Document Record
 
-Description of DynamoDB Tables:
+Key(s)
 
 |=======================================================================
-| Bucket | Description
-| `Documents` | Stores a record of all documents along with all metadata and tenant information
-| `Caching` | A storage for temporary data
+| Key | Format
+| `PK` | docs#{documentId}
+| `SK` | document
+| `GSI1PK` | docts#{yyyy-MM-dd}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
 |=======================================================================
 
+==== Subdocument Record
+
+Key(s)
+
+|=======================================================================
+| Key | Format
+| `PK` | docs#{documentId}
+| `SK` | document#{childDocumentId}
+| `GSI1PK` | docts#{yyyy-MM-dd}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+|=======================================================================
+
+==== Document Tag
+
+|=======================================================================
+| Key | Format
+| `PK` | docs#{documentId}
+| `SK` | tags#{tagKey}
+| `GSI1PK` | tag#{tagKey}#{tagValue}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+| `GSI2PK` | tag#{tagKey}
+| `GSI2SK` | {tagValue}#{yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+|=======================================================================
+
+==== Document Tag (Multi-Value)
+
+|=======================================================================
+| Key | Format
+| `PK` | docs#{documentId}
+| `SK` | tags#{tagKey}#idx{index}
+| `GSI1PK` | tag#{tagKey}#{tagValue}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+| `GSI2PK` | tag#{tagKey}
+| `GSI2SK` | {tagValue}#{yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+|=======================================================================
+
+==== Document Actions
+
+|=======================================================================
+| Key | Format
+| `PK` | docs#{documentId}
+| `SK` | action#{index}#{type}
+|=======================================================================
+
+=== Document Syncs
+
+The `syncs` tables records document synchronization timestamps from external services.
+
+|=======================================================================
+| Key | Format
+| `PK` | docs#{documentId}
+| `SK` | syncs#{yyyy-MM-dd'T'HH:mm:ssZ}#{UUID}
+|=======================================================================
+
+=== Data Caching
+
+The data caching table is a table for temporary holding of data.
 
 == Storage
 
