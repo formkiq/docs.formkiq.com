@@ -1,24 +1,18 @@
-== One-click Installation Links
-
-For this quickstart you will need access to an AWS account, preferably with administrator access. The FormKiQ installation will create a number of AWS services and using an account with administrator access will ensure you have the correct permissions.
+== Install FormKiQ
 
 The FormKiQ installation process uses https://docs.aws.amazon.com/cloudformation[AWS CloudFormation]. https://docs.aws.amazon.com/cloudformation[AWS CloudFormation] is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
 
-If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
+To install FormKiQ, select the installation link for the AWS region you want to install FormKiQ to below.
 
-To install FormKiQ, start by visiting the https://github.com/formkiq/formkiq-core[FormKiQ github page].
-
-Scroll down to the installation section. Here is where you’ll find the FormKiQ installation links. Each installation link is tied to a specific AWS region. This allows you to create or update your FormKiQ installation with a single click!
-
-image::github-click-install.png[GitHub Click Install,300,300,link="https://github.com/formkiq/formkiq-core#installation"]
+|=======================================================================
+| AWS Region | Install Link
+| us-east-1 | https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.9.0/template.yaml[Install FormKiQ Core in US-EAST-1 region]
+| us-east-2 | https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.9.0/template.yaml[Install FormKiQ Core in US-EAST-2 region]
+| ca-central-1| https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.9.0/template.yaml[Install FormKiQ Core in CA-CENTRAL-1 region]
+| eu-central-1| https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.9.0/template.yaml[Install FormKiQ Core in EU-CENTRAL-1 region]
+|=======================================================================
 
 NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom https://github.com[GitHub] repository you were provided.
-
-== Install FormKiQ
-
-To install FormKiQ, select the installation link for the AWS region you want to install FormKiQ to from the https://github.com/formkiq/formkiq-core#installation[FormKiQ github page].
-
-image::github-click-install.png[GitHub Click Install,300,300,link="https://github.com/formkiq/formkiq-core#installation"]
 
 Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. As you can see the Amazon S3 URL is automatically populated with the FormKiQ installation url. This url tells CloudFormation where it can find the CloudFormation yaml files that describes all the FormKiQ resources to create.
 
@@ -97,11 +91,17 @@ NOTE: Additional FormKiQ users can be created using https://aws.amazon.com/cogni
 
 Certain FormKiQ features (currently Typesense and the OpenSearch add-on for FormKiQ Enterprise) require a VPC to be configured, and then the FormKiQ stack needs to be updated to use that VPC.
 
-On the https://github.com/formkiq/formkiq-core#installation[FormKiQ Core Github page^] you can find one-click VPC installation links.
+Below you'll find single-click installs links for creating a FormKiQ VPC.
 
-image::github-vpc-install.png[Github VPC Install,600,600]
+Select the link below that is **in the same region as your FormKiQ installation**.
 
-NOTE: When selecting a VPC region, **it needs to be in the same region as your FormKiQ installation**.
+|=======================================================================
+| AWS Region | Install Link
+| us-east-1 | https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.9.0/vpc.yaml[Install FormKiQ VPC in US-EAST-1 region]
+| us-east-2 | https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.9.0/vpc.yaml[Install FormKiQ VPC in US-EAST-2 region]
+| ca-central-1| https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.9.0/vpc.yaml[Install FormKiQ VPC in CA-CENTRAL-1 region]
+| eu-central-1| https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.9.0/vpc.yaml[Install FormKiQ VPC in EU-CENTRAL-1 region]
+|=======================================================================
 
 *Create stack*
 
