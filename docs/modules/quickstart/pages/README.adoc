@@ -13,4 +13,16 @@ FormKiQ's flexibility and customizability comes from its API-first design. All d
 
 FormKiQ was built to run in any AWS account. This ensures that you maintain full control of your documents 100% of the time.
 
+== Prerequisites
+
+For this quickstart you will need access to an AWS account, preferably with administrator access. The FormKiQ installation will create a number of AWS services and using an account with administrator access will ensure you have the correct permissions.
+
+If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
+
+Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. The easiest fix is to open up AWS CLI and run the following against your account once.
+
+```
+aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
+```
+
 include::single-click-installation.adoc[Installation & Deployment]
