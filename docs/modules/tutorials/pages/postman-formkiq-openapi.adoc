@@ -33,7 +33,7 @@ Open https://www.postman.com[Postman^] and select `File` -> `Import`.
 
 Select the `Link` tab and use the following URL for the FormKiQ API specification.
 
-`https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-jwt.yaml`
+`https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml`
 
 image::portman-import.png[Postman Import,800,500]
 

@@ -110,9 +110,9 @@ FormKiQ has a robust and battle-tested document management API. FormKiQ deploys 
 
 FormKiQ API was built on top of https://www.openapis.org[OpenAPI specification^], so it is easy to use the API spec file with any application that supports the OpenAPI specification.
 
-https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-jwt.yaml[Open API JWT Specification^]
+https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml[Open API JWT Specification^]
 
-https://raw.githubusercontent.com/formkiq/formkiq-core/master/openapi-iam.yaml[Open API IAM Specification^]
+https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml[Open API IAM Specification^]
 
 The full FormKiQ API can be found
 xref:api:README.adoc[FormKiQ API]
