@@ -12,15 +12,13 @@
 
 These tutorials provide a deeper exploration of FormKiQ Core.
 
-== xref:tutorials:postman-formkiq-openapi.adoc[Using Postman and FormKiQ API]
+== xref:tutorials:formkiq-document-api-with-postman.adoc[Getting Started with the FormKiQ Document API and Postman]
 
-xref:tutorials:postman-formkiq-openapi.adoc[This tutorial] will take you through importing the FormKiQ API into Postman.
+xref:tutorials:formkiq-document-api-with-postman.adoc[This tutorial] will take you through the basic of the FormKiQ Document API including:
 
-Time: 10 minutes
-
-== xref:tutorials:documentapi.adoc[Getting Started with the FormKiQ Document API]
-
-xref:tutorials:documentapi.adoc[This tutorial] will take you through the basic of the FormKiQ Document API including: adding documents, working with document tags, and searching for documents.
+* How to Add a document
+* How to Update that document
+* And How to search for documents
 
 Time: 30 minutes
 
