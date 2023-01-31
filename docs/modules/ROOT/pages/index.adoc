@@ -19,6 +19,6 @@ xref:api:README.adoc[API Reference] shows all of the document management API end
 
 xref:how-to:overview.adoc[FormKiQ How-To] you through the steps involved in using FormKiQ for specific scenarios.
 
-== Tutorials!
+== Tutorials
 
 xref:tutorials:overview.adoc[FormKiQ Tutorials] guide you through a series of tutorials to install and use FormKiQ Core.
