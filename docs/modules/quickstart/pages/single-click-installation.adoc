@@ -13,6 +13,8 @@ To install FormKiQ, select the installation link for the AWS region you want to 
 | ap-south-1| https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.9.0/template.yaml[Install FormKiQ Core in AP-SOUTH-1 region]
 |=======================================================================
 
+If the region you want to use is not listed, follow the xref:quickstart:sam-cli.adoc[SAM CLI Installation]
+
 NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom https://github.com[GitHub] repository you were provided.
 
 Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. As you can see the Amazon S3 URL is automatically populated with the FormKiQ installation url. This url tells CloudFormation where it can find the CloudFormation yaml files that describes all the FormKiQ resources to create.
