@@ -107,7 +107,7 @@ The last step is to click the `Publish Zap` button. Once your Zap is published y
     {
       "type": "webhook",
       "parameters": {
-        "url":"https://hooks.zapier.com/hooks/catch/9275188/bvjbl7e/"
+        "url":"https://hooks.zapier.com/hooks/catch/.../"
       }
     }
   ]
