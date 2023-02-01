@@ -95,7 +95,7 @@ A successful message return the document id that was created.
 
 ## Get Document Actions Status
 
-The `GET /documents/{documentId}/actions` can be used to get the status of the action.
+The `GET /documents/\{documentId\}/actions` can be used to get the status of the action.
 
 [source%nowrap]
 ----
