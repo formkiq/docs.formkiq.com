@@ -25,7 +25,7 @@ Multiple DynamoDB tables are used in situations where data can get stale or out 
 
 The `documents` tables stores document records along with all metadata.
 
-NOTE: If siteId is used the `PK` is prefix with "{siteId}/"
+NOTE: If siteId is used the `PK` is prefix with "\{siteId\}/"
 
 ==== Document Record
 
@@ -33,10 +33,10 @@ Key(s)
 
 |=======================================================================
 | Key | Format
-| `PK` | docs#{documentId}
+| `PK` | docs#\{documentId\}
 | `SK` | document
-| `GSI1PK` | docts#{yyyy-MM-dd}
-| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+| `GSI1PK` | docts#\{yyyy-MM-dd\}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#\{documentId\}
 |=======================================================================
 
 ==== Subdocument Record
@@ -45,42 +45,42 @@ Key(s)
 
 |=======================================================================
 | Key | Format
-| `PK` | docs#{documentId}
-| `SK` | document#{childDocumentId}
-| `GSI1PK` | docts#{yyyy-MM-dd}
-| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+| `PK` | docs#\{documentId\}
+| `SK` | document#\{childDocumentId\}
+| `GSI1PK` | docts#\{yyyy-MM-dd\}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#\{documentId\}
 |=======================================================================
 
 ==== Document Tag
 
 |=======================================================================
 | Key | Format
-| `PK` | docs#{documentId}
-| `SK` | tags#{tagKey}
-| `GSI1PK` | tag#{tagKey}#{tagValue}
-| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
-| `GSI2PK` | tag#{tagKey}
-| `GSI2SK` | {tagValue}#{yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+| `PK` | docs#\{documentId\}
+| `SK` | tags#\{tagKey\}
+| `GSI1PK` | tag#\{tagKey\}#\{tagValue\}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#\{documentId\}
+| `GSI2PK` | tag#\{tagKey\}
+| `GSI2SK` | \{tagValue\}#{yyyy-MM-dd'T'HH:mm:ssZ}#\{documentId\}
 |=======================================================================
 
 ==== Document Tag (Multi-Value)
 
 |=======================================================================
 | Key | Format
-| `PK` | docs#{documentId}
-| `SK` | tags#{tagKey}#idx{index}
-| `GSI1PK` | tag#{tagKey}#{tagValue}
-| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
-| `GSI2PK` | tag#{tagKey}
-| `GSI2SK` | {tagValue}#{yyyy-MM-dd'T'HH:mm:ssZ}#{documentId}
+| `PK` | docs#\{documentId\}
+| `SK` | tags#\{tagKey\}#idx\{index\}
+| `GSI1PK` | tag#\{tagKey\}#\{tagValue\}
+| `GSI1SK` | {yyyy-MM-dd'T'HH:mm:ssZ}#\{documentId\}
+| `GSI2PK` | tag#\{tagKey\}
+| `GSI2SK` | \{tagValue\}#{yyyy-MM-dd'T'HH:mm:ssZ}#\{documentId\}
 |=======================================================================
 
 ==== Document Actions
 
 |=======================================================================
 | Key | Format
-| `PK` | docs#{documentId}
-| `SK` | action#{index}#{type}
+| `PK` | docs#\{documentId\}
+| `SK` | action#\{index\}#\{type\}
 |=======================================================================
 
 === Document Syncs
@@ -89,8 +89,8 @@ The `syncs` tables records document synchronization timestamps from external ser
 
 |=======================================================================
 | Key | Format
-| `PK` | docs#{documentId}
-| `SK` | syncs#{yyyy-MM-dd'T'HH:mm:ssZ}#{UUID}
+| `PK` | docs#\{documentId\}
+| `SK` | syncs#{yyyy-MM-dd'T'HH:mm:ssZ}#\{UUID\}
 |=======================================================================
 
 === Data Caching
@@ -186,7 +186,7 @@ Required fields are marked below.
 }
 ----
 
-Note: The `.fkb64` matches the xref:api:README.adoc#AddDocumentRequest[Add Document Request]. Refer to the API for a listing of all properties.
+Note: The `.fkb64` matches the https://docs.formkiq.com/docs/1.9.0/api/index.html#tag/Documents/operation/AddDocument[Add Document Request^]. Refer to the API for a listing of all properties.
 
 == API
 

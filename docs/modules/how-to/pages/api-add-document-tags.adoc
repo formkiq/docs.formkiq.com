@@ -31,7 +31,7 @@ For all API requests the following table describes the values that need to be re
 
 ## Adding a Document Tag
 
-The `POST /documents/{documentId}/tags` API is the primary method for adding a tag to a document.
+The `POST /documents/\{documentId\}/tags` API is the primary method for adding a tag to a document.
 
 [source%nowrap]
 ----
@@ -56,7 +56,7 @@ curl -X POST https://HTTP_API_URL/documents/DOCUMENT_ID/tags \
 
 ## Get Specific Document Tag
 
-The `GET /documents/{documentId}/tags/{tagKey}` can be used to retrieve a specific  document tag.
+The `GET /documents/\{documentId\}/tags/\{tagKey\}` can be used to retrieve a specific  document tag.
 
 [source%nowrap]
 ----

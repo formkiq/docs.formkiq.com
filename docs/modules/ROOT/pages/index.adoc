@@ -13,7 +13,7 @@ xref:platform-overview:README.adoc[Platform Overview] walks you through the Form
 
 == API Reference
 
-xref:api:README.adoc[API Reference] shows all of the document management API endpoints available in FormKiQ.
+https://docs.formkiq.com/docs/1.9.0/api/index.html[API Reference^] shows all of the document management API endpoints available in FormKiQ.
 
 == How-to guides
 

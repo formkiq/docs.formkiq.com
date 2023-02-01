@@ -16,7 +16,7 @@ FormKiQ is an https://github.com/formkiq/formkiq-core[Open Core^] product. The c
 
 == Document Management Features
 
-FormKiQ is a full-featured document management system, that leverages the infrastructure and services of AWS to make it all possible. 
+FormKiQ is a full-featured document management system, that leverages the infrastructure and services of AWS to make it all possible.
 
 https://formkiq.com/products/formkiq-core[FormKiQ Core^] provides the https://formkiq.com/essential-functions-of-a-dms/[four essential functions of document management^], specifically:
 
@@ -114,8 +114,7 @@ https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/opena
 
 https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml[Open API IAM Specification^]
 
-The full FormKiQ API can be found
-xref:api:README.adoc[FormKiQ API]
+https://docs.formkiq.com/docs/1.9.0/api/index.html[Full FormKiQ API Reference^]
 
 == Pro and Enterprise Features
 

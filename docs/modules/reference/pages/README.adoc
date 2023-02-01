@@ -69,7 +69,7 @@ include::webhooks/index.adoc[Webhooks]
 
 include::multi-tenant/index.adoc[Multi-Tenant]
 
-include::api/index.adoc[API Reference]
+//include::api/index.adoc[API Reference]
 
 //include::integration/index.adoc[Integration]
 

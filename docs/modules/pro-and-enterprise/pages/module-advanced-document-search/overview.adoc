@@ -30,7 +30,7 @@ To install OpenSearch inside of a VPC, the first step is to use the provided `VP
 
 image::cf-vpc.png[CloudFormation VPC Installation,600,600]
 
-The VPC CloudFormation script, will create a AWS VPC specifically designed to work with FormKiQ. Multiple Public / Private Subnets will be created across multiple availability zones to provide the best reliability possible. 
+The VPC CloudFormation script, will create a AWS VPC specifically designed to work with FormKiQ. Multiple Public / Private Subnets will be created across multiple availability zones to provide the best reliability possible.
 
 You can customize the CIDR ranges to meet your network requirements.
 
@@ -65,7 +65,7 @@ CloudFormation will then update FormKiQ installation to enable OpenSearch.
 
 The Advanced Document Search Module adds several new endpoints, including the following API endpoint to the Documents section of the API:
 
-* `PUT /documents/{DocumentId}/fulltext` - Replaces the specified document's fulltext metadata for OpenSearch (if exists)
+* `PUT /documents/\{DocumentId\}/fulltext` - Replaces the specified document's fulltext metadata for OpenSearch (if exists)
 
 **NOTE:** all FormKiQ API endpoints are case-sensitive
 
