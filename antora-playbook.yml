@@ -3,6 +3,9 @@ site:
   # the 404 page and sitemap files only get generated when the url property is set
   url: https://docs.formkiq.com
   start_page: docs::index.adoc
+urls:
+  latest_version_segment_strategy: redirect:to
+  latest_version_segment: latest
 content:
   edit_url: false
   sources:
