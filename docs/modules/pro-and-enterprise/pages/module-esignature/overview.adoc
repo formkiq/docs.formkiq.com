@@ -3,11 +3,13 @@ E-Signature Module (powered by DocuSign)
 
 ✅ Use the https://www.docusign.com/[DocuSign API^] to enable electronic signatures for any PDF or MS Office document
 
+[discrete]
 Overview
 ~~~~~~~~
 
 The E-Signature Module is a FormKiQ Enterprise Add-On Module that enables electronic signature integration; at this time, only DocuSign is supported, but other e-signature integrations can be performed for FormKiQ Enterprise customers.
 
+[discrete]
 API
 ~~~
 

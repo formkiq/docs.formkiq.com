@@ -5,6 +5,7 @@ image::architecture_formkiq_and_ocr.png[FormKiQ OCR Architecture]
 
 ✅ Use Amazon Textract to extract text and structured table or form data from documents
 
+[discrete]
 Overview
 ~~~~~~~~
 
@@ -18,7 +19,7 @@ _**Use Case:**_
 . _If you would like to add metadata for document retrieval, this module can provide that metadata from scanned documents; you can then create tags (in the case of form or table data) or enable the entire OCR result to be searched using the Fulltext Search module_
 ====
 
-
+[discrete]
 API
 ~~~
 

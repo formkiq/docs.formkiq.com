@@ -8,10 +8,12 @@ image::architecture_formkiq_and_opensearch.png[FormKiQ OpenSearch Architecture]
 
 ✅ Optionally Include OCR Results in fulltext queries
 
+[discrete]
 === Overview
 
 Advanced Document Search is a FormKiQ Enterprise Add-On Module that enhances built-in search functionality by integrating OpenSearch.
 
+[discrete]
 === Installation
 
 video::brvHNrICnXE[youtube,title=Install Fulltext Document Search powered by OpenSearch to your FormKiQ Enterprise installation,width=640,height=480]
@@ -61,6 +63,7 @@ image::cf-formkiq-update.png[CloudFormation FormKiQ Update,600,600]
 
 CloudFormation will then update FormKiQ installation to enable OpenSearch.
 
+[discrete]
 === API
 
 The Advanced Document Search Module adds several new endpoints, including the following API endpoint to the Documents section of the API:

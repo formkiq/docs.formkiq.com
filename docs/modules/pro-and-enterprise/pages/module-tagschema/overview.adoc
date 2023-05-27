@@ -7,6 +7,7 @@ Tag Schema Module
 
 ✅ Optionally Return Tags while using the `POST /search` API Endpoint
 
+[discrete]
 Overview
 ~~~~~~~~
 
@@ -41,6 +42,7 @@ There is no requirement that these composite keys be made up of required or spec
 
 **NOTE:** when using composite keys involving three tag keys, searching for these keys requires that all three tag keys are specified; if you require an additional search for only two of the three keys, you would need to create a separate composite key consisting of only those two tag keys.
 
+[discrete]
 API
 ~~~
 

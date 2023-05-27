@@ -30,13 +30,13 @@ FormKiQ Enterprise enabled additional customization through its Enterprise Add-O
 
 ✅ link:#onlyoffice-document-collaboration-module[ONLYOFFICE Document Collaboration Module]
 
-✅ link:#module-esignature[E-Signature Module]
+✅ link:#e-signature-module-powered-by-docusign[E-Signature Module]
 
 ✅ link:#custom-domains-module[Custom Domains Module]
 
-✅ link:#custom-authorizer-module[Single Sign-On and Custom JWT Authorizer Module]
+✅ link:#single-sign-on-and-custom-jwt-authorizer-module[Single Sign-On and Custom JWT Authorizer Module]
 
-✅ link:#module-filesync-cli[FileSync CLI Module]
+✅ link:#filesync-cli-module[FileSync CLI Module]
 
 ✅ Document Email Processing Module
 

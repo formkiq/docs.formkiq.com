@@ -5,6 +5,7 @@ Anti-Malware / Antivirus Module
 
 ✅ Automatically tag document with scan status and timestamp 
 
+[discrete]
 Overview
 ~~~~~~~~
 
@@ -21,6 +22,7 @@ _**Use Cases:**_
 . _If you receive documents from external sources, whether through the FormKiQ API's public endpoints or optional Enterprise Add-On Modules such as Document Email Processing, antivirus scanning will help to safeguard both your documents within FormKiQ and any documents you export from FormKiQ_
 ====
 
+[discrete]
 API
 ~~~
 

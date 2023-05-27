@@ -1,115 +1,180 @@
-FileSync CLI Module
--------------------
+== FileSync CLI Module
+
+image::formkiq_filesync_module.png[FormKiQ File Sync Module]
 
 FileSync CLI is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enables syncing of documents from a local file system to FormKiQ installation.
 
-CloudFormation installation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== *Installation*
 
-The FileSync CLI needs to have permissions configured to give it access to FormKiQ. This can be done via the CloudFormation script found in the FileSync CLI .zip release file.
+The following are the steps for installing the FormKiQ FileSync CLI.
 
-After installation on the if you look at the `Outputs` tab of the CloudFormation Stack you'll get the Access/Secret Key the CLI needs to use.
+==== *Prerequisite*
+
+Before you begin the installation you need to:
+
+* Visit your [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation)
+* Click on the FormKiQ installation you would like to sync documents to and make a note of the name of the DocumentsStageS3Bucket from the Stack's Outputs as you will need this information during the FileSync's CloudFormation installation.
+
+image::cf-filesync-cli-staging-buckets-list.png[FormKiQ Stacking S3 Buckets]
+
+NOTE: The FileSync CLI can support multiple FormKiQ installations, so you can repeat the above process for each installation.
+
+==== *CloudFormation Installation*
+
+Before you can use the FileSync CLI, you need to install the FileSync CLI's [CloudFormation](https://aws.amazon.com/cloudformation) script. This script will provide access for the FileSync CLI to your FormKiQ installation.
+
+The FileSync CLI CloudFormation script will be found on your FormKiQ's GitHub page, as shown below.
+
+|===
+| Description | Install Link
+
+| FormKiQ FileSync CLI | Install FormKiQ FileSync CLI
+|===
+
+Clicking on the `Install FormKiQ FileSync CLI` link (from your FormKiQ's GitHub page), will bring you to your AWS CloudFormation console.
+
+image::cf-filesync-cli-create-stack.png[FileSync CLI Create Stack]
+
+Click `Next` and enter the parameter for the CloudFormation stack.
+
+Enter the:
+
+* Stack Name
+* A comma delimited list of FormKiQ Staging S3 bucket created from the previous step.
+
+image::cf-filesync-cli-stack-details.png[FileSync CLI Stack Details]
+
+Continue clicking `Next` through the next screens until you can `Submit` the CloudFormation stack for creation.
+
+image::cf-filesync-cli-submit-stack.png[FileSync CLI Submit Stack]
+
+
+After installation, open `Outputs` tab of the CloudFormation Stack and make note of the Access/Secret Key. You will need these keys when configuring the FileSync CLI.
 
 image::cf-filesync-cli-outputs.png[CloudFormation FileSync CLI Outputs,600,600]
 
-Parameters
-~~~~~~~~~~
+==== *FileSync CLI Download*
 
-The FileSync CLI top level parameters are shown below.
+The FileSync CLI can be found on it's [GitHub Releases](https://github.com/formkiq/formkiq-module-filesync-cli/releases) page. 
+
+It is available for:
+
+* Windows
+* Linux
+* Mac
+
+=== Usage
 
 ```
 usage: fk
     --configure   configure AWS credentials
+    --show        show sync profiles
     --sync        sync files with FormKiQ
     --watch       watch directorie(s) for file changes and syncs with
                   FormKiQ
 ```
 
-Configure
-~~~~~~~~~
+*Configure*
 
-The configure parameter allows configuring the AWS credentials for the CLI.
+To use the FileSync CLI, you will need to first use the "--configure" option to connect the CLI to your FormKiQ installation.
 
-```
-usage: fk --configure
-    --access-key <arg>     AWS Access Key
-    --endpoint-url <arg>   Override command's default URL with the given
-                           URL
-    --region <arg>         The AWS region FormKiQ is installed in
-    --secret-key <arg>     AWS Secret Key
-```
+To configure, you will need:
 
-Using the Access/Secret Key created in the section above. Use those values to configure the CLI tool.
+* Access Key / Secret Key from the `Outputs` tab of the FileSync CLI CloudFormation stack
+* The name of the DocumentsStageS3Bucket from the `Outputs` tab of your FormKiQ CloudFormation installation stack
+* The AWS Region of your FormKiQ installation (e.g. us-east-1, us-east-2, etc)
+
+Run configure:
 
 ```
-fk --configure --access-key <ACCESS_KEY> --secret-key <SECRET_KEY> --region <AWS_REGION>
+fk --configure --access-key ACCESS_KEY --secret-key ACCESS_SECRET --region AWS_REGION --s3-staging-bucket S3_STAGING_BUCKET
 ```
 
-Sync / Watch
-~~~~~~~~~~~~
-
-The CLI can be used used sync a directory with FormKiQ or to watch a directory for changes and sync those changes with FormKiQ.
-
-The required parameters are:
-
-|=======================================================================
-| Argument | Description                
-| `--appenvironment` | The FormKiQ's AppEnvironment configured during installation
-| `--dir` | Directory to sync/watch changes
-| `--virtualfolder` | virtual folder name/path to organize documents within FormKiQ
-|=======================================================================
+Optionally you can specify a `--profile` name if you are syncing with multiple FormKiQ installations
 
 ```
-usage: fk --sync / --watch
- -a,--appenvironment <arg>   FormKiQ AppEnvironment
-    --actions <arg>          Actions to perform on file (OCR / FULLTEXT)
- -d,--dir <arg>              Directory to watch for changes
-    --dry-run                show what would have been transferred
-    --max-file-queue         maximum number of files to queue (default:
-                             500)
-    --mtime <arg>            file modification time subtracted from the
-                             initialization time (IE: --mtime -5 find
-                             files modified last 5 minutes to sync)
- -r,--recursive              recurse into directories
-    --siteId <arg>           FormKiQ Site Id to Sync files to
- -v,--verbose                increase verbosity
-    --virtualfolder <arg>    A virtual folder name/path to organize
-                             documents within FormKiQ
+fk --configure --access-key ACCESS_KEY --secret-key ACCESS_SECRET --region AWS_REGION --s3-staging-bucket S3_STAGING_BUCKET --profile dev
 ```
 
+To list the FormKiQ installations that are configured:
 
-Usage
-~~~~~
+```
+fk --show
+```
+
+*Sync*
+
+The "--sync" option can be used to sync a directory with a FormKiQ installation.
+
+```
+usage: fk --sync
+    --actions <arg>    Actions to perform on file (OCR / FULLTEXT)
+ -d,--dir <arg>        transfer directories without recursing (required)
+    --dry-run          show what would have been transferred
+    --include <arg>    include files matching PATTERN
+    --max-file-queue   maximum number of files to queue (default: 500)
+    --mtime <arg>      file modification time subtracted from the initialization time (IE: --mtime -5 find files modified last 5 minutes to sync)
+ -p,--profile <arg>    FormKiQ Profile to use
+    --pre-hook <arg>   webhook url to call before sending file
+ -r,--recursive        recurse into directories
+ -s,--siteId <arg>     FormKiQ Site Id
+ -v,--verbose          increase verbosity
+```
+
+*Watch*
+
+The "--watch" option can be used to watch a directory for changes and sync those changes with a FormKiQ installation.
+
+```
+usage: fk --watch
+    --actions <arg>     Actions to perform on file (OCR / FULLTEXT)
+ -d,--dir <arg>         transfer directories without recursing (required)
+    --dry-run           show what would have been transferred
+    --include <arg>     include files matching PATTERN
+    --max-file-queue    maximum number of files to queue (default: 500)
+ -p,--profile <arg>     FormKiQ Profile to use
+ -r,--recursive         recurse into directories
+    --siteId <arg>      FormKiQ Site Id
+    --syncDelay <arg>   Number of minutes to wait between file creation/modified before syncing (used with --watch)
+ -v,--verbose           increase verbosity
+```
+
+*Exampels*
 
 The following are example commands of fk usage.
 
 *Basic Directory Syncing*
+
 ```
-fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose
+fk --sync -d /documents --verbose
 ```
 
 *Sync files modified in the last 24 hours*
+
 ```
-fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose --mtime 0
+fk --sync -d /documents --verbose --mtime 0
 ```
 
 *Sync files modified more than 7 days ago*
+
 ```
-fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose --mtime 7
+fk --sync -d /documents --verbose --mtime 7
 ```
 
 *Sync files modified in the last 30 days*
+
 ```
-fk --sync -a dev --virtualfolder windowsShare -d /documents --verbose --mtime -30
+fk --sync -d /documents --verbose --mtime -30
 ```
 
 *Sync the /documents directory and performs the OCR & Fulltext actions to all documents*
 
 ```
-fk --sync -a dev --virtualfolder windowsShare --actions ocr,fulltext -d /documents --verbose
+fk --sync --actions ocr,fulltext -d /documents --verbose
 ```
 
 *Basic Directory Watching*
+
 ```
-fk --watch -a dev --virtualfolder windowsShare -d /documents --verbose
+fk --watch -d /documents --verbose
 ```

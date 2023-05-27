@@ -5,6 +5,7 @@ Document Versioning Module
 
 ✅ Add Versioned Metadata for Document Control
 
+[discrete]
 Overview
 ~~~~~~~~
 
@@ -18,7 +19,7 @@ _**Use Case:**_
 . _If documents need occasional updates, and it's important to track when those updates occurred or who made the modifications, this module can provide that information as part of your standard workflow._
 ====
 
-
+[discrete]
 API
 ~~~
 
