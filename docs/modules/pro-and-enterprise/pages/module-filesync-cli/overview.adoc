@@ -74,7 +74,7 @@ usage: fk
                   FormKiQ
 ```
 
-*Configure*
+==== *Configure*
 
 To use the FileSync CLI, you will need to first use the "--configure" option to connect the CLI to your FormKiQ installation.
 
@@ -102,7 +102,7 @@ To list the FormKiQ installations that are configured:
 fk --show
 ```
 
-*Sync*
+==== *Sync*
 
 The "--sync" option can be used to sync a directory with a FormKiQ installation.
 
@@ -139,7 +139,7 @@ usage: fk --watch
  -v,--verbose           increase verbosity
 ```
 
-*Exampels*
+==== *Examples*
 
 The following are example commands of fk usage.
 
@@ -178,3 +178,39 @@ fk --sync --actions ocr,fulltext -d /documents --verbose
 ```
 fk --watch -d /documents --verbose
 ```
+
+==== *Pre-Hook*
+
+The `--pre-hook` parameter is useful for situations where you need to add document specific tag(s)/metadata based on a file's path. During the file sync, a POST request is sent to the `--pre-hook` url with the following payload:
+
+```
+{
+    "path": "<filename>"
+}
+```
+
+The expected response is a status of 200 and a response body that follows the xref:architecture:README.adoc#fkb64-file-format[FKB64 File Format].
+
+The following example response will add two tags and a metadata key.
+
+```
+{
+  "tags": [
+    {
+      "key": "category",
+      "value": "document"
+    },
+    {
+      "key": "user",
+      "values": ["1", "2"]
+    }
+  ],
+  "metadata": [
+    {
+      "key": "property1",
+      "value": "value1"
+    }
+  ]
+}
+```
+
