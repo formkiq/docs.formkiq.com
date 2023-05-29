@@ -14,7 +14,7 @@ These tutorials provide a deeper exploration of FormKiQ Core.
 
 == xref:tutorials:formkiq-document-api-with-postman.adoc[Getting Started with the FormKiQ Document API and Postman]
 
-xref:tutorials:formkiq-document-api-with-postman.adoc[This tutorial] will take you through the basic of the FormKiQ Document API including:
+xref:tutorials:formkiq-document-api-with-postman.adoc[This tutorial] will take you through the basics of the FormKiQ Document API including:
 
 * How to Add a document
 * How to Update that document
