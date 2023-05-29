@@ -12,8 +12,8 @@ The following are the steps for installing the FormKiQ FileSync CLI.
 
 Before you begin the installation you need to:
 
-* Visit your [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation)
-* Click on the FormKiQ installation you would like to sync documents to and make a note of the name of the DocumentsStageS3Bucket from the Stack's Outputs as you will need this information during the FileSync's CloudFormation installation.
+* https://console.aws.amazon.com/cloudformation[Visit CloudFormation in your AWS console]
+* Click on the FormKiQ installation you would like to sync documents to; make a note of the name of the DocumentsStageS3Bucket from the Stack's Outputs, as you will need this information during the FileSync's CloudFormation installation.
 
 image::cf-filesync-cli-staging-buckets-list.png[FormKiQ Stacking S3 Buckets]
 
@@ -21,7 +21,7 @@ NOTE: The FileSync CLI can support multiple FormKiQ installations, so you can re
 
 ==== *CloudFormation Installation*
 
-Before you can use the FileSync CLI, you need to install the FileSync CLI's [CloudFormation](https://aws.amazon.com/cloudformation) script. This script will provide access for the FileSync CLI to your FormKiQ installation.
+Before you can use the FileSync CLI, you need to install the FileSync CLI's https://aws.amazon.com/cloudformation[CloudFormation] script. This script will provide access for the FileSync CLI to your FormKiQ installation.
 
 The FileSync CLI CloudFormation script will be found on your FormKiQ's GitHub page, as shown below.
 
@@ -40,22 +40,22 @@ Click `Next` and enter the parameter for the CloudFormation stack.
 Enter the:
 
 * Stack Name
-* A comma delimited list of FormKiQ Staging S3 bucket created from the previous step.
+* A comma delimited list of FormKiQ Staging S3 buckets, created from the previous step.
 
 image::cf-filesync-cli-stack-details.png[FileSync CLI Stack Details]
 
-Continue clicking `Next` through the next screens until you can `Submit` the CloudFormation stack for creation.
+Continue clicking `Next` through the next screens until you can click `Submit` to create the CloudFormation stack.
 
 image::cf-filesync-cli-submit-stack.png[FileSync CLI Submit Stack]
 
 
-After installation, open `Outputs` tab of the CloudFormation Stack and make note of the Access/Secret Key. You will need these keys when configuring the FileSync CLI.
+After installation, open the `Outputs` tab of the CloudFormation Stack and make note of `AccessKey`` and `SecretKey``. You will need these keys when configuring the FileSync CLI.
 
 image::cf-filesync-cli-outputs.png[CloudFormation FileSync CLI Outputs,600,600]
 
 ==== *FileSync CLI Download*
 
-The FileSync CLI can be found on it's [GitHub Releases](https://github.com/formkiq/formkiq-module-filesync-cli/releases) page. 
+The FileSync CLI can be found on its https://github.com/formkiq/formkiq-module-filesync-cli/releases[GitHub Releases] page. 
 
 It is available for:
 
@@ -70,7 +70,7 @@ usage: fk
     --configure   configure AWS credentials
     --show        show sync profiles
     --sync        sync files with FormKiQ
-    --watch       watch directorie(s) for file changes and syncs with
+    --watch       watch directories (one or more) for file changes and syncs with
                   FormKiQ
 ```
 

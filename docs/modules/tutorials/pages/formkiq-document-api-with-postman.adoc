@@ -1,6 +1,6 @@
 = Getting Started with the FormKiQ Document API
 
-This tutorial will take you through the basic of the FormKiQ Document API, including:
+This tutorial will take you through the basics of the FormKiQ Document API, including:
 
 * How to Add a document
 * How to Update that document

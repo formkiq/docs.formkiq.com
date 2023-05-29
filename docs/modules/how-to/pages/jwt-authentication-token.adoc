@@ -1,6 +1,6 @@
 = Getting an JWT Authentication Token
 
-This tutorial will take you through the basic of the FormKiQ Document API, including: adding documents, working with document tags, and searching for documents.
+This tutorial will take you through the basics of the FormKiQ Document API, including: adding documents, working with document tags, and searching for documents.
 
 ## Prerequisite
 
