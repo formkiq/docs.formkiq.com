@@ -167,10 +167,12 @@ fk --sync -d /documents --verbose --mtime 7
 fk --sync -d /documents --verbose --mtime -30
 ```
 
-*Sync the /documents directory and performs the OCR & Fulltext actions to all documents*
+*Sync the /documents directory and performs the OCR & Fulltext & WebHook actions to all documents*
+
+The "--actions" parameter follows the same format as the AddDocumentAction: https://docs.formkiq.com/docs/latest/api/index.html#tag/Document-Actions/operation/AddDocumentActions
 
 ```
-fk --sync --actions ocr,fulltext -d /documents --verbose
+fk --sync --actions [{"type": "OCR","parameters":{"ocrParseTypes": "TABLES"}},{"type": "FULLTEXT"},{"type": "WEBHOOK","parameters":{"url": "https://pipedream.com/12345"}}] -d /documents --verbose
 ```
 
 *Basic Directory Watching*
