@@ -149,6 +149,12 @@ The following are example commands of fk usage.
 fk --sync -d /documents --verbose
 ```
 
+*Amazon S3 Directory Syncing*
+
+```
+fk --sync -d s3://myBucket/documents --verbose
+```
+
 *Sync files modified in the last 24 hours*
 
 ```
@@ -187,7 +193,13 @@ The `--pre-hook` parameter is useful for situations where you need to add docume
 
 ```
 {
-    "path": "<filename>"
+    "path" : "<filename>",
+    "config" : {
+        "directory" : "<directory>"
+        "actions" : "<actions>",
+        "siteId" : "<siteId>",
+        "stagebucket" : "<stagingbucket>"
+    }
 }
 ```
 
