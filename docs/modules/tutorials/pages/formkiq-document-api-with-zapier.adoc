@@ -95,7 +95,7 @@ The last step is to click the `Publish Zap` button. Once your Zap is published y
 
 ## FormKiQ Actions API
 
-. Following the https://docs.formkiq.com/docs/1.10.0/api/index.html#tag/Documents/operation/AddDocument[FormKiQ Add Document API], we can create a request to create a new document and send it to the FormKiQ API endpoint. For the request, we will use the `actions` section in the request to specify the Zapier Webhook Url we want to be called after the document is created.
+. Following the https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument[FormKiQ Add Document API], we can create a request to create a new document and send it to the FormKiQ API endpoint. For the request, we will use the `actions` section in the request to specify the Zapier Webhook Url we want to be called after the document is created.
 
 ```
 {

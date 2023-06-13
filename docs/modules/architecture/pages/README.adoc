@@ -1,7 +1,7 @@
 = Architecture
 :favicon: favicon.ico
 
-image::architecture_formkiq_core.png[Architecture,600,600]
+image::formkiq_architecture.png[Architecture]
 
 == Overview
 
@@ -214,7 +214,7 @@ Required fields are marked below.
 }
 ----
 
-Note: The `.fkb64` matches the https://docs.formkiq.com/docs/1.10.0/api/index.html#tag/Documents/operation/AddDocument[Add Document Request^]. Refer to the API for a listing of all properties.
+Note: The `.fkb64` matches the https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument[Add Document Request^]. Refer to the API for a listing of all properties.
 
 == API
 

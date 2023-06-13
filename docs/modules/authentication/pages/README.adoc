@@ -1,26 +1,49 @@
 = Authentication / Authorization
 :favicon: favicon.ico
 
-Out-of-the-box FormKiQ supports using https://jwt.io/introduction[JSON Web Tokens (JWT)^] through https://aws.amazon.com/cognito[Amazon Cognito^] and https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)^] to handle authentication to the platform. This provides the utmost in flexibilty when building customer facing and backend processing systems.
+image::formkiq_authentication.png[Authentication,400,400]
 
-Authorization is handled through role-based access control assigned to each user.
+The FormKiQ API is built on top of https://aws.amazon.com/api-gateway/[AWS API Gateway]. API Gateway offers the flexibility to empowers customers to choose the most suitable authentication method based on their specific application requirements. 
 
-NOTE: https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise] users have additional authentication options like Security Assertion Markup Language (SAML).
+The FormKiQ installation deploys multiple copies of the API, with each one using a different authentication mechanism. This allows you to choose the authentication mechanism that suits your needs.
 
-== API
-
-FormKiQ uses https://aws.amazon.com/api-gateway[Amazon API Gateway^] to handle and secure all API traffic.
-
-FormKiQ deploys two APIs; one is secured using https://aws.amazon.com/cognito[Amazon Cognito JWT authorizer^] and the other one is secured using https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)^]. Both URLs can be found in the CloudFormation outputs of your FormKiQ stack.
+The FormKiQ API URL(s) can be found in the CloudFormation outputs of your FormKiQ stack.
 
 image::cf-outputs-apiurls.png[CloudFormation Outputs API Urls,800,800]
 
-The `HttpApiUrl` is secured using the JWT authorizers and access is typically granted through a username and password.
+NOTE: https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise] users have additional authentication options like Security Assertion Markup Language (SAML).
 
-The `IamApiUrl` is secured using https://aws.amazon.com/iam[AWS Identity and Access Management (IAM)^] and is used for backend processing. When IAM authorization is used, clients must use https://docs.aws.amazon.com/general/latest/gr/signing-aws-api-requests.html[Signature Version 4^] to sign their requests with AWS credentials.
+== JSON Web Token authentication(JWT) Authentication
 
-NOTE: Examples of how to use the APIs can be found in
-xref:tutorials:overview.adoc[FormKiQ Tutorials]
+JWT authentication, also known as  https://jwt.io/introduction[JSON Web Token] authentication, is a method used to verify the identity of users or systems accessing web applications or APIs. It is based on the use of digitally signed tokens containing encoded claims about the user's identity and permissions. 
+
+By default, FormKiQ uses https://aws.amazon.com/cognito[Amazon Cognito] as the JWT Issuer and authorization is handled through role-based access control assigned to each user.
+
+The API that uses the JWT authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `HttpApiUrl` key.
+
+image::cf-outputs-apiurls.png[CloudFormation Outputs API Urls,800,800]
+
+== AWS IAM Authentication
+
+https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control-iam.html[IAM Authentication] allows customers to call the FormKiQ API by signing requests using https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html[Signature Version 4] with AWS credentials. 
+
+The API that uses the JWT authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `IamApiUrl` key.
+
+image::cf-outputs-apiurls.png[CloudFormation Outputs API Urls,800,800]
+
+NOTE: You need the IAM execute-api permission to be able to use IAM Authentication and all requests will be run with administration privileges.
+
+== API Key Authentication
+
+FormKiQ allows for the generating of an API key that can be used to access the FormKiQ API for a particular `SiteId`.
+
+The API key can be generated using the `POST /configuration/apiKeys` API endpoint using credentials with `administrator` privileges.
+
+The API that uses the Key authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `KeyApiUrl` key.
+
+image::cf-outputs-apiurls.png[CloudFormation Outputs API Urls,800,800]
+
+NOTE: Each API key is only valid for a particular SiteId.
 
 == Web Console
 

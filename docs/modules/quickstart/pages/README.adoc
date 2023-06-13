@@ -1,7 +1,7 @@
 = Quickstart
 :favicon: favicon.ico
 
-image::formkiq_quickstart.png[FormKiQ Quickstart,400,400]
+image::formkiq_architecture.png[FormKiQ Quickstart]
 
 == What is FormKiQ?
 
