@@ -13,7 +13,7 @@ image::cf-outputs-apiurls.png[CloudFormation Outputs API Urls,800,800]
 
 NOTE: https://www.formkiq.com/products/formkiq-enterprise[FormKiQ Enterprise] users have additional authentication options like Security Assertion Markup Language (SAML).
 
-== JSON Web Token authentication(JWT) Authentication
+== JSON Web Token(JWT) Authentication
 
 JWT authentication, also known as  https://jwt.io/introduction[JSON Web Token] authentication, is a method used to verify the identity of users or systems accessing web applications or APIs. It is based on the use of digitally signed tokens containing encoded claims about the user's identity and permissions. 
 
