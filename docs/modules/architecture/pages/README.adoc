@@ -228,17 +228,100 @@ The JWT-authenticated API is great for handling users requests, while the IAM-au
 
 NOTE: All endpoints require either Cognito / IAM Authentication unless the URL starts with /public; the /public endpoint can be used to allow publicly-submitted documents such as web forms.
 
-== Services
+== Document Actions
 
-The following is a list of external or 3rd party services FormKiQ uses.
+FormKiQ's document actions is a powerful tool that allows you to perform operations or tasks on a document automatically. These actions provide users with the flexibility and control to manage their documents effectively, streamline workflows, collaborate with others, and extract valuable insights from document content.
 
-=== Typesense
+=== Optical Character Recognition (OCR)
 
-image::architecture_typesense.png[Typesense Architecture,600,600]
+FormKiQ supports extracting text from images or scanned documents using https://github.com/tesseract-ocr[Tesseract OCR] or for PRO/Enterprise users have the additional option of using https://aws.amazon.com/textract[AWS Textract].
 
-https://typesense.org[Typesense] is an open source search solution and can be used a replacement for https://www.elastic.co[Elastic search]. FormKiQ uses it to provide fulltext search ability for document metadata.
+Supported Documents Types:
 
-FormKiQ uses https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html[change data capture for DynamoDB] to recorder all data changes in https://aws.amazon.com/dynamodb[DynamoDB] and then update https://typesense.org[Typesense].
+|===
+|Tesseract | AWS Textract
+
+|PDF
+|PDF
+
+|JPEG
+|JPEG
+
+|TIFF
+|TIFF
+
+|GIF
+|PNG
+
+|===
+
+Action Parameters:
+
+The following are additional parameters the action supports:
+
+|===
+|Parameter | Description
+
+|ocrParseTypes
+|AWS Textract Text detection types - TEXT, https://docs.aws.amazon.com/textract/latest/dg/how-it-works-kvp.html[FORMS], https://docs.aws.amazon.com/textract/latest/dg/how-it-works-tables.html[TABLES]
+
+|addPdfDetectedCharactersAsText
+|Rewriting of the PDF document, converting any image text to searchable text
+
+|===
+
+=== Fulltext
+
+Fulltext search is a powerful technique used to search for and retrieve relevant information from a large collection of documents or textual data. FormKiQ supports search engines https://typesense.org[Typesense] and https://aws.amazon.com/opensearch-service[Amazon OpenSearch Service] (Enterprise only).
+
+Using fulltext search allows you to extend your search functionality beyond document tag search to include document metadata and content as well.
+
+|===
+
+Action Parameters:
+
+The following are additional parameters the action supports:
+
+|===
+|Parameter | Description
+
+|characterMax
+|The maximum number of document characters to load into fulltext. (-1 unlimited, Typesense defaults to 2048 characters)
+
+|===
+
+=== Webhook
+
+Webhook action is a mechanism that allows an applications or systems to be notified when an action or set of actions have completed. Instead of polling an API for the status, an endpoint URL can be notified.
+
+|===
+|Parameter | Description
+
+|url (*required)
+|The callback URL
+
+|===
+
+=== DocumentTagging
+
+Document tagging action allows to use different engines to automatically generate tags based on a document's content.
+
+As an example you can use ChatGpt to automatically add persons, organizations and locations to a document.
+
+|===
+|Parameter | Description
+
+|tags (*required)
+|Comma-delimited list of tags to add to the document
+
+|engine
+|Engine to use for document tagging generation (default: chatgpt)
+
+|===
+
+=== AntiVirus (Pro / Enterprise ONLY)
+
+Antivirus actions is used for the detecting of trojans, viruses, malware & other malicious threats inside of a document. The document is then automatically tagged with the status and timestamp of the scan.
 
 == Document Events
 
@@ -262,3 +345,21 @@ FormKiQ provides the following message attributes that you can filter on:
 |=======================================================================
 
 See https://docs.aws.amazon.com/sns/latest/dg/sns-subscription-filter-policies.html
+
+== Services
+
+The following is a list of external or 3rd party integrates FormKiQ supports.
+
+=== Typesense
+
+image::architecture_typesense.png[Typesense Architecture,600,600]
+
+To provide fulltext search ability for document metadata and content, FormKiQ integrates with https://typesense.org[Typesense], which is a powerful open-source search engine that provides fast and intuitive search functionality and can be used as a replacement for https://www.elastic.co[Elastic search]. Typesense is designed to handle large volumes of data efficiently and deliver accurate search results in real-time. It supports features like typo tolerance, filtering, faceted search, and ranking customization, enabling developers to create sophisticated search experiences tailored to their specific requirements.
+
+FormKiQ uses https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html[change data capture for DynamoDB] to recorder all data changes in https://aws.amazon.com/dynamodb[DynamoDB] and then update https://typesense.org[Typesense] automatically.
+
+=== Tesseract OCR
+
+Tesseract OCR (Optical Character Recognition) is an open-source library widely used for extracting text from images or scanned documents. Developed by Google, Tesseract has gained popularity for its accuracy and versatility in recognizing and interpreting text from various sources. It supports over 100 languages, making it suitable for multilingual applications. Tesseract works by analyzing the shapes and patterns of characters within an image and converting them into editable text. It can handle different fonts, text sizes, and orientations, making it applicable to a wide range of scenarios. Tesseract OCR provides developers with an accessible and reliable tool to automate data extraction, text recognition, and text analysis tasks, enabling the conversion of images into searchable and editable text for further processing or analysis.
+
+Using FormKiQ link:#document-actions[Document Actions], you can OCR a document and then send the text to one of our supported fulltext engines or store for later retrieval.
