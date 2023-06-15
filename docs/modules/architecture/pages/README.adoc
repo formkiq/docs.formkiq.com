@@ -276,8 +276,6 @@ Fulltext search is a powerful technique used to search for and retrieve relevant
 
 Using fulltext search allows you to extend your search functionality beyond document tag search to include document metadata and content as well.
 
-|===
-
 Action Parameters:
 
 The following are additional parameters the action supports:
@@ -294,6 +292,10 @@ The following are additional parameters the action supports:
 
 Webhook action is a mechanism that allows an applications or systems to be notified when an action or set of actions have completed. Instead of polling an API for the status, an endpoint URL can be notified.
 
+Action Parameters:
+
+The following are additional parameters the action supports:
+
 |===
 |Parameter | Description
 
@@ -307,6 +309,10 @@ Webhook action is a mechanism that allows an applications or systems to be notif
 Document tagging action allows to use different engines to automatically generate tags based on a document's content.
 
 As an example you can use ChatGpt to automatically add persons, organizations and locations to a document.
+
+Action Parameters:
+
+The following are additional parameters the action supports:
 
 |===
 |Parameter | Description
