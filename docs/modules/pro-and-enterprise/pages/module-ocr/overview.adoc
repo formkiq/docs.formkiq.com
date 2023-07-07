@@ -9,9 +9,9 @@ image::architecture_formkiq_and_ocr.png[FormKiQ OCR Architecture]
 Overview
 ~~~~~~~~
 
-Document OCR is a FormKiQ  Module that provides optical character recognition (OCR) for the extraction of text and structured table or form data from documents.
+Document OCR is a FormKiQ Module that provides optical character recognition (OCR) for the extraction of text and structured table or form data from documents.
 
-The module uses https://aws.amazon.com/textract[Amazon Textract] as its OCR engine. Amazon Textract uses advanced machine learning (ML) algorithms to identify, understand, and extract text and data from documents, including from forms and tables.
+The module uses Tessaract as its OCR engine for FormKiQ Core, with https://aws.amazon.com/textract[Amazon Textract] as an option for Pro or Enterprise. Amazon Textract uses advanced machine learning (ML) algorithms to identify, understand, and extract text and data from documents, including from forms and tables.
 
 ====
 _**Use Case:**_
