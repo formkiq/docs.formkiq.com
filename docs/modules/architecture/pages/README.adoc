@@ -236,7 +236,7 @@ FormKiQ's document actions is a powerful tool that allows you to perform operati
 
 FormKiQ supports extracting text from images or scanned documents using https://github.com/tesseract-ocr[Tesseract OCR] or for PRO/Enterprise users have the additional option of using https://aws.amazon.com/textract[AWS Textract].
 
-Supported Documents Types:
+Supported Document Types:
 
 |===
 |Tesseract | AWS Textract
@@ -250,8 +250,17 @@ Supported Documents Types:
 |TIFF
 |TIFF
 
-|GIF
 |PNG
+|PNG
+
+|GIF
+|
+
+|WEBP
+|
+
+|BMP
+|
 
 |===
 
