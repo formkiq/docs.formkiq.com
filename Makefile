@@ -2,7 +2,7 @@ default :
 	  rm -r -f build
 	  mkdir -p build
 	  cd ui-bundle && zip -r ../build/ui-bundle.zip *
-	  npx antora --redirect-facility disabled antora-playbook.yml
+	  npx antora --stacktrace --redirect-facility disabled antora-playbook.yml
 	  ls -l build/site/docs
 
 deploy : default
