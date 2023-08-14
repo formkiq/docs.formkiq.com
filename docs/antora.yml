@@ -1,6 +1,6 @@
 name: docs
 title: FormKiQ
-version: 1.11.0
+version: 1.12.0
 nav:
 - modules/quickstart/nav.adoc
 - modules/platform-overview/nav.adoc
