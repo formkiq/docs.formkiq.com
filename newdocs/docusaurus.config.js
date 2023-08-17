@@ -43,6 +43,8 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          docLayoutComponent: "@theme/DocPage",
+          docItemComponent: "@theme/ApiItem" // Derived from docusaurus-theme-openapi
         },
         blog: {
           showReadingTime: true,
@@ -61,9 +63,14 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      docs: {
+        sidebar: {
+          hideable: true
+        }
+      },
       // Replace with your project's social card
       navbar: {
-        title: '',
+        title: 'FormKiQ Docs',
         logo: {
           alt: 'FormKiQ Docs',
           src: 'img/logo.png',
@@ -86,7 +93,7 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          {href: 'https://blog.formkiq.com', label: 'Blog', position: 'left'},
+          {href: 'https://formkiq.com/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/formkiq/formkiq-core',
             label: 'GitHub',
@@ -105,6 +112,28 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+    plugins: [
+    [
+      "docusaurus-plugin-openapi-docs",
+      {
+        id: "openapi",
+        docsPluginId: "classic",
+        config: {
+          formkiq: {
+            specPath: "https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml",
+            outputDir: "docs/api-reference",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+              categoryLinkSource: "tag"
+            }
+          }
+        }
+      }
+    ]
+  ],
+
+  themes: ["docusaurus-theme-openapi-docs"]
 };
 
 module.exports = config;
