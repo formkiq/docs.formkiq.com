@@ -1,0 +1,10 @@
+{
+  "label": "Platform",
+  "collapsible": true,
+  "collapsed": false,
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Overview of FormKiQ Platform"
+  }
+}
