@@ -94,6 +94,7 @@ const config = {
             label: 'Docs',
           },
           {href: 'https://formkiq.com/blog', label: 'Blog', position: 'left'},
+          {href: '/docs/category/formkiq-api', label: 'API Reference', position: 'left'},
           {
             href: 'https://github.com/formkiq/formkiq-core',
             label: 'GitHub',
@@ -121,7 +122,7 @@ const config = {
         docsPluginId: "classic",
         config: {
           formkiq: {
-            specPath: "https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml",
+            specPath: "https://raw.githubusercontent.com/formkiq/formkiq-core/updatedocs/docs/openapi/openapi-jwt.yaml",
             outputDir: "docs/api-reference",
             sidebarOptions: {
               groupPathsBy: "tag",
