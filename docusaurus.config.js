@@ -122,7 +122,7 @@ const config = {
         docsPluginId: "classic",
         config: {
           formkiq: {
-            specPath: "https://raw.githubusercontent.com/formkiq/formkiq-core/updatedocs/docs/openapi/openapi-jwt.yaml",
+            specPath: "https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml",
             outputDir: "docs/api-reference",
             sidebarOptions: {
               groupPathsBy: "tag",

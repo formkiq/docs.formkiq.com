@@ -1,3 +1,0 @@
-==== Processing
-
-All processing components are built using https://aws.amazon.com/lambda[AWS Lambda]. AWS Lambda allows the processing of documents/requests without managing servers or clusters. It also automatically scales to the capacity you need. With built-in fault tolerance, https://aws.amazon.com/lambda[AWS Lambda] is designed to provide high availability and to be resilient to failure. 
