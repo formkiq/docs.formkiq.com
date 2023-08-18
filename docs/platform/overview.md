@@ -257,7 +257,7 @@ Each document only support up to 25 Metadata entries.
 
 ### Document Actions
 
-The FormKiQ document management platform offers a dynamic and customizable approach to document processing through a comprehensive set of document actions. With tje platform, users can seamlessly chain together multiple actions, creating powerful workflows that enhance document processing efficiency. 
+The FormKiQ document management platform offers a dynamic and customizable approach to document processing through a comprehensive set of document actions. With the platform, users can seamlessly chain together multiple actions, creating powerful workflows that enhance document processing efficiency. 
 
 These actions encompass a wide spectrum of functionalities, including:
 
@@ -267,6 +267,15 @@ These actions encompass a wide spectrum of functionalities, including:
 * Intelligent document tagging for accurate categorization of documents using artificial intelligence
 
 This suite of features transforms document management into a seamless process, enabling users to automatically process, organize, and enrich documents based on their unique needs. By chaining actions together, our platform empowers users to create sophisticated workflows that drive productivity, accuracy, and collaboration across the entire document lifecycle.
+
+### Document Sharing
+
+FormKiQ's document sharing feature is designed to enabling effortless collaboration between user groups. This real-time collaboration not only boosts efficiency but also reduces the need for lengthy email chains and back-and-forth communication. 
+
+Document sharing also enhances version control, as all collaborators access and work on the same up-to-date document, preventing confusion caused by outdated versions. 
+
+Document sharing is particularly valuable for remote teams, as it enables everyone to access the same information regardless of their physical location. Overall, document sharing accelerates productivity, encourages effective communication, and streamlines collaborative efforts across diverse groups of individuals.
+
 
 ### Document Single Tag Search
 
