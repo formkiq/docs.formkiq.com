@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# FormKiQ API Tutorial
+# API Walkthrough
 
 This tutorial will take you through the basics of the FormKiQ Document API, including:
 

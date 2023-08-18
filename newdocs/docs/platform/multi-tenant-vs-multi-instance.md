@@ -10,6 +10,8 @@ To create another SiteId is as simple as adding a new [Cognito group to the user
 
 Creating a Cognito Group with the same name as the SiteId but ending in "_read" will create a read-only group. The users in this group will have read-only access to documents within that SiteId.
 
+See Tutorial <a href="/docs/tutorials/multitenant">Multi-Tenant Tutorial</a> for a walk through on how to use FormKiQ in a multi-tenant setup.
+
 :::note
 One possible use-case is to create a Cognito Group for each FormKiQ user (using their email address), which would create a SiteId for that user and a "My Documents" section in FormKiQ Document Console.
 :::

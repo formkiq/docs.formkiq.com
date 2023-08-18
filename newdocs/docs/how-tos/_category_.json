@@ -1,0 +1,10 @@
+{
+  "label": "How To",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "FormKiQ How-To Guides provide use cases and how do perform specific tasks using the FormKiQ API"
+  }
+}
