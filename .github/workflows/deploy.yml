@@ -24,18 +24,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      - name: Update ubuntu
-        run: sudo apt-get update
-        
-      - name: Install dependencies
-        run: sudo apt-get -o Acquire::Retries=3 -y install asciidoctor awscli
-        
-      - name: Install antora
-        run: npm i -D -E @antora/cli@3.0 @antora/site-generator@3.0
-
-      - name: antora version
-        run: npx antora -v
         
       # Runs a single command using the runners shell
       - name: Set AWS credentials

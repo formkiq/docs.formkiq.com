@@ -1,0 +1,10 @@
+{
+  "label": "Getting Started",
+  "collapsible": false,
+  "collapsed": false,
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Overview and Getting Started with FormKiQ."
+  }
+}

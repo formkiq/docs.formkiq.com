@@ -1,1 +1,0 @@
-* https://docs.formkiq.com/docs/1.12.0/api/index.html[API Reference^]

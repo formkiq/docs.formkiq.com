@@ -1,0 +1,10 @@
+{
+  "label": "Troubleshooting",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 20,
+  "link": {
+    "type": "generated-index",
+    "description": "FormKiQ Troubleshooting Help and Hints"
+  }
+}
