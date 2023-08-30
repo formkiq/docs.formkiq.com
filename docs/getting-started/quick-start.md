@@ -20,7 +20,11 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
 ## Install FormKiQ
 
-The FormKiQ installation process uses AWS CloudFormation(https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
+:::note
+NOTE: Please ensure you've read the Prerequisites above and that AWSServiceRoleforECS has been enabled for your account.
+:::
+
+The FormKiQ installation process uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
 
 To install FormKiQ, select the installation link for the AWS region you want to install FormKiQ to below.
 
@@ -39,7 +43,7 @@ To install FormKiQ, select the installation link for the AWS region you want to 
 If the region you want to use is not listed, follow the [Install with SAM CLI](#install-with-sam-cli).
 
 :::note
-NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom Github(https://github.com) repository you were provided.
+NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom [GitHub](https://github.com) repository you were provided.
 :::
 
 ## Create CloudFormation Stack
@@ -59,7 +63,7 @@ Clicking the `Next` button will take you to the stack details page. On this page
 The first thing you will need to set is the CloudFormation Stack Name. The Stack name can include letters (A-Z and a-z), numbers (0-9), and dashes (-). We recommended to use the naming convention `formkiq-core-<app_environment>`, ie: formkiq-core-prod, formkiq-core-dev, etc. The <app_environment> allows you to differentiate between multiple installations of FormKiQ. This will give context to each FormKiQ installation and prevent accidentally deleting the wrong FormKiQ installation stack.
 
 :::note
-For production installations, we recommend using AWS Organizations(https://aws.amazon.com/organizations) to create a separate account to run your production version of FormKiQ. AWS makes it easy to switch between accounts within an organization, and best practice is to keep your production environment in a separate account from any non-production resources. This not only helps with security, but also to help organize your costs. Ideally, you would have a new AWS account within your AWS organization for each environment (e.g., dev, test/qa, staging/pre-prod, and production).
+For production installations, we recommend using [AWS Organizations](https://aws.amazon.com/organizations) to create a separate account to run your production version of FormKiQ. AWS makes it easy to switch between accounts within an organization, and best practice is to keep your production environment in a separate account from any non-production resources. This not only helps with security, but also to help organize your costs. Ideally, you would have a new AWS account within your AWS organization for each environment (e.g., dev, test/qa, staging/pre-prod, and production).
 :::
 
 ### Set Admin Email
@@ -94,13 +98,13 @@ You can always enable/disable your public endpoints at any time by updating your
 
 ![Set Password Policy](./img/cf-create-parameter-passwords.png)
 
-FormKiQ uses Amazon Cognito(https://aws.amazon.com/cognito) as the identity store for all users. Cognito support number of different password policies that you can configure.
+FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito) as the identity store for all users. Cognito support number of different password policies that you can configure.
 
 ### Configure Typesense
 
 ![Configure TypesenseApiKey](./img/cf-create-parameter-typesense.png)
 
-Optional: API Key to access the Typesense(https://typesense.org) server. Typesense is used to provide full text search support for document metadata. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` also needs to be set (see link:#vpc-cloudformation[VPC CloudFormation]).
+Optional: API Key to access the [Typesense](https://typesense.org) server. Typesense is used to provide full text search support for document metadata. The API Key can be any random string of characters. To enable Typesense, the `VpcStackName` also needs to be set (see link:#vpc-cloudformation[VPC CloudFormation]).
 
 :::note
 Typesense is optional, since it requires a VPC to be created, which can add to your AWS usage costs. Without Typesense, you will only be able to search documents using tags and the document's created date.
@@ -143,7 +147,7 @@ Once in the FormKiQ Console, you can start working with FormKiQ.
 ![FormKiQ Console Home](./img/fk-console-home.png)
 
 :::note
-Additional FormKiQ users can be created using Amazon Cognito(https://aws.amazon.com/cognito). See xref:authentication:README.adoc[Authentication / Authorization] for more information.
+Additional FormKiQ users can be created using [Amazon Cognito](https://aws.amazon.com/cognito). See xref:authentication:README.adoc[Authentication / Authorization] for more information.
 :::
 
 ## Create VPC
@@ -216,7 +220,7 @@ Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once
 
 ## Install with SAM CLI
 
-FormKiQ Core was built using the AWS Serverless Application Model (SAM)(https://aws.amazon.com/serverless/sam/) framework.
+FormKiQ Core was built using the [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/sam/) framework.
 
 The Serverless Application Model Command Line Interface (SAM CLI) is an extension of the AWS CLI that adds functionality for deploying serverless applications.
 

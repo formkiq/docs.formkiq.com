@@ -63,7 +63,7 @@ Repeat the steps for the `openapi-jwt.yaml` url and you will end up with both th
 
 ## Configure Postman
 
-We now need to connect Postman to a FormKiQ installation. To do this we need to login to the AWS console(https://console.aws.amazon.com) and goto the  CloudFormation console(https://console.aws.amazon.com/cloudformation/home).
+We now need to connect Postman to a FormKiQ installation. To do this we need to login to the [AWS Management Console](https://console.aws.amazon.com) and goto the [CloudFormation Console](https://console.aws.amazon.com/cloudformation/home).
 
 image::formkiq-cloudformation-outputs.png[FormKiQ CloudFormation Outputs,1000,1000]
 
@@ -287,7 +287,7 @@ The only difference between the two APIs, is the `Get Document Content` will ret
 }
 ```
 
-If the content is not a text document or the `Get Document Url` is used, a Presigned URL(https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html) is returned which allows access to the file without any additional security credentials or permissions. The duration of the access can be controlled via request parameters.
+If the content is not a text document or the `Get Document Url` is used, a [Presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html) is returned which allows access to the file without any additional security credentials or permissions. The duration of the access can be controlled via request parameters.
 
 ```
 {
@@ -344,7 +344,7 @@ In the `Body` tab, we can specify the search criteria.
 }
 ```
 
-NOTE: To enable Metadata Text search, you need to have enabled Typesense(https://typesense.org) during installation.
+NOTE: To enable Metadata Text search, you need to have enabled [Typesense](https://typesense.org) during installation.
 
 The request response will contain of a list of document that match the search criteria.
 
