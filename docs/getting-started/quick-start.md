@@ -233,7 +233,7 @@ To use SAM CLI, you will need to install the following tools:
 
 ### Get Latest Release
 
-The latest version of FormKiQ Core can be found on the https://github.com/formkiq/formkiq-core/releases[Releases] page on Github.
+The latest version of FormKiQ Core can be found on the https://github.com/formkiq/formkiq-core/releases page on Github.
 
 Download the file with the naming convention of: `formkiq-core-X.X.X.zip`
 
