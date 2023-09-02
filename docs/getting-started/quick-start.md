@@ -270,7 +270,6 @@ The command will package and deploy your application to AWS, with a series of pr
 | `VpcStackName` | Optional: The name of the FormKiQ VPC CloudFormation stack | null
 | `TypesenseApiKey` | Optional: API Key to access the Typesense server | null
 | `CapacityProvider` | Optional: CapacityProvider used by AWS Fargate service | FARGATE_SPOT
-|=======================================================================
 
 
 * **Confirm changes before deploy**: If set to yes, any change sets will be shown to you before execution for manual review. If set to no, the AWS SAM CLI will automatically deploy application changes.
