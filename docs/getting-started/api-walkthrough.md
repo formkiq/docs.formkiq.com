@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # API Walkthrough
@@ -97,7 +97,9 @@ To use the FormKiQ API, we need an access token. Using the `FormKiQ Authenticati
 
 You should receive a response back that contains a `AccessToken`. Using this access token will allow us to use the FormKiQ API.
 
-NOTE: The response contains a `ExpiresIn` value. This is the time in seconds that the access token is valid for.
+:::note
+The response contains a `ExpiresIn` value. This is the time in seconds that the access token is valid for.
+:::
 
 ## Add a Document
 
@@ -212,7 +214,7 @@ Sending the request, will return the document information.
 ```
 
 :::note
-NOTE: The document tags are stored separate to the document. You can use the APIs under the `Document Tags` to retrieve them.
+The document tags are stored separate to the document. You can use the APIs under the `Document Tags` to retrieve them.
 :::
 
 ## Update Document
@@ -344,7 +346,9 @@ In the `Body` tab, we can specify the search criteria.
 }
 ```
 
-NOTE: To enable Metadata Text search, you need to have enabled [Typesense](https://typesense.org) during installation.
+:::note
+To enable Metadata Text search, you need to have enabled [Typesense](https://typesense.org) during installation.
+:::
 
 The request response will contain of a list of document that match the search criteria.
 

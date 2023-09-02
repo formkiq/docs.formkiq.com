@@ -1,8 +1,10 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Quick Start
+# Quick Start using AWS
+
+Quick start guide for deploying FormKiQ into your AWS account.
 
 ![FormKiQ Architecture](./img/formkiq_architecture.png)
 
