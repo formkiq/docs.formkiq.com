@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Multi-Tenant Users
 
 FormKiQ supports multi-tenant environments where you can set up multiple groups of users and provide each group of users access to their specific documents. This is done through a `siteId`. In this tutorial we are going to create two different siteIds, and then add both users and documents to each siteId.
