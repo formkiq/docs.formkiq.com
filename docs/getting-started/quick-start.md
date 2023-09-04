@@ -114,7 +114,8 @@ Typesense is optional, since it requires a VPC to be created, which can add to y
 
 ![Configure VPC](./img/cf-create-parameter-vpc-stackname.png)
 
-Optional: The name of the FormKiQ VPC CloudFormation stack (currently used for both Typesense and OpenSearch). You will need to deploy the link:#vpc-cloudformation[VPC CloudFormation] in order to have a VPC Stack Name to provide here. We recommend that you create this main FormKiQ stack first, and then run the VPC stack, before finally updating the main stack with the VPC Stack Name.
+The name of the CloudFormation VPC stack that can be created after the initial FormKiQ install, using the add-on <a href="/docs/getting-started/quick-start#create-vpc">CloudFormation template for VPC</a>.
+Some services such as Typesense, Tesseract, and OpenSearch require a VPC. Only required if you are using any of these services; otherwise, this can remain empty.
 
 Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
 
