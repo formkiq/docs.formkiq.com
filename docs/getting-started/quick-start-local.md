@@ -17,7 +17,7 @@ The FormKiQ Document Management Platform is designing to run in your AWS account
 
 ## Launching FormKiQ
 
-FormKiQ can be launched using [Docker Compose](https://docs.docker.com/compose/install). Save the `docker-compose.yml` file below.
+FormKiQ can be launched using [Docker Compose](https://docs.docker.com/compose/install). Save the `docker-compose.yml` file below into a new folder.
 
 **docker-compose.yml**
 
@@ -314,3 +314,7 @@ JSON response
   ]
 }
 ```
+
+## API Reference
+
+See the [FormKiQ API Reference](/docs/api-reference/formkiq-http-api/) for more endpoints you can try out.
