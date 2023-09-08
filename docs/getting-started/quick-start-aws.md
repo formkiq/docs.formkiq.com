@@ -22,13 +22,15 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
 ## Install FormKiQ
 
+**For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ)**
+
 :::note
 NOTE: Please ensure you've read the Prerequisites above and that AWSServiceRoleforECS has been enabled for your account.
 :::
 
 The FormKiQ installation process uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
 
-To install FormKiQ, select the installation link for the AWS region you want to install FormKiQ to below.
+To install FormKiQ, select the installation link for the AWS region you want to deploy FormKiQ into below:
 
 | AWS Region    | Install Link |
 | -------- | ------- |
@@ -116,7 +118,8 @@ Typesense is optional, since it requires a VPC to be created, which can add to y
 
 ![Configure VPC](./img/cf-create-parameter-vpc-stackname.png)
 
-Optional: The name of the FormKiQ VPC CloudFormation stack (currently used for both Typesense and OpenSearch). You will need to deploy the link:#vpc-cloudformation[VPC CloudFormation] in order to have a VPC Stack Name to provide here. We recommend that you create this main FormKiQ stack first, and then run the VPC stack, before finally updating the main stack with the VPC Stack Name.
+The name of the CloudFormation VPC stack that can be created after the initial FormKiQ install, using the add-on <a href="/docs/getting-started/quick-start#create-vpc">CloudFormation template for VPC</a>.
+Some services such as Typesense, Tesseract, and OpenSearch require a VPC. Only required if you are using any of these services; otherwise, this can remain empty.
 
 Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
 
@@ -149,7 +152,7 @@ Once in the FormKiQ Console, you can start working with FormKiQ.
 ![FormKiQ Console Home](./img/fk-console-home.png)
 
 :::note
-Additional FormKiQ users can be created using [Amazon Cognito](https://aws.amazon.com/cognito). See xref:authentication:README.adoc[Authentication / Authorization] for more information.
+Additional FormKiQ users can be created using [Amazon Cognito](https://aws.amazon.com/cognito). See [API Security](/docs/platform/api_security) for more information.
 :::
 
 ## Create VPC

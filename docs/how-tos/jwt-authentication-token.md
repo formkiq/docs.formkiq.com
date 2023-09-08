@@ -8,7 +8,7 @@ This tutorial will take you through the basics of the FormKiQ Document API, incl
 
 ## Prerequisite
 
-* You have installed FormKiQ; see the xref:quickstart:README.adoc#one-click-installation-links[FormKiQ One-Click Installation Links] for more information
+* You have installed FormKiQ; see the [Quickstart](/docs/getting-started/quick-start) for more information
 * Install either: cURL or your favorite API Client, like https://www.postman.com.
 * Optionally install: https://stedolan.github.io/jq, a command-line JSON processor which formats JSON so it is more readable.
 * All shell commands are shown for Unix-based systems. Windows has analogous commands for each.

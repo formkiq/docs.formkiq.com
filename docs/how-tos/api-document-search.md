@@ -15,7 +15,7 @@ This tutorial will take you through different way to search for documents using 
 
 ## Get JWT Authentication Token
 
-You first need to get an `authorization` token to access the FormKiQ API. See xref:how-to:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
+You first need to get an `authorization` token to access the FormKiQ API. See [Getting an JWT Authentication Token](/docs/how-tos/jwt-authentication-token) for steps on how to get the token.
 
 ## CloudFormation Outputs
 
@@ -98,7 +98,7 @@ curl -X POST https://HTTP_API_URL/search \
 
 ## Search for Document Composite Key
 
-[FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have a <a href="/docs/enterprise-modules/tag-schema">TagSchema Module</a> which allows defining document composite keys which allows for searching for multiple tags.
+[FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have a <a href="/docs/pro-and-enterprise/tag-schema">TagSchema Module</a> which allows defining document composite keys which allows for searching for multiple tags.
 
 
 ```
@@ -109,7 +109,7 @@ curl -X POST https://HTTP_API_URL/search \
 
 ## Search using Full Text Module
 
-[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) has an <a href="/docs/enterprise-modules/advanced-document-search">Advanced Document Search Module</a> that provides FormKiQ integration with [AWS OpenSearch](https://aws.amazon.com/opensearch-service) which is an AWS fully managed [Elasticsearch-compatible](https://www.elastic.co) service.
+[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) has an <a href="/docs/pro-and-enterprise/enhanced-fulltext-document-search">Enhanced Fulltext Document Search Module</a> that provides FormKiQ integration with [AWS OpenSearch](https://aws.amazon.com/opensearch-service) which is an AWS fully managed [Elasticsearch-compatible](https://www.elastic.co) service.
 
 ```
 curl -X POST https://HTTP_API_URL/searchFulltext \

@@ -16,3 +16,5 @@ FormKiQ is built to scale, for any use case. It can be used by the largest corpo
 
 FormKiQ (https://github.com/formkiq/formkiq-core) is an Open Core product. The core document management functionality is made available through an Open Source license. Additional, advanced document management functionality, as well and add-on modules, professional services, and both on-boarding and operational support are available via https://formkiq.com.
 
+**For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ)**
+

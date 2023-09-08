@@ -11,9 +11,9 @@ sidebar_position: 1
 ✅ Optionally Return Tags while using the `POST /search` API Endpoint
 
 
-Tag Schema is a FormKiQ Module that provides the enforcement of a tag schema on specific documents and enhances search functionality through composite keys for tags.
+Tag Schema is a feature of FormKiQ Pro and Enterprise that provides the enforcement of a tag schema on specific documents and enhances search functionality through composite keys for tags.
 
-With the Tag Schema Add-On Module, you can create different sets of required or optional keys, i.e., the Tag Schemas, and each schema can be associated to any number of documents. You can also specify both a default value and a list of allowed values for both required and optional keys.
+With the Tag Schema Feature, you can create different sets of required or optional keys, i.e., the Tag Schemas, and each schema can be associated to any number of documents. You can also specify both a default value and a list of allowed values for both required and optional keys.
 
 Each tag schema can have up to 5 required and 10 optional keys, for a total of 15; you should consider prioritizing tags used for searches in cases where your document content may have more than five required key/value pairs, vs. attempting to store all document key/value pairs as tags. In cases where you expect to search for more than 15 keys, we recommend our link:#fulltext-search-module[Fulltext Search Module].
 

@@ -381,6 +381,6 @@ And there you have it! We have shown how easy it is to use the FormKiQ API to cr
 
 This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
 
-To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of xref:tutorials:overview.adoc[FormKiQ Tutorials].
+To learn more about how you can use the FormKiQ API to collect, organize, process, and integrate your documents and web forms, see the full list of [FormKiQ Tutorials](/docs/category/tutorials).
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or formkiq.com.
+If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or in our [FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ).
