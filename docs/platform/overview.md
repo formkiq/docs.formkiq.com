@@ -295,7 +295,7 @@ FormKiQ supports multi-tag search using the TagSchema module or Full-text module
 
 FormKiQ support full-text search through the following services:
 
-[Amazon OpenSearch](https://aws.amazon.com/opensearch-service/) is AWS fully managed distributed search and analytics engine (available in FormKiQ PRO/Enterprise).
+[Amazon OpenSearch](https://aws.amazon.com/opensearch-service/) is AWS fully managed distributed search and analytics engine (available in FormKiQ Pro/Enterprise).
 
 [Typesense](https://typesense.org) is used for the storage of document metadata (available in FormKiQ Core/Pro/Enterprise).
 
@@ -322,7 +322,7 @@ FormKiQ document management platform brings a new dimension to efficiency and ac
 
 FormKiQ support optical character recognition through the following services:
 
-[Amazon Textract](https://aws.amazon.com/textract/) is AWS fully managed machine learning (ML) service that automatically extracts text, handwriting, and data from scanned documents (available in FormKiQ PRO/Enterprise).
+[Amazon Textract](https://aws.amazon.com/textract/) is AWS fully managed machine learning (ML) service that automatically extracts text, handwriting, and data from scanned documents (available in FormKiQ Pro/Enterprise).
 
 [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) is an open-source software tool developed by Google that is used to convert images containing printed or handwritten text into machine-readable text (available in FormKiQ Core/Pro/Enterprise).
 

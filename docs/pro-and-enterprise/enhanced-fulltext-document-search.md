@@ -2,13 +2,13 @@
 sidebar_position: 1
 ---
 
-# Advanced Document Search
+# Enhanced Fulltext Document Search
 
 ![FormKiQ OpenSearch Architecture](./img/architecture_formkiq_and_opensearch.png)
 
 ## Overview
 
-Advanced Document Search is a FormKiQ Enterprise Add-On Module that enhances built-in search functionality by integrating OpenSearch.
+Enhanced Fulltext Document Search is a FormKiQ Enterprise Add-On Module that enhances built-in search functionality by integrating OpenSearch.
 
 ✅ Extend Search Functionality, including multiple tag parameters and fulltext queries, through OpenSearch
 
@@ -18,11 +18,11 @@ Advanced Document Search is a FormKiQ Enterprise Add-On Module that enhances bui
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/brvHNrICnXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-On your [FormKiQ Enterprise](https://github.com/formkiq) page, you'll find CloudFormation single-click installation links.
+On your customized FormKiQ Enterprise repository page, you'll find your CloudFormation single-click installation links.
 
 ![CloudFormation Enterprise Scripts](./img/cf-enterprise-scripts.png)
 
-The Advanced Document Search module uses the AWS OpenSearch service. The OpenSearch service can be inside of a VPC or outside of a VPC. FormKiQ provides methods for doing either type of installation.
+The Enhanced Fulltext Document Search module uses the AWS OpenSearch service. The OpenSearch service can be inside of a VPC or outside of a VPC. FormKiQ provides methods for doing either type of installation.
 
 If you are NOT using a VPC, you can skip the `Install VPC` section.
 
@@ -45,7 +45,7 @@ Remember the Stack Name you used to install the VPC, as you'll need it in the ne
 
 ### Install OpenSearch
 
-On your https://github.com/formkiq[FormKiQ Enterprise] page, you'll find links to create OpenSearch using single-click installation links.
+On your customized FormKiQ Enterprise repository page, you'll find your CloudFormation single-click installation links.
 
 ![CloudFormation OpenSearch Installation](./img/cf-opensearch-install.png)
 
@@ -69,7 +69,7 @@ CloudFormation will then update FormKiQ installation to enable OpenSearch.
 
 ## API
 
-The Advanced Document Search Module adds several new endpoints, including the following API endpoint to the Documents section of the API:
+The Enhanced Fulltext Document Search Module adds several new endpoints, including the following API endpoint to the Documents section of the API:
 
 * `PUT /documents/{documentId}/fulltext` - Replaces the specified document's fulltext metadata for OpenSearch (if exists)
 

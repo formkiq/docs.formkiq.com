@@ -17,7 +17,7 @@ Document actions allow you to have your documents automatically perform certain 
 
 ## Get JWT Authentication Token
 
-You first need to get an `authorization` token to access the FormKiQ API. See xref:how-to:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
+You first need to get an `authorization` token to access the FormKiQ API. See [Getting an JWT Authentication Token](/docs/how-tos/jwt-authentication-token) for steps on how to get the token.
 
 ## CloudFormation Outputs
 
@@ -66,7 +66,7 @@ A successful message return the document id that was created.
 
 ## Add Document with OCR & FULLTEXT Actions
 
-[FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have an <a href="/docs/enterprise-modules/document-ocr">OCR Module</a> and [FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) has an <a href="/docs/enterprise-modules/advanced-document-search">Advanced Document Search Module</a> which can be used to automatically run a OCR scan on a document and put the OCR results automatically into a [Opensearch](https://aws.amazon.com/opensearch-service) to enable full text document searching.
+FormKiQ Core has OCR with Tesseract, while [FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have an <a href="/docs/pro-and-enterprise/enhanced-document-ocr">Enhanced Document OCR Module</a>. [FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) also has an <a href="/docs/pro-and-enterprise/advanced-document-search">Enhanced Fulltext Document Search Module</a> which can be used to automatically run a OCR scan on a document and put the OCR results automatically into a [Opensearch](https://aws.amazon.com/opensearch-service) to enable full text document searching.
 
 
 ```

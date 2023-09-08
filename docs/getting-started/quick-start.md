@@ -20,13 +20,15 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
 ## Install FormKiQ
 
+**For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ)**
+
 :::note
 NOTE: Please ensure you've read the Prerequisites above and that AWSServiceRoleforECS has been enabled for your account.
 :::
 
 The FormKiQ installation process uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
 
-To install FormKiQ, select the installation link for the AWS region you want to install FormKiQ to below.
+To install FormKiQ, select the installation link for the AWS region you want to deploy FormKiQ into below:
 
 | AWS Region    | Install Link |
 | -------- | ------- |
@@ -147,7 +149,7 @@ Once in the FormKiQ Console, you can start working with FormKiQ.
 ![FormKiQ Console Home](./img/fk-console-home.png)
 
 :::note
-Additional FormKiQ users can be created using [Amazon Cognito](https://aws.amazon.com/cognito). See xref:authentication:README.adoc[Authentication / Authorization] for more information.
+Additional FormKiQ users can be created using [Amazon Cognito](https://aws.amazon.com/cognito). See [API Security](/docs/platform/api_security) for more information.
 :::
 
 ## Create VPC
