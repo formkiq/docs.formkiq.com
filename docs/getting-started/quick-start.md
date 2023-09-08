@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Quick Start using AWS
+# Quick Start (AWS)
 
 Quick start guide for deploying FormKiQ into your AWS account.
 
