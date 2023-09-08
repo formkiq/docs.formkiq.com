@@ -15,7 +15,7 @@ This tutorial will take you through different way to add documents using the For
 
 ## Get JWT Authentication Token
 
-You first need to get an `authorization` token to access the FormKiQ API. See xref:how-to:jwt-authentication-token.adoc[Getting an JWT Authentication Token] for steps on how to get the token.
+You first need to get an `authorization` token to access the FormKiQ API. See [Getting an JWT Authentication Token](/docs/how-tos/jwt-authentication-token) for steps on how to get the token.
 
 ## CloudFormation Outputs
 

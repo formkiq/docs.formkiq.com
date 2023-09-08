@@ -109,8 +109,21 @@ const config = {
       footer: {
         style: 'dark',
         links: [
+          {
+            title: 'How to Get Support',
+            items: [
+              {
+                label: 'GitHub Issues - FormKiQ Core',
+                to: 'https://github.com/formkiq/formkiq-core/issues',
+              },
+              {
+                label: 'FormKiQ Slack Community',
+                to: 'https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ',
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} FormKiQ, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

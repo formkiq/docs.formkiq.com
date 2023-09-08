@@ -22,7 +22,7 @@ const sidebars = {
       link: {
         type: "generated-index",
         title: "FormKiQ API",
-        description: "FormKiQ is an API-first (head-less), battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.",
+        description: "FormKiQ is an API-first (i.e., can be used headless) and battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.",
         slug: "/category/formkiq-api"
       },
       // @ts-ignore
