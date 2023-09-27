@@ -71,7 +71,7 @@ CloudFormation will then update FormKiQ installation to enable OpenSearch.
 
 ![Kibana](./img/kibana.png)
 
-Kibana is a powerful data visualization and exploration tool designed to work seamlessly with Opensearch. It allows users to transform large volumes of data into interactive, visually appealing dashboards, graphs, and charts. Kibana is useful for organizations seeking to gain actionable insights from their data, as it enables real-time monitoring, data analysis, and the detection of trends and patterns.
+Kibana is a powerful data visualization and exploration tool designed to work seamlessly with OpenSearch. It allows users to transform large volumes of data into interactive, visually appealing dashboards, graphs, and charts. Kibana is useful for organizations seeking to gain actionable insights from their data, as it enables real-time monitoring, data analysis, and the detection of trends and patterns.
 
 ### Authentication
 
@@ -89,11 +89,11 @@ The IAM role attached to the `Admins` group should NOT be attached to a new role
 
 #### System
 
-For the FormKiQ application to have access to Opensearch / Kibana a `opensearch_lambda_role` role is created.
+For the FormKiQ application to have access to OpenSearch / Kibana, an `opensearch_lambda_role` role is created.
 
 ![Kibana Security Roles](./img/kibana-security-roles.png)
 
-The `opensearch_lambda_role` is given Opensearch permissions.
+The `opensearch_lambda_role` is given OpenSearch permissions.
 
 ![Kibana Security Permissions](./img/kibana-security-permissions.png)
 
@@ -106,14 +106,14 @@ The `opensearch_lambda_role` is then mapped back to AWS IAM roles.
 
 ![Kibana Console](./img/opensearch-kibana-console.png)
 
-The url to access the Kibana console can be found on the `AWS Opensearch Console page` under the `OpenSearch Dashboards URL`. This url will not be publicly accessible as Opensearch should be deployed to a private subnet to ensure not anyone can get access.
+The URL to access the Kibana console can be found on the `AWS OpenSearch Console page` under the `OpenSearch Dashboards URL`. This URL will not be publicly accessible as Opensearch should be deployed to a private subnet to ensure not anyone can get access.
 
 Clicking the `OpenSearch Dashboards URL` will open the Kibana login dialog.
 
 ![Kibana Console](./img/opensearch-kibana-login.png)
 
 :::note
-To access the url, a VPN or an SSH tunnel needs to be setup. Links for example on how to set these up can be found below.
+To access the URL, a VPN or an SSH tunnel needs to be set up. Links for examples on how to set these up can be found below.
 
 #### AWS Client VPN
 

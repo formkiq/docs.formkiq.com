@@ -47,12 +47,12 @@ To install FormKiQ, select the installation link for the AWS region you want to 
 If the region you want to use is not listed, follow the [Install with SAM CLI](#install-with-sam-cli).
 
 :::note
-NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation url in your custom [GitHub](https://github.com) repository you were provided.
+NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation URL in your custom [GitHub](https://github.com) repository you were provided.
 :::
 
 ## Create CloudFormation Stack
 
-Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. As you can see the Amazon S3 URL is automatically populated with the FormKiQ installation url. This url tells CloudFormation where it can find the CloudFormation yaml files that describes all the FormKiQ resources to create.
+Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. As you can see the Amazon S3 URL is automatically populated with the FormKiQ installation URL. This URL tells CloudFormation where it can find the CloudFormation yaml files that describes all the FormKiQ resources to create.
 
 ### Create Stack
 

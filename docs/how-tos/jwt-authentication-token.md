@@ -30,7 +30,7 @@ The following are outputs we'll need to know.
 
 The first thing we need is a https://jwt.io that will tell the API we are authorized to make the API request.
 
-Authenticating can be done using the Cognito API Endpoint url with the following command. The descriptions of the required arguments are in the table below.
+Authenticating can be done using the Cognito API Endpoint URL with the following command. The descriptions of the required arguments are in the table below.
 
 ```
 curl -X POST https://COGNITO_API_ENDPOINT_URL/login \
