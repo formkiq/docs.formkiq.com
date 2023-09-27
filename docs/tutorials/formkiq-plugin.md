@@ -268,7 +268,7 @@ This should return the following:
 }
 ```
 
-As you can see, the FormKiQ API url is something like https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com; using the URL from the output along with the `curl` command, we can use FormKiQ's `/public/documents` API to create a JSON document:
+As you can see, the FormKiQ API URL is something like https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com; using the URL from the output along with the `curl` command, we can use FormKiQ's `/public/documents` API to create a JSON document:
 
 ```
 curl -X POST -H "Content-Type: application/json" \

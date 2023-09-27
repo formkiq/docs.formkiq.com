@@ -46,7 +46,7 @@ To import the FormKiQ API:
 * Enter the URL for the openapi-auth.yaml file
 * Click the `Continue` button
 
-By default Postman will import/sort the API by url. The FormKiQ API has tagged every url so we will change Postman to import by tag, this will make the API much more readable and organized.
+By default Postman will import/sort the API by url. The FormKiQ API has tagged every URL so we will change Postman to import by tag, this will make the API much more readable and organized.
 
 To do this:
 
@@ -57,7 +57,7 @@ To do this:
 * Change from `Paths` to `Tags`
 * Click the `Import` button to finish
 
-Repeat the steps for the `openapi-jwt.yaml` url and you will end up with both the `FormKiQ Authentication API` and `FormKiQ HTTP API`.
+Repeat the steps for the `openapi-jwt.yaml` URL and you will end up with both the `FormKiQ Authentication API` and `FormKiQ HTTP API`.
 
 ![Postman Import Finished](./img/postman-import-finished.png)
 
@@ -179,7 +179,7 @@ You can also specify tags and metadata when creating a document:
 ```
 
 :::note
-There is a maximum file size of 5 MB for the content. Large file uploads are supported by the Add Document Upload where you can create documents the same way, but in addition a documentId being returned you’ll also get an S3 Presigned Url that allows you to upload files up to 5 GB.
+There is a maximum file size of 5 MB for the content. Large file uploads are supported by the Add Document Upload where you can create documents the same way, but in addition a documentId being returned you’ll also get an S3 Presigned URL that allows you to upload files up to 5 GB.
 :::
 
 ## Get Document Metadata

@@ -192,7 +192,7 @@ fk --watch -d /documents --verbose
 
 ### Pre-Hook
 
-The `--pre-hook` parameter is useful for situations where you need to add document specific tag(s)/metadata based on a file's path. During the file sync, a POST request is sent to the `--pre-hook` url with the following payload:
+The `--pre-hook` parameter is useful for situations where you need to add document specific tag(s)/metadata based on a file's path. During the file sync, a POST request is sent to the `--pre-hook` URL with the following payload:
 
 ```
 {

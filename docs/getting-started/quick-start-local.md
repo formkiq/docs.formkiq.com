@@ -175,7 +175,7 @@ JSON response
 }
 ```
 
-Run the following cURL command to retrieve a url for accessing a document's content:
+Run the following cURL command to retrieve a URL for accessing a document's content:
 ```
 curl "http://localhost:8080/documents/<DOCUMENT_ID>/url"
 ```
