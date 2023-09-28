@@ -24,7 +24,7 @@ In this tutorial, we look at how you can implement more granular permissions usi
 
 We will be using Node.js with Express for our proxy application. You can run this on your local machine for easy development and testing.
 
-**NOTE:** the full source code is available as part of our FormKiQ Tutorials repository: https://github.com/formkiq/tutorials/tree/master/server-side-proxy
+**NOTE:** the full source code is available as part of our FormKiQ Tutorials repository: https://github.com/formkiq/tutorials/tree/master/nodejs/server-side-proxy
 
 ```
 // importing the dependencies
