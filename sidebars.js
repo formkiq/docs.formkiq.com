@@ -22,7 +22,7 @@ const sidebars = {
       link: {
         type: "generated-index",
         title: "FormKiQ API",
-        description: "FormKiQ is an API-first (i.e., can be used headless) and battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.",
+        description: "FormKiQ is an API-first and battle-tested document management platform. The FormKiQ Document API provides endpoints to enable document layer and document management functionality into your application, with a web-based document console available as an intuitive user interface.",
         slug: "/category/formkiq-api"
       },
       // @ts-ignore

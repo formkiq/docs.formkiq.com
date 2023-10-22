@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Quick Start (AWS)
 
-Quick start guide for deploying FormKiQ into your AWS account.
+**A quick start guide for deploying FormKiQ into your AWS account.**
 
 ![FormKiQ Architecture](./img/formkiq_architecture.png)
 
@@ -46,6 +46,10 @@ To install FormKiQ, select the installation link for the AWS region you want to 
 
 If the region you want to use is not listed, follow the [Install with SAM CLI](#install-with-sam-cli).
 
+In addition to most AWS Regions, FormKiQ Core is also available to install using SAM CLI into the **AWS GovCloud (US) West** region; however, it is not currently available for **AWS GovCloud (US) East**.
+
+FormKiQ Core does not currently support **AWS China** installations, mainly due to a mismatch in the AWS product versions available.
+
 :::note
 NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation URL in your custom [GitHub](https://github.com) repository you were provided.
 :::
@@ -74,7 +78,11 @@ For production installations, we recommend using [AWS Organizations](https://aws
 
 ![Set Admin Email](./img/cf-create-parameter-adminemail.png)
 
-Set the admin email address. During the FormKiQ installation, this email address will be automatically set up with administrator access. An email will be sent to the address  that provides a link to where the administrator password can be set.
+Set the admin email address. During the FormKiQ installation, this email address will be automatically set up with administrator access. An email will be sent to the address that provides a link to where the administrator password can be set.
+
+:::note
+Installations to AWS GovCloud (US) do not include a Welcome email. Instructions for setting the admin password manually can be found here. ADD LINK
+:::
 
 ### Set App Environment
 
@@ -131,6 +139,10 @@ The operation to create your new FormKiQ stack should take between fifteen and t
 
 Once the FormKiQ CloudFormation installation has completed, an email will be sent to the email specified as the AdminEmail. This email will contain a link that will confirm the email address and allow the recipient to set a password for the administrator account.
 
+:::note
+Installations to AWS GovCloud (US) do not include a Welcome email. Instructions for setting the admin password manually can be found here. ADD LINK
+:::
+
 ![Welcome to FormKiQ](./img/welcome-to-formkiq.png)
 
 ### Verify Email
@@ -144,6 +156,10 @@ Clicking the `Verify Email` link will allow you to set your administrator passwo
 ### FormKiQ Console
 
 Once your password is set you can now login to the FormKiQ Console.
+
+:::note
+Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. <a href="/docs/platform/document_console#docker-image">More information can be found here</a>.
+:::
 
 ![FormKiQ Console Login](./img/fk-console-login.png)
 
@@ -284,3 +300,7 @@ The command will package and deploy your application to AWS, with a series of pr
 Once you have set all of these options, SAM CLI will create a changeset and will display a list of all actions that will be performed as part of the changeset. If you have set "confirm changes before deploy" to "y", you will then be asked whether or nor to deploy this changeset. Choose "y" to complete the installation.
 
 Once the FormKiQ Core stack has been deployed, you will be able to find your API Gateway Endpoint URL in the output values displayed after deployment.
+
+### FormKiQ Console for AWS GovCloud (US)
+
+Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. <a href="/docs/platform/document_console#docker-image">More information can be found here</a>.
