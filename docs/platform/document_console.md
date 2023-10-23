@@ -36,6 +36,10 @@ The FormKiQ Document Console uses [AWS CloudFront](https://aws.amazon.com/cloudf
 
 [Amazon S3](https://aws.amazon.com/s3/) is an object store that contains the console source files.
 
+:::note
+NOTE: In some specialized AWS regions, such as **AWS GovCloud (US) West**, the console is not available via CloudFront, and will need to be run as a Docker Image ([see below](/docs/platform/document_console#docker-image)).
+:::
+
 ## Docker Image
 
 The FormKiQ Document Console is also available as a [docker image](https://hub.docker.com/repository/docker/formkiq/document-console) that can be used when [AWS CloudFront](https://aws.amazon.com/cloudfront) is not available, as with deployments into **AWS GovCloud (US) West**.
@@ -51,7 +55,7 @@ To run the docker image collect the following CloudFormation outputs from your F
 | `COGNITO_CLIENT_ID` | The Cognito Client Id |
 | `COGNITO_API_URL` | The Cognito Login API endpoint |
 
-Docker Run Command:
+### Docker Run Command
 
 ```
 docker run -p 80:80 \
@@ -61,6 +65,37 @@ docker run -p 80:80 \
 -e COGNITO_API_URL=... \ 
 formkiq/document-console:VERSION
 ```
+
+### Creating the Initial Console User
+
+In some cases, such as when deploying FormKiQ to AWS GovCloud (US) West, no admin user is created automatically and the console is not automatically deployed.
+
+While it's possible to use only AWS IAM authentication, or to create an API Key using IAM and then use key-based authentication, both JSON Web Token (JWT) authentication and the FormKiQ Document Console require at least one Amazon Cognito user to be created and for that user's password to be set.
+
+To do this, you can [run the docker image](/docs/platform/document_console#docker-run-command), either locally or within a container running in AWS, such as an EC2 or Lambda.
+
+You will also need to update the Welcome Email template, by updating an Environment Variable in the CognitoCustomMessage Lambda function.
+
+**1. Find the Lambda function by filtering for "CognitoCustomMessage"**
+
+![Searching for the CognitoCustomMessage Lambda](./img/document-console-lambda-search.png)
+
+Once you've found it, click on the name of the function.
+
+**2. Open the Environment Variables tab via the top-level "Configuration" tab**
+
+![The Environment Variables tab for the CognitoCustomMessage Lambda](./img/document-console-custommessage-before.png)
+
+**3. Update the REDIRECT_URI Environment Variable**
+
+The value should be set to the base URL of your container running the Console docker image, such as `http://localhost` or an EC2 instance URL (if you are running the container on EC2).
+
+![Setting the REDIRECT_URI Environment Variable for the CognitoCustomMessage Lambda](./img/document-console-custommessage-after.png)
+
+**4. Create the Initial Amazon Cognito User**
+
+You can find instructions on creating a user in the [API Security section](/docs/platform/api_security#create-user). Once you've created your user, the Welcome Email sent to that user should now provide a working link to allow the setting of the password.
+
 
 ## Customizations
 

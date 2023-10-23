@@ -81,7 +81,7 @@ For production installations, we recommend using [AWS Organizations](https://aws
 Set the admin email address. During the FormKiQ installation, this email address will be automatically set up with administrator access. An email will be sent to the address that provides a link to where the administrator password can be set.
 
 :::note
-Installations to AWS GovCloud (US) do not include a Welcome email. Instructions for setting the admin password manually can be found here. ADD LINK
+Installations to AWS GovCloud (US) do not create an admin user. Instructions for creating an initial user [can be found here](/docs/platform/document_console#creating-the-initial-console-user).
 :::
 
 ### Set App Environment
@@ -140,7 +140,7 @@ The operation to create your new FormKiQ stack should take between fifteen and t
 Once the FormKiQ CloudFormation installation has completed, an email will be sent to the email specified as the AdminEmail. This email will contain a link that will confirm the email address and allow the recipient to set a password for the administrator account.
 
 :::note
-Installations to AWS GovCloud (US) do not include a Welcome email. Instructions for setting the admin password manually can be found here. ADD LINK
+Installations to AWS GovCloud (US) do not include a Welcome email by default, since the admin user needs to created manually. Instructions for creating an initial user [can be found here](/docs/platform/document_console#creating-the-initial-console-user).
 :::
 
 ![Welcome to FormKiQ](./img/welcome-to-formkiq.png)
@@ -158,7 +158,7 @@ Clicking the `Verify Email` link will allow you to set your administrator passwo
 Once your password is set you can now login to the FormKiQ Console.
 
 :::note
-Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. <a href="/docs/platform/document_console#docker-image">More information can be found here</a>.
+Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-image).
 :::
 
 ![FormKiQ Console Login](./img/fk-console-login.png)
@@ -303,4 +303,4 @@ Once the FormKiQ Core stack has been deployed, you will be able to find your API
 
 ### FormKiQ Console for AWS GovCloud (US)
 
-Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. <a href="/docs/platform/document_console#docker-image">More information can be found here</a>.
+Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-image).
