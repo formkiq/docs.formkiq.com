@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Quick Start (Local)
 
-Quick start guide for running FormKiQ on your local machine.
+**A quick start guide for running FormKiQ on your local machine.**
 
-The FormKiQ Document Management Platform is designing to run in your AWS account. This quick start walks through how to run the FormKiQ platform on your local machine to enable developers to develop and test applications running in your own development environment.
+The FormKiQ Document Management Platform is designed primarily to run in your AWS account. This quick start walks through how to run the FormKiQ platform on your local machine to enable developers to develop and test applications running in your own development environment.
 
 ## Prerequisite
 

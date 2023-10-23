@@ -106,3 +106,4 @@ FormKiQ starts with three default groups.
 ![Cognito Group List](./img/cognito-group-list.png)
 
 By default if a user belongs to no groups, it will be given the "default" group permissions. By clicking on any of the groups users can be easily added or removed.
+
