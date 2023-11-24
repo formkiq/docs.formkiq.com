@@ -18,7 +18,7 @@ FormKiQ is a flexible document management platform, powered by [AWS managed serv
 
 ## Architecture Principles
 
-FormkiQ is designed with all six pillars of the [AWS Well-Architected Framekwork](https://aws.amazon.com/blogs/apn/the-6-pillars-of-the-aws-well-architected-framework/) in mind:
+FormKiQ is designed with all six pillars of the [AWS Well-Architected Framework](https://aws.amazon.com/blogs/apn/the-6-pillars-of-the-aws-well-architected-framework/) in mind:
 
 * *Operational Excellence* - with laC deployments and an event-based architecture that understands the need for resiliency and limited retries
 
