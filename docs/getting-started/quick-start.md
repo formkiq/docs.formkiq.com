@@ -304,3 +304,7 @@ Once the FormKiQ Core stack has been deployed, you will be able to find your API
 ### FormKiQ Console for AWS GovCloud (US)
 
 Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-image).
+
+## API Walkthrough and Reference
+
+To try out the API, try our [API Walkthrough](/docs/getting-started/api-walkthrough/). You can also check out the [FormKiQ API Reference](/docs/api-reference/formkiq-http-api/) for more endpoints you can try out.

@@ -25,8 +25,25 @@ FormKiQ can be launched using [Docker Compose](https://docs.docker.com/compose/i
 version: '3.8'
 services:
 
+  console:
+    image: formkiq/document-console:3.2.4-SNAPSHOT-20231107
+    ports:
+      - "80:80"
+    environment:
+      HTTP_API_URL: http://localhost:8080
+      COGNITO_API_URL: http://localhost:8080
+      COGNITO_ENDPOINT_OVERRIDE: http://localhost:8080
+  
+  typesense:
+    image: typesense/typesense:0.25.1
+    ports:
+      - "8108:8108"
+    volumes:
+      - ./typesense-data:/data
+    command: '--data-dir /data --api-key=xyz --enable-cors'
+    
   formkiq:
-    image: formkiq/api-server:1.13.0-SNAPSHOT
+    image: formkiq/api-server:1.13.0-SNAPSHOT-20231115
     depends_on:
       - minio
       - dynamodb
@@ -36,8 +53,15 @@ services:
       PORT: 8080
       DYNAMODB_URL: http://dynamodb:8000
       S3_URL: http://minio:9000
+      S3_PRESIGNER_URL: http://localhost:9000
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
+      ADMIN_USERNAME: admin@me.com
+      ADMIN_PASSWORD: password
+      API_KEY: changeme
+      TYPESENSE_HOST: http://typesense:8108
+      TYPESENSE_API_KEY: xyz
+
   minio:
     image: minio/minio:RELEASE.2023-08-23T10-07-06Z
     ports:
@@ -58,10 +82,10 @@ services:
           - stagingdocuments.minio
     volumes:
       - ./formkiq/minio:/data
-    command: server /data --console-address :9090
+    command: server /data --address :9000 --console-address :9090
 
   dynamodb:
-    image: amazon/dynamodb-local:1.22.0
+    image: amazon/dynamodb-local:1.24.0
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
     ports:
       - "8000:8000"
@@ -72,6 +96,14 @@ services:
 Launch using:
 ```
 docker-compose -f docker-compose.yml up -d
+```
+
+## API Key
+
+We will be using FormKiQ's Key-based Authentication, using an API Key. Since this is a local instance, the API Key is set by default to "changeme". You will probably want to change this, even on your local installation. But for this demo, we will add this API Key and value to our HTTP Headers for cURL:
+
+```
+-H "Authorization: changeme"
 ```
 
 ## Upload a Document
@@ -87,8 +119,8 @@ Upload POST requests have a filesize limit of 10 MB. For larger files, you can u
 Using cURL, upload the document and add a document tag:
 
 ```
-curl -X POST -H "Content-Type: application/json" \
--d '{ "path": "user.json","content": "{\"name\":\"John Smith\"}","tags": [{"key": "content","value": "text"}]}' \
+curl -X POST -H "Authorization: changeme" \
+-d '{ "path": "user.json","contentType": "application/json", "content": "{\"name\":\"John Smith\"}","tags": [{"key": "lastName","value": "Smith"}]}' \
 "http://localhost:8080/documents"
 ```
 
@@ -110,9 +142,9 @@ The above command should create the following Base64-encoded string:
 VGhpcyBpcyBhIHRlc3QgY29udGVudA==
 ```
 
-Using cURL, upload the document and add a document tag:
+Using cURL, upload the document:
 ```
-curl -X POST -H "Content-Type: text/plain" -d '{ "isBase64":true, "path": "user.json","content": "VGhpcyBpcyBhIHRlc3QgY29udGVudA==","tags": [{"key": "content","value": "text"}]}' \
+curl -X POST -H "Authorization: changeme" -d '{ "isBase64":true, "path": "user.json","contentType": "text/plain", "content": "VGhpcyBpcyBhIHRlc3QgY29udGVudA=="}' \
 "http://localhost:8080/documents"
 ```
 
@@ -127,119 +159,151 @@ The JSON response should provide a Document ID that can be used to make further 
 
 Run the following cURL command to retrieve documents that have been added today.
 ```
-curl "http://localhost:8080/documents"
+curl -H "Authorization: changeme" "http://localhost:8080/documents"
 ```
 
-You can specify a particular date using:
+Here's a sample response:
 ```
-curl "http://localhost:8080/documents?date=2020-05-20"
-```
-
-For a nicer formatting in responses, you can pipe the response to jq.
-```
-curl "http://localhost:8080/documents" | jq
+{"documents":[{"path":"test.txt","insertedDate":"2023-11-20T23:10:42+0000","lastModifiedDate":"2023-11-20T23:10:42+0000","checksum":"75e6f8645a9f5059e0970f95a3a0c0be","siteId":"default","contentLength":22,"documentId":"3b94868c-1986-47df-a78f-36afc6c8d1cd","contentType":"text/plain","userId":"admin"},{"path":"user.json","insertedDate":"2023-11-20T23:10:58+0000","lastModifiedDate":"2023-11-20T23:10:58+0000","checksum":"c6961ae422fa7570aec5187ef6480148","siteId":"default","contentLength":21,"documentId":"9c6fd25d-4f8e-44c6-8d99-c64bcac23345","contentType":"application/json","userId":"admin"}]}
 ```
 
-JSON response
+The response is hard to read, so if you've installed **jq**, you should add it to the request:
 ```
-{
-  documents: [
-    {
-    "documentId": "11546f7d-0489-4e92-8763-79c83c0982c1",
-    "insertedDate": "...",
-    "path": "...",
-    "userId": "...",
-    "contentType": "...",
-    "checksum": "...",
-    "contentLength": ...
-    },
-    ...
-  ]
-}
+curl -H "Authorization: changeme" "http://localhost:8080/documents" | jq
 ```
-
-Run the following cURL command to retrieve information about a specific document:
-```
-curl "http://localhost:8080/documents/<DOCUMENT_ID>"
-```
-JSON response
-```
-{
-  "documentId": "11546f7d-0489-4e92-8763-79c83c0982c1",
-  "insertedDate": "...",
-  "path": "...",
-  "userId": "...",
-  "contentType": "...",
-  "checksum": "...",
-  "contentLength": ...
-}
-```
-
-Run the following cURL command to retrieve a URL for accessing a document's content:
-```
-curl "http://localhost:8080/documents/<DOCUMENT_ID>/url"
-```
-JSON response
-```
-{
-  "url": "...",
-  "documentId": "11546f7d-0489-4e92-8763-79c83c0982c1"
-}
-```
-
-You can retrieve this document content using a simple cURL command, using only the URL provided in the previous request. There is no Cognito authentication header required, as the time-sensitive authentication is provided by CloudFront within the URL parameters.
-
-## Document Search
-
-Run the following cURL command to search by a specific key:
-```
-curl -X POST -d '{"query": {"tag": {"key": "content"}}}' "http://localhost:8080/search"
-```
-JSON response
+This gives a response that is much easier to read and work with:
 ```
 {
   "documents": [
     {
+      "path": "test.txt",
+      "insertedDate": "2023-11-20T23:10:42+0000",
+      "lastModifiedDate": "2023-11-20T23:10:42+0000",
+      "checksum": "75e6f8645a9f5059e0970f95a3a0c0be",
+      "siteId": "default",
+      "contentLength": 22,
+      "documentId": "3b94868c-1986-47df-a78f-36afc6c8d1cd",
+      "contentType": "text/plain",
+      "userId": "admin"
+    },
+    {
       "path": "user.json",
-      "insertedDate": "2023-09-02T19:46:10+0000",
-      "lastModifiedDate": "2023-09-02T19:46:10+0000",
-      "checksum": "\"c6961ae422fa7570aec5187ef6480148\"",
+      "insertedDate": "2023-11-20T23:10:58+0000",
+      "lastModifiedDate": "2023-11-20T23:10:58+0000",
+      "checksum": "c6961ae422fa7570aec5187ef6480148",
+      "siteId": "default",
       "contentLength": 21,
-      "documentId": "dfcfbc9f-2af2-426a-83db-a7d5d99d8305",
-      "matchedTag": {
-        "type": "USERDEFINED",
-        "value": "text",
-        "key": "content"
-      },
-      "contentType": "application/octet-stream",
+      "documentId": "9c6fd25d-4f8e-44c6-8d99-c64bcac23345",
+      "contentType": "application/json",
       "userId": "admin"
     }
   ]
 }
 ```
 
-Run the following cURL command to search by a specific key and value:
+You can retrieve documents for a specific date using:
 ```
-curl -X POST -d '{"query": {"tag": {"key": "content", "eq": "text"}}}' \
-"http://localhost:8080/search"
+curl -H "Authorization: changeme" "http://localhost:8080/documents?date=2020-05-20"
+```
+
+*NOTE: there is also a `tz` parameter that allows you to specify when your date actually begins and ends, e.g., `&tz=-0500`*
+
+Run the following cURL command to retrieve information about a specific document:
+```
+curl -H "Authorization: changeme" "http://localhost:8080/documents/<DOCUMENT_ID>"
+```
+Here's the JSON response (with jq):
+```
+{
+  "lastModifiedDate": "2023-11-20T23:10:58+0000",
+  "userId": "admin",
+  "path": "user.json",
+  "insertedDate": "2023-11-20T23:10:58+0000",
+  "checksum": "c6961ae422fa7570aec5187ef6480148",
+  "siteId": "default",
+  "contentLength": 21,
+  "documentId": "9c6fd25d-4f8e-44c6-8d99-c64bcac23345",
+  "contentType": "application/json"
+}
+```
+
+Run the following cURL command to retrieve a URL for accessing a document's actual content, for download or inline viewing:
+```
+curl -H "Authorization: changeme" "http://localhost:8080/documents/<DOCUMENT_ID>/url"
 ```
 JSON response
+```
+{
+  "url": "http://localhost:9000/documents/9c6fd25d-4f8e-44c6-8d99-c64bcac23345?response-content-disposition=attachment%3B%20filename%3D%22user.json%22&response-content-type=application%2Fjson&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231124T162507Z&X-Amz-SignedHeaders=host&X-Amz-Expires=172800&X-Amz-Credential=minioadmin%2F20231124%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Signature=76d944b3b0ac71f0850106ba812033b341d8968d035b5bc74abe7eb7efab114c",
+  "documentId": "9c6fd25d-4f8e-44c6-8d99-c64bcac23345"
+}
+```
+
+You can retrieve this document content using a simple cURL command, using only the URL provided in the previous request. There is no Cognito authentication header required, as the time-sensitive authentication is provided by CloudFront within the URL parameters.
+
+The previous `/url` request creates a **download** of the document. For inline viewing in the browser, you can add a parameter, `?inline=true"`; of course, if the browser has not enabled inline vieweing of the content type, you will still receive a download of that file.
+
+NOTE: In the browser, you can open http://localhost to run the console access these documents for viewing inline or downloading.  The login is listed in your docker-compose file:
+
+Email: admin@me.com  
+Password: password
+
+## Document Search
+
+Run the following cURL command to search by a specific key:
+```
+curl -X POST -H "Authorization: changeme" \
+-d '{"query": {"tag": {"key": "lastName"}}}' "http://localhost:8080/search"
+```
+NOTE: if you're newer to cURL, using ` \ ` at the end of a line allows you to extend your command over multiple lines, to make it more readable.
+
+Here is a sample JSON response (with jq):
 ```
 {
   "documents": [
     {
       "path": "user.json",
-      "insertedDate": "2023-09-02T19:46:10+0000",
-      "lastModifiedDate": "2023-09-02T19:46:10+0000",
-      "checksum": "\"c6961ae422fa7570aec5187ef6480148\"",
+      "insertedDate": "2023-11-20T23:10:58+0000",
+      "lastModifiedDate": "2023-11-20T23:10:58+0000",
+      "checksum": "c6961ae422fa7570aec5187ef6480148",
       "contentLength": 21,
-      "documentId": "dfcfbc9f-2af2-426a-83db-a7d5d99d8305",
+      "documentId": "9c6fd25d-4f8e-44c6-8d99-c64bcac23345",
       "matchedTag": {
         "type": "USERDEFINED",
-        "value": "text",
-        "key": "content"
+        "value": "Smith",
+        "key": "lastName"
       },
-      "contentType": "application/octet-stream",
+      "contentType": "application/json",
+      "userId": "admin"
+    }
+  ]
+}
+```
+
+You can see that the matched tag is included in the response.
+
+Run the following cURL command to search by a specific key and value:
+```
+curl -X POST -H "Authorization: changeme" \
+-d '{"query": {"tag": {"key": "lastName", "eq": "Smith"}}}' "http://localhost:8080/search"
+```
+And here's a sample JSON response (with jq):
+```
+{
+  "documents": [
+    {
+      "path": "user.json",
+      "insertedDate": "2023-11-20T23:10:58+0000",
+      "lastModifiedDate": "2023-11-20T23:10:58+0000",
+      "checksum": "c6961ae422fa7570aec5187ef6480148",
+      "contentLength": 21,
+      "documentId": "9c6fd25d-4f8e-44c6-8d99-c64bcac23345",
+      "matchedTag": {
+        "type": "USERDEFINED",
+        "value": "Smith",
+        "key": "lastName"
+      },
+      "contentType": "application/json",
       "userId": "admin"
     }
   ]
@@ -248,26 +312,26 @@ JSON response
 
 Run the following cURL command to search using "Begins With" (which is case sensitive):
 ```
-curl -X POST -d '{"query": {"tag": {"key": "content","beginsWith":"t"}}}' \
-"http://localhost:8080/search"
+curl -X POST -H "Authorization: changeme" \
+-d '{"query": {"tag": {"key": "lastName","beginsWith":"S"}}}' "http://localhost:8080/search"
 ```
-JSON response
+Here's a sample JSON response (with jq):
 ```
 {
   "documents": [
     {
       "path": "user.json",
-      "insertedDate": "2023-09-02T19:46:10+0000",
-      "lastModifiedDate": "2023-09-02T19:46:10+0000",
-      "checksum": "\"c6961ae422fa7570aec5187ef6480148\"",
+      "insertedDate": "2023-11-20T23:10:58+0000",
+      "lastModifiedDate": "2023-11-20T23:10:58+0000",
+      "checksum": "c6961ae422fa7570aec5187ef6480148",
       "contentLength": 21,
-      "documentId": "dfcfbc9f-2af2-426a-83db-a7d5d99d8305",
+      "documentId": "9c6fd25d-4f8e-44c6-8d99-c64bcac23345",
       "matchedTag": {
         "type": "USERDEFINED",
-        "value": "text",
-        "key": "content"
+        "value": "Smith",
+        "key": "lastName"
       },
-      "contentType": "application/octet-stream",
+      "contentType": "application/json",
       "userId": "admin"
     }
   ]
@@ -279,36 +343,36 @@ Document metadata is assigned using tags. A tag is made up of a key and an optio
 
  Run the following cURL command to add a tag to a document:
 ```
-curl -X POST -d '{"key": "category","value": "test"}' \
-"http://localhost:8080/documents/<DOCUMENT_ID>/tags"
+curl -X POST -H "Authorization: changeme" \
+-d '{"key": "firstName","value": "John"}' "http://localhost:8080/documents/<DOCUMENT_ID>/tags"
 ```
-JSON response
+This should give you a response:
 ```
 {
-  "message": "Created Tag 'category'."
+  "message": "Created Tag 'firstName'."
 }
 ```
 
 Run the following cURL command to retrieve a document's tags:
 ```
-curl "http://localhost:8080/documents/<DOCUMENT_ID>/tags"
+curl -H "Authorization: changeme" "http://localhost:8080/documents/<DOCUMENT_ID>/tags"
 ```
-JSON response
+Here's a sample JSON response (with jq):
 ```
 {
   "tags": [
     {
-      "key": "category",
-      "value": "test",
+      "key": "firstName",
+      "value": "John",
       "userId": "admin",
-      "insertedDate": "2023-09-02T19:50:18+0000",
+      "insertedDate": "2023-11-24T16:48:01+0000",
       "type": "userdefined"
     },
     {
-      "key": "content",
-      "value": "text",
+      "key": "lastName",
+      "value": "Smith",
       "userId": "admin",
-      "insertedDate": "2023-09-02T19:46:10+0000",
+      "insertedDate": "2023-11-20T23:10:58+0000",
       "type": "userdefined"
     }
   ]
@@ -318,3 +382,5 @@ JSON response
 ## API Reference
 
 See the [FormKiQ API Reference](/docs/api-reference/formkiq-http-api/) for more endpoints you can try out.
+
+If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or in our [FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ).
