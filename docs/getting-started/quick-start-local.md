@@ -43,7 +43,7 @@ services:
     command: '--data-dir /data --api-key=xyz --enable-cors'
     
   formkiq:
-    image: formkiq/api-server:1.13.0-SNAPSHOT-20231115
+    image: formkiq/api-server:1.13.0-SNAPSHOT-20231125
     depends_on:
       - minio
       - dynamodb
@@ -144,7 +144,7 @@ VGhpcyBpcyBhIHRlc3QgY29udGVudA==
 
 Using cURL, upload the document:
 ```
-curl -X POST -H "Authorization: changeme" -d '{ "isBase64":true, "path": "user.json","contentType": "text/plain", "content": "VGhpcyBpcyBhIHRlc3QgY29udGVudA=="}' \
+curl -X POST -H "Authorization: changeme" -d '{ "isBase64":true, "path": "test.txt","contentType": "text/plain", "content": "VGhpcyBpcyBhIHRlc3QgY29udGVudA=="}' \
 "http://localhost:8080/documents"
 ```
 
