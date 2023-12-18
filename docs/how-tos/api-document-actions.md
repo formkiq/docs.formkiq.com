@@ -41,7 +41,7 @@ The webhook action will send a POST request to any endpoint.
 In the example below, using https://pipedream.com we can create an endpoint and then have FormKiQ call that endpoint once the document is created.
 
 ```
-curl -X POST https://HTTP_API_URL/documents/DOCUMENT_ID/tags \
+curl -X POST https://HTTP_API_URL/documents \
    -H "Authorization: AUTHORIZATION_TOKEN" -d '{
   "path": "test.txt",
   "contentType": "text/plain",
