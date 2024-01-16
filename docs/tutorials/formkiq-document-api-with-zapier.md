@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Using FormKiQ Document API with Zapier
+# Zapier Integration
 
 This tutorial will take you through how to use the FormKiQ Webhook API with https://zapier.com.
 
