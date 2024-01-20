@@ -20,7 +20,7 @@ By default the `AdminEmail` configured during the installation process is setup 
 
 FormKiQ supports multi-tenancy environments by defining user group(s) and then linking these groups to the different FormKiQ site(s). Each user can be associated with one or more groups, reflecting their role or responsibilities within the platform. These groups, in turn, determine the user's access privileges across different sites within the platform.
 
-The user's group(s) links to which FormKiQ's site(s)
+The user's groups link to the FormKiQ's sites that the user will be granted access to; users can be in one or more groups, granting access to specific sites with specified roles.
 
 | Group | Description
 | -------- | ------- |

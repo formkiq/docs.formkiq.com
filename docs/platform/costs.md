@@ -4,8 +4,8 @@ sidebar_position: 7
 
 # Costs
 
-FormKiQ was created using [serverless technology](https://aws.amazon.com/serverless). This means that there are no servers to manage; everything is managed by AWS. All AWS services FormKiQ uses have pay-per-usage billing. You can start using FormKiQ with very little cost.
-
+FormKiQ is built using [serverless technology](https://aws.amazon.com/serverless). This means that there are no servers to manage; everything is managed by AWS. All of the AWS services FormKiQ uses have pay-per-usage billing (with only one exception, OpenSearch, an add-on module). You can start using FormKiQ with very little cost.
+ 
 In fact, AWS provides a [free tier](https://aws.amazon.com/free) to all AWS accounts. This means that some AWS services you can use for **free**, assuming you are able to stay within the usage limits. Below is the list of services FormKiQ uses and their approximate usage costs, so give you an idea on how much it costs to run FormKiQ. (All costs in USD)
 
 | Service    | Cost |
@@ -20,7 +20,7 @@ In fact, AWS provides a [free tier](https://aws.amazon.com/free) to all AWS acco
 
 ## Cost Estimator
 
-Because of AWS' pay-per-usage model, it can be difficult to determine approximately what your hosting fees will be. [AWS Pricing Calculator](https://calculator.aws/#/) can be useful to establish general costs. Below we have scenarios that gives you an idea of what your costs maybe.
+Because of AWS' pay-per-usage model, it can be difficult to determine approximately what your hosting fees will be. The [AWS Pricing Calculator](https://calculator.aws/#/) can be useful to establish general costs. Below we have scenarios that gives you an idea of what your costs maybe.
 
 These scenarios do NOT include AWS' free tier or potential cost savings when higher usage tiers are reached.
 
@@ -56,19 +56,21 @@ Scenario: Viewing 1 million documents, each document is 1 MB in size
 
 Scenario: Extracting text from PDF document
 
-FormKiQ supports extracting text from a PDF document in 2 ways that have a different cost structure/features. 
+FormKiQ supports extracting text from a PDF document in two ways that have a different cost structure/features; many PDFs that were created electronically can have their text extracted programatically, without requiring OCR. For documents that are not fully digitized, such as documents that were scanned from paper or came from a photograph, OCR would be required.
+
+FormKiQ determines whether or not OCR is required automatically.
 
 | Service    | Unit | Cost |
 | -------- | ------- | ------- |
-| AWS Lambda (Programmatically)  | 1 million requests (30 million pages)  (600ms avg per document) | $20.20  |
-| [AWS Textract](https://aws.amazon.com/pm/textract)  | 1 million pages (text only)  | $1500.00   |
+| AWS Lambda (Programmatically, for fully-digital PDFs)  | 1 million requests (30 million pages)  (600ms avg per document) | $20.20  |
+| [AWS Textract](https://aws.amazon.com/pm/textract) (for PDFs that are not fully digital)  | 1 million pages (text only)  | $1500.00   |
 
 
-### OCR - 1 million Images
+### OCR - 1 million images
 
-Scenario: Extracting text from PNG image
+Scenario: Extracting text from images, such as PNG
 
-FormKiQ supports extracting text from a PNG document in 2 ways that have a different cost structure/features. 
+FormKiQ supports extracting text from a PNG document in two ways that have a different cost structure/features. 
 
 | Service    | Unit | Cost |
 | -------- | ------- | ------- |
