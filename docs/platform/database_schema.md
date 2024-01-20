@@ -419,7 +419,7 @@ The document workflow entity consists of attributes that capture essential infor
 
 Api Key(s) allow access to API.
 
-### Entity Key Schema
+#### Entity Key Schema
 
 | Attributes   | Format |
 | -------- | ------- | 
@@ -430,7 +430,7 @@ Api Key(s) allow access to API.
 | GSI2PK | siteId/“apikeys#”  |
 | GSI2SK | “apikey#” + apiKey (mask) |
 
-### Entity Attributes
+#### Entity Attributes
 
 | Attributes   | Description |
 | -------- | ------- | 
