@@ -37,7 +37,7 @@ The Document Entity consists of attributes that capture essential information ab
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | inserteddate | Inserted Date | 
 | lastModifiedDate | Last Modified Date |
 | userId | Create by user |
@@ -62,7 +62,7 @@ A Child Document Entity includes attributes that capture details specific to the
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | inserteddate | Inserted Date | 
 | lastModifiedDate | Last Modified Date |
 | userId | Create by user |
@@ -90,7 +90,7 @@ A "soft delete" Document is moved into a different PK namespace than all other d
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | inserteddate | Inserted Date | 
 | lastModifiedDate | Last Modified Date |
 | userId | Create by user |
@@ -115,7 +115,7 @@ Contains all information about any optical character recognition (OCR) data for 
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | inserteddate | Inserted Date | 
 | userId | Create by user |
 | contentType | Mime Content Type |
@@ -141,7 +141,7 @@ Contains list of document actions.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | type | Type of Action | 
 | status | Status of Action |
 | parameters | Parameters for Action |
@@ -175,7 +175,7 @@ Document Tag(s) entity.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | type | Type of Tag | 
 | tagValue | Tag Value |
 | userId | Create by user |
@@ -200,7 +200,7 @@ Document Tag(s) entity with multiple values.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | type | Type of Tag | 
 | tagValue | Tag Value |
 | tagValues | Tag Values |
@@ -226,7 +226,7 @@ Contains list of document activties.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | type | Type of User Activity (view, add, change, delete) | 
 | userId | Create by user |
 | inserteddate | Inserted Date | 
@@ -248,7 +248,7 @@ The Document TagSchema entity and attributes.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | inserteddate | Inserted Date | 
 | userId | Create by user |
 | name | Name of TagSchema |
@@ -273,7 +273,7 @@ A list of shares for a particular user role.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | type | Type of Share (File or Directory)
 | inserteddate | Inserted Date | 
 | userId | Create by user |
@@ -300,7 +300,7 @@ A list of shares for a particular user role.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Share Idenifier  |
+| documentId | Share Identifier  |
 | sharedDocumentId | Shared Document Id |
 | name | Name of share |
 | type | Type of Share (File or Directory)
@@ -329,7 +329,7 @@ Document folder / file listing index.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Share Idenifier  |
+| documentId | Share Identifier  |
 | path | Folder path |
 | type | Type of Share (File or Directory)
 | parentDocumentId | Parent Document Id |
@@ -354,7 +354,7 @@ Queue entity object.
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Share Idenifier  |
+| documentId | Share Identifier  |
 | name | Name of Queue |
 
 ## Workflows
@@ -380,7 +380,7 @@ The workflow entity consists of attributes that capture essential information ab
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | name | Name of Workflow | 
 | inUse | Whether Workflow is in use |
 | status | Workflow status |
@@ -407,7 +407,7 @@ The document workflow entity consists of attributes that capture essential infor
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Document Idenifier  |
+| documentId | Document Identifier  |
 | workflowId | Workflow identifier | 
 | workflowName | Workflow name |
 | status | Workflow status |
@@ -439,4 +439,77 @@ Api Key(s) allow access to API.
 | userId | Create by user |
 | siteId | Site Identifier
 | permissions | List of API Key permissions (read/write/delete) |
+| inserteddate | Inserted Date | 
+
+## Case Management
+
+The following are the entities related to `Case Management`.
+
+### Case
+
+The Case Entity consists of attributes that capture essential information about a case.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "case#" + caseId  |
+| SK | "case" | 
+| GSI1PK | "case#"  |
+| GSI1SK | "case#" + caseId |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Case Identifier  |
+| name | Case Name |
+| status | Case Status |
+| caseNumber | Case Number |
+| documentNumber | Document Number |
+| metadata | Case Metadata |
+| inserteddate | Inserted Date | 
+
+### Task
+
+The Case Entity consists of attributes that capture essential information about a task.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "case#" + caseId  |
+| SK | "task#" + taskId | 
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Task Identifier  |
+| caseId | Case Identifier |
+| description | Task description |
+| status | Task Status |
+| metadata | Task Metadata |
+| inserteddate | Inserted Date | 
+
+### Nigo
+
+The Case Entity consists of attributes that capture essential information about a nigo.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "case#" + caseId  |
+| SK | "nigo#" + nigoId | 
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Nigo Identifier  |
+| caseId | Case Identifier |
+| description | Nigo description |
+| status |  Nigo Status |
+| metadata | Nigo Metadata |
 | inserteddate | Inserted Date | 
