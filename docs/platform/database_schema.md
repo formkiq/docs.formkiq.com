@@ -513,3 +513,51 @@ The Case Entity consists of attributes that capture essential information about 
 | status |  Nigo Status |
 | metadata | Nigo Metadata |
 | inserteddate | Inserted Date | 
+
+## Rulesets
+
+The following are the entities related to `Rulesets`.
+
+### Ruleset
+
+The Ruleset Entity consists of attributes that capture essential information about a ruleset.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "ruleset#" + rulesetId  |
+| SK | "ruleset" | 
+| GSI1PK | "ruleset#"  |
+| GSI1SK | "ruleset#" + version + "#" + priority + "#" + rulesetId |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Ruleset Identifier  |
+| description | Ruleset description |
+| version | Ruleset version |
+| priority | Ruleset priority |
+
+### Rule
+
+The Rule Entity consists of attributes that capture essential information about a rule.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "rule#" + ruleId  |
+| SK | "rule" | 
+| GSI1PK | "rule#"  |
+| GSI1SK | "rule#" + version + "#" + priority + "#" + rulesetId |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Rule Identifier  |
+| description | Rule description |
+| workflowId | Workflow to run on match |
+| conditions | Rule conditions |
