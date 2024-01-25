@@ -1,0 +1,10 @@
+{
+  "label": "Changelog",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 50,
+  "link": {
+    "type": "generated-index",
+    "description": "FormKiQ Core / Enterprise Changelog"
+  }
+}
