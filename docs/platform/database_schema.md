@@ -551,7 +551,7 @@ The Rule Entity consists of attributes that capture essential information about 
 | PK | "rule#" + ruleId  |
 | SK | "rule" | 
 | GSI1PK | "rule#"  |
-| GSI1SK | "rule#" + version + "#" + priority + "#" + rulesetId |
+| GSI1SK | "rule#" + "#" + status "#" + version + "#" + priority + "#" + rulesetId |
 
 #### Entity Attributes
 
@@ -559,5 +559,6 @@ The Rule Entity consists of attributes that capture essential information about 
 | -------- | ------- | 
 | documentId | Rule Identifier  |
 | description | Rule description |
+| status | Rule status (Enabled / Disabled) |
 | workflowId | Workflow to run on match |
 | conditions | Rule conditions |
