@@ -34,21 +34,21 @@ To install OpenSearch, select the same AWS region that FormKiQ is installed into
 
 ## Installation
 
-Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. 
+Clicking the installation link will bring you to the AWS Console Login (if you are not already logged in). Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. 
 
 ### Create Stack
 
 ![CloudFormation Create Stack](./img/cf-opensearch-createstack.png)
 
-On the `Create stack` page, enter the OpenSearch module installation S3 Url provided to you, or can be found on your Enterprise Github page.
+On the "Create stack" page, enter the OpenSearch module installation S3 Url provided to you, or can be found on your Enterprise Github page.
 
-Clicking the `Next` button will take you to the stack details page. On this page we can configure OpenSearch.
+Clicking the "Next" button will take you to the stack details page. On this page we can configure OpenSearch.
 
 ### Stack Name
 
 ![CloudFormation Stack Name](./img/cf-opensearch-create-stack-name.png)
 
-The first thing you will need to set is the CloudFormation Stack Name. The Stack name can include letters (A-Z and a-z), numbers (0-9), and dashes (-). We recommended to use the naming convention `fformkiq-enterprise-opensearch-<app_environment>`, ie: formkiq-enterprise-opensearch-prod-prod, formkiq-enterprise-opensearch-dev, etc. The <app_environment> should match the <app_environment> name used during the FormKiQ installation.
+The first thing you will need to set is the CloudFormation Stack Name. The Stack name can include letters (A-Z and a-z), numbers (0-9), and dashes (-). We recommended to use the naming convention `formkiq-enterprise-opensearch-<app_environment>`, ie: formkiq-enterprise-opensearch-prod, formkiq-enterprise-opensearch-dev, etc. The <app_environment> should match the <app_environment> name used during the FormKiQ installation.
 
 ### Parameters
 
@@ -61,7 +61,7 @@ The following are descriptions of the CloudFormation paramaters.
 The AppEnvironment is a unique Application Environment Identifier, IE dev/staging/prod
 
 :::note
-It MUST match the AppEnvironment set during the  FormKiQ installation
+It MUST match the AppEnvironment set during the FormKiQ installation
 :::
 
 #### DataInstanceCount
@@ -76,11 +76,11 @@ For a development instance, a value of "1" is suggested.
 
 ![OpenSearch Data Instance Type](./img/cf-opensearch-datainstancetype.png)
 
-The instance type for your data nodes, such as m3.medium.search. For valid values, see Supported instance types in Amazon OpenSearch Service .
+The instance type for your data nodes, such as m3.medium.search. For valid values, see [Supported instance types in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html).
 
 For a development instance, a value of "t3.small.search" is suggested.
 
-Allowed values: m3.medium.search | m3.large.search | m3.xlarge.search | m3.2xlarge.search | m4.large.search | m4.xlarge.search | m4.2xlarge.search | m4.4xlarge.search | m4.10xlarge.search | m5.large.search | m5.xlarge.search | m5.2xlarge.search | m5.4xlarge.search | m5.12xlarge.search | m5.24xlarge.search | r5.large.search | r5.xlarge.search | r5.2xlarge.search | r5.4xlarge.search | r5.12xlarge.search | r5.24xlarge.search | c5.large.search | c5.xlarge.search | c5.2xlarge.search | c5.4xlarge.search | c5.9xlarge.search | c5.18xlarge.search | t3.nano.search | t3.micro.search | t3.small.search | t3.medium.search | t3.large.search | t3.xlarge.search | t3.2xlarge.search | ultrawarm1.medium.search | ultrawarm1.large.search | ultrawarm1.xlarge.search | t2.micro.search | t2.small.search | t2.medium.search | r3.large.search | r3.xlarge.search | r3.2xlarge.search | r3.4xlarge.search | r3.8xlarge.search | i2.xlarge.search | i2.2xlarge.search | d2.xlarge.search | d2.2xlarge.search | d2.4xlarge.search | d2.8xlarge.search | c4.large.search | c4.xlarge.search | c4.2xlarge.search | c4.4xlarge.search | c4.8xlarge.search | r4.large.search | r4.xlarge.search | r4.2xlarge.search | r4.4xlarge.search | r4.8xlarge.search | r4.16xlarge.search | i3.large.search | i3.xlarge.search | i3.2xlarge.search | i3.4xlarge.search | i3.8xlarge.search | i3.16xlarge.search | r6g.large.search | r6g.xlarge.search | r6g.2xlarge.search | r6g.4xlarge.search | r6g.8xlarge.search | r6g.12xlarge.search | m6g.large.search | m6g.xlarge.search | m6g.2xlarge.search | m6g.4xlarge.search | m6g.8xlarge.search | m6g.12xlarge.search | c6g.large.search | c6g.xlarge.search | c6g.2xlarge.search | c6g.4xlarge.search | c6g.8xlarge.search | c6g.12xlarge.search | r6gd.large.search | r6gd.xlarge.search | r6gd.2xlarge.search | r6gd.4xlarge.search | r6gd.8xlarge.search | r6gd.12xlarge.search | r6gd.16xlarge.search | t4g.small.search | t4g.medium.search
+Allowed values: _any [supported instance types](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html), e.g.,_ t3.medium.search
 
 #### DataNodeVolumeSize
 
@@ -112,10 +112,9 @@ For a development instance, a value of "false" is suggested because a Master Nod
 
 The hardware configuration of the computer that hosts the dedicated master node, such as m3.medium.search. If you specify this property, you must specify true for the DedicatedMasterEnabled property. For valid values, see Supported instance types in Amazon OpenSearch Service.
 
-For a development instance, a value of "t3.small.search" is suggested. NOTE: This value will not be used if DedicatedMasterEnabled is "false", but is requried.
+For a development instance, a value of "t3.small.search" is suggested. NOTE: This value will not be used if DedicatedMasterEnabled is "false", but is required.
 
-Allowed values: 
-| m3.medium.search | m3.large.search | m3.xlarge.search | m3.2xlarge.search | m4.large.search | m4.xlarge.search | m4.2xlarge.search | m4.4xlarge.search | m4.10xlarge.search | m5.large.search | m5.xlarge.search | m5.2xlarge.search | m5.4xlarge.search | m5.12xlarge.search | m5.24xlarge.search | r5.large.search | r5.xlarge.search | r5.2xlarge.search | r5.4xlarge.search | r5.12xlarge.search | r5.24xlarge.search | c5.large.search | c5.xlarge.search | c5.2xlarge.search | c5.4xlarge.search | c5.9xlarge.search | c5.18xlarge.search | t3.nano.search | t3.micro.search | t3.small.search | t3.medium.search | t3.large.search | t3.xlarge.search | t3.2xlarge.search | ultrawarm1.medium.search | ultrawarm1.large.search | ultrawarm1.xlarge.search | t2.micro.search | t2.small.search | t2.medium.search | r3.large.search | r3.xlarge.search | r3.2xlarge.search | r3.4xlarge.search | r3.8xlarge.search | i2.xlarge.search | i2.2xlarge.search | d2.xlarge.search | d2.2xlarge.search | d2.4xlarge.search | d2.8xlarge.search | c4.large.search | c4.xlarge.search | c4.2xlarge.search | c4.4xlarge.search | c4.8xlarge.search | r4.large.search | r4.xlarge.search | r4.2xlarge.search | r4.4xlarge.search | r4.8xlarge.search | r4.16xlarge.search | i3.large.search | i3.xlarge.search | i3.2xlarge.search | i3.4xlarge.search | i3.8xlarge.search | i3.16xlarge.search | r6g.large.search | r6g.xlarge.search | r6g.2xlarge.search | r6g.4xlarge.search | r6g.8xlarge.search | r6g.12xlarge.search | m6g.large.search | m6g.xlarge.search | m6g.2xlarge.search | m6g.4xlarge.search | m6g.8xlarge.search | m6g.12xlarge.search | c6g.large.search | c6g.xlarge.search | c6g.2xlarge.search | c6g.4xlarge.search | c6g.8xlarge.search | c6g.12xlarge.search | r6gd.large.search | r6gd.xlarge.search | r6gd.2xlarge.search | r6gd.4xlarge.search | r6gd.8xlarge.search | r6gd.12xlarge.search | r6gd.16xlarge.search | t4g.small.search | t4g.medium.search
+Allowed values: _any [supported instance types](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html), e.g.,_ t3.medium.search
 
 #### EBSVolumeType
 
@@ -153,7 +152,7 @@ The name of the CloudFormation VPC stack name.
 
 The subnet(s) to deploy OpenSearch nodes to. The number of subnets selected must be less than or equal to the number of data nodes deployed.
 
-For a development instance, if only 1 data node is being deployed, only 1 subnet can be selected.
+For a development instance, if only one data node is being deployed, only one subnet can be selected.
 
 ![OpenSearch Vpc Subnet List](./img/cf-opensearch-vpcsubnets-list.png)
 
@@ -163,11 +162,11 @@ OpenSearch nodes should ONLY be deployed to private subnets. The FormKiQ VPC Clo
 
 ![OpenSearch EBS Volume Type](./img/cf-opensearch-zoneawarenessconfig.png)
 
-Indicates whether to enable zone awareness for the OpenSearch Service domain. When you enable zone awareness, OpenSearch Service allocates the nodes and replica index shards that belong to a cluster across two Availability Zones (AZs) in the same region to prevent data loss and minimize downtime in the event of node or data center failure. Don't enable zone awareness if your cluster has no replica index shards or is a single-node cluster. For more information, see Configuring a multi-AZ domain in Amazon OpenSearch Service.
+Indicates whether to enable zone awareness for the OpenSearch Service domain. When you enable zone awareness, OpenSearch Service allocates the nodes and replica index shards that belong to a cluster across two Availability Zones (AZs) in the same region, to prevent data loss and minimize downtime in the event of node or data center failure. Don't enable zone awareness if your cluster has no replica index shards or is a single-node cluster. For more information, see [Configuring a multi-AZ domain in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html).
 
 ### Complete Installation
 
-Keep selecting Next until you get to the last Submit Create Stack page. Once you've checked the checkboxes, you can click Submit to being the stack creation.
+Keep selecting "Next" until you get to the last ?Submit Create Stack" page. Once you've checked the checkboxes, you can click "Submit" to begin the stack creation.
 
 ![Create CloudFormation Stack](./img/cf-create-stack-submit.png)
 
@@ -177,16 +176,16 @@ After the OpenSearch module is deployed, the name of OpenSearch Cloudformation s
 
 ![CloudFormation Update Stack](./img/cf-updatestack.png)
 
-Select the FormKiQ CloudFormation stack and then click the `Update` button.
+Select the FormKiQ CloudFormation stack and then click the "Update" button.
 
-When updating the stack you will want to choose `Use current template`.
+When updating the stack you will want to choose "Use current template".
 
 ![Opensearch Stack Name](./img/cf-opensearch-stackname.png)
 
 For the `OpenSearchStackName` parameter, set the value to the name of the OpenSearch stack name you created above.
 
-Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
+Keep selecting "Next" until you get to the last "Submit Create Stack" page. Once you've checked the checkboxes, you can click "Submit" to begin the stack creation.
 
 ![Submit Create Stack](./img/cf-create-stack-submit.png)
 
-Once the stack is updated, data added to FormKiQ will be automatically synced with OpenSearch.
+Once the stack is updated, documents and metadata added to FormKiQ will be automatically synced with OpenSearch. (The only exception is document content, which must be explicitly specified for sync due to the higher amount of data storage required.)

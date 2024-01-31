@@ -8,7 +8,7 @@ sidebar_position: 1
 
 ## Prerequisites
 
-Before installing FormKiQ Pro/Enterprise make you to review the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
+Before installing FormKiQ Pro/Enterprise make sure to review the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
 
 ## Installation
 
@@ -31,15 +31,15 @@ To install FormKiQ, select the AWS region you want to deploy FormKiQ into below:
 
 ## CloudFormation
 
-Clicking the installation link will bring you to the AWS Console Login if you are not already logged in. Once you are logged in, you will be taken to the `CloudFormation Create Stack` page. 
+Clicking the installation link will bring you to the AWS Console Login (if you are not already logged in). Once you are logged in, you will be taken to the "CloudFormation Create Stack" page. 
 
 ### Create Stack
 
 ![CloudFormation Create Stack](./img/cf-createstack.png)
 
-On the `Create stack` page, enter the FormKiQ installation S3 Url provided to you, or can be found on your Enterprise Github page.
+On the "Create stack" page, enter the FormKiQ installation S3 Url provided to you, or can be found on your Enterprise GitHub page.
 
-Clicking the `Next` button will take you to the stack details page. On this page we can configure FormKiQ.
+Clicking the "Next" button will take you to the stack details page. On this page we can configure FormKiQ.
 
 ### Stack Name
 
@@ -57,22 +57,22 @@ Most installation parameters are the same between Core, Pro, and Enterprise. A d
 
 ### Pro/Enterprise Parameters
 
-The following are Pro/Enterprise specific parameters.
+The following are Pro/Enterprise specific parameters:
 
 #### OpenSearchStackName
 
 ![Opensearch Stack Name](./img/cf-opensearch-stackname.png)
 
-After the Amazon OpenSearch Service is deployed following the [FormKiQ OpenSearch Installation guide](/pro-and-enterprise/installation/opensearch), the name of the CloudFormation stack deployed can be enter here, to connect the OpenSearch installation with the FormKiQ installation.
+After the Amazon OpenSearch Service is deployed following the [FormKiQ OpenSearch Installation guide](/pro-and-enterprise/installation/opensearch), the name of the CloudFormation stack that was deployed can be entered here, to connect the OpenSearch installation with the FormKiQ installation.
 
 #### CertificateStackName
 
 ![Certificate Stack Name](./img/cf-certificate-stackname.png)
 
-After the deploying the FormKiQ Certificate stack, the name of the CloudFormation stack deployed can be enter here, to connect the SSL certificates with the FormKiQ installation.
+After the deploying the FormKiQ Certificate stack, the name of the CloudFormation stack that was deployed can be entered here, to connect the SSL certificates with the FormKiQ installation.
 
 ### Complete Installation
 
-Keep selecting Next until you get to the last Submit Create Stack page. Once you've checked the checkboxes, you can click Submit to being the stack creation.
+Keep selecting "Next" until you get to the last "Submit Create Stack" page. Once you've checked the checkboxes, you can click "Submit" to begin the stack creation.
 
 ![Create CloudFormation Stack](./img/cf-create-stack-submit.png)
