@@ -1,0 +1,10 @@
+{
+  "label": "Modules",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "FormKiQ Pro and Enterprise modules."
+  }
+}
