@@ -13,6 +13,12 @@ Before you can install the OpenSearch module, you need to have installed FormKiQ
 * [FormKiQ Pro/Enterprise](/docs/pro-and-enterprise/installation/formkiq)
 * [VPC](/docs/getting-started/quick-start#create-vpc)
 
+Before installation verify that the AWSServiceRoleForAmazonOpenSearchService has been enabled on your AWS Account. The easiest fix is to open up AWS CLI and run the following against your account once.
+
+```
+aws iam create-service-linked-role --aws-service-name opensearchservice.amazonaws.com
+```
+
 ## CloudFormation
 
 The FormKiQ installation process uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.

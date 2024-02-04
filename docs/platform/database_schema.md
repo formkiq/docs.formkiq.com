@@ -415,32 +415,6 @@ The document workflow entity consists of attributes that capture essential infor
 | actionSk | Action SK |
 | currentStepId | Current Workflow step Id |
 
-## API Keys
-
-Api Key(s) allow access to API.
-
-#### Entity Key Schema
-
-| Attributes   | Format |
-| -------- | ------- | 
-| PK | "apikeys#"  |
-| SK | "apikey#" + apiKey | 
-| GSI1PK | siteId + "/apikeys#"  |
-| GSI1SK | "apikey#" + name + apiKey |
-| GSI2PK | siteId/“apikeys#”  |
-| GSI2SK | “apikey#” + apiKey (mask) |
-
-#### Entity Attributes
-
-| Attributes   | Description |
-| -------- | ------- | 
-| apiKey | API Key  |
-| name | API Key Name | 
-| userId | Create by user |
-| siteId | Site Identifier
-| permissions | List of API Key permissions (read/write/delete) |
-| inserteddate | Inserted Date | 
-
 ## Case Management
 
 The following are the entities related to `Case Management`.
@@ -548,17 +522,64 @@ The Rule Entity consists of attributes that capture essential information about 
 
 | Attributes   | Format |
 | -------- | ------- | 
-| PK | "rule#" + ruleId  |
-| SK | "rule" | 
-| GSI1PK | "rule#"  |
-| GSI1SK | "rule#" + "#" + status "#" + version + "#" + priority + "#" + rulesetId |
+| PK | "ruleset#" + rulesetId  |
+| SK | "rule#" + ruleId | 
+| GSI1PK | "ruleset#" + rulesetId  |
+| GSI1SK | "rule#" + priority + "#" + ruleId | 
 
 #### Entity Attributes
 
 | Attributes   | Description |
 | -------- | ------- | 
+| rulesetId | Ruleset Identifier |
 | documentId | Rule Identifier  |
 | description | Rule description |
-| status | Rule status (Enabled / Disabled) |
+| priority | Rule priority |
 | workflowId | Workflow to run on match |
 | conditions | Rule conditions |
+
+## API Keys
+
+Api Key(s) allow access to API.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "apikeys#"  |
+| SK | "apikey#" + apiKey | 
+| GSI1PK | siteId + "/apikeys#"  |
+| GSI1SK | "apikey#" + name + apiKey |
+| GSI2PK | siteId/“apikeys#”  |
+| GSI2SK | “apikey#” + apiKey (mask) |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| apiKey | API Key  |
+| name | API Key Name | 
+| userId | Create by user |
+| siteId | Site Identifier |
+| permissions | List of API Key permissions (read/write/delete) |
+| inserteddate | Inserted Date | 
+
+## Open Policy (OPA)
+
+Open Policy Agent configuration.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "controlpolicy#opa#"  |
+| SK | "opa#" + siteId | 
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| siteId | Site Identifier  |
+| policy | OPA Policy | 
+| userId | Create by user |
+| inserteddate | Inserted Date | 
