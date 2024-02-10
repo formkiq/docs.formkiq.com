@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Ruleset
 
-The Ruleset module is a decision-making engine for documents based on a set of predefined or user defined criteria that allow for the automatic triggering of workflows and processes.
+The Ruleset module is a decision-making engine for documents based on a set of pre-defined or user-defined criteria that allow for the automatic triggering of workflows and processes.
 
-A ruleset consists of individual rules, each defining a specific condition and the corresponding action to be taken when that condition is met. These rules can encompass a wide range of criteria, from basic document text / content-type to matching on barcodes or specific field content. 
+A ruleset consists of individual rules, each defining a specific condition and the corresponding action to be taken when that condition is met. These rules can encompass a wide range of criteria, from basic conditions like a document's content type to more complex conditions like matching barcodes or specific metadata. 
 
 Additionally, there is the flexibility to assign priorities to both rules and rulesets within the system. This prioritization enables fine-tuning of the workflow, ensuring that certain conditions take precedence over others when multiple rulesets or rules are applicable simultaneously. By adjusting the priority levels, organizations can tailor the automation process to align with their strategic objectives and operational requirements effectively.
 
