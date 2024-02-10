@@ -500,10 +500,10 @@ The Ruleset Entity consists of attributes that capture essential information abo
 
 | Attributes   | Format |
 | -------- | ------- | 
-| PK | "ruleset#" + rulesetId  |
-| SK | "ruleset" | 
+| PK | "rulesets"  |
+| SK | "ruleset#" + status + "#" + priority + "#" + rulesetId | 
 | GSI1PK | "ruleset#"  |
-| GSI1SK | "ruleset#" + version + "#" + priority + "#" + rulesetId |
+| GSI1SK | "ruleset#" + rulesetId |
 
 #### Entity Attributes
 
@@ -513,6 +513,7 @@ The Ruleset Entity consists of attributes that capture essential information abo
 | description | Ruleset description |
 | version | Ruleset version |
 | priority | Ruleset priority |
+| status | Ruleset status |
 
 ### Rule
 
@@ -527,6 +528,13 @@ The Rule Entity consists of attributes that capture essential information about 
 | GSI1PK | "ruleset#" + rulesetId  |
 | GSI1SK | "rule#" + priority + "#" + ruleId | 
 
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "ruleset#" |
+| SK | "rule#" + status + "#" + rulesetId + "#" + priority + "#" + ruleId | 
+| GSI1PK | "ruleset#" + rulesetId  |
+| GSI1SK | "rule#" + ruleId | 
+
 #### Entity Attributes
 
 | Attributes   | Description |
@@ -537,6 +545,7 @@ The Rule Entity consists of attributes that capture essential information about 
 | priority | Rule priority |
 | workflowId | Workflow to run on match |
 | conditions | Rule conditions |
+| status | Rules status |
 
 ## API Keys
 
