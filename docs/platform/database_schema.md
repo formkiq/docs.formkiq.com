@@ -231,6 +231,26 @@ Contains list of document activties.
 | userId | Create by user |
 | inserteddate | Inserted Date | 
 
+### Document OPA (Access Control)
+
+Document Open Policy Agent (OPA) access controls.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "accessAttributes" |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Document Identifier  |
+| "aan#" + accessKey  | Numeric access key value |
+| "aab#" + accessKey  | Boolean access key value |
+| "aas#" + accessKey  | String access key value |
+
 ## Document TagSchema
 
 The Document TagSchema entity and attributes.
