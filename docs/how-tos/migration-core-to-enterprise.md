@@ -2,7 +2,7 @@
 sidebar_position: 10
 ---
 
-# Documnet Migration from FormKiQ Core to Enterprise
+# Document Migration from FormKiQ Core to Enterprise
 
 This guide will show you how to migrate documents from a FormKiQ Core installation to an Enterprise installation.
 
