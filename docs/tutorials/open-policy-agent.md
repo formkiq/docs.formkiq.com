@@ -8,13 +8,13 @@ This tutorial uses the FormKiQ [Open Policy Agent module](/docs/pro-and-enterpri
 
 We will be:
 
-* Adding 3 documents with different access attributes (2 with and 1 without)
+* Adding three documents with different access attributes (two with, and one without)
 
-* Add OPA policy that restricts access to documents
+* Add an OPA policy that restricts access to documents
 
-* Attempt document access with an admin role and user role
+* Attempt document access with both an admin role and a user role
 
-The code for the tutorial can be found on the [FormKiQ Github Tutorials](https://github.com/formkiq/tutorials/tree/master/java/opa)
+The code for the tutorial can be found within the [FormKiQ Github Tutorials](https://github.com/formkiq/tutorials/tree/master/java/opa)
 
 ## What you’ll need
 
@@ -26,7 +26,7 @@ The code for the tutorial can be found on the [FormKiQ Github Tutorials](https:/
 
 * A User [JWT Authentication Token](/docs/how-tos/jwt-authentication-token)
 
-* A Admin [JWT Authentication Token](/docs/how-tos/jwt-authentication-token)
+* An Admin [JWT Authentication Token](/docs/how-tos/jwt-authentication-token)
 
 ## Create User
 
@@ -58,10 +58,10 @@ You should now see the `default` and `opa` group listed under the user's members
 
 ## FormKiQ Client Library
 
-FormKiQ has a client library available in [java](https://github.com/formkiq/formkiq-client-sdk-java/) and [python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
+FormKiQ has a client library available in [Java](https://github.com/formkiq/formkiq-client-sdk-java/) and [Python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
 :::note
-This tutorial will be using the Java API and required the client 1.14.0 or greater, but will reference the REST API endpoints used.
+This tutorial will be using the Java API and requires a client of version 1.14.0 or greater, but we will also reference the REST API endpoints used.
 :::
 
 ## Setup API
@@ -105,7 +105,7 @@ public void setUpApi() {
 
 ## OPA Policy
 
-We will now configure a OPA policy that will restrict users with the "opa" role to only be able to access documents that have an access attribute of "documentType" = "invoice".
+We will now configure an OPA policy that will restrict users with the "opa" role to only be able to access documents that have an access attribute of "documentType" = "invoice".
 
 The following policy shows how this can be implemented using OPA.
 
@@ -136,13 +136,13 @@ The REST API endpoint `PUT /configuration/opa` can be used to set the OPA policy
 
 ## Add Documents
 
-Finally, we will add 3 documents:
+Finally, we will add three documents:
 
-* 1 document will have a access attribute of "documentType" and string value of "invoice"
+* one document will have a access attribute of "documentType" and string value of "invoice"
 
-* 1 document will have no access attributes
+* one document will have no access attributes
 
-* 1 document will have a access attribute of "documentType" and string value of "bill"
+* one document will have a access attribute of "documentType" and string value of "bill"
 
 ```
 private String addDocument(String siteId, String path, String content, String contentType,
@@ -178,7 +178,7 @@ String documentId2 = app.addDocument(siteId, "protected2.txt", "my protected con
 
 ## Application Output
 
-Running the application you will get output similar to the following, expect the documentIds will change.
+Running the application, you will receive an output similar to the following, expect the documentIds will change.
 
 ```
 added document e234f1eb-33a7-46a1-aa1c-aaeb54e823ff with access attributes
@@ -198,18 +198,18 @@ admin access denied to document 467a0982-85a7-4b3b-bfda-8e85ab9107fc
 admin access denied to document 68e787a5-c745-4168-ab7c-def8ea53c911
 ```
 
-As you can see first we created document `e234f1eb-33a7-46a1-aa1c-aaeb54e823ff` that has the access attribute documentType=invoice, document `467a0982-85a7-4b3b-bfda-8e85ab9107fc` has no access attributes and document `68e787a5-c745-4168-ab7c-def8ea53c911` has access attribute of documentType = bill.
+As you can see, first we created document `e234f1eb-33a7-46a1-aa1c-aaeb54e823ff` that has the access attribute documentType=invoice, while document `467a0982-85a7-4b3b-bfda-8e85ab9107fc` has no access attributes, and document `68e787a5-c745-4168-ab7c-def8ea53c911` has access attribute of documentType = bill.
 
-The user we created in first step, has access to document `e234f1eb-33a7-46a1-aa1c-aaeb54e823ff` because their roles and access attributes match the OPA policy.
+The user we created in first step has access to document `e234f1eb-33a7-46a1-aa1c-aaeb54e823ff` because their roles and access attributes match the OPA policy.
 
-The user does not have access to document `467a0982-85a7-4b3b-bfda-8e85ab9107fc` because the document has no access attributes. The user also does not have access to document `68e787a5-c745-4168-ab7c-def8ea53c911` because the documentType is bill and not invoice as per the OPA policy.
+The user does not have access to document `467a0982-85a7-4b3b-bfda-8e85ab9107fc` because the document has no access attributes. The user also does not have access to document `68e787a5-c745-4168-ab7c-def8ea53c911` because the documentType is "bill" and not "invoice", following our OPA policy.
 
-The admin will have access to all 3 documents regardless of the OPA policy.
+The admin will have access to all three documents, regardless of the OPA policy.
 
 ## Summary
 
 And there you have it! We have shown how easy it is to use the power of OPA policies and access attributes to secure documents.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs. d
+This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
 
 If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
