@@ -26,19 +26,39 @@ The source and target tables can be found from the [DynamoDB console](https://co
 
 ### Export/Import Data
 
-To export the contents from a DynamoDB table and then import the data into another DynamoDB table using the AWS CLI, you can follow these general steps:
+To export the contents from a DynamoDB table and then import the data into another DynamoDB table using the AWS CLI and the bash script below.
 
-Export the data from the source DynamoDB table to a JSON file. Make sure to update the `YOUR_SOURCE_TABLE_NAME` and `YOUR_TARGET_TABLE_NAME`.
+The script uses the AWS CLI to export the data from the source DynamoDB table to a JSON file. Then it uses the AWS CLI to import the data into the target DynamoDB table.
+
+Make sure to update the `YOUR_SOURCE_TABLE_NAME` and `YOUR_TARGET_TABLE_NAME`.
 
 ```
-aws dynamodb scan --table-name YOUR_SOURCE_TABLE_NAME \
-| jq '{"YOUR_TARGET_TABLE_NAME": [.Items[] | {PutRequest: {Item: .}}]}' > dynamodb_data.json
-```
+#!/bin/bash
 
-Import the data from the JSON file into the destination DynamoDB table.
-```
-aws dynamodb batch-write-item \
-    --request-items file://dynamodb_data.json
+OLD_TABLE=YOUR_SOURCE_TABLE_NAME
+NEW_TABLE=YOUR_TARGET_TABLE_NAME
+TMP_FILE=/tmp/inserts.json
+batchSize=25
+index=0
+
+DATA=$(aws dynamodb scan --table-name $OLD_TABLE --max-items $batchSize)
+((index+=1))
+echo $DATA | jq ".Items | {\"$NEW_TABLE\": [{\"PutRequest\": { \"Item\": .[]}}]}" > "$TMP_FILE"
+aws dynamodb batch-write-item --request-items "file://$TMP_FILE"
+
+nextToken=$(echo $DATA | jq '.NextToken')
+while [[ "${nextToken}" != "" ]]
+do
+  DATA=$(aws dynamodb scan --table-name $OLD_TABLE --max-items $batchSize --starting-token $nextToken)
+  ((index+=1))
+  echo $DATA | jq ".Items | {\"$NEW_TABLE\": [{\"PutRequest\": { \"Item\": .[]}}]}" > "$TMP_FILE"
+  if [ ! -s "$TMP_FILE" ]; then
+    echo "Scan returned no data. Finished operation"
+    exit
+  fi
+  aws dynamodb batch-write-item --request-items "file://$TMP_FILE"
+  nextToken=$(echo $DATA | jq '.NextToken')
+done
 
 ```
 
