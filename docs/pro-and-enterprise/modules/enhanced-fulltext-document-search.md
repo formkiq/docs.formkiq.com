@@ -106,7 +106,7 @@ The `opensearch_lambda_role` is then mapped back to AWS IAM roles.
 
 ![Kibana Console](./img/opensearch-kibana-console.png)
 
-The URL to access the Kibana console can be found on the `AWS OpenSearch Console page` under the `OpenSearch Dashboards URL`. This URL will not be publicly accessible as Opensearch should be deployed to a private subnet to ensure not anyone can get access.
+The URL to access the Kibana console can be found on the `AWS OpenSearch Console page` under the `OpenSearch Dashboards URL`. This URL will not be publicly accessible as OpenSearch should be deployed to a private subnet to ensure not anyone can get access.
 
 Clicking the `OpenSearch Dashboards URL` will open the Kibana login dialog.
 

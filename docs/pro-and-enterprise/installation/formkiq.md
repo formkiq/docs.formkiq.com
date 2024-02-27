@@ -61,7 +61,7 @@ The following are Pro/Enterprise specific parameters:
 
 #### OpenSearchStackName
 
-![Opensearch Stack Name](./img/cf-opensearch-stackname.png)
+![OpenSearch Stack Name](./img/cf-opensearch-stackname.png)
 
 After the Amazon OpenSearch Service is deployed following the [FormKiQ OpenSearch Installation guide](/docs/pro-and-enterprise/installation/opensearch), the name of the CloudFormation stack that was deployed can be entered here, to connect the OpenSearch installation with the FormKiQ installation.
 
