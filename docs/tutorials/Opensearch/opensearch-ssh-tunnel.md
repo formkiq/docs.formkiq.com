@@ -2,33 +2,33 @@
 sidebar_position: 1
 ---
 
-# Opensearch SSH Tunnel
+# OpenSearch SSH Tunnel
 
-Opensearch is secured by deploying it within a private subnet of a Virtual Private Cloud (VPC), ensuring limited access and heightened security measures. This setup restricts external access to [Opensearch](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html).
+OpenSearch is secured by deploying it within a private subnet of a Virtual Private Cloud (VPC), ensuring limited access and heightened security measures. This setup restricts external access to [OpenSearch](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html).
 
-Access to Opensearch running in a private subnet can be achieved through several methods:
+Access to OpenSearch running in a private subnet can be achieved through several methods:
 
-1. **VPN (Virtual Private Network)**: Establish a VPN connection between your local network and the VPC where Opensearch is hosted, allowing secure access to the resources within the private subnet.
+1. **VPN (Virtual Private Network)**: Establish a VPN connection between your local network and the VPC where OpenSearch is hosted, allowing secure access to the resources within the private subnet.
 
-2. **AWS Client VPN**: Deploy AWS Client VPN to provide secure remote access to resources in the VPC, including Opensearch instances within the private subnet, from authorized client devices.
+2. **AWS Client VPN**: Deploy AWS Client VPN to provide secure remote access to resources in the VPC, including OpenSearch instances within the private subnet, from authorized client devices.
 
-3. **SSH Tunneling using a Bastion Host**: Set up a bastion host in a public subnet with SSH access allowed from specific IP addresses. Then, set up SSH tunneling to forward traffic from a local port to the Opensearch instance within the private subnet, allowing secure access over SSH.
+3. **SSH Tunneling using a Bastion Host**: Set up a bastion host in a public subnet with SSH access allowed from specific IP addresses. Then, set up SSH tunneling to forward traffic from a local port to the OpenSearch instance within the private subnet, allowing secure access over SSH.
 
 Each of these options offers varying levels of security, flexibility, and ease of implementation depending on your specific requirements and infrastructure setup. This tutorial will walk through #3 ssh tunneling using a bastion host.
 
 ## What you’ll need
 
-* Access to a FormKiQ PRO / Enterprise installation with Opensearch
+* Access to a FormKiQ PRO / Enterprise installation with OpenSearch, i.e., the Enhanced Fulltext Search Module
 
-## Opensearch Dashboard Url
+## OpenSearch Dashboard Url
 
-Visiting the [Amazon Opensearch console](https://console.aws.amazon.com/aos/home) allow you to get the internal DNS name of your Opensearch Dashboards URL.
+Visiting the [Amazon OpenSearch console](https://console.aws.amazon.com/aos/home) will allow you to get the internal DNS name of your OpenSearch Dashboards URL.
 
-![Opensearch Dashboard Url](./img/opensearch-dashboard-url.png)
+![OpenSearch Dashboard Url](./img/opensearch-dashboard-url.png)
 
 ## AWS Access Key Pairs
 
-An AWS Access key pair will be required to get access to the bastion host. To create an AWS key pair:
+An AWS Access Key Pair will be required to get access to the bastion host. To create an AWS key pair:
 
 * Visit the [EC2 Dashboard Console](https://console.aws.amazon.com/ec2/home)
 
@@ -78,7 +78,7 @@ To install the Bastion host, select the installation link for the AWS region you
 
 * **KeyPairName**
 
-Select from the dropdown the KeyPair created in the previous step.
+Select from the dropdown the Key Pair created in the previous step.
 
 * **LatestAmiId**
 
@@ -90,11 +90,11 @@ The name of the VPC CloudFormation stack used by FormKiQ
 
 * **VpcSubnets**
 
-The Bastion host needs to be deployed in the public FormKiQ VPC. Searching for the term "Public" and select 1 of the public subnets.
+The Bastion host needs to be deployed in the public FormKiQ VPC. Searching for the term "Public" and select one of the public subnets.
 
 ![CloudFormation Submit](./img/opensearch-cloudformation-submit.png)
 
-Click Next twice and then submit the stack to be created.
+Click "Next" twice and then submit the stack to be created.
 
 The CloudFormation outputs will contain information to configure the SSH Tunnel.
 
@@ -104,7 +104,7 @@ The CloudFormation outputs will contain information to configure the SSH Tunnel.
 
 ## Configure the SOCKS proxy
 
-The Foxyproxy can be used to proxy requests through the SSL tunnel and to the Opensearch dashboard.
+FoxyProxy can be used to proxy requests through the SSL tunnel and to the OpenSearch dashboard.
 
 The FoxyProxy Standard extension can be installed from the Google Chrome store.
 
@@ -112,7 +112,7 @@ The FoxyProxy Standard extension can be installed from the Google Chrome store.
 
 Next, we need to configure the FoxyProxy extension. Open the FoxyProxy extension and then choose Options.
 
-![Chrome Store Foxyproxy configuration](./img/opensearch-foxyproxy-config.png)
+![Chrome Store FoxyProxy configuration](./img/opensearch-foxyproxy-config.png)
 
 Under the `Proxies`:
 
@@ -124,22 +124,7 @@ Under the `Proxies`:
 
 * Set Port: 8157
 
-* Pattern: `Opensearch Domain endpoint`
-
-## Configure SSH Tunnel
-
-Configuring the SSH tunnel will redirect all traffic to the Opensearch dashboard. To configure the SSH tunnel:
-
-* Create an entry in your SSH config file (~/.ssh/config on a Mac/Linux Distro):
-```
-# Elasticsearch Tunnel
-Host estunnel
-HostName 18.218.227.4 # your server's public IP address
-User ec2-user
-IdentitiesOnly yes
-IdentityFile ~/.ssh/MY-KEY.pem
-LocalForward 9200 vpc-YOUR-ES-CLUSTER.us-east-1.es.amazonaws.com:443
-```
+* Pattern: `OpenSearch Domain endpoint`
 
 ## Run SSH Tunnel
 
@@ -149,12 +134,12 @@ The following command will start the SSH tunnel.
 ssh -i "mykeypair.pem" ec2-user@public_dns_name -ND 8157
 ```
 
-Now, enter the Dashboards endpoint in your browser. The Amazon Cognito login page for Dashboards appears.
+Now, enter the Dashboards endpoint in your browser. The Amazon Cognito login page for Dashboards should appear.
 
 ## Summary
 
-And there you have it! We have shown how easy it is to connect to your Opensearch dashboard using an SSH tunnel.
+And there you have it! We have shown how easy it is to connect to your OpenSearch dashboard using an SSH tunnel.
 
 This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+If you have any questions, reach out to us on our Issues Page at https://github.com/formkiq/formkiq-core or at https://formkiq.com.
