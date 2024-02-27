@@ -126,21 +126,6 @@ Under the `Proxies`:
 
 * Pattern: `Opensearch Domain endpoint`
 
-## Configure SSH Tunnel
-
-Configuring the SSH tunnel will redirect all traffic to the Opensearch dashboard. To configure the SSH tunnel:
-
-* Create an entry in your SSH config file (~/.ssh/config on a Mac/Linux Distro):
-```
-# Elasticsearch Tunnel
-Host estunnel
-HostName 18.218.227.4 # your server's public IP address
-User ec2-user
-IdentitiesOnly yes
-IdentityFile ~/.ssh/MY-KEY.pem
-LocalForward 9200 vpc-YOUR-ES-CLUSTER.us-east-1.es.amazonaws.com:443
-```
-
 ## Run SSH Tunnel
 
 The following command will start the SSH tunnel.
