@@ -299,7 +299,7 @@ FormKiQ support full-text search through the following services:
 
 [Typesense](https://typesense.org) is used for the storage of document metadata (available in FormKiQ Core/Pro/Enterprise).
 
-##### Opensearch
+##### OpenSearch
 
 The FormKiQ document management platform harnesses the power of Amazon OpenSearch, an advanced and open-source search and analytics engine, to deliver an unparalleled full-text search experience. Seamlessly integrated into FormKiQ, OpenSearch empowers users to explore the content within their documents with unparalleled precision. By employing OpenSearch's robust capabilities, users can effortlessly perform comprehensive full-text searches across their entire document repository, swiftly retrieving documents that contain specific keywords, phrases, or concepts. The result is a dynamic document management ecosystem that fosters efficient navigation and empowers users to extract maximum value from their data-rich 
 documents.
