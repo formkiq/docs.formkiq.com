@@ -186,7 +186,7 @@ Select the FormKiQ CloudFormation stack and then click the "Update" button.
 
 When updating the stack you will want to choose "Use current template".
 
-![Opensearch Stack Name](./img/cf-opensearch-stackname.png)
+![OpenSearch Stack Name](./img/cf-opensearch-stackname.png)
 
 For the `OpenSearchStackName` parameter, set the value to the name of the OpenSearch stack name you created above.
 
