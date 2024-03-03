@@ -6,11 +6,11 @@ sidebar_position: 1
 
 ![SQS Dead Letter Queue](./img/dlq-dead-letter-queue.png)
 
-FormKiQ uses a message-driven architecture where communication between different components of a system occurs through asynchronous message passing. By decoupling components and using asynchronous communication, message-driven architectures are inherently more resilient to failures. If one component fails or becomes overloaded, it doesn't necessarily impact the entire system, as messages can be queued and processed later. 
+FormKiQ uses a message-driven architecture, where communication between different components of a system occurs through asynchronous message passing. By decoupling components and using asynchronous communication, message-driven architectures are inherently more resilient to failures. If one component fails or becomes overloaded, it doesn't necessarily impact the entire system, as messages can be queued and processed later. 
 
 [Amazon Simple Queue Service (SQS) Dead Letter Queues (DLQs)](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) are a feature provided by AWS SQS to help manage messages that cannot be processed successfully by consumers. In a message-driven architecture, where different components communicate via message queues, DLQs play a crucial role in handling messages that fail processing for various reasons such as processing errors, or exceeding processing rate limits.
 
-FormKiQ has a single DLQ that provides a centralized location for managing and analyzing messages that couldn't be processed successfully. These messages then can be investigate the reasons behind message failures by examining the contents of the DLQ and then if the message is valid sent to be reprocessed.
+FormKiQ has a single DLQ that provides a centralized location for managing and analyzing messages that couldn't be processed successfully. These messages then can be investigated to determine the reasons behind message failures; this is done by examining the contents of the DLQ, and  if the message is valid, it can be sent to be reprocessed.
 
 ## Dead-Letter Queue Alerts
 
@@ -22,7 +22,7 @@ FormKiQ installs a CloudWatch Alarm that can notify you when a message cannot be
 
 ### Subscribe to DLQ
 
-The DLQ alert is connected to [Amazon Simple Notification Service](https://aws.amazon.com/sns/). This allows you to subscribe an email address to the alerts so you can be notified via email if there are any messages that cannot be processed.
+The DLQ alert is connected to [Amazon Simple Notification Service](https://aws.amazon.com/sns/). This allows you to subscribe an email address to the alerts, enabling you to be notified via email if there are any messages that cannot be processed.
 
 To subscribe:
 
@@ -38,7 +38,7 @@ Ensure the correct Topic ARN is selected. Select `Email` from the Protocol dropd
 
 ![SNS DLQ Topic](./img/dlq-sns-subscribe.png)
 
-You will then receive an email similar to the one below. You'll need to click the link to verify your subscription. Once that is done, you'll receive an email everytime a message fails to be processed.
+You will then receive an email similar to the one below. You'll need to click the link to verify your subscription. Once that is done, you'll receive an email every time a message fails to be processed.
 
 ```
 You have chosen to subscribe to the topic:
@@ -50,7 +50,7 @@ Confirm subscription
 
 ## Reprocess Messages (Redrive)
 
-When a message fails to be processed, it can be sent back to its original queue for reprocessing. First fine the dead letter queue for your FormKiQ installation.
+When a message fails to be processed, it can be sent back to its original queue for reprocessing. First, find the dead letter queue for your FormKiQ installation.
 
 ![SQS Dead Letter Queue](./img/dlq-dead-letter-queue.png)
 
