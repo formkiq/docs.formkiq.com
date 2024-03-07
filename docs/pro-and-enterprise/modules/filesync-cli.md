@@ -6,7 +6,10 @@ sidebar_position: 1
 
 ![FormKiQ File Sync Module](./img/formkiq_filesync_module.png)
 
-FileSync CLI is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enables syncing of documents from a local file system to FormKiQ installation.
+FileSync CLI is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enables:
+
+* Syncing of documents from a local file system to FormKiQ
+* Syncing of documents to [Opensearch](https://opensearch.org/)
 
 ## Installation
 
@@ -16,18 +19,18 @@ The following are the steps for installing the FormKiQ FileSync CLI.
 
 Before you begin the installation you need to:
 
-* https://console.aws.amazon.com/cloudformation[Visit CloudFormation in your AWS console]
-* Click on the FormKiQ installation you would like to sync documents to; make a note of the name of the DocumentsStageS3Bucket from the Stack's Outputs, as you will need this information during the FileSync's CloudFormation installation.
+* [Visit CloudFormation in your AWS console](https://console.aws.amazon.com/cloudformation)
+* Click on the FormKiQ installation you would like to sync documents to; make a note of the name of the `IamApiUrl` and `DocumentsTableName` from the Stack's Outputs, as you will need this information during the FileSync's configuration.
 
-![FormKiQ Stacking S3 Buckets](./img/cf-filesync-cli-staging-buckets-list.png)
+![FormKiQ CloudFormation Outputs](./img/cf-filesync-cli-output-parameters.png)
 
 :::note
-The FileSync CLI can support multiple FormKiQ installations, so you can repeat the above process for each installation.
+The FileSync CLI can support multiple FormKiQ installations, so you can get the Outputs for each installation.
 :::
 
 ### CloudFormation Installation
 
-Before you can use the FileSync CLI, you need to install the FileSync CLI's [CloudFormation](https://aws.amazon.com/cloudformation) script. This script will provide access for the FileSync CLI to your FormKiQ installation.
+Before you can use the FileSync CLI, you need to install the FileSync CLI's CloudFormation script. This script will provide access for the FileSync CLI to your FormKiQ installation.
 
 The FileSync CLI CloudFormation script will be found on your FormKiQ's GitHub page, as shown below.
 
@@ -44,7 +47,7 @@ Click `Next` and enter the parameter for the CloudFormation stack.
 Enter the:
 
 * Stack Name
-* A comma delimited list of FormKiQ Staging S3 buckets, created from the previous step.
+* A comma delimited list of FormKiQ DocumentsTableName(s)
 
 ![FileSync CLI Stack Details](./img/cf-filesync-cli-stack-details.png)
 
@@ -70,11 +73,12 @@ It is available for:
 
 ```
 usage: fk
-    --configure   configure AWS credentials
-    --show        show sync profiles
-    --sync        sync files with FormKiQ
-    --watch       watch directories (one or more) for file changes and syncs with
-                  FormKiQ
+    --configure         configure AWS credentials
+    --list              list document ids
+    --show              show sync profiles
+    --sync              sync files with FormKiQ
+    --sync-opensearch   sync documents with Opensearch
+    --watch             watch directorie(s) for file changes and automatically syncs
 ```
 
 ### Configure
@@ -90,13 +94,22 @@ To configure, you will need:
 Run configure:
 
 ```
-fk --configure --access-key ACCESS_KEY --secret-key ACCESS_SECRET --region AWS_REGION --s3-staging-bucket S3_STAGING_BUCKET
+fk --configure --access-key ACCESS_KEY \
+               --secret-key ACCESS_SECRET \
+               --region AWS_REGION \
+               --iam-api-url IAM_API_URL \
+               --documents-dynamodb-tablename DOCUMENTS_TABLE_NAME
 ```
 
 Optionally you can specify a `--profile` name if you are syncing with multiple FormKiQ installations
 
 ```
-fk --configure --access-key ACCESS_KEY --secret-key ACCESS_SECRET --region AWS_REGION --s3-staging-bucket S3_STAGING_BUCKET --profile dev
+fk --configure --access-key ACCESS_KEY \
+               --secret-key ACCESS_SECRET \
+               --region AWS_REGION \
+               --iam-api-url IAM_API_URL \
+               --documents-dynamodb-tablename DOCUMENTS_TABLE_NAME \
+               --profile dev
 ```
 
 To list the FormKiQ installations that are configured:
@@ -140,6 +153,30 @@ usage: fk --watch
     --siteId <arg>      FormKiQ Site Id
     --syncDelay <arg>   Number of minutes to wait between file creation/modified before syncing (used with --watch)
  -v,--verbose           increase verbosity
+```
+
+### Sync Opensearch
+
+The "--sync-opensearch" option can be used to sync existing documents to [Opensearch](https://aws.amazon.com/opensearch-service).
+
+```
+usage: fk --sync-opensearch
+    --content              Sync document content
+    --document-ids <arg>   document ids to sync or 'all' for all documents
+                           (required)
+    --dry-run              show what would have been transferred
+ -s,--site-id <arg>        FormKiQ Site Id
+ -v,--verbose              increase verbosity
+```
+
+### List documents
+
+The "--list" option can be used to list existing document ids.
+
+```
+usage: fk --list
+    --limit                Limit number of results
+ -s,--site-id <arg>        FormKiQ Site Id
 ```
 
 ### Examples
@@ -188,6 +225,26 @@ fk --sync --actions [{"type": "OCR","parameters":{"ocrParseTypes": "TABLES"}},{"
 
 ```
 fk --watch -d /documents --verbose
+```
+
+#### Sync select documents with Opensearch
+```
+fk --sync-opensearch --document-ids 2def5ec0-0d6e-4912-916d-cdfca99575c9 -v
+```
+
+#### Sync all documents with Opensearch
+```
+fk --sync-opensearch --document-ids all -v
+```
+
+#### Sync all documents and content with Opensearch
+```
+fk --sync-opensearch --document-ids all --content -v
+```
+
+#### List document ids
+```
+fk --list --limit 100
 ```
 
 ### Pre-Hook
