@@ -8,12 +8,17 @@ from diagrams.aws.compute import Fargate
 from diagrams.aws.integration import SimpleNotificationServiceSns
 from diagrams.aws.analytics import CloudsearchSearchDocuments
 
-with Diagram("FormKiQ FileSync Module", show=False):
+graph_attr = {
+    "margin":"-1.5, -1.5"
+}
+
+with Diagram("FormKiQ FileSync Module", graph_attr=graph_attr, show=False):
 
     with Cluster("Local / File Server / Network Share"):
         documents = CloudsearchSearchDocuments("Document(s)")
 
     with Cluster("Amazon Web Services (AWS)"):
-        s3 = S3("Staging Documents")
+        svc_group = [APIGateway("API"),
+                     Dynamodb("Documents")]
 
-    documents >> s3
+    documents >> svc_group
