@@ -77,3 +77,84 @@ FormKiQ supports extracting text from a PNG document in two ways that have a dif
 | [Tesseract](https://github.com/tesseract-ocr/tesseract) (using AWS Lambda) | 1 million requests (1 million pages)  (3000ms avg per document) | $100.20  |
 | [AWS Textract](https://aws.amazon.com/pm/textract)  | 1 million pages (text only)  | $1500.00   |
 
+## [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service)
+
+FormKiQ uses [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service) to provide enhanced document searching ability. The costs for [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service) can vary greatly depending on requirements and whether you are using On-Demand or Reserved Instances.
+
+See [Sizing Cluster](/docs/pro-and-enterprise/modules/enhanced-fulltext-document-search#amazon-opensearch-service) for determining your cluster requirements.
+
+### Multi-AZ with Standby and Dedicated Master Nodes (99.99% availability)
+
+Multi-AZ with Standby is a deployment option for Amazon OpenSearch Service domains that offers 99.99% availability and consistent performance for production workloads. When you use Multi-AZ with Standby, domains are resilient to infrastructure failures, with no impact to performance or availability.
+
+When you use Multi-AZ with Standby, OpenSearch Service creates a domain across three Availability Zones, with each zone containing a complete copy of data and with the data equally distributed in each of the zones. Your domain reserves nodes in one of these zones as standby, which means that they don't serve search requests. When OpenSearch Service detects a failure in the underlying infrastructure, it automatically activates the standby nodes in less than a minute.
+
+This cluster is set up with the following configuration:
+
+* 3 AZs (2 Active, 1 Standby)
+* 3 Data Nodes (2 Active, 1 Standby)
+* 3 Master Nodes (1 in each AZ)
+* 2 replicas per primary shard
+* 2.6 TB of data (based on 600GB storage requirement and 2 replicas)
+
+| Instance Type    | vCPU | Memory (GiB) | Instance Count | Price Per Month (On-Demand) | Price Per Month (Reserved) |
+| -------- | ------- | ------- | ------- | ------- | ------- | 
+| m6g.large.search (master node) | 2 | 8 | 3 | $280 | $140 - $182 |
+| r6g.xlarge.search (data node) | 4 | 32 | 3 | $733 | $367 - $476 |
+
+| Storage  | Cost | Price per Month |
+| -------- | ------- | ------- |
+| 2.6 TB  | $0.135 / GB | $351 |
+
+
+### Multi-AZ with No Standby or Dedicated Master Nodes (lower cost, but still provides a level of high availability)
+
+Another Amazon OpenSearch deployment option is to forgo the dedicated masters and use a data node as both a data node and a master. If you are not using dedicated master nodes, it is important to keep the number of data nodes as a multiple of 3. This will allow a new master to be elected if an AZ is lost because a new master can be elected by the remaining 2 nodes.
+
+:::note
+If you enable multi-AZ without Standby, you should create at least one replica for each index in your cluster
+:::
+
+This cluster is set up with the following configuration:
+
+* 3 AZs (3 Active)
+* 3 Data Nodes (3 Active)
+* 0 Master Nodes
+* 2 replicas per primary shard
+* 2.6 TB of data (based on 600GB storage requirement and 2 replicas)
+
+| Instance Type    | vCPU | Memory (GiB) | Instance Count | Price Per Month (On-Demand) | Price Per Month (Reserved) |
+| -------- | ------- | ------- | ------- | ------- | ------- | 
+| r6g.large.search (data node) | 2 | 16 | 3 | $365 | $183 - $250 |
+
+| Storage  | Cost | Price per Month |
+| -------- | ------- | ------- |
+| 2.6 TB  | $0.135 / GB | $351 |
+
+:::note
+In a domain without a standby available within the third AZ, if one AZ is disrupted, the failover process will have a higher impact on your available resources
+:::
+
+### 2 AZs with 2 Data Nodes (lowest cost)
+
+The following configuration exposes you to potential risk of data loss and cluster unavailability. You should weigh the ROI against the cost of downtime and recovery.
+
+This cluster is set up with the following configuration:
+
+* 2 AZs (2 Active)
+* 2 Data Nodes (2 Active)
+* 0 Master Nodes
+* 1 replica per primary shard
+* 1.8 TB of data (based on 600GB storage requirement)
+
+| Instance Type    | vCPU | Memory (GiB) | Instance Count | Price Per Month (On-Demand) | Price Per Month (Reserved) |
+| -------- | ------- | ------- | ------- | ------- | ------- | 
+| r6g.xlarge.search (data node) | 4 | 32 | 2 | $490 | $244 - $317 |
+
+| Storage  | Cost | Price per Month |
+| -------- | ------- | ------- |
+| 1.8 TB  | $0.135 / GB | $243 |
+
+:::note
+In a two-AZ domain, you lose cross-AZ replication if one AZ is disrupted, which can further reduce availability. You also lose half your capacity, which can be more disruptive.
+:::
