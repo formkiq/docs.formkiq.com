@@ -90,6 +90,10 @@ Sizing an OpenSearch cluster involves a careful balance of various factors to en
 
 The factors considers are described below.
 
+:::note
+**We have added three sample [OpenSearch configurations to our Costs page](/docs/platform/costs#amazon-opensearch-service), to assist in determine the best configuration for specific use cases.**
+:::
+
 ### Number of Replicas
 
 Each replica is a full copy of an index and needs the same amount of disk space. By default, each OpenSearch index has one replica. We recommend at least one to prevent data loss. Replicas also improve search performance, so you might want more if you have a read-heavy workload.
@@ -119,9 +123,9 @@ The minimum storage requirement for 100GB of storage with 1 replica would be:
 
 ### Number of Shards
 
-The default configuration, of OpenSearch, allocates each index into five primary shards accompanied by one replica, totaling to ten shards. The primary objective in determining the number of shards is to ensure an equitable distribution of the index across all data nodes within the cluster. 
+The default configuration, of OpenSearch, allocates each index into five primary shards accompanied by one replica per primary shard, totaling to ten shards. The primary objective in determining the number of shards is to ensure an equitable distribution of the index across all data nodes within the cluster. 
 
-It's important to strike a balance, avoiding excessively large or numerous shards. A common recommendation is to maintain shard sizes within the range of 10–30 GiB to optimize performance for various workloads.
+It's important to strike a balance, avoiding excessively large or numerous shards. A common recommendation is to maintain shard sizes within the range of 10 to 30 GiB to optimize performance for various workloads.
 
 A general formula for calculating the number of shards can be:
 
@@ -181,6 +185,10 @@ Below is a table of recommended dedicated master nodes instance types based on t
 | 31 – 75 | 32 GiB | 40K | r5.xlarge.search or r6g.xlarge.search | 
 | 76 – 125 | 64 GiB | 75K | r5.2xlarge.search or r6g.2xlarge.search |
 | 126 – 200 | 128 GiB | 75K | r5.4xlarge.search or r6g.4xlarge.search |
+
+:::note
+**We have added three sample [OpenSearch configurations to our Costs page](/docs/platform/costs#amazon-opensearch-service), to assist in determine the best configuration for specific use cases.**
+:::
 
 ## Kibana
 
