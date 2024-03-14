@@ -135,7 +135,7 @@ This cluster is set up with the following configuration:
 In a domain without a standby available within the third AZ, if one AZ is disrupted, the failover process will have a higher impact on your available resources
 :::
 
-### 2 AZs with 2 Data Nodes (lowest cost)
+### 2 AZs with 2 Data Nodes (comparable cost, but instance type could be reduced further depending on performance needs)
 
 The following configuration exposes you to potential risk of data loss and cluster unavailability. You should weigh the ROI against the cost of downtime and recovery.
 
