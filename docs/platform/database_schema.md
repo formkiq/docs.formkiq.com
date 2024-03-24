@@ -458,11 +458,15 @@ The Case Entity consists of attributes that capture essential information about 
 | -------- | ------- | 
 | documentId | Case Identifier  |
 | name | Case Name |
+| description | Case Description |
 | status | Case Status |
 | caseNumber | Case Number |
 | documentNumber | Document Number |
 | metadata | Case Metadata |
 | inserteddate | Inserted Date | 
+| startDate | Start Date | 
+| endDate | End Date | 
+
 
 ### Task
 
@@ -481,10 +485,13 @@ The Case Entity consists of attributes that capture essential information about 
 | -------- | ------- | 
 | documentId | Task Identifier  |
 | caseId | Case Identifier |
+| name | Task Name |
 | description | Task description |
 | status | Task Status |
 | metadata | Task Metadata |
 | inserteddate | Inserted Date | 
+| startDate | Start Date | 
+| endDate | End Date | 
 
 ### Nigo
 
@@ -503,10 +510,34 @@ The Case Entity consists of attributes that capture essential information about 
 | -------- | ------- | 
 | documentId | Nigo Identifier  |
 | caseId | Case Identifier |
+| name | Nigo name |
 | description | Nigo description |
 | status |  Nigo Status |
 | metadata | Nigo Metadata |
 | inserteddate | Inserted Date | 
+| startDate | Start Date | 
+| endDate | End Date | 
+
+### Document
+
+The Document Entity consists of attributes that capture essential information about a document attached to a Case / Task / Nigo.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "case#" + caseId  |
+| SK | "doc#" + type + "#" + objectId + "#" + documentId | 
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Document Identifier  |
+| caseId | Case Identifier |
+| objectId | Case / Task / Nigo Identifier |
+| type | Document Type (Case / Task / Nigo) |
+| inserteddate | Inserted Date |
 
 ## Rulesets
 
