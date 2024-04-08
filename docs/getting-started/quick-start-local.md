@@ -381,6 +381,6 @@ Here's a sample JSON response (with jq):
 
 ## API Reference
 
-See the [FormKiQ API Reference](/docs/api-reference/formkiq-http-api/) for more endpoints you can try out.
+See the [FormKiQ API Reference](/docs/category/api-reference) for more endpoints you can try out.
 
 If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or in our [FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ).
