@@ -63,6 +63,7 @@ FormKiQ determines whether or not OCR is required automatically.
 | Service    | Unit | Cost |
 | -------- | ------- | ------- |
 | AWS Lambda (Programmatically, for fully-digital PDFs)  | 1 million requests (30 million pages)  (600ms avg per document) | $20.20  |
+| [Tesseract](https://github.com/tesseract-ocr/tesseract) (using AWS Lambda, for PDFs that are not fully digital) | 1 million requests (1 million pages)  (3000ms avg per document) | $30.20  |
 | [AWS Textract](https://aws.amazon.com/pm/textract) (for PDFs that are not fully digital)  | 1 million pages (text only)  | $1500.00   |
 
 
