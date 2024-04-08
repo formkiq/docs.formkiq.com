@@ -131,7 +131,7 @@ adminControlApi.setOpaConfiguration(new SetOpaConfigurationRequest().siteId(site
 ```
 
 :::note
-The REST API endpoint `PUT /configuration/opa` can be used to set the OPA policy
+The REST API endpoint `PUT /sites/opa/accessPolicies` can be used to set the OPA policy
 :::
 
 ## Add Documents

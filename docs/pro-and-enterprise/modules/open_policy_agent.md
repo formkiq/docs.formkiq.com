@@ -28,7 +28,7 @@ Open Policy Agent has specific endpoints that allow for the configuration of pol
 
 Open Policy Agent's policy decisions can be set at a site-wide global level or at an individual site level.
 
-The `PUT /configuration/opa` endpoint allows the setting of the OPA policy.
+The `PUT /sites/opa/accessPolicies` endpoint allows the setting of the OPA policy.
 ```
 {
   "policy": "string",
@@ -42,7 +42,7 @@ Endpoint can only be called with `Admins` role
 
 ### Get Open Policy Agent
 
-The `GET /configuration/opa` endpoint allow for the retrival of the OPA policy.
+The `GET /sites/{siteId}/opa/accessPolicy` endpoint allow for the retrival of the OPA policy.
 
 :::note
 Endpoint can only be called with `Admins` role
@@ -50,7 +50,7 @@ Endpoint can only be called with `Admins` role
 
 ### Delete Open Policy Agent
 
-The `DELETE /configuration/opa` endpoint allow for the removal of the OPA policy.
+The `DELETE /sites/{siteId}/opa/accessPolicy` endpoint allow for the removal of the OPA policy.
 
 :::note
 Endpoint can only be called with `Admins` role
