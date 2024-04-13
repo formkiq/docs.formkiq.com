@@ -4,70 +4,70 @@ sidebar_position: 1
 
 # Microsoft Entra ID
 
-This tutorial show you how to integrate [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id) (formerly known as "Microsoft Azure Active Directory) as the identity management provider for your FormKiQ installation.
+This tutorial show you how to integrate [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id) (formerly known as "Microsoft Azure Active Directory") as the identity management provider for your FormKiQ installation.
 
 We will be:
 
 * Configuring a Enterprise application in Microsoft Entra ID
 
-* Adding a Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
+* Adding an Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
 
-* Map Micorosft Entra ID groups to Amazon Cognito groups
+* Mapping Microsoft Entra ID groups to Amazon Cognito groups
 
 ## What you’ll need
 
-* Access to a FormKiQ PRO / Enterprise installation
+* Access to a FormKiQ Pro or FormKiQ Enterprise installation
 
 * Administrative access to a Microsoft Entra ID service
 
-* Administrative access to a FormKiQ PRO / Enterprise installation
+* Administrative access to a FormKiQ Pro or FormKiQ Enterprise installation
 
 
 ## Pre-requisite
 
-You will need the pieces of configuration information:
+You will need these specific configuration values:
 
 * CognitoUserPoolId
 
-* Console Url
+* Console URL
 
 * Cognito domain
 
-The CognitoUserPoolId and Console Url can be found in the `Outputs` tab of your FormKiQ [CloudFormation](https://console.aws.amazon.com/cloudformation) installation
+The CognitoUserPoolId and Console URL can be found in the `Outputs` tab of your FormKiQ [CloudFormation](https://console.aws.amazon.com/cloudformation) installation
 
 ![Cognito User Pool Id and Console Url](./img/entra-id-cf-outputs.png)
 
-The Cognito domain can be found by clicking on the Cognito User pool found on the [Cognito console](https://console.aws.amazon.com/cognito/v2/idp/user-pools).
+The Cognito domain can be found by clicking on the Cognito User Pool found on the [Cognito Console](https://console.aws.amazon.com/cognito/v2/idp/user-pools).
 
 ![Cognito Domain](./img/entra-id-cognito-domain.png)
 
 ## Microsoft Entra ID
 
-The next step is to create an Enterprise application in Microsoft Entra ID. This application will be connected to Amazon Cognito and provider authentication for the users.
+The next step is to create an Enterprise application in Microsoft Entra ID. This application will be connected to Amazon Cognito and will provide authentication for the users.
 
-### Add Enterprise application
+### Add an Azure Enterprise Application
 
-To configure the Enterprise application:
+To configure the Enterprise Application:
 
 * Login into the Azure Portal and open the `Microsoft Entra ID` service
 
 * Select "Enterprise applications" from the left menu and click `New application`
 
-* Select "Create your own application" and give your application a name and click `Create`
+* Select "Create your own application", and give your application a name, and then click `Create`
 
-### Single sign-on configuration
+### Single Sign-On configuration
 
-Now that the application is created we will be configurating `Single sign-on` using `SAML`.
+Now that the application is created, we will be configuring `Single sign-on` using `SAML`.
 
-* Select Single sign-on from the menu and then the SAML method
+* Select `Single sign-on` from the menu and then choose the `SAML` single sign-on method
 
 ![Basic Saml Configuration](./img/entra-id-saml-method.png)
 
-Once the Single sign-on is created, you will need to fill in the `Identifier (Entity ID)` and `Reply URL`.
+Once the single sign-on is created, you will need to fill in the `Identifier (Entity ID)` and the `Reply URL`.
 
 ![Basic Saml Configuration](./img/entra-id-saml-configuration.png)
 
-The format of the Identifier (Entity ID) is
+The format of the Identifier (Entity ID) is:
 
 ```
 urn:amazon:cognito:sp:<CognitoUserPoolId>
@@ -75,15 +75,14 @@ urn:amazon:cognito:sp:<CognitoUserPoolId>
 eg: urn:amazon:cognito:sp:us-east-2_MEhz4EzAZ
 ```
 
-The Reply URL is your `Cognito Domain`/saml2/idpresponse
-
+The Reply URL is: `Your Cognito Domain`/saml2/idpresponse, for example:
 ```
 https://formkiq-enterprise-dev-1111111111111.auth.us-east-2.amazoncognito.com/saml2/idpresponse
 ```
 
 ### Group Claims
 
-Next, we need to configure the Attributes & Claim for the SAML response. The default attributes are find, but we'll need to add a group claim so FormKiQ knows what access to provide the user.
+Next, we need to configure the Attributes & Claims for the SAML response. The default attributes will work well, but we will need to add a group claim so FormKiQ knows what access to provide each user.
 
 ![Saml Attributes & Claims](./img/entra-id-saml-attributes-claims.png)
 
@@ -100,10 +99,10 @@ Here you can configure which groups will be returned with the SAML response.
 * Change the Source attribute to `Cloud-only group display names`
 
 :::note
-Depending on your Azure subscription **Cloud-only group display names** may not be available. If this is the case see Setup Group ID mapping
+Depending on your Azure subscription level, **Cloud-only group display names** may not be available. If this is the case, see the section "Setup Group ID mapping"
 :::
 
-Under the SAML Certificates, make note of the **App Federation Metadata Url** as that will be needed in the next step.
+Under the SAML Certificates, make note of the **App Federation Metadata Url**, as that will be needed in the next step.
 
 ## Amazon Cognito
 
@@ -118,7 +117,7 @@ Open the [AWS Console](https://aws.amazon.com/) and Launch the CloudShell servic
 
 ![CloudShell](./img/entra-id-cloud-shell.png)
 
-Once the CloudShell command prompt opens, use the aws cli to add a custom attribute. This attribute will contain the group claims attribute.
+Once the CloudShell command prompt opens, use the AWS CLI to add a custom attribute. This attribute will contain the group claims attribute.
 
 ```
 aws cognito-idp add-custom-attributes \
@@ -126,7 +125,7 @@ aws cognito-idp add-custom-attributes \
 --custom-attributes Name=groups,AttributeDataType="String"
 ```
 
-Once again, using the aws cli, to create the SAML identify provider.
+Once again, using the AWS CLI, create the SAML identify provider:
 
 ```
 aws cognito-idp create-identity-provider \
@@ -139,10 +138,10 @@ aws cognito-idp create-identity-provider \
 
 ### Pre token generation
 
-After a successful login, we need to modify the access token and add the user's Microsoft Entra Id's groups into the token. FormKiQ comes with an function that does this automatically, we just need to configure it in the Amazon Cognito.
+After a successful login, we need to modify the access token and add the user's Microsoft Entra Id groups into the token. FormKiQ comes with an function that does this automatically; we just need to configure it in the Amazon Cognito.
 
 * Visit the Amazon Cognito console 
-* Select the user pool and `User pool properties` tab
+* Select the User Pool, and then the `User pool properties` tab
 * Click `Add Lambda trigger`
 
 ![Cognito Lambda Trigger](./img/entra-id-cognito-pretoken.png)
@@ -161,13 +160,13 @@ Select the "azure" trigger and click `Add Lambda trigger`.
 
 ### Cognito Hosted UI
 
-Amazon Cognito Hosted UI provides a url connection between Amazon Cognito and Microsoft Entra ID.
+Amazon Cognito Hosted UI provides a URL connection between Amazon Cognito and Microsoft Entra ID.
 
 To configure Cognito Hosted UI, select the `App Integration` tab on the Cognito console.
 
 ![Cognito App Integration](./img/entra-id-cognito-app-integration.png)
 
-Under the `Hosted UI` heading, select the `Edit` button to configured.
+Under the `Hosted UI` heading, select the `Edit` button to configure.
 
 ![Cognito Hosted UI](./img/entra-id-cognito-hosted-ui.png)
 
@@ -175,17 +174,17 @@ Set the `Console Url` as an allowed callback. This will allow the user to be red
 
 ![Cognito Allowed Callbacks](./img/entra-id-cognito-hosted-ui-allowed-callback.png)
 
-Select the 
+For the other properties:
 
-* Azure under the `Identity provider`
+* Choose Azure as the `Identity provider`
 
 * Set the OAuth grant type to `Authorization code grant`
 
-* Set te OpenID Connect scopes to: OpenID, Email, Profile
+* Set the OpenID Connect scopes to: OpenID, Email, Profile
 
 ![Cognito Hosted UI Config](./img/entra-id-cognito-hosted-ui-config.png)
 
-Once you save the configuration you'll see the `View Hosted UI` button is now enabled. This is the link to login to the FormKiQ.
+Once you save the configuration, you'll see the `View Hosted UI` button is now enabled. This is the link to login to FormKiQ.
 
 ## Summary
 
