@@ -186,6 +186,34 @@ For the other properties:
 
 Once you save the configuration, you'll see the `View Hosted UI` button is now enabled. This is the link to login to FormKiQ.
 
+### Setup Group Claims Mapping
+
+When configuring Group Claims, if you are unable to select the **Cloud-only group display names** because of your configuration or your account settings, Azure will send the Group ID instead of the Group Name. The FormKiQ Pre token generation trigger can be configured to map the Group ID to the correct Group Name.
+
+![Saml Source Attributes Config](./img/entra-id-source-attributes.png)
+
+The Pre token generation trigger Lambda function supports adding a **ROLE_MAPPING** environment variable that can map the Group ID to Group Name.
+
+To configure the **ROLE_MAPPING** environment variable.
+
+First, find goto the [Lambda console](https://console.aws.amazon.com/lambda/home) and search for the **azure** Lambda function.
+
+![Cognito Hosted UI Config](./img/entra-id-lambda-search.png)
+
+Click on the Lambda function and select the **Configuration** tab.
+
+![Lambda Environment Variables](./img/entra-id-lambda-environment-variables.png)
+
+To create the role mapping, add an environment variable named **ROLE_MAPPING**. The value is a JSON map, where the key is the Group Id and the value is the Group Name.
+
+```
+{  "aeb95a45-e83f-47a1-b319-717733831892":"student",
+   "9bab91c3-4758-41e9-988a-2645c898ffed":"formkiq_default"
+}
+```
+
+![Lambda Environment Role Mapping](./img/entra-id-lambda-environment-variables-role-mapping.png)
+
 ## Summary
 
 And there you have it! We have shown how easy it is to use Microsoft Entra ID as your authentication provider.
