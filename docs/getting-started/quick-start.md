@@ -14,11 +14,21 @@ For this quickstart you will need access to an AWS account, preferably with admi
 
 If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
 
-Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. The easiest fix is to open up AWS CLI and run the following against your account once.
+Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. The easiest fix is to open up AWS CLI (you can do this using [AWS CloudShell](https://aws.amazon.com/cloudshell/)) and run the following against your account:
 
 ```
 aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 ```
+:::note
+NOTE: you will receive a message such as `An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation: Service role name AWSServiceRoleForECS has been taken in this account, please try a different suffix.`
+
+This means that this step has already been performed, either in CloudShell or by a previous FormKiQ installation process, so you do not need to take any further action.
+
+If you attempted to run a FormKiQ installation before doing this step, the installation will likely have failed, but will likely have created this role, so you would receive this error message.
+
+In either of these cases, you should now be able to install FormKiQ in your AWS Account.
+:::
+
 
 ## Install FormKiQ
 
