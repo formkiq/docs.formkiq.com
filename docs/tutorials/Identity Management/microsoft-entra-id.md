@@ -186,7 +186,7 @@ For the other properties:
 
 Once you save the configuration, you'll see the `View Hosted UI` button is now enabled. This is the link to login to FormKiQ.
 
-### Setup Group Claims Mapping
+### Set Up Group Claims Mapping
 
 When configuring Group Claims, if you are unable to select the **Cloud-only group display names** because of your configuration or your account settings, Azure will send the Group ID instead of the Group Name. The FormKiQ Pre token generation trigger can be configured to map the Group ID to the correct Group Name.
 
@@ -194,7 +194,7 @@ When configuring Group Claims, if you are unable to select the **Cloud-only grou
 
 The Pre token generation trigger Lambda function supports adding a **ROLE_MAPPING** environment variable that can map the Group ID to Group Name.
 
-To configure the **ROLE_MAPPING** environment variable.
+To configure the **ROLE_MAPPING** environment variable:
 
 First, find goto the [Lambda console](https://console.aws.amazon.com/lambda/home) and search for the **azure** Lambda function.
 
