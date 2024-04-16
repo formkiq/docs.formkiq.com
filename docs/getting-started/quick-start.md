@@ -137,7 +137,14 @@ Typesense is optional, since it requires a VPC to be created, which can add to y
 ![Configure VPC](./img/cf-create-parameter-vpc-stackname.png)
 
 The name of the CloudFormation VPC stack that can be created after the initial FormKiQ install, using the add-on <a href="/docs/getting-started/quick-start#create-vpc">CloudFormation template for VPC</a>.
-Some services such as Typesense, Tesseract, and OpenSearch require a VPC. Only required if you are using any of these services; otherwise, this can remain empty.
+
+**Some services require a VPC:**
+
+- Tesseract (for OCR)
+- Typesense (for full-text search)
+- OpenSearch (part of the enhanced full-text search module available as an add-on for FormKiQ Pro/Enterprise)
+
+**This VPC is only required if you are using any of these services; otherwise, this can remain empty.**
 
 Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
 
@@ -215,7 +222,7 @@ Stack Name will be needed for when you update the main FormKiQ stack.
 
 ![CloudFormation VPC Stack Name](./img/cf-create-parameters-vpc-stack-name.png)
 
-EnableEnterpriseFeatures is for FormKiQ Enterprise; it must be set to true in order for FormKiQ Enterprise to be configured correctly for any add-ons or customizations. **It is not required for FormKiQ Core or Pro.**
+EnableEnterpriseFeatures is for FormKiQ Pro/Enterprise; it must be set to true in order for FormKiQ Pro and Enterprise to be configured correctly for any add-ons or customizations. **It is not required for FormKiQ Core.**
 
 ![CloudFormation VPC Enable Enterprise Features](./img/cf-create-parameters-vpc-enable-enterprise-features.png)
 
@@ -233,17 +240,19 @@ VpcLabel: you should also provide a label for the VPC. This will be visible in t
 
 ## Update FormKiQ Stack
 
+**This step is essential in order to enable access to Tesseract, Typesense or OpenSearch**
+
 After creating the VPC stack, the main FormKiQ CloudFormation stack needs to be updated.
 
 ![CloudFormation Update Stack](./img/cf-updatestack.png)
 
 Select the FormKiQ CloudFormation stack and then click the `Update` button.
 
-When updating the stack you will want to choose `Use current template`.
+When updating the stack you will want to choose `Use existing template`.
 
 ![Set VPC Stack Name](./img/cf-create-parameter-vpc-stackname.png)
 
-For the `VpcStackName` parameter, set the value to the same value you used for the VPC stack you created above.
+For the `VpcStackName` parameter, set the value to the same value you used for the VPC stack you created above; in our example, it was `formkiq-vpc`.
 
 Keep selecting `Next` until you get to the last `Submit Create Stack` page. Once you've checked the checkboxes, you can click `Submit` to being the stack creation.
 
