@@ -251,6 +251,57 @@ Document Open Policy Agent (OPA) access controls.
 | "aab#" + accessKey  | Boolean access key value |
 | "aas#" + accessKey  | String access key value |
 
+### Document Attribute Search
+
+Document Attribute Search entity.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "attr#" + key + "#" + value |
+| GSI1PK | "doc#attr#" + key |
+| GSI1SK | value  |
+| GSI2PK |  schema id ?? |
+| GSI2SK |   |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Document Identifier  |
+| key | attribute key |
+| index | attribute index |
+| type | Type of Attribute (string, number, boolean, string list, numeric list)
+| stringValue | string value |
+| stringValues | string values |
+| numberValue | number value |
+| numberValues | number values |
+| booleanValue | boolean value |
+
+## Attributes
+
+The Attributes Entity consists of attributes that capture essential information about a document.
+
+### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "attr#" + key  |
+| SK | "attribute" | 
+| GSI1PK | "attr#"  |
+| GSI1SK | "attr#" + key |
+
+### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Attribute Key  |
+| type | Attribute Type (IE: OPA) | 
+| key | Attribute key | 
+| opaRoles | List of Opa roles | ??
+
 ## Document TagSchema
 
 The Document TagSchema entity and attributes.
