@@ -184,7 +184,21 @@ For the other properties:
 
 ![Cognito Hosted UI Config](./img/entra-id-cognito-hosted-ui-config.png)
 
-Once you save the configuration, you'll see the `View Hosted UI` button is now enabled. This is the link to login to FormKiQ.
+Once you save the configuration, you'll see the `View Hosted UI` button is now enabled. This is the link to login to FormKiQ. Make note of the url and you will need to add it to the FormKiQ CloudFormation stack.
+
+![Cognito Hosted UI URL](./img/entra-id-cognito-hosted-ui-url.png)
+
+Once you have the Cognito Hosted UI Url. Visit the CloudFormation console and select to **Update** your FormKiQ installation stack.
+
+![CloudFormation Update Stack](./img/entra-id-cloudformation-update.png)
+
+Set the Cognito Single Sign On Url to the value of the Cognito Hosted UI.
+
+![CloudFormation Cognito Single Sign On Url](./img/entra-id-cognito-single-sign-on-url.png)
+
+Once the stack is updated you will see the **Single Sign-On** login button that will allow you to login through your SSO provider.
+
+![Console Single Cognito Single Sign On](./img/entra-id-console-single-sign-on.png)
 
 ### Set Up Group Claims Mapping
 
