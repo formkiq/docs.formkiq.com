@@ -273,11 +273,9 @@ Document Attribute Search entity.
 | documentId | Document Identifier  |
 | key | attribute key |
 | index | attribute index |
-| type | Type of Attribute (string, number, boolean, string list, numeric list)
+| valueType | Type of Attribute (string, number, boolean)
 | stringValue | string value |
-| stringValues | string values |
 | numberValue | number value |
-| numberValues | number values |
 | booleanValue | boolean value |
 
 ## Attributes
