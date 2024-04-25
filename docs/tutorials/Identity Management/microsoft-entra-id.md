@@ -133,7 +133,7 @@ aws cognito-idp create-identity-provider \
 --provider-name=azureidp \
 --provider-type SAML \
 --provider-details MetadataURL=<App Federation Metadata Url> \
---attribute-mapping email=http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress,groups=http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
+--attribute-mapping email=http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress,custom:groups=http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 ```
 
 ### Pre token generation
