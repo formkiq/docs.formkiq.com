@@ -63,14 +63,6 @@ A Child Document Entity includes attributes that capture details specific to the
 | Attributes   | Description |
 | -------- | ------- | 
 | documentId | Document Identifier  |
-| inserteddate | Inserted Date | 
-| lastModifiedDate | Last Modified Date |
-| userId | Create by user |
-| path | Document path |
-| deepLinkPath | Document deep link path |
-| contentType | Mime Content Type |
-| checksum | Document content checksum |
-| tagSchemaId | Tag Schema for document |
 | belongsToDocumentId | Parent Id of document |
 
 ### Document (Soft Delete)
@@ -231,25 +223,126 @@ Contains list of document activties.
 | userId | Create by user |
 | inserteddate | Inserted Date | 
 
-### Document OPA (Access Control)
+### Document Attribute
 
-Document Open Policy Agent (OPA) access controls.
+Document Attribute entity.
 
 #### Entity Key Schema
 							
 | Attributes   | Format |
 | -------- | ------- | 
 | PK | "doc#" + documentId  |
-| SK | "accessAttributes" |
+| SK | "attr#" + key + "#" + value |
+| GSI1PK | "doc#attr#" + key |
+| GSI1SK | value  |
+| GSI2PK |  ?schema id? |
+| GSI2SK |   |
 
 #### Entity Attributes
 
 | Attributes   | Description |
 | -------- | ------- | 
 | documentId | Document Identifier  |
-| "aan#" + accessKey  | Numeric access key value |
-| "aab#" + accessKey  | Boolean access key value |
-| "aas#" + accessKey  | String access key value |
+| key | attribute key |
+| index | attribute index |
+| valueType | Type of Attribute (string, number, boolean)
+| stringValue | string value |
+| numberValue | number value |
+| booleanValue | boolean value |
+
+## Attributes
+
+The Attributes Entity consists of attributes that capture essential information about a document.
+
+### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "attr#" + key  |
+| SK | "attribute" | 
+| GSI1PK | "attr#"  |
+| GSI1SK | "attr#" + key |
+
+### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Attribute Key  |
+| type | Attribute Type (IE: OPA) | 
+| dataType| Data Type (string, number, boolean)
+| key | Attribute key | 
+| isInUse| Is Attribute in use |
+
+## Schema
+
+The Schema Entity consists of attributes configurations.
+
+### Site Entity Schema
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas"  |
+| SK | "site#" + entity + "#" + version  |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| name | Name of Schema |
+| schema | Schema JSON document |
+| version | version of document |
+
+### Composite Key 
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas#compositeKey"  |
+| SK | "key#" + keys  |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| keys | List of Keys |
+
+### Classification Schema
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas#" + documentId  |
+| SK | "class#" | 
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| name | Name of Schema |
+| documentId | Document Identifier |
+| schema | Schema JSON document |
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas#" + type + "#" + key  |
+| SK | "attribute" | 
+| GSI1PK | "attr#"  |
+| GSI1SK | "attr#" + key |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Attribute Key  |
+| type | Attribute Type (IE: OPA) | 
+| key | Attribute key | 
+| opaRoles | List of Opa roles | ??
 
 ## Document TagSchema
 
@@ -622,24 +715,25 @@ Api Key(s) allow access to API.
 | userId | Create by user |
 | siteId | Site Identifier |
 | permissions | List of API Key permissions (read/write/delete) |
-| inserteddate | Inserted Date | 
+| inserteddate | Inserted Date |  
 
 ## Open Policy (OPA)
 
 Open Policy Agent configuration.
 
-#### Entity Key Schema
+### Entity Key Schema
 
 | Attributes   | Format |
 | -------- | ------- | 
-| PK | "controlpolicy#opa#"  |
-| SK | "opa#" + siteId | 
+| PK | "controlpolicy#opa"  |
+| SK (FULL) | "opa#full#" + siteId + "#policy" | 
+| SK (POLICY_ITEM) | "opa#item#" + siteId + "#policy#" + index | 
 
-#### Entity Attributes
+### Entity Attributes
 
 | Attributes   | Description |
 | -------- | ------- | 
 | siteId | Site Identifier  |
 | policy | OPA Policy | 
-| userId | Create by user |
-| inserteddate | Inserted Date | 
+| type | OPA Policy Type | 
+| index | Index |
