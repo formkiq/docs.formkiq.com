@@ -6,17 +6,14 @@ sidebar_position: 3
 
 ## Overview
 
-FormKiQ is designed with a robust security framework to safeguard user data and sensitive information. FormKiQ employs a Role-Based Access Control (RBAC) as its default security mechanism, ensuring a streamlined and efficient authorization process for all users. The RBAC system assigns roles to users based on their responsibilities, granting access only to the resources essential for their tasks.
+FormKiQ is designed with a robust security framework to safeguard the access to documents, prioritizing robust protection measures at every layer of its architecture. FormKiQ supports advanced access control mechanisms using Role-Based Access Control (RBAC) with [Amazon Cognito Groups](https://aws.amazon.com/cognito) and Attribute-Based Access Control (ABAC) through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). These features ensure that users have appropriate access to documents based on their roles and specific attributes.
 
 :::note
 By default the `AdminEmail` configured during the installation process is setup as an administrator with full access
 :::
 
-:::note
-[FormKiQ Pro/Enterprise](https://www.formkiq.com/products/formkiq-enterprise) users have the ability to use Attribute-based Access Control (ABAC) through [Open Policy Agent](https://www.openpolicyagent.org/).
-:::
 
-## Groups
+## Role-Based Access Control (RBAC)
 
 FormKiQ supports multi-tenancy environments by defining user group(s) and then linking these groups to the different FormKiQ site(s). Each user can be associated with one or more groups, reflecting their role or responsibilities within the platform. These groups, in turn, determine the user's access privileges across different sites within the platform.
 
@@ -96,7 +93,74 @@ Click the `Create user` button to finish creating the new user. The user receive
 
 The user is now created with read / write access to the default site id.
 
+## Attribute-Based Access Control (ABAC)
 
+Attribute-Based Access Control (ABAC) is a dynamic and flexible method of managing access permissions based on the evaluation of attributes related to the user, the resource, and the environment. Unlike Role-Based Access Control (RBAC), which assigns permissions based on predefined roles, ABAC uses policies that evaluate various attributes to determine access rights.
+
+FormKiQ's ABAC is implemented using [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). OPA is an open-source, general-purpose policy engine that allows for fine-grained access control based on user attributes and other contextual information. ABAC enables dynamic and context-aware access control policies.
+
+### Evaluation Policies
+
+[Open Policy Agent (OPA)](https://www.openpolicyagent.org/) evaluates the policies and returns decisions based on the evaluation. The evaluation outcomes in OPA are `allow`, `deny`, and `partial`.
+
+#### Allow
+
+The allow policy in OPA explicitly grants access to a document. This decision is made when the conditions specified in the policy are met. For example, a policy might allow access if a user has the appropriate role or attribute, or if the request is made during certain hours.
+
+```
+package example
+
+default allow = false
+
+allow {
+    input.user.role == "admin"
+}
+```
+
+#### Deny
+
+The deny policy in OPA explicitly denies access to a resource. This decision is made when the conditions specified in the policy are met. Deny policies can be used to enforce restrictions that override any allow policies.
+
+```
+package example
+
+default deny = false
+
+deny {
+    "guest" in input.user.roles
+}
+deny {
+    "guest" in input.user.roles
+    data.documents.documentType == "private"
+}
+```
+
+#### Partial
+
+OPA's partial evaluation feature allows for the computation of policy decisions based on the attributes attached to a document or resource. Partial evaluation generates a list of criteria that need to be met to gain access to the document or resource.
+
+The OPA policy below restricts access to users in the "guest" role to documents whose `documentType` attribute is "public".
+
+```
+package example
+
+default allow = false
+
+allow {
+    "guest" in input.user.roles
+    data.documents.documentType == "public"
+}
+```
+
+#### Partial Limitations
+
+Due to OPA's partial evaluation flexibility there are some limitation to be aware of.
+
+When using searching for documents using POST `/search`, if you are using multiple attributes criteria you will need to have an attribute `composite key` configured to enable DynamoDb to search for the criteria. Alternatively using POST `/searchFulltext` uses OpenSearch and does not have such limitation.
+
+:::note
+Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Pro/Enterprise](https://www.formkiq.com/products/formkiq-enterprise).
+:::
 
 ## API Endpoints 
 

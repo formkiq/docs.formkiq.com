@@ -28,19 +28,7 @@ API Endpoint: /documents/{documentId}/attributes
 
 FormKiQ's document management platform revolutionizes the way documents are organized and retrieved by offering a robust document organizing capability through document attributes.
 
-Attributes are created at the site level and then assigned to an additional document or entity, that attribute will have access to any additional properties provided to the attribute, such as attribute data type, validation and security.
-
-The main reason for this is to enable attribute-driven and attribute-aware actions within FormKiQ, such as creating a conditional workflow step. By sharing certain properties such as the data type, actions can be applied consistently.
-
-Supported Attribute date types:
-
-* String values
-
-* Numeric values
-
-* Boolean values
-
-* Key Only (no value)
+see [Attributes](/docs/features/attributes) for more details.
 
 ### Tags (Replace by Attributes)
 
@@ -76,14 +64,100 @@ API Endpoint: /documents/{documentId}/actions
 
 The FormKiQ document management platform offers a dynamic and customizable approach to document processing through a comprehensive set of document actions. With the platform, users can seamlessly chain together multiple actions, creating powerful workflows that enhance document processing efficiency. 
 
-These actions encompass a wide spectrum of functionalities, including:
+The supported document actions are listed below:
 
-* OCR (Optical Character Recognition) for text extraction
-* Antivirus scanning for detecting trojans, viruses, malware & other malicious threats
-* Webhooks for seamless integrations
-* Intelligent document tagging for accurate categorization of documents using artificial intelligence
+:::note
+Actions are indicated which edition of FormKiQ they are supported in.
+:::
 
-This suite of features transforms document management into a seamless process, enabling users to automatically process, organize, and enrich documents based on their unique needs. By chaining actions together, our platform empowers users to create sophisticated workflows that drive productivity, accuracy, and collaboration across the entire document lifecycle.
+
+### ANTIVIRUS
+
+Scans the document using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats. Documents are automatically flagged with the scan result.
+
+:::note
+Supported in FormKiQ PRO / Enterprise
+:::
+
+### DOCUMENTTAGGING
+
+Intelligent document tagging for accurate categorization of documents using artificial intelligence.
+
+- **Parameters:**
+  - **engine**: The tagging engine to use. Supported value: `chatgpt`
+  - **tags**: Comma-delimited list of keywords for tagging. Example: `author,title,description`
+
+:::note
+Supported in FormKiQ Core / PRO / Enterprise
+:::
+
+### FULLTEXT
+
+Extracts full text from documents for indexing and search purposes.
+
+- **Parameters:**
+  - **characterMax**: Maximum number of characters to add to Fulltext destination. Example: `-1` for no limit
+
+:::note
+[Typesense](https://typesense.org) is Supported in FormKiQ Core
+
+[OpenSearch](https://aws.amazon.com/opensearch-service/) is Supported in FormKiQ PRO / Enterprise
+:::
+
+### NOTIFICATION
+
+Sends notifications about document status or actions performed on a document.
+
+- **Parameters:**
+  - **notificationType**: Type of notification. Supported value: `email`
+  - **notificationToCc**: Carbon Copy recipient(s). Example: `cc@yourdomain.com`
+  - **notificationToBcc**: Blind Carbon Copy recipient(s). Example: `bcc@yourdomain.com`
+  - **notificationSubject**: Subject of the notification email. Example: `Email Subject`
+  - **notificationText**: Text content of the notification email. Example: `Email Text`
+  - **notificationHtml**: HTML content of the notification email. Example: `Email HTML Text`
+
+:::note
+Supported in FormKiQ Core / PRO / Enterprise
+:::
+
+### Optical Character Recognition (OCR)
+
+Optical Character Recognition (OCR) action to convert images and PDFs to text.
+
+- **Parameters:**
+  - **ocrParseTypes**: OCR parsing strategy. Supported values: `TEXT`, `FORMS`, `TABLES`
+  - **ocrEngine**: OCR engine to use. Supported values: `tesseract`, `textract`
+  - **ocrExportToCsv**: Convert OCR result to CSV (applicable to `textract` table only). Example: `true`
+  - **ocrNumberOfPages**: Number of pages to OCR (from start). Example: `-1` for all pages
+  - **addPdfDetectedCharactersAsText**: Convert detected characters in PDF images to text. Supported values: `true`, `false`
+
+See [OCR Feature](/docs/features/ocr) for more details about this feature.
+
+:::note
+[Tesseract](https://github.com/tesseract-ocr/tesseract) is Supported in FormKiQ Core
+
+[Amazon Textract](https://aws.amazon.com/textract/) is Supported in FormKiQ PRO / Enterprise
+:::
+
+### QUEUE
+
+Manages document workflows by placing documents in specific queues. Queues can be used for an approval workflow step. 
+
+- **Parameters:**
+  - **queueId**: ID of the queue. Example: `queue1`
+
+### WEBHOOK
+Allows integration with external systems via HTTP callbacks.
+
+- **Parameters:**
+  - **url**: Webhook URL to send the callback to. Example: `https://yourdomain.com/webhook-endpoint`
+
+### Intelligent Document Processing (IDP)
+
+Intelligent Document Processing allows for the extract of data from documents and attaching values using Document Attributes.
+
+- **Parameters:**
+  - **mappingId**: ID of the mapping in the Identity Provider. Example: `mapping1`
 
 
 ## Document Versions
