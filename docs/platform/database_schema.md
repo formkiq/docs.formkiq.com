@@ -112,7 +112,9 @@ Contains all information about any optical character recognition (OCR) data for 
 | userId | Create by user |
 | contentType | Mime Content Type |
 | ocrEngine | Ocr Engine Used (textract, tesseract) |
+| ocrStatus | Ocr Status (failed, requested, skipped, successful) |
 | jobId | Ocr Job Id |
+| ocrOutputType | Ocr Output Type (CSV) |
 
 ### Document Actions
 
@@ -235,8 +237,6 @@ Document Attribute entity.
 | SK | "attr#" + key + "#" + value |
 | GSI1PK | "doc#attr#" + key |
 | GSI1SK | value  |
-| GSI2PK |  ?schema id? |
-| GSI2SK |   |
 
 #### Entity Attributes
 
@@ -249,6 +249,15 @@ Document Attribute entity.
 | stringValue | string value |
 | numberValue | number value |
 | booleanValue | boolean value |
+
+Document Version Attribute entity.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss |
 
 ## Attributes
 
@@ -690,6 +699,32 @@ The Rule Entity consists of attributes that capture essential information about 
 | workflowId | Workflow to run on match |
 | conditions | Rule conditions |
 | status | Rules status |
+
+## Mappings
+
+The following are the entities related to `Mappings`.
+
+### Mapping
+
+The Mapping Entity consists of attributes that capture essential information about a mapping.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "mappings#" + documentId  |
+| SK | "mapping" | 
+| GSI1PK | "mappings#"  |
+| GSI1SK | "mapping#" + name |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Mapping Identifier  |
+| name | Mapping name |
+| description | Mapping description |
+| attributes | Mapping attributes |
 
 ## API Keys
 
