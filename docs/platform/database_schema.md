@@ -245,10 +245,12 @@ Document Attribute entity.
 | documentId | Document Identifier  |
 | key | attribute key |
 | index | attribute index |
-| valueType | Type of Attribute (string, number, boolean)
+| valueType | Type of Attribute (string, number, boolean, publication)
 | stringValue | string value |
 | numberValue | number value |
 | booleanValue | boolean value |
+
+### Document Attribute Version
 
 Document Version Attribute entity.
 
@@ -258,6 +260,27 @@ Document Version Attribute entity.
 | -------- | ------- | 
 | PK | "doc#" + documentId  |
 | SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss |
+
+### Document Publication
+
+Document Publication entity.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "publication" |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| path | Document Path  |
+| contentType | Document Content-Type  |
+| s3Version | Document S3 Version Key |
+| documentId | Document Idenitifer |
+| userId | Create by user |
 
 ## Attributes
 
@@ -293,7 +316,7 @@ The Schema Entity consists of attributes configurations.
 | Attributes   | Format |
 | -------- | ------- | 
 | PK | "schemas"  |
-| SK | "site#" + entity + "#" + version  |
+| SK | "site#" + entity  |
 
 #### Entity Attributes
 
@@ -301,16 +324,17 @@ The Schema Entity consists of attributes configurations.
 | -------- | ------- | 
 | name | Name of Schema |
 | schema | Schema JSON document |
-| version | version of document |
 
-### Composite Key 
+### Site Composite Key 
 
 #### Entity Key Schema
 
 | Attributes   | Format |
 | -------- | ------- | 
-| PK | "schemas#compositeKey"  |
-| SK | "key#" + keys  |
+| PK | "schemas"  |
+| SK | "compositeKey#" + UUID  |
+| GSI1PK | "schemas#compositeKey" |
+| GSI1SK | "key#" + keys  |
 
 #### Entity Attributes
 
@@ -318,40 +342,46 @@ The Schema Entity consists of attributes configurations.
 | -------- | ------- | 
 | keys | List of Keys |
 
-### Classification Schema
+## Classification 
+
+The Classification Entity attributes.
+
+### Classification Entity
 
 #### Entity Key Schema
 
 | Attributes   | Format |
 | -------- | ------- | 
 | PK | "schemas#" + documentId  |
-| SK | "class#" | 
+| SK | "class#" + entity | 
+| GSI1PK | "class#" + entity  |
+| GSI1SK | "attr#" + name |
 
 #### Entity Attributes
 
 | Attributes   | Description |
 | -------- | ------- | 
-| name | Name of Schema |
-| documentId | Document Identifier |
+| name | Name of Classification |
+| documentId | Classification Identifier |
 | schema | Schema JSON document |
+
+### Classification Composite Key 
 
 #### Entity Key Schema
 
 | Attributes   | Format |
 | -------- | ------- | 
-| PK | "schemas#" + type + "#" + key  |
-| SK | "attribute" | 
-| GSI1PK | "attr#"  |
-| GSI1SK | "attr#" + key |
+| PK | "schemas#" + documentId  |
+| SK | "compositeKey#" + UUID  |
+| GSI1PK | "schemas#compositeKey" |
+| GSI1SK | "key#" + keys  |
 
 #### Entity Attributes
 
 | Attributes   | Description |
 | -------- | ------- | 
-| documentId | Attribute Key  |
-| type | Attribute Type (IE: OPA) | 
-| key | Attribute key | 
-| opaRoles | List of Opa roles | ??
+| documentId | Classification Identifier |
+| keys | List of Keys |
 
 ## Document TagSchema
 
