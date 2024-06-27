@@ -259,7 +259,8 @@ Document Version Attribute entity.
 | Attributes   | Format |
 | -------- | ------- | 
 | PK | "doc#" + documentId  |
-| SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss |
+| SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss + "#" + value |
+| archive#SK | "attr#" + key + "#" + value |
 
 ### Document Publication
 
