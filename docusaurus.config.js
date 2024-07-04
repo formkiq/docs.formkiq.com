@@ -118,7 +118,7 @@ const config = {
               },
               {
                 label: 'FormKiQ Slack Community',
-                to: 'https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ',
+                to: 'https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g',
               },
             ],
           },
