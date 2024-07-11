@@ -6,7 +6,7 @@ sidebar_position: 15
 
 The Site / Classification Schemas feature in FormKiQ defines the structure and rules for how documents are organized, ensuring consistency and adherence to specified requirements. This feature allows administrators to specify mandatory and optional attributes, enforce value constraints, and manage composite keys for unique document identification.
 
-The difference between Site and Classification schemas, is that a Site schema applies to ALL documents added at a site level and Classification can be applied on a specific document.
+The difference between Site and Classification schemas, is that a Site schema applies to ALL documents added at a site level and Classification is additional structures and rules that can be applied on a specific document.
 
 ## Components
 
