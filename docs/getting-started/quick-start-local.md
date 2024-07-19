@@ -93,6 +93,8 @@ services:
       - ./formkiq/dynamodb:/data
 ```
 
+Please note: You may need to run "docker login" to login with your Docker credentials beforehand, if you have not done so already.
+
 Launch using:
 ```
 docker-compose -f docker-compose.yml up -d
