@@ -118,6 +118,71 @@ To list the FormKiQ installations that are configured:
 fk --show
 ```
 
+### Import
+
+The "--import" option allows for the importing of data into FormKiQ.
+
+The format of the import comand is:
+
+```
+fk --import <file_import_format> <record_type> <filename>
+```
+
+#### CSV Import Format (--csv)
+
+The CSV import format allows for the importing of data using a CSV format.
+
+Usage:
+
+```
+fk --import --type csv --attributes <filename>
+fk --import --type csv --documents <filename>
+fk --import --type csv --document-attributes <filename>
+```
+
+Below lists the different supported data record types and the file format.
+
+##### Attributes Record Type (--attributes)
+
+| AttributeKey   | DataType   | Type   |
+|------------|------------|------------|
+| attribute_key_name | Enum: STRING, NUMBER, BOOLEAN, KEY_ONLY | Enum: STANDARD, OPA |
+
+Example:
+
+The following example creates a string attribute called "DocumentType".
+
+| AttributeKey   | DataType   | Type   |
+|------------|------------|------------|
+| DocumentType | STRING | STANDARD |
+
+
+##### Documents Record Type (--documents)
+
+| DocumentId   | Path   | DeepLink   | ContentType   |
+|------------|------------|------------|------------|
+| UUID | string | string | string |
+
+Example:
+
+| DocumentId   | Path   | DeepLink   | ContentType   |
+|------------|------------|------------|------------|
+| 1fb1441a-caa0-46d8-af8b-1d6d186f9b4c | document1.txt |  | text/plain |
+| 788a2b32-0279-4ead-91d1-4d21244d2038 | app.pdf | https://server/app.pdf | application/pdf |
+
+##### Document Attributes Record Type (--document-attributes)
+
+| DocumentId   | AttributeKey   | StringValue   | NumberValue   | BooleanValue |
+|------------|------------|------------|------------|------------|
+| UUID | string  | string | number | boolean |
+
+Example:
+
+| DocumentId   | AttributeKey   | StringValue   | NumberValue   | BooleanValue |
+|------------|------------|------------|------------|------------|
+| 1fb1441a-caa0-46d8-af8b-1d6d186f9b4c | DocumentType | Contract |  | |
+| 788a2b32-0279-4ead-91d1-4d21244d2038 | DocumentType | Invoice |  | |
+
 ### Sync
 
 The "--sync" option can be used to sync a directory with a FormKiQ installation.
