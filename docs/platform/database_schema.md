@@ -343,6 +343,19 @@ The Schema Entity consists of attributes configurations.
 | -------- | ------- | 
 | keys | List of Keys |
 
+### Attribute Allowed Values 
+
+A searchable key for an attributes allowed values in an Site Schema.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas"  |
+| SK | "attr#" + key + "#allowedvalue#" + value  |
+| GSI1PK | "attr#" + key + "#allowedvalue" |
+| GSI1SK | "val#" + value  |
+
 ## Classification 
 
 The Classification Entity attributes.
@@ -383,6 +396,20 @@ The Classification Entity attributes.
 | -------- | ------- | 
 | documentId | Classification Identifier |
 | keys | List of Keys |
+
+### Attribute Allowed Values 
+
+A searchable key for an attributes allowed values in an Classification
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas#" + documentId  |
+| SK | "attr#" + key + "#allowedvalue#" + value  |
+| GSI1PK | "attr#" + key + "#allowedvalue" |
+| GSI1SK | "val#" + value  |
+
 
 ## Document TagSchema
 
