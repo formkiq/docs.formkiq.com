@@ -73,12 +73,16 @@ It is available for:
 
 ```
 usage: fk
-    --configure         configure AWS credentials
-    --list              list document ids
-    --show              show sync profiles
-    --sync              sync files with FormKiQ
-    --sync-opensearch   sync documents with Opensearch
-    --watch             watch directorie(s) for file changes and automatically syncs
+    --configure          configure AWS credentials
+    --delete-documents   Delete documents
+    --import             Import csv file
+    --list               list document ids
+    --show               show sync profiles
+    --sync               sync files with FormKiQ
+    --sync-dynamodb      sync documents from one dynamodb table to another
+    --sync-opensearch    sync documents with Opensearch
+    --watch              watch directorie(s) for file changes and
+                         automatically syncs
 ```
 
 ### Configure
@@ -125,7 +129,13 @@ The "--import" option allows for the importing of data into FormKiQ.
 The format of the import comand is:
 
 ```
-fk --import <file_import_format> <record_type> <filename>
+usage: fk --import
+    --limit <arg>          Limit the records processed
+ -s,--site-id <arg>        FormKiQ Site Id
+    --thread-count <arg>   Number of Threads
+    --type <arg>           Type of import
+    --dry-run          show what would have been transferred
+ -v,--verbose          increase verbosity
 ```
 
 #### CSV Import Format (--csv)
@@ -202,6 +212,48 @@ usage: fk --sync
  -v,--verbose          increase verbosity
 ```
 
+#### Examples
+
+The following are example commands of fk usage.
+
+##### Basic Directory Syncing
+
+```
+fk --sync -d /documents --verbose
+```
+
+##### Amazon S3 Directory Syncing
+
+```
+fk --sync -d s3://myBucket/documents --verbose
+```
+
+##### Sync files modified in the last 24 hours
+
+```
+fk --sync -d /documents --verbose --mtime 0
+```
+
+##### Sync files modified more than 7 days ago
+
+```
+fk --sync -d /documents --verbose --mtime 7
+```
+
+##### Sync files modified in the last 30 days
+
+```
+fk --sync -d /documents --verbose --mtime -30
+```
+
+##### Sync the /documents directory and performs the OCR & Fulltext & WebHook actions to all documents
+
+The "--actions" parameter follows the same format as the AddDocumentAction: https://docs.formkiq.com/docs/latest/api/index.html#tag/Document-Actions/operation/AddDocumentActions
+
+```
+fk --sync --actions [{"type": "OCR","parameters":{"ocrParseTypes": "TABLES"}},{"type": "FULLTEXT"},{"type": "WEBHOOK","parameters":{"url": "https://pipedream.com/12345"}}] -d /documents --verbose
+```
+
 ### Watch
 
 The "--watch" option can be used to watch a directory for changes and sync those changes with a FormKiQ installation.
@@ -220,6 +272,13 @@ usage: fk --watch
  -v,--verbose           increase verbosity
 ```
 
+#### Example
+
+```
+fk --watch -d /documents --verbose
+```
+
+
 ### Sync Opensearch
 
 The "--sync-opensearch" option can be used to sync existing documents to [Opensearch](https://aws.amazon.com/opensearch-service).
@@ -234,6 +293,25 @@ usage: fk --sync-opensearch
  -v,--verbose              increase verbosity
 ```
 
+#### Examples
+
+The following are example commands of fk usage.
+
+##### Sync select documents with Opensearch
+```
+fk --sync-opensearch --document-ids 2def5ec0-0d6e-4912-916d-cdfca99575c9 -v
+```
+
+##### Sync all documents with Opensearch
+```
+fk --sync-opensearch --document-ids all -v
+```
+
+##### Sync all documents and content with Opensearch
+```
+fk --sync-opensearch --document-ids all --content -v
+```
+
 ### List documents
 
 The "--list" option can be used to list existing document ids.
@@ -244,72 +322,36 @@ usage: fk --list
  -s,--site-id <arg>        FormKiQ Site Id
 ```
 
-### Examples
+#### Example
 
-The following are example commands of fk usage.
-
-#### Basic Directory Syncing
-
-```
-fk --sync -d /documents --verbose
-```
-
-#### Amazon S3 Directory Syncing
-
-```
-fk --sync -d s3://myBucket/documents --verbose
-```
-
-#### Sync files modified in the last 24 hours
-
-```
-fk --sync -d /documents --verbose --mtime 0
-```
-
-#### Sync files modified more than 7 days ago
-
-```
-fk --sync -d /documents --verbose --mtime 7
-```
-
-#### Sync files modified in the last 30 days
-
-```
-fk --sync -d /documents --verbose --mtime -30
-```
-
-#### Sync the /documents directory and performs the OCR & Fulltext & WebHook actions to all documents
-
-The "--actions" parameter follows the same format as the AddDocumentAction: https://docs.formkiq.com/docs/latest/api/index.html#tag/Document-Actions/operation/AddDocumentActions
-
-```
-fk --sync --actions [{"type": "OCR","parameters":{"ocrParseTypes": "TABLES"}},{"type": "FULLTEXT"},{"type": "WEBHOOK","parameters":{"url": "https://pipedream.com/12345"}}] -d /documents --verbose
-```
-
-#### Basic Directory Watching
-
-```
-fk --watch -d /documents --verbose
-```
-
-#### Sync select documents with Opensearch
-```
-fk --sync-opensearch --document-ids 2def5ec0-0d6e-4912-916d-cdfca99575c9 -v
-```
-
-#### Sync all documents with Opensearch
-```
-fk --sync-opensearch --document-ids all -v
-```
-
-#### Sync all documents and content with Opensearch
-```
-fk --sync-opensearch --document-ids all --content -v
-```
-
-#### List document ids
 ```
 fk --list --limit 100
+```
+
+### Delete documents
+
+The "--delete-documents" option can be used to remove all documents from a site-id. The "--list" command is first used to generate a list of document ids to be deleted. Then the generateed file can be used with the "--delete-documents" command to remove all documents.
+
+```
+usage: fk --delete-documents
+    --file <arg>           File with list of Document Ids
+    --limit <arg>          Limit the records processed
+ -s,--site-id <arg>        FormKiQ Site Id
+    --thread-count <arg>   Number of Threads
+```
+
+#### Example
+
+First list all the documents and record all the document id
+
+```
+fk --list > documents.txt
+```
+
+Delete all the document ids listed in the documents.txt file.
+
+```
+fk --delete-documents --file documents.txt
 ```
 
 ### Pre-Hook
