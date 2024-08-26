@@ -326,7 +326,7 @@ The Schema Entity consists of attributes configurations.
 | name | Name of Schema |
 | schema | Schema JSON document |
 
-### Site Composite Key 
+### Site Composite Key
 
 #### Entity Key Schema
 
@@ -342,6 +342,17 @@ The Schema Entity consists of attributes configurations.
 | Attributes   | Description |
 | -------- | ------- | 
 | keys | List of Keys |
+
+### Site Attribute Key
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas" |
+| SK | "attr#" + key |
+| GSI1PK | "attr#" + key |
+| GSI1SK | "true"  |
 
 ### Attribute Allowed Values 
 
@@ -397,6 +408,17 @@ The Classification Entity attributes.
 | documentId | Classification Identifier |
 | keys | List of Keys |
 
+### Site Attribute Key
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "schemas#" + documentId  |
+| SK | "attr#" + key |
+| GSI1PK | "attr#" + key |
+| GSI1SK | "true"  |
+
 ### Attribute Allowed Values 
 
 A searchable key for an attributes allowed values in an Classification
@@ -409,30 +431,6 @@ A searchable key for an attributes allowed values in an Classification
 | SK | "attr#" + key + "#allowedvalue#" + value  |
 | GSI1PK | "attr#" + key + "#allowedvalue" |
 | GSI1SK | "val#" + value  |
-
-
-## Document TagSchema
-
-The Document TagSchema entity and attributes.
-
-#### Entity Key Schema
-
-| Attributes   | Format |
-| -------- | ------- | 
-| PK | "tagSchemas#" + documentId  |
-| SK | "schema#" | 
-| GSI1PK | "tagSchemas#"  |
-| GSI1SK | "ts#" + name + "#" + documentId |
-
-#### Entity Attributes
-
-| Attributes   | Description |
-| -------- | ------- | 
-| documentId | Document Identifier  |
-| inserteddate | Inserted Date | 
-| userId | Create by user |
-| name | Name of TagSchema |
-| schema | TagSchema JSON document |
 
 ## Document Shares
 
