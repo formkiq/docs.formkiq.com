@@ -12,20 +12,20 @@ A mapping is defined by its name, description, and a set of attributes. Each att
 
 ### Mapping Definition
 
-- **name**: A string representing the name of the mapping.
+- **name**: A string representing the name of the mapping. **(required)**
 - **description**: A string providing a brief description of the mapping's purpose.
-- **attributes**: An array of attribute objects that define the specific attributes to be mapped.
+- **attributes**: An array of attribute objects that define the specific attributes to be mapped. **(required)**
 
 ### Attribute Structure
 
 Each attribute within a mapping includes the following properties:
 
-- **attributeKey**: A string representing the unique key for the attribute.
-- **sourceType**: Specifies the source type of the attribute. Supported values: `CONTENT`, `METADATA`.
+- **attributeKey**: A string representing the unique key for the attribute. **(required)**
+- **sourceType**: Specifies the source type of the attribute. Supported values: `CONTENT`, `METADATA`. **(required)**
 - **defaultValue**: A string representing the default value of the attribute if no other value is found.
 - **defaultValues**: An array of default values for the attribute.
-- **labelTexts**: An array of strings that represent label texts for the attribute.
-- **labelMatchingType**: Specifies the type of matching to be used for labels. Supported values: `FUZZY`, `EXACT`, `BEGINS_WITH`, `CONTAINS`.
+- **labelTexts**: An array of strings that represent label texts for the attribute. **(required)**
+- **labelMatchingType**: Specifies the type of matching to be used for labels. Supported values: `FUZZY`, `EXACT`, `BEGINS_WITH`, `CONTAINS`. **(required)**
 - **metadataField**: Specifies the metadata field associated with the attribute. Supported values: `USERNAME`, `PATH`, `CONTENT_TYPE`.
 - **validationRegex**: A string representing a regular expression used to validate the attribute's value.
 
@@ -54,10 +54,17 @@ Defines the type of matching used for the labels. Options are:
 - `CONTAINS`: Matches labels that contain a specified string.
 
 #### metadataField
-Specifies the metadata field that the attribute corresponds to. Options include:
+Specifies the metadata field that the attribute corresponds to. 
+
+Options include:
+
 - `USERNAME`: The username associated with the document.
 - `PATH`: The file path of the document.
 - `CONTENT_TYPE`: The MIME type or content type of the document.
+
+:::note
+Only required if sourceType is METADATA
+:::
 
 #### validationRegex
 A regular expression used to validate the format or content of the attribute's value.
