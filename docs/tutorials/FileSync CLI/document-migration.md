@@ -10,9 +10,11 @@ This tutorial show you how to use the "--sync-dynamodb" option in the [FileSync 
 
 * Access to a FormKiQ Pro or FormKiQ Enterprise installation
 
-* Installed and configured the [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli)
+* An installed and configured latest version of the [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli)
 
-## Sync DynamoDb
+## Step 1: Sync DynamoDb
+
+**The first step is to sync the document metadata.**
 
 Using the [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDb](https://aws.amazon.com/dynamodb) using the command:
 
@@ -30,7 +32,9 @@ The --dry-run and --verbose can be used with this command to see the output from
 fk --sync-dynamodb --source formkiq-enterprise-dev1-documents --destintation formkiq-enterprise-dev2-documents
 ```
 
-## Sync Document Content
+## Step 2: Sync Document Content
+
+**Once the document metadata has been synced, you can proceed to the second step of moving the actual file objects.**
 
 Using the [AWS CLI](https://aws.amazon.com/cli/), you can sync the document contents from one S3 bucket to another.
 
@@ -50,7 +54,7 @@ aws s3 sync s3://&lt;formkiq-enterprise-dev1-documents-1111111111&gt; s3://&lt;f
 
 ## Summary
 
-And there you have it! We have shown how easy it is to use [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli) and [AWS CLI](https://aws.amazon.com/cli/) to sync documents from one FormKiQ instalation to another.
+And there you have it! We have shown how easy it is to use [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli) and [AWS CLI](https://aws.amazon.com/cli/) to sync documents from one FormKiQ installation to another.
 
 This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
 
