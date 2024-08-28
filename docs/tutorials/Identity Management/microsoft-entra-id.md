@@ -226,6 +226,10 @@ To create the role mapping, add an environment variable named **ROLE_MAPPING**. 
 }
 ```
 
+:::note
+* (asterisk) can be used as the Group Id to indicate all groups
+:::
+
 ![Lambda Environment Role Mapping](./img/entra-id-lambda-environment-variables-role-mapping.png)
 
 ## Summary

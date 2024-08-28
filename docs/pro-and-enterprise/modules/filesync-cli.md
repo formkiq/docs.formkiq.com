@@ -278,6 +278,30 @@ usage: fk --watch
 fk --watch -d /documents --verbose
 ```
 
+### Sync DynamoDb
+
+The "--sync-dynamodb" option can be used to sync FormKiQ dyanmodb data from one installation to another.
+
+```
+usage: fk --sync-dynamodb
+    --destination <arg>   dynamodb destination table (required)
+    --dry-run             show what would have been transferred
+    --source <arg>        dynamodb source table (required)
+ -v,--verbose             increase verbosity
+```
+
+:::note
+Make sure the CloudFormation FileSync CLI template DynamoDbTableNames parameter includes both the source and destination DynamoDb table arns
+:::
+
+#### Example
+
+The following example syncs the data from DynamoDb **formkiq-enterprise-dev1-documents** to **formkiq-enterprise-dev2-documents**.
+
+```
+fk --sync-dynamodb --source formkiq-enterprise-dev1-documents --destintation formkiq-enterprise-dev2-documents
+```
+
 
 ### Sync Opensearch
 
