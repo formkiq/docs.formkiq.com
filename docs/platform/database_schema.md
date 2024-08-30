@@ -16,6 +16,52 @@ When an entity is stored for a specific `SiteId` other than the `default` site. 
 
 For example: When using a siteId of `finance`, the PK will store a document using `finance/docx#`.
 
+## Sites
+
+The following are the entities related to `Sites`.
+
+### Sites
+
+The Sites Entity
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "sites"  |
+| SK | "sites#" + siteId | 
+| GSI1PK | "sites"  |
+| GSI1SK | "sites#" + status + "#" + siteId |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| siteId | Site Id  |
+| title | Site Title  |
+| status | Site Status (ACTIVE / INACTIVE) | 
+
+### Group Permissions
+
+The Group to Sites permissions mapping.
+
+#### Entity Key Schema
+
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "sitegroups"  |
+| SK | "group#" + groupName + "#site#" + siteId | 
+| GSI1PK | "sitegroups"  |
+| GSI1SK | "site#" + siteId + "#group#" + groupName |
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| groupName | Name of Group |
+| siteId | Site Id |
+| permissions | List of Group permissions for site  |
+
 ## Documents
 
 The following are the entities related to `Documents`.
