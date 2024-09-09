@@ -18,11 +18,13 @@ If you do not have a AWS account, you can sign up for one at https://aws.amazon.
 
 Concurrent executions refer to the number of function invocations that are being handled simultaneously. Each time your Lambda function is invoked, a new instance of the function is created to handle the request. [AWS Lambda](https://aws.amazon.com/pm/lambda) imposes default concurrency limits to prevent misuse and manage resource allocation.
 
-By default AWS limit to the number of concurrent executions for [Lambda](https://aws.amazon.com/pm/lambda) functions to **10** per AWS region. It is recommended that you request to have this increased to account default of 1000.
+By default, AWS limits the number of concurrent executions for [Lambda](https://aws.amazon.com/pm/lambda) functions to **10** per AWS region. It is recommended that you request to have this increased to account default of **1000**.
 
 :::note
-The increase must be requested for each region FormKiQ is deployed
+This increase must be requested for each region FormKiQ will be deployed into.
 :::
+
+You can request this increase via the Service Quotas Dashboard:
 
 | AWS Region    | Request Increase Link |
 | -------- | ------- |
@@ -38,6 +40,8 @@ The increase must be requested for each region FormKiQ is deployed
 | ap-southeast-2 | https://ap-southeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
 | ap-northeast-2 | https://ap-northeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
 | sa-east-1 | https://sa-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+
+For more information, please refer to this [AWS Tutorial on Requesting a Quota Increase](https://aws.amazon.com/getting-started/hands-on/request-service-quota-increase/).
 
 
 ### AWS Service Role For ECS
