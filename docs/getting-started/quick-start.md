@@ -14,6 +14,34 @@ For this quickstart you will need access to an AWS account, preferably with admi
 
 If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
 
+### Increase AWS Lambda Concurrent Executions
+
+Concurrent executions refer to the number of function invocations that are being handled simultaneously. Each time your Lambda function is invoked, a new instance of the function is created to handle the request. [AWS Lambda](https://aws.amazon.com/pm/lambda) imposes default concurrency limits to prevent misuse and manage resource allocation.
+
+By default AWS limit to the number of concurrent executions for [Lambda](https://aws.amazon.com/pm/lambda) functions to **10** per AWS region. It is recommended that you request to have this increased to account default of 1000.
+
+:::note
+The increase must be requested for each region FormKiQ is deployed
+:::
+
+| AWS Region    | Request Increase Link |
+| -------- | ------- |
+| us-east-1 | https://us-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| us-east-2 | https://us-east-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| us-west-2 | https://us-west-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| ca-central-1 | https://ca-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| eu-central-1 | https://eu-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| eu-west-1 | https://eu-west-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| eu-west-3 | https://eu-west-3.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| ap-south-1 | https://ap-sout-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| ap-southeast-1 | https://ap-southeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| ap-southeast-2 | https://ap-southeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| ap-northeast-2 | https://ap-northeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| sa-east-1 | https://sa-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+
+
+### AWS Service Role For ECS
+
 Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. The easiest fix is to open up AWS CLI (you can do this using [AWS CloudShell](https://aws.amazon.com/cloudshell/)) and run the following against your account:
 
 ```
