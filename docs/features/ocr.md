@@ -25,3 +25,5 @@ FormKiQ support optical character recognition through the following services:
 | GIF |  |
 | WEBP |  |
 | BMP |  |
+| DOC |  |
+| DOCX |  |
