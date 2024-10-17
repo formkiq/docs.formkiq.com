@@ -32,7 +32,10 @@ To install OpenSearch, select the same AWS region that FormKiQ is installed into
 | us-west-2 | https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new|
 | ca-central-1 | https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new|
 | eu-central-1 | https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new|
+| eu-west-1 | https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new|
+| eu-west-2 | https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/new|
 | ap-south-1 | https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new|
+| ap-southeast-1 |https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new|
 | ap-southeast-2 | https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new|
 | ap-northeast-2 | https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new|
 | sa-east-1 | https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new|
