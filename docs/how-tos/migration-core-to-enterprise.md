@@ -82,6 +82,71 @@ You can use the aws s3 sync command to copy all contents from one S3 bucket to a
 aws s3 sync s3://source-bucket-name s3://destination-bucket-name
 ```
 
+## Post Migration Cleanup
+
+### LastModifiedDate
+
+When S3 data is copied, the document's LastModifiedDate will be updated and no longer match the source DynamoDb table. The following script can be run to resync the LastModifiedDate from the source table.
+
+```
+#!/bin/bash
+
+# Set the table names and AWS region
+SOURCE_TABLE="your-source-table-name"
+TARGET_TABLE="your-target-table-name"
+AWS_REGION="your-aws-region"  # e.g., us-west-2
+
+# Scan the source table and retrieve specific attributes where SK is "document"
+aws dynamodb scan \
+    --table-name "$SOURCE_TABLE" \
+    --projection-expression "PK, SK, lastModifiedDate" \
+    --filter-expression "SK = :skValue" \
+    --expression-attribute-values '{":skValue": {"S": "document"}}' \
+    --region "$AWS_REGION" \
+    --output json > scan_results.json
+
+# Check if the scan was successful
+if [ $? -eq 0 ]; then
+    echo "Scan successful. Results saved to scan_results.json."
+else
+    echo "Failed to scan the source table."
+    exit 1
+fi
+
+# Extract the required fields using jq
+jq -c '.Items[] | {PK: .PK.S, SK: .SK.S, lastModifiedDate: .lastModifiedDate.S}' scan_results.json > filtered_results.json
+
+if [ $? -eq 0 ]; then
+    echo "Filtered results saved to filtered_results.json."
+else
+    echo "Failed to filter the results."
+    exit 1
+fi
+
+# Iterate over each record in filtered_results.json
+while IFS= read -r row; do
+    PK=$(echo "$row" | jq -r '.PK')
+    SK=$(echo "$row" | jq -r '.SK')
+    lastModifiedDate=$(echo "$row" | jq -r '.lastModifiedDate')
+
+    # Update the corresponding item in the target table with the new lastModifiedDate
+    aws dynamodb update-item \
+        --table-name "$TARGET_TABLE" \
+        --key "{\"PK\": {\"S\": \"$PK\"}, \"SK\": {\"S\": \"$SK\"}}" \
+        --update-expression "SET lastModifiedDate = :newDate" \
+        --expression-attribute-values "{\":newDate\": {\"S\": \"$lastModifiedDate\"}}" \
+        --region "$AWS_REGION" \
+        --return-values ALL_NEW
+
+    # Check if the update was successful
+    if [ $? -eq 0 ]; then
+        echo "Updated item with PK=$PK, SK=$SK in $TARGET_TABLE."
+    else
+        echo "Failed to update item with PK=$PK, SK=$SK in $TARGET_TABLE."
+    fi
+done < filtered_results.json
+```
+
 ## Summary
 
 And there you have it! We have shown how easy it is to migrate documents from a FormKiQ Core installation to a Enterprise installation.
