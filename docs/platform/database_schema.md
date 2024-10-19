@@ -249,7 +249,7 @@ Document Tag(s) entity with multiple values.
 
 ### Document Activity
 
-Contains list of document activties.
+Contains list of document activities.
 
 #### Entity Key Schema
 							
