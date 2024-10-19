@@ -5,34 +5,576 @@ description: "Retrieves a document's details, i.e., metadata"
 sidebar_label: "Get document"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"GetDocument","description":"Retrieves a document's details, i.e., metadata","tags":["Documents"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}},{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"required":["documentId"],"type":"object","properties":{"siteId":{"type":"string","description":"Site Identifier"},"path":{"type":"string","description":"Path or Name of document"},"insertedDate":{"type":"string","description":"Inserted Timestamp"},"lastModifiedDate":{"type":"string","description":"Last Modified Timestamp"},"checksum":{"type":"string","description":"Document checksum, changes when document file changes"},"documentId":{"type":"string","description":"Document Identifier"},"contentType":{"type":"string","description":"Document Content-Type"},"userId":{"type":"string","description":"User who added document"},"contentLength":{"type":"integer","description":"Document size"},"versionId":{"type":"string","description":"Document version"},"documents":{"type":"array","description":"List of child documents","items":{"required":["documentId"],"type":"object","properties":{"path":{"type":"string","description":"Path or Name of document"},"insertedDate":{"type":"string","description":"Inserted Timestamp"},"lastModifiedDate":{"type":"string","description":"Last Modified Timestamp"},"checksum":{"type":"string","description":"Document checksum, changes when document file changes"},"documentId":{"type":"string","description":"Document Identifier"},"contentType":{"type":"string","description":"Document Content-Type"},"userId":{"type":"string","description":"User who added document"},"contentLength":{"type":"integer","description":"Document size"},"versionId":{"type":"string","description":"Document version"},"belongsToDocumentId":{"type":"string","description":"Parent Document Identifier"}},"title":"ChildDocument"}}},"title":"GetDocumentResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"get","path":"/documents/{documentId}","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Get document","description":{"content":"Retrieves a document's details, i.e., metadata","type":"text/plain"},"url":{"path":["documents",":documentId"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""},{"disabled":false,"description":{"content":"Share Identifier","type":"text/plain"},"key":"shareKey","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"}]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Get document
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Retrieves a document's details, i.e., metadata
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"siteId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Site Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"path"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Path or Name of document"}}></SchemaItem><SchemaItem collapsible={false} name={"insertedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Inserted Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"lastModifiedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Last Modified Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"checksum"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document checksum, changes when document file changes"}}></SchemaItem><SchemaItem collapsible={false} name={"documentId"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"contentType"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Content-Type"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who added document"}}></SchemaItem><SchemaItem collapsible={false} name={"contentLength"} required={false} schemaName={"integer"} qualifierMessage={undefined} schema={{"type":"integer","description":"Document size"}}></SchemaItem><SchemaItem collapsible={false} name={"versionId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document version"}}></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>documents</strong><span style={{"opacity":"0.6"}}> object[]</span></summary><div style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem"}}>
-
-List of child documents
-
-</div><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}>Array [</div></li><SchemaItem collapsible={false} name={"path"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Path or Name of document"}}></SchemaItem><SchemaItem collapsible={false} name={"insertedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Inserted Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"lastModifiedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Last Modified Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"checksum"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document checksum, changes when document file changes"}}></SchemaItem><SchemaItem collapsible={false} name={"documentId"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"contentType"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Content-Type"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who added document"}}></SchemaItem><SchemaItem collapsible={false} name={"contentLength"} required={false} schemaName={"integer"} qualifierMessage={undefined} schema={{"type":"integer","description":"Document size"}}></SchemaItem><SchemaItem collapsible={false} name={"versionId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document version"}}></SchemaItem><SchemaItem collapsible={false} name={"belongsToDocumentId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Parent Document Identifier"}}></SchemaItem><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}>]</div></li></div></details></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"siteId\": \"string\",\n  \"path\": \"string\",\n  \"insertedDate\": \"string\",\n  \"lastModifiedDate\": \"string\",\n  \"checksum\": \"string\",\n  \"documentId\": \"string\",\n  \"contentType\": \"string\",\n  \"userId\": \"string\",\n  \"contentLength\": 0,\n  \"versionId\": \"string\",\n  \"documents\": [\n    {\n      \"path\": \"string\",\n      \"insertedDate\": \"string\",\n      \"lastModifiedDate\": \"string\",\n      \"checksum\": \"string\",\n      \"documentId\": \"string\",\n      \"contentType\": \"string\",\n      \"userId\": \"string\",\n      \"contentLength\": 0,\n      \"versionId\": \"string\",\n      \"belongsToDocumentId\": \"string\"\n    }\n  ]\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"siteId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Site Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"path"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Path or Name of document"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"deepLinkPath"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Path or Name of deep link"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"insertedDate"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Inserted Timestamp"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"lastModifiedDate"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Last Modified Timestamp"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"checksum"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document checksum, changes when document file changes"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"documentId"}
+                        required={true}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"contentType"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document Content-Type"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"userId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"User who added document"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"contentLength"}
+                        required={false}
+                        schemaName={"integer"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"integer","description":"Document size"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"versionId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document version"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                documents
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of child documents
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"path"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Path or Name of document"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"deepLinkPath"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Path or Name of deep link"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"insertedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Inserted Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"lastModifiedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Last Modified Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"checksum"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document checksum, changes when document file changes"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"documentId"}
+                              required={true}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"contentType"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document Content-Type"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"User who added document"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"contentLength"}
+                              required={false}
+                              schemaName={"integer"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"integer","description":"Document size"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"versionId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document version"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"belongsToDocumentId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Parent Document Identifier"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"belongsToDocumentId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Parent Document Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                metadata
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of document Metadata
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"key"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Metadata key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"value"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Metadata value"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"values"}
+                              required={false}
+                              schemaName={"string[]"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"array","description":"Metadata values","items":{"type":"string","description":"Metadata value"}}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"siteId\": \"string\",\n  \"path\": \"string\",\n  \"deepLinkPath\": \"string\",\n  \"insertedDate\": \"string\",\n  \"lastModifiedDate\": \"string\",\n  \"checksum\": \"string\",\n  \"documentId\": \"string\",\n  \"contentType\": \"string\",\n  \"userId\": \"string\",\n  \"contentLength\": 0,\n  \"versionId\": \"string\",\n  \"documents\": [\n    {\n      \"path\": \"string\",\n      \"deepLinkPath\": \"string\",\n      \"insertedDate\": \"string\",\n      \"lastModifiedDate\": \"string\",\n      \"checksum\": \"string\",\n      \"documentId\": \"string\",\n      \"contentType\": \"string\",\n      \"userId\": \"string\",\n      \"contentLength\": 0,\n      \"versionId\": \"string\",\n      \"belongsToDocumentId\": \"string\"\n    }\n  ],\n  \"belongsToDocumentId\": \"string\",\n  \"metadata\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"values\": [\n        \"string\"\n      ]\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

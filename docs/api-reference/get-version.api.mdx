@@ -5,30 +5,208 @@ description: "Return the version of FormKiQ"
 sidebar_label: "Get FormKiQ version"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"GetVersion","description":"Return the version of FormKiQ","tags":["System Management"],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"version":{"type":"string","description":"FormKiQ version"},"type":{"type":"string","description":"FormKiQ type"},"modules":{"type":"array","description":"List of installed modules","items":{"type":"string"}}},"title":"GetVersionResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"get","path":"/version","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Get FormKiQ version","description":{"content":"Return the version of FormKiQ","type":"text/plain"},"url":{"path":["version"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET","auth":{"type":"oauth2","oauth2":[]}}}
+api: eJztV21z00YQ/is3ghmgY0lJGL74U13z0hRo0jiUdkImc5bO8sHpTtydbIzH/73PniTLjgOUfugnyAyWbt93n9tdrSNTCcu9NPo0j4bRC+H/FNbhNRpEuXCZlRURQboQvraa+blgi4aFmRl7bmz5Uv4Bbs8LFw2vosnKeVGy11zzQpRC++h6EFnhKqOdAMc6Ojk6op999ThkZy+hZy54Dv3EMcoy4Vw8Ntpbo+KRUmYZn1lZSE1kl81FyenJryoBHc5bqYtosxncLfpa+LnJ3X+S/bV368uyEM4gRUGDyqtKySwkN33vzN0+m+l7kXnEXVkqhZdNjtoUHxq5XZa2AF1NIrjQCPxbwcAFqdLktWqMt4LcWr46kHslnafKS+08V0rkrJMcRBKVd19IjJdeiT2IXbSgIDpxOJHVVvoVUITaV3JUo1xWfuaN5avrDZD0KeYl/2x0zCtZcC+WfBVLpLywLds6ghL6ea6Hw0k9DYHo4f31OUd2iWcz7GVxPno7GQ4vRBEoipfTnA8r7ufpydHxk/jocfz4OJ3VOiNRl95fPzVZTbh2cPFCfKyFw6PVm1TqhWnK7Sihe5jPxYzXKsACafO1G5tcNLCPela4yEvhW5yVAa5JR0yam5F8HdrRg58eQOP3yG6hHT0YN+iNL1G/wV/xqPwcP0WiBnulIEIl45di9b2WursbnAw1r7hzfm5NXcx/EXO+kMaCvJwLfaPNDeBUKdgnbM29r5oowXB+NrmMBlugLt0Nrs8nAmvFV8rwnNDNt71sGB0nR1QT8QnhuVAhAtkHAbB9E1KDaMFVLX5A6we0vggtak1lp6IQoaGj0HhJF9uB6oRdhGxcEZIUiGR5mKYKxVVz4/xhtyUKy8VCKFMRNFijJCKDXcOc0FBpwHDYNvtJw0E4gYUZ8kXMm7u7KW/lYaQXfr8k3/A/sj6TRd13W+lc3bD2t4LCcogrM4WW3sQyr5L925A0dpHeJDMloD9uWN8gvHNj1IZgzutcCp2JkLBe+wHzWIHNQ+QaQjLHMyXF1JZEo/u2uUlb+OzlJ0BF6pkJwbYzqpuNo/PTqBnpPAsXTOMO9XTQ+jJSvDOcf5AfKSTQMOglUV1dVcb6n3epIffKFKbpKrtKcpO5ZIc3HKQBqz69kSXWKtdZCiqSKoz3Kc8+FIC7zsdGBazfex7+gcaVv0Tv2wntFdmGF9hQBM3gPrhRxYEndpIcHcS3XC4THsiJsUXayrr01en42e+TZzFkkrkvFSk+3DbgL2V0yLo2t7MksnMESEERB6sd1gZ2RpV6+Nvby0eMnqisTQ98h7+/Tc0yrtlM6pyZ2mMLsYLxKT12MXLPru4ozfXD9trtnD1KSOm9e+yUmkpeZ52dTpd0DNbgXDyTFhvQQ0JTjLXHPRqwKfcATkwVwj6Ud+GVfXgQTNgl0roDLYbGsgBcoVmpsFjTodB5ZTB+HPOGTWupcrYClNm5sDNsil9NXrLrMSlbchd0YGPD6m4qWtyuziqhiegqkclZm9MmKV2RsYpqtARHZUZ8zjDpKQWCuxX5VTuxdZjUoAxKsKX0c2RpxXY2X7ChDO0VcEHoTvvBdaIEnaH0bLLLwGLWeWj5Milgq57CD9tu3OGqtBXdXo8MoEhLjrLY5hq1gXW/MTpasuKl2rN+Onr9f9iWvNzaBvJuY7yro5nNMDSQOSsEI+WOqsj3uIfvNIOT/Y1p3tFxKZj2BZFhsNI6szO7jp8kx3RdK0wf4HWnD2BRZ7e/Lm5d63X/ufPt78NmkHi0oRSTV4ZPldBe1u2ovNo6htkWpiGO1uspd+KNVZsNHaOTW/pAuKalzEo+pX59RX2/6e47ax2tCZXvt7fD77G9of3iGY19SutdM7N9IFObzT+RjljV
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Get FormKiQ version
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get FormKiQ version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/version"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Return the version of FormKiQ
 
-<div><ApiTabs><TabItem label={"200"} value={"200"}><div>
-
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"version"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"FormKiQ version"}}></SchemaItem><SchemaItem collapsible={false} name={"type"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"FormKiQ type"}}></SchemaItem><SchemaItem collapsible={false} name={"modules"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"List of installed modules","items":{"type":"string"}}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"version\": \"string\",\n  \"type\": \"string\",\n  \"modules\": [\n    \"string\"\n  ]\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"version"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"FormKiQ version"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"type"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"FormKiQ type"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"modules"}
+                        required={false}
+                        schemaName={"string[]"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"array","description":"List of installed modules","items":{"type":"string"}}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"version\": \"string\",\n  \"type\": \"string\",\n  \"modules\": [\n    \"string\"\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

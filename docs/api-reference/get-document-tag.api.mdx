@@ -5,30 +5,310 @@ description: "Get a document tag by using its key"
 sidebar_label: "Get document tag by key"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"GetDocumentTag","description":"Get a document tag by using its key","tags":["Document Tags"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}},{"name":"tagKey","in":"path","description":"Tag Key","required":true,"schema":{"type":"string"}},{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"required":["key"],"type":"object","properties":{"insertedDate":{"type":"string","description":"Inserted Timestamp"},"documentId":{"type":"string","description":"Document Identifier"},"type":{"type":"string","description":"Tag type"},"userId":{"type":"string","description":"User who added document"},"value":{"type":"string","description":"Tag value"},"values":{"type":"array","description":"Tag values","items":{"type":"string","description":"Tag value"}},"key":{"type":"string","description":"Tag key"}},"title":"GetDocumentTagResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"get","path":"/documents/{documentId}/tags/{tagKey}","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Get document tag by key","description":{"content":"Get a document tag by using its key","type":"text/plain"},"url":{"path":["documents",":documentId","tags",":tagKey"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""},{"disabled":false,"description":{"content":"Share Identifier","type":"text/plain"},"key":"shareKey","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"},{"disabled":false,"description":{"content":"(Required) Tag Key","type":"text/plain"},"type":"any","value":"","key":"tagKey"}]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Get document tag by key
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document tag by key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}/tags/{tagKey}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Get a document tag by using its key
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"tagKey","in":"path","description":"Tag Key","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"insertedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Inserted Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"documentId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"type"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag type"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who added document"}}></SchemaItem><SchemaItem collapsible={false} name={"value"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag value"}}></SchemaItem><SchemaItem collapsible={false} name={"values"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"Tag values","items":{"type":"string","description":"Tag value"}}}></SchemaItem><SchemaItem collapsible={false} name={"key"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag key"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"insertedDate\": \"string\",\n  \"documentId\": \"string\",\n  \"type\": \"string\",\n  \"userId\": \"string\",\n  \"value\": \"string\",\n  \"values\": [\n    \"string\"\n  ],\n  \"key\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"tagKey","in":"path","description":"Tag Key","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"insertedDate"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Inserted Timestamp"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"documentId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"type"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Tag type"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"userId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"User who added document"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"value"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Tag value"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"values"}
+                        required={false}
+                        schemaName={"string[]"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"array","description":"Tag values","items":{"type":"string","description":"Tag value"}}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"key"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Tag key"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"insertedDate\": \"string\",\n  \"documentId\": \"string\",\n  \"type\": \"string\",\n  \"userId\": \"string\",\n  \"value\": \"string\",\n  \"values\": [\n    \"string\"\n  ],\n  \"key\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

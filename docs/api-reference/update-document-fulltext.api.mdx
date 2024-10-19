@@ -5,38 +5,478 @@ description: "Update a document in OpenSearch; ONLY available with FormKiQ Enter
 sidebar_label: "Update document's full-text"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"UpdateDocumentFulltext","description":"Update a document in OpenSearch; ONLY available with FormKiQ Enterprise","tags":["Enhanced Fulltext Document Search"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}],"requestBody":{"required":false,"content":{"application/json":{"schema":{"type":"object","properties":{"contentType":{"type":"string","description":"Document Content-Type"},"content":{"type":"string","description":"Document content"},"contentUrls":{"type":"array","items":{"type":"string"},"description":"URL(s) which contain document content"},"path":{"type":"string","description":"Path or Name of document"},"tags":{"type":"array","description":"List of document tags","items":{"required":["key"],"type":"object","description":"List of Document Tags (use either 'value' or 'values' not both)","properties":{"key":{"type":"string","description":"Tag key"},"value":{"type":"string","description":"Tag value"},"values":{"type":"array","description":"Tag values","items":{"type":"string","description":"Tag value"}}},"title":"AddDocumentTag"}},"metadata":{"type":"array","description":"List of document Metadata","items":{"required":["key"],"type":"object","description":"Document Metadata (use either 'value' or 'values' not both)","properties":{"key":{"type":"string","description":"Metadata key"},"value":{"type":"string","description":"Metadata value"},"values":{"type":"array","description":"Metadata values","items":{"type":"string","description":"Metadata value"}}},"title":"AddDocumentMetadata"}}},"title":"UpdateDocumentFulltextRequest"}}}},"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string","description":"Full text processing message"}},"title":"SetDocumentFulltextResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"patch","path":"/documents/{documentId}/fulltext","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"jsonRequestBodyExample":{"contentType":"string","content":"string","contentUrls":["string"],"path":"string","tags":[{"key":"string","value":"string","values":["string"]}],"metadata":[{"key":"string","value":"string","values":["string"]}]},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Update document's full-text","description":{"content":"Update a document in OpenSearch; ONLY available with FormKiQ Enterprise","type":"text/plain"},"url":{"path":["documents",":documentId","fulltext"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"}]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"PATCH","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "patch api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Update document's full-text
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update document's full-text"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/documents/{documentId}/fulltext"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Update a document in OpenSearch; ONLY available with FormKiQ Enterprise
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><MimeTabs><TabItem label={"application/json"} value={"application/json-schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Request Body</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"contentType"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Content-Type"}}></SchemaItem><SchemaItem collapsible={false} name={"content"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document content"}}></SchemaItem><SchemaItem collapsible={false} name={"contentUrls"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","items":{"type":"string"},"description":"URL(s) which contain document content"}}></SchemaItem><SchemaItem collapsible={false} name={"path"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Path or Name of document"}}></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>tags</strong><span style={{"opacity":"0.6"}}> object[]</span></summary><div style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem"}}>
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-List of document tags
-
-</div><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}>Array [</div></li><SchemaItem collapsible={false} name={"key"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag key"}}></SchemaItem><SchemaItem collapsible={false} name={"value"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag value"}}></SchemaItem><SchemaItem collapsible={false} name={"values"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"Tag values","items":{"type":"string","description":"Tag value"}}}></SchemaItem><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}>]</div></li></div></details></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>metadata</strong><span style={{"opacity":"0.6"}}> object[]</span></summary><div style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem"}}>
-
-List of document Metadata
-
-</div><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}>Array [</div></li><SchemaItem collapsible={false} name={"key"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Metadata key"}}></SchemaItem><SchemaItem collapsible={false} name={"value"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Metadata value"}}></SchemaItem><SchemaItem collapsible={false} name={"values"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"Metadata values","items":{"type":"string","description":"Metadata value"}}}></SchemaItem><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}>]</div></li></div></details></SchemaItem></ul></details></TabItem></MimeTabs><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
-
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"message"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Full text processing message"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"message\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><MimeTabs
+  className={"openapi-tabs__mime"}
+>
+  <TabItem
+    label={"application/json"}
+    value={"application/json-schema"}
+  >
+    <details
+      style={{}}
+      className={"openapi-markdown__details mime"}
+      data-collapsed={false}
+      open={true}
+    >
+      <summary
+        style={{}}
+        className={"openapi-markdown__details-summary-mime"}
+      >
+        <h3
+          className={"openapi-markdown__details-summary-header-body"}
+        >
+          Body
+        </h3>
+      </summary><div
+        style={{"textAlign":"left","marginLeft":"1rem"}}
+      >
+        
+      </div><ul
+        style={{"marginLeft":"1rem"}}
+      >
+        <SchemaItem
+          collapsible={false}
+          name={"contentType"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={undefined}
+          schema={{"type":"string","description":"Document Content-Type"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"content"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={undefined}
+          schema={{"type":"string","description":"Document content"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"contentUrls"}
+          required={false}
+          schemaName={"string[]"}
+          qualifierMessage={undefined}
+          schema={{"type":"array","items":{"type":"string"},"description":"URL(s) which contain document content"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"path"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={undefined}
+          schema={{"type":"string","description":"Path or Name of document"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"deepLinkPath"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={undefined}
+          schema={{"type":"string","description":"Path or Name of deep link"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  tags
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object[]
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <div
+                style={{"marginTop":".5rem","marginBottom":".5rem"}}
+              >
+                
+                
+                List of document tags
+                
+                
+              </div><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                >
+                  Array [
+                </div>
+              </li><SchemaItem
+                collapsible={false}
+                name={"key"}
+                required={true}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Tag key"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"value"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Tag value"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"values"}
+                required={false}
+                schemaName={"string[]"}
+                qualifierMessage={undefined}
+                schema={{"type":"array","description":"Tag values","items":{"type":"string","description":"Tag value"}}}
+              >
+                
+              </SchemaItem><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                >
+                  ]
+                </div>
+              </li>
+            </div>
+          </details>
+        </SchemaItem><SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  metadata
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object[]
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <div
+                style={{"marginTop":".5rem","marginBottom":".5rem"}}
+              >
+                
+                
+                List of document Metadata
+                
+                
+              </div><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                >
+                  Array [
+                </div>
+              </li><SchemaItem
+                collapsible={false}
+                name={"key"}
+                required={true}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Metadata key"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"value"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Metadata value"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"values"}
+                required={false}
+                schemaName={"string[]"}
+                qualifierMessage={undefined}
+                schema={{"type":"array","description":"Metadata values","items":{"type":"string","description":"Metadata value"}}}
+              >
+                
+              </SchemaItem><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                >
+                  ]
+                </div>
+              </li>
+            </div>
+          </details>
+        </SchemaItem>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"message"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Full text processing message"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"message\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

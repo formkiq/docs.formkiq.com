@@ -119,7 +119,7 @@ The following are the suggested provider attributes configuration to use. The se
 
 | Google 2     | Aws 2  |
 |----------|-----|
-| attribute.aws_role    | assertion.arn.extract('assumed-role/{role}/')     |
+| attribute.aws_role    | `assertion.arn.extract('assumed-role/{role}/')`     |
 
 | Google 3     | Aws 3  |
 |----------|-----|

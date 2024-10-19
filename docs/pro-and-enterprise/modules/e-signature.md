@@ -50,7 +50,7 @@ Using the FormKiQ `PATCH /sites/{siteId}/configuration` API, configure your docu
 
 ## API
 
-Using the /esignature/docusign/{documentId} API, you can send a specific document off to Docusign for signature.
+Using the `/esignature/docusign/{documentId}` API, you can send a specific document off to Docusign for signature.
 
 An request body example is as follows:
 

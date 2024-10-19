@@ -1,34 +1,330 @@
 ---
 id: add-document-ocr
 title: "Perform document ocr"
-description: "Document optical character recognition (OCR) request; extract text and data from a document; ONLY available with FormKiQ Pro and Enterprise"
+description: "Document optical character recognition (OCR) request; extract text and data from a document;"
 sidebar_label: "Perform document ocr"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"AddDocumentOcr","description":"Document optical character recognition (OCR) request; extract text and data from a document; ONLY available with FormKiQ Pro and Enterprise","tags":["Document OCR"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}],"requestBody":{"required":false,"content":{"application/json":{"schema":{"type":"object","example":{"parseTypes":["TEXT","FORMS","TABLES"]},"properties":{"parseTypes":{"type":"array","description":"OCR Parse types - TEXT, FORMS, TABLES","items":{"type":"string"}},"addPdfDetectedCharactersAsText":{"type":"boolean","description":"Rewrite PDF document, converting any Image text to searchable text"}},"title":"AddDocumentOcrRequest"}}}},"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string","description":"OCR processing message"}},"title":"AddDocumentOcrResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"post","path":"/documents/{documentId}/ocr","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"jsonRequestBodyExample":{"parseTypes":["TEXT","FORMS","TABLES"]},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Perform document ocr","description":{"content":"Document optical character recognition (OCR) request; extract text and data from a document; ONLY available with FormKiQ Pro and Enterprise","type":"text/plain"},"url":{"path":["documents",":documentId","ocr"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"}]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "post api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Perform document ocr
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Perform document ocr"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/documents/{documentId}/ocr"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
-Document optical character recognition (OCR) request; extract text and data from a document; ONLY available with FormKiQ Pro and Enterprise
+Document optical character recognition (OCR) request; extract text and data from a document; 
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><MimeTabs><TabItem label={"application/json"} value={"application/json-schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Request Body</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"parseTypes"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"OCR Parse types - TEXT, FORMS, TABLES","items":{"type":"string"}}}></SchemaItem><SchemaItem collapsible={false} name={"addPdfDetectedCharactersAsText"} required={false} schemaName={"boolean"} qualifierMessage={undefined} schema={{"type":"boolean","description":"Rewrite PDF document, converting any Image text to searchable text"}}></SchemaItem></ul></details></TabItem></MimeTabs><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+Tesseract available for all editions, but Textract engine and tables and forms options ONLY available with FormKiQ Pro and Enterprise
 
-200 OK
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"message"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"OCR processing message"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"message\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><MimeTabs
+  className={"openapi-tabs__mime"}
+>
+  <TabItem
+    label={"application/json"}
+    value={"application/json-schema"}
+  >
+    <details
+      style={{}}
+      className={"openapi-markdown__details mime"}
+      data-collapsed={false}
+      open={true}
+    >
+      <summary
+        style={{}}
+        className={"openapi-markdown__details-summary-mime"}
+      >
+        <h3
+          className={"openapi-markdown__details-summary-header-body"}
+        >
+          Body
+        </h3>
+      </summary><div
+        style={{"textAlign":"left","marginLeft":"1rem"}}
+      >
+        
+      </div><ul
+        style={{"marginLeft":"1rem"}}
+      >
+        <SchemaItem
+          collapsible={false}
+          name={"parseTypes"}
+          required={false}
+          schemaName={"string[]"}
+          qualifierMessage={undefined}
+          schema={{"type":"array","description":"OCR Parse types - TEXT, FORMS, TABLES","items":{"type":"string"}}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"addPdfDetectedCharactersAsText"}
+          required={false}
+          schemaName={"boolean"}
+          qualifierMessage={undefined}
+          schema={{"type":"boolean","description":"Rewrite PDF document, converting any Image text to searchable text"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"ocrEngine"}
+          required={false}
+          schemaName={"OcrEngine (string)"}
+          qualifierMessage={"**Possible values:** [`TESSERACT`, `TEXTRACT`]"}
+          schema={{"type":"string","description":"Type of OCR Engine to use","enum":["TESSERACT","TEXTRACT"],"title":"OcrEngine"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"ocrNumberOfPages"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={undefined}
+          schema={{"type":"string","description":"Number of pages to OCR (from start) (-1 all)"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"ocrOutputType"}
+          required={false}
+          schemaName={"OcrOutputType (string)"}
+          qualifierMessage={"**Possible values:** [`CSV`]"}
+          schema={{"type":"string","description":"OCR Engine output format (textract table only)","enum":["CSV"],"title":"OcrOutputType"}}
+        >
+          
+        </SchemaItem>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"message"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"OCR processing message"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"message\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

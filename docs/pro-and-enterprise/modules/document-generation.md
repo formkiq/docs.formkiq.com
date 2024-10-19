@@ -6,7 +6,7 @@ sidebar_position: 1
 
 The document generation API allows the generation of documents from a custom template and a data document. This API can be used for generatng invoice, reports, letters and other types of documents where a predefined format needs to be populated with dynamic data.
 
-## POST /documents/{documentId}/generate
+## `POST /documents/{documentId}/generate`
 
 This API allows the generatation of a document based from a template file.
 
@@ -34,13 +34,13 @@ Supports Template documents that are in DOCX format
 
 ## Template Fields
 
-In the document generation API, template fields are specified using field names enclosed in curly backets, such as {field_name}. These placeholders indicate where dynamic data from the data document should be inserted within the template. 
+In the document generation API, template fields are specified using field names enclosed in curly backets, such as `{field_name}`. These placeholders indicate where dynamic data from the data document should be inserted within the template. 
 
 During the document generation process, each placeholder in the template is replaced with the corresponding value from the data document based on the field name.
 
 ### Fields
 
-Fields within the template are represented by field names enclosed in curly brackets, e.g, {field_name}. These placeholders are replaced with the corresponding values from the data document.
+Fields within the template are represented by field names enclosed in curly brackets, e.g, `{field_name}`. These placeholders are replaced with the corresponding values from the data document.
 
 #### Document Example
 
@@ -104,7 +104,7 @@ Create a DOCX file with the following content.
 
 | Product | Quantity |
 | ------- | -------- |
-| {#items}{product} | {quantity}{/items} |
+| `{#items}{product}` | `{quantity}{/items}` |
 
 ##### Data Document
 

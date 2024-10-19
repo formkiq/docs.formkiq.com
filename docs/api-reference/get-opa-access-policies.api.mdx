@@ -1,0 +1,262 @@
+---
+id: get-opa-access-policies
+title: "Get OPAs Access Policies"
+description: "Returns a list of OPA Access Policies, can only be requested with ADMIN privileges"
+sidebar_label: "Get OPAs Access Policies"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get OPAs Access Policies"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sites/opa/accessPolicies"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a list of OPA Access Policies, can only be requested with ADMIN privileges
+
+<div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                opaPolicies
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of OPA policies
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"siteId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"SiteId to apply OPA Policy to"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"policy"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"OPA Policy in REGO format"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"opaPolicies\": [\n    {\n      \"siteId\": \"string\",\n      \"policy\": \"string\"\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

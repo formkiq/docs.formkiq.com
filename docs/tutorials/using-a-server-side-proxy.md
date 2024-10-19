@@ -108,7 +108,7 @@ const apiKey = "<API_KEY>";
 const keyApiUrl = "<KEY_API_URL>";
 ```
 
-Of course, instead of <API_KEY> and <KEY_API_URL>, use the values from your newly-created FormKiQ Key and the CloudFormation Outputs value for "KeyApiUrl".
+Of course, instead of `<API_KEY>` and `<KEY_API_URL>`, use the values from your newly-created FormKiQ Key and the CloudFormation Outputs value for "KeyApiUrl".
 
 ## Step 5: Create an uploads folder
 
@@ -212,7 +212,7 @@ Once you have added this code, stop and restart your application and try to uplo
 curl -F "document=@<DOCUMENT_PATH>" http://localhost:3001/upload
 ```
 
-<DOCUMENT_PATH> should be a relative path from your root project directory, e.g., `document=@./test.pdf`, assuming a path of "/server-side-proxy/test.pdf"
+`<DOCUMENT_PATH>` should be a relative path from your root project directory, e.g., `document=@./test.pdf`, assuming a path of "/server-side-proxy/test.pdf"
 
 On a successful request, you should see something like the following response:
 ```

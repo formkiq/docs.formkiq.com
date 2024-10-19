@@ -1,0 +1,446 @@
+---
+id: get-rule
+title: "Get Rule"
+description: "Returns a rule in a ruleset; ONLY available with FormKiQ Enterprise"
+sidebar_label: "Get Rule"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Rule"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/rulesets/{rulesetId}/rules/{ruleId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a rule in a ruleset; ONLY available with FormKiQ Enterprise
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"rulesetId","in":"path","description":"Ruleset Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"ruleId","in":"path","description":"Rule Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                rule
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <SchemaItem
+                              collapsible={false}
+                              name={"ruleId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Workflow to start on matching of conditions"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"priority"}
+                              required={false}
+                              schemaName={"number"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"number","description":"Rule priority"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"description"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Ruleset description"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"workflowId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Workflow to start on matching of conditions"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"status"}
+                              required={false}
+                              schemaName={"RulesetStatus (string)"}
+                              qualifierMessage={"**Possible values:** [`ACTIVE`, `INACTIVE`]"}
+                              schema={{"type":"string","description":"Status of the Ruleset","enum":["ACTIVE","INACTIVE"],"title":"RulesetStatus"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      conditions
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <SchemaItem
+                                    collapsible={true}
+                                    className={"schemaItem"}
+                                  >
+                                    <details
+                                      style={{}}
+                                      className={"openapi-markdown__details"}
+                                    >
+                                      <summary
+                                        style={{}}
+                                      >
+                                        <span
+                                          className={"openapi-schema__container"}
+                                        >
+                                          <strong
+                                            className={"openapi-schema__property"}
+                                          >
+                                            must
+                                          </strong><span
+                                            className={"openapi-schema__name"}
+                                          >
+                                             object[]
+                                          </span>
+                                        </span>
+                                      </summary><div
+                                        style={{"marginLeft":"1rem"}}
+                                      >
+                                        <div
+                                          style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                                        >
+                                          
+                                          
+                                          List of rule conditions
+                                          
+                                          
+                                        </div><li>
+                                          <div
+                                            style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                          >
+                                            Array [
+                                          </div>
+                                        </li><SchemaItem
+                                          collapsible={false}
+                                          name={"attribute"}
+                                          required={false}
+                                          schemaName={"RuleConditionAttribute (string)"}
+                                          qualifierMessage={"**Possible values:** [`TEXT`, `CONTENT_TYPE`, `BARCODE`, `FIELD`]"}
+                                          schema={{"type":"string","description":"Rule condition attribute (deprecated, use Criterion)","enum":["TEXT","CONTENT_TYPE","BARCODE","FIELD"],"title":"RuleConditionAttribute"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"criterion"}
+                                          required={false}
+                                          schemaName={"RuleConditionCriterion (string)"}
+                                          qualifierMessage={"**Possible values:** [`TEXT`, `CONTENT_TYPE`, `BARCODE`, `FIELD`]"}
+                                          schema={{"type":"string","description":"Rule condition attribute","enum":["TEXT","CONTENT_TYPE","BARCODE","FIELD"],"title":"RuleConditionCriterion"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"fieldName"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"string","description":"Rule field name (only required for FIELD criterion)"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"value"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"string","description":"Rule condition value"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"operation"}
+                                          required={false}
+                                          schemaName={"RuleConditionOperation (string)"}
+                                          qualifierMessage={"**Possible values:** [`EQ`, `CONTAINS`]"}
+                                          schema={{"type":"string","description":"Rule condition attribute","enum":["EQ","CONTAINS"],"title":"RuleConditionOperation"}}
+                                        >
+                                          
+                                        </SchemaItem><li>
+                                          <div
+                                            style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                          >
+                                            ]
+                                          </div>
+                                        </li>
+                                      </div>
+                                    </details>
+                                  </SchemaItem>
+                                </div>
+                              </details>
+                            </SchemaItem>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"rule\": {\n    \"ruleId\": \"string\",\n    \"priority\": 0,\n    \"description\": \"string\",\n    \"workflowId\": \"string\",\n    \"status\": \"ACTIVE\",\n    \"conditions\": {\n      \"must\": [\n        {\n          \"attribute\": \"TEXT\",\n          \"criterion\": \"TEXT\",\n          \"fieldName\": \"string\",\n          \"value\": \"string\",\n          \"operation\": \"EQ\"\n        }\n      ]\n    }\n  }\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# {"message":"Internal Server Error"}
+# `{"message":"Internal Server Error"}`
 
 After installing FormKiQ, the API returns an "Internal server error" and a 500 status code. How do I resolve the error?
 

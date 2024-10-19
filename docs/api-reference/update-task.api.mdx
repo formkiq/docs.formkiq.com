@@ -1,0 +1,406 @@
+---
+id: update-task
+title: "Update existing Task"
+description: "Updates existing task; ONLY available with FormKiQ Enterprise"
+sidebar_label: "Update existing Task"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "patch api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update existing Task"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/cases/{caseId}/tasks/{taskId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates existing task; ONLY available with FormKiQ Enterprise
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"caseId","in":"path","description":"Case Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"taskId","in":"path","description":"Task Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><MimeTabs
+  className={"openapi-tabs__mime"}
+>
+  <TabItem
+    label={"application/json"}
+    value={"application/json-schema"}
+  >
+    <details
+      style={{}}
+      className={"openapi-markdown__details mime"}
+      data-collapsed={false}
+      open={true}
+    >
+      <summary
+        style={{}}
+        className={"openapi-markdown__details-summary-mime"}
+      >
+        <h3
+          className={"openapi-markdown__details-summary-header-body"}
+        >
+          Body
+        </h3><strong
+          className={"openapi-schema__required"}
+        >
+          required
+        </strong>
+      </summary><div
+        style={{"textAlign":"left","marginLeft":"1rem"}}
+      >
+        
+      </div><ul
+        style={{"marginLeft":"1rem"}}
+      >
+        <SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  task
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <SchemaItem
+                collapsible={false}
+                name={"name"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Name of Task"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"description"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Description of Task"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"startDate"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Start Date"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"endDate"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"End Date"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"status"}
+                required={false}
+                schemaName={"TaskStatus (string)"}
+                qualifierMessage={"**Possible values:** [`NEW`, `ASSIGNED`, `IN_PROGRESS`, `ON_HOLD`, `ESCALATED`, `RESOLVED`, `CLOSED`, `UNDER_REVIEW`, `AWAITING_CLIENT_RESPONSE`]"}
+                schema={{"type":"string","description":"Status of the Task","enum":["NEW","ASSIGNED","IN_PROGRESS","ON_HOLD","ESCALATED","RESOLVED","CLOSED","UNDER_REVIEW","AWAITING_CLIENT_RESPONSE"],"title":"TaskStatus"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={true}
+                className={"schemaItem"}
+              >
+                <details
+                  style={{}}
+                  className={"openapi-markdown__details"}
+                >
+                  <summary
+                    style={{}}
+                  >
+                    <span
+                      className={"openapi-schema__container"}
+                    >
+                      <strong
+                        className={"openapi-schema__property"}
+                      >
+                        metadata
+                      </strong><span
+                        className={"openapi-schema__name"}
+                      >
+                         object
+                      </span>
+                    </span>
+                  </summary><div
+                    style={{"marginLeft":"1rem"}}
+                  >
+                    
+                  </div>
+                </details>
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"documentIds"}
+                required={false}
+                schemaName={"string[]"}
+                qualifierMessage={undefined}
+                schema={{"type":"array","items":{"type":"string"}}}
+              >
+                
+              </SchemaItem>
+            </div>
+          </details>
+        </SchemaItem>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"taskId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Task Identifier"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"taskId\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

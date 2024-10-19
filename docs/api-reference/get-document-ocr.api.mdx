@@ -1,34 +1,412 @@
 ---
 id: get-document-ocr
 title: "Get document ocr content"
-description: "Get a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise"
+description: "Get a document's optical character recognition (OCR) result, if exists;"
 sidebar_label: "Get document ocr content"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"GetDocumentOcr","description":"Get a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise","tags":["Document OCR"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}},{"name":"contentUrl","in":"query","description":"Whether to return a \"contentUrl\", set value to 'true'","required":false,"schema":{"type":"string"}},{"name":"text","in":"query","description":"Returns raw 'text' of OCR content. e.g. AWS Textract returns JSON, setting parameter to 'true' converts JSON to Text","required":false,"schema":{"type":"string"}},{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"string","description":"OCR text result"},"ocrEngine":{"type":"string","description":"The OCR technique used"},"ocrStatus":{"type":"string","description":"The status of the OCR request"},"contentType":{"type":"string","description":"Document Content-Type"},"isBase64":{"type":"boolean","description":"Is the content Base64-encoded?"},"userId":{"type":"string","description":"User who requested the OCR"},"documentId":{"type":"string","description":"Document Identifier"}},"title":"GetDocumentOcrResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"get","path":"/documents/{documentId}/ocr","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Get document ocr content","description":{"content":"Get a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise","type":"text/plain"},"url":{"path":["documents",":documentId","ocr"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""},{"disabled":false,"description":{"content":"Whether to return a \"contentUrl\", set value to 'true'","type":"text/plain"},"key":"contentUrl","value":""},{"disabled":false,"description":{"content":"Returns raw 'text' of OCR content. e.g. AWS Textract returns JSON, setting parameter to 'true' converts JSON to Text","type":"text/plain"},"key":"text","value":""},{"disabled":false,"description":{"content":"Share Identifier","type":"text/plain"},"key":"shareKey","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"}]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Get document ocr content
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document ocr content"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}/ocr"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
-Get a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise
+Get a document's optical character recognition (OCR) result, if exists; 
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"contentUrl","in":"query","description":"Whether to return a \"contentUrl\", set value to 'true'","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"text","in":"query","description":"Returns raw 'text' of OCR content. e.g. AWS Textract returns JSON, setting parameter to 'true' converts JSON to Text","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+Tesseract available for all editions, but Textract engine and tables and forms options ONLY available with FormKiQ Pro and Enterprise
 
-200 OK
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"data"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"OCR text result"}}></SchemaItem><SchemaItem collapsible={false} name={"ocrEngine"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The OCR technique used"}}></SchemaItem><SchemaItem collapsible={false} name={"ocrStatus"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The status of the OCR request"}}></SchemaItem><SchemaItem collapsible={false} name={"contentType"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Content-Type"}}></SchemaItem><SchemaItem collapsible={false} name={"isBase64"} required={false} schemaName={"boolean"} qualifierMessage={undefined} schema={{"type":"boolean","description":"Is the content Base64-encoded?"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who requested the OCR"}}></SchemaItem><SchemaItem collapsible={false} name={"documentId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Identifier"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"data\": \"string\",\n  \"ocrEngine\": \"string\",\n  \"ocrStatus\": \"string\",\n  \"contentType\": \"string\",\n  \"isBase64\": true,\n  \"userId\": \"string\",\n  \"documentId\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"outputType","in":"query","description":"Output Format Type","required":false,"schema":{"type":"string","enum":["TEXT","KEY_VALUE","CONTENT_URL"]},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"contentUrl","in":"query","description":"Whether to return a \"contentUrl\", set value to 'true' (deprecated)","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"text","in":"query","description":"Returns raw 'text' of OCR content. e.g. AWS Textract returns JSON, setting parameter to 'true' converts JSON to Text (deprecated)","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"contentUrls"}
+                        required={false}
+                        schemaName={"string[]"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"array","description":"Presigned S3 Urls for the OCR content","items":{"type":"string"}}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                keyValues
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of ocr key / values
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"key"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Ocr Key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"values"}
+                              required={false}
+                              schemaName={"string[]"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"array","items":{"type":"string"}}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"data"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"OCR text result"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"ocrEngine"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"The OCR technique used"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"ocrStatus"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"The status of the OCR request"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"contentType"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document Content-Type"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"isBase64"}
+                        required={false}
+                        schemaName={"boolean"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"boolean","description":"Is the content Base64-encoded?"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"userId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"User who requested the OCR"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"documentId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Document Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"insertedDate"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Inserted Timestamp"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"contentUrls\": [\n    \"string\"\n  ],\n  \"keyValues\": [\n    {\n      \"key\": \"string\",\n      \"values\": [\n        \"string\"\n      ]\n    }\n  ],\n  \"data\": \"string\",\n  \"ocrEngine\": \"string\",\n  \"ocrStatus\": \"string\",\n  \"contentType\": \"string\",\n  \"isBase64\": true,\n  \"userId\": \"string\",\n  \"documentId\": \"string\",\n  \"insertedDate\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       
