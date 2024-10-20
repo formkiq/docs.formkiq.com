@@ -94,7 +94,7 @@ The value should be set to the base URL of your container running the Console do
 
 **4. Create the Initial Amazon Cognito User**
 
-You can find instructions on creating a user in the [API Security section](/docs/platform/api_security#create-user). Once you've created your user, the Welcome Email sent to that user should now provide a working link to allow the setting of the password.
+You can find instructions on creating a user in the [API Security section](/docs/platform/api_security#add-user-to-site). Once you've created your user, the Welcome Email sent to that user should now provide a working link to allow the setting of the password.
 
 
 ## Customizations

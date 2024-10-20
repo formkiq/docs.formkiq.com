@@ -48,8 +48,10 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/formkiq/docs.formkiq.com/tree/main/',
-          docLayoutComponent: "@theme/DocPage",
-          docItemComponent: "@theme/ApiItem" // Derived from docusaurus-theme-openapi
+          // docLayoutComponent: "@theme/DocPage",
+          // sidebarPath: require.resolve('./sidebars.js'),
+          docRootComponent: "@theme/DocRoot",
+          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
         },
         blog: {
           showReadingTime: true,
