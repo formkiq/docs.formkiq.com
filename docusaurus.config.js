@@ -125,24 +125,24 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} FormKiQ, Inc. Built with Docusaurus.`,
       },
-      // algolia: {
-      // // Algolia application ID, found in the Algolia dashboard
-      // appId: 'GGHVG096JW',
+      algolia: {
+      // Algolia application ID, found in the Algolia dashboard
+      appId: 'GGHVG096JW',
 
-      // // Public API key: it is safe to include it in your frontend
-      // apiKey: 'f5ed2fcbe2c7680eb8e92953a38d004e',
+      // Public API key: it is safe to include it in your frontend
+      apiKey: 'f5ed2fcbe2c7680eb8e92953a38d004e',
 
-      // // Index name to target, found in the Algolia dashboard
-      // indexName: 'docs',
+      // Index name to target, found in the Algolia dashboard
+      indexName: 'docs',
 
-      // // Optional: if Algolia is powered by DocSearch
-      // contextualSearch: true,
+      // Optional: if Algolia is powered by DocSearch
+      contextualSearch: true,
 
-      // searchPagePath: 'search',
+      searchPagePath: 'search',
 
-      // // Optional: Specifies search parameters
-      // //searchParameters: {},
-      // },
+      // Optional: Specifies search parameters
+      //searchParameters: {},
+      },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
