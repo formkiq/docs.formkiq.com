@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://formkiq.com',
+  url: 'https://docs.formkiq.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -125,6 +125,24 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} FormKiQ, Inc. Built with Docusaurus.`,
       },
+      algolia: {
+      // Algolia application ID, found in the Algolia dashboard
+      appId: 'GGHVG096JW',
+
+      // Public API key: it is safe to include it in your frontend
+      apiKey: 'f5ed2fcbe2c7680eb8e92953a38d004e',
+
+      // Index name to target, found in the Algolia dashboard
+      indexName: 'docs',
+
+      // Optional: if Algolia is powered by DocSearch
+      contextualSearch: true,
+
+      searchPagePath: 'search',
+
+      // Optional: Specifies search parameters
+      //searchParameters: {},
+    },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
