@@ -269,6 +269,8 @@ Contains list of document activities.
 | documentId | Document Identifier  |
 | type | Type of User Activity (view, add, change, delete) | 
 | userId | Create by user |
+| versionPk | PK key for version table | 
+| versionSk | SK key for version table | 
 | inserteddate | Inserted Date | 
 
 ### Document Attribute
