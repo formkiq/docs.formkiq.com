@@ -35,6 +35,8 @@ Make sure to update the `YOUR_SOURCE_TABLE_NAME` and `YOUR_TARGET_TABLE_NAME`.
 ```
 #!/bin/bash
 
+export PAGER=cat
+
 OLD_TABLE=YOUR_SOURCE_TABLE_NAME
 NEW_TABLE=YOUR_TARGET_TABLE_NAME
 TMP_FILE=/tmp/inserts.json
@@ -90,6 +92,8 @@ When S3 data is copied, the document's LastModifiedDate will be updated and no l
 
 ```
 #!/bin/bash
+
+export PAGER=cat
 
 # Set the table names and AWS region
 SOURCE_TABLE="your-source-table-name"
