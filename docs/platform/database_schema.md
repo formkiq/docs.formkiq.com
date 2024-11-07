@@ -388,7 +388,7 @@ Document Attribute Tracking refers to the monitoring and recording of changes ma
 | Attributes   | Format |
 | -------- | ------- | 
 | PK | "doc#" + documentId  |
-| SK | "attr#" + key + "##" + yyyy-MM-dd’T’HH:mm:ss + "#" + value |
+| SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss + "#" + value |
 
 #### Entity Attributes
 
