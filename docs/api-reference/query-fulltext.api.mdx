@@ -5,34 +5,269 @@ description: "Endpoint for allowing custom, complex queries using the OpenSearch
 sidebar_label: "Direct opensearch search API"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"QueryFulltext","description":"Endpoint for allowing custom, complex queries using the OpenSearch search API (https://opensearch.org/docs/latest/opensearch/rest-api/search/); ONLY available with FormKiQ Enterprise","tags":["Enhanced Fulltext Document Search"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"description":"OpenSearch search API request (https://opensearch.org/docs/latest/opensearch/rest-api/search/)","type":"object","example":{"query":{"match":{"title":"Wind"}}},"title":"QueryFulltextRequest"}}}},"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"result":{"type":"object"}},"example":{"result":{"hits":{"hits":[{"_index":"","_id":"","_source":{"documentId":"","content":""}}]}}},"title":"QueryFulltextResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"post","path":"/queryFulltext","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"jsonRequestBodyExample":{"query":{"match":{"title":"Wind"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Direct opensearch search API","description":{"content":"Endpoint for allowing custom, complex queries using the OpenSearch search API (https://opensearch.org/docs/latest/opensearch/rest-api/search/); ONLY available with FormKiQ Enterprise","type":"text/plain"},"url":{"path":["queryFulltext"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""}],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "post api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Direct opensearch search API
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Direct opensearch search API"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/queryFulltext"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Endpoint for allowing custom, complex queries using the OpenSearch search API (https://opensearch.org/docs/latest/opensearch/rest-api/search/); ONLY available with FormKiQ Enterprise
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><MimeTabs><TabItem label={"application/json"} value={"application/json-schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Request Body</strong><strong style={{"fontSize":"var(--ifm-code-font-size)","color":"var(--openapi-required)"}}> required</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem","marginLeft":"1rem"}}>
+Example Request Body: \{ "query": \{ "match_all": \{\} \}\}
 
-object
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-</div></ul></details></TabItem></MimeTabs><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
-
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"object"} qualifierMessage={undefined} schema={{"type":"object"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": {\n    \"hits\": {\n      \"hits\": [\n        {\n          \"_index\": \"\",\n          \"_id\": \"\",\n          \"_source\": {\n            \"documentId\": \"\",\n            \"content\": \"\"\n          }\n        }\n      ]\n    }\n  }\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><MimeTabs
+  className={"openapi-tabs__mime"}
+>
+  <TabItem
+    label={"application/json"}
+    value={"application/json-schema"}
+  >
+    <details
+      style={{}}
+      className={"openapi-markdown__details mime"}
+      data-collapsed={false}
+      open={true}
+    >
+      <summary
+        style={{}}
+        className={"openapi-markdown__details-summary-mime"}
+      >
+        <h3
+          className={"openapi-markdown__details-summary-header-body"}
+        >
+          Body
+        </h3><strong
+          className={"openapi-schema__required"}
+        >
+          required
+        </strong>
+      </summary><div
+        style={{"textAlign":"left","marginLeft":"1rem"}}
+      >
+        
+      </div><ul
+        style={{"marginLeft":"1rem"}}
+      >
+        <div
+          style={{"marginTop":".5rem","marginBottom":".5rem"}}
+        >
+          
+          
+          object
+          
+          
+        </div>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"result"}
+                        required={false}
+                        schemaName={"object"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"object"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"result\": {\n    \"hits\": {\n      \"hits\": [\n        {\n          \"_index\": \"\",\n          \"_id\": \"\",\n          \"_source\": {\n            \"documentId\": \"\",\n            \"content\": \"\"\n          }\n        }\n      ]\n    }\n  }\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

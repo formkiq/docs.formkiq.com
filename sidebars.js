@@ -26,7 +26,7 @@ const sidebars = {
         slug: "/category/formkiq-api"
       },
       // @ts-ignore
-      items: require("./docs/api-reference/sidebar.js")
+      items: require("./docs/api-reference/sidebar.ts")
     }
   ]
   // But you can create a sidebar manually

@@ -118,7 +118,7 @@ import com.amazonaws.services.lambda.runtime.events.SQSEvent.SQSMessage;
 public class App implements RequestHandler<SQSEvent, Void> {
 ```
 
-Using the FormKiQ client library create a DocumentTagsApi instance which will allow us to use Java code to call the POST /documents/{documentId}/tags API endpoint.
+Using the FormKiQ client library create a DocumentTagsApi instance which will allow us to use Java code to call the `POST /documents/{documentId}/tags` API endpoint.
 
 ```
 import com.formkiq.client.api.DocumentTagsApi;

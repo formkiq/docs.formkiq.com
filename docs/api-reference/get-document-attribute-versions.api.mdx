@@ -1,0 +1,396 @@
+---
+id: get-document-attribute-versions
+title: "Get document attribute's versions"
+description: "Get a listing of a document's attribute versions; ONLY available with FormKiQ Pro and Enterprise"
+sidebar_label: "Get document attribute's versions"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document attribute's versions"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}/attributes/{attributeKey}/versions"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get a listing of a document's attribute versions; ONLY available with FormKiQ Pro and Enterprise
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"attributeKey","in":"path","description":"Attribute Key","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                attributes
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of document attribute versions
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"key"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Attribute key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"stringValue"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Attribute with string value"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"stringValues"}
+                              required={false}
+                              schemaName={"string[]"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"array","description":"Attribute with string values","items":{"type":"string"}}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"numberValue"}
+                              required={false}
+                              schemaName={"number"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"number","description":"Attribute with number value"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"numberValues"}
+                              required={false}
+                              schemaName={"number[]"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"array","description":"Attribute with number values","items":{"type":"number"}}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"booleanValue"}
+                              required={false}
+                              schemaName={"boolean"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"boolean","description":"Attribute with boolean value"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"insertedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Inserted Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"User who added attribute"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"valueType"}
+                              required={false}
+                              schemaName={"AttributeValueType (string)"}
+                              qualifierMessage={"**Possible values:** [`BOOLEAN`, `KEY_ONLY`, `NUMBER`, `STRING`, `PUBLICATION`, `CLASSIFICATION`, `COMPOSITE_STRING`]"}
+                              schema={{"type":"string","description":"Attribute Value Type","enum":["BOOLEAN","KEY_ONLY","NUMBER","STRING","PUBLICATION","CLASSIFICATION","COMPOSITE_STRING"],"title":"AttributeValueType"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"attributes\": [\n    {\n      \"key\": \"string\",\n      \"stringValue\": \"string\",\n      \"stringValues\": [\n        \"string\"\n      ],\n      \"numberValue\": 0,\n      \"numberValues\": [\n        0\n      ],\n      \"booleanValue\": true,\n      \"insertedDate\": \"string\",\n      \"userId\": \"string\",\n      \"valueType\": \"BOOLEAN\"\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

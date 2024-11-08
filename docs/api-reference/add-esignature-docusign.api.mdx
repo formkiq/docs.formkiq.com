@@ -1,0 +1,677 @@
+---
+id: add-esignature-docusign
+title: "Create E-signature request"
+description: "Create a DocuSign E-Signature request; ONLY available with FormKiQ Enterprise"
+sidebar_label: "Create E-signature request"
+hide_title: true
+hide_table_of_contents: true
+api: eJztGdtu2zb0Vwi1QNvBkpNue/Fe5rkplrVpsjhrG6RBQEu0zFYiVZKK6xr6951DUhZ9aeIMxYABS4DYEs/9fphlJCumqOFSHGfRIBpm2ZHmuaCmVuyFTGt8iHpRxnSqeIVwADVSjBpGKEGIMUCQo3jcYhHFPtdMm1/I6ZvXl4TeUl7QScHInJsZeSlV+Yr/SY6EYapSXDOgbmiuo8FVFFCJrntRRRUtGcDh4TIS8ADMNTcMZO1FHEUBVmqxJeAYYMhxxoThU84UnKNQXDHQcUoLzXqRTmespNFgGZlFZekaxUUeNU1vxSoD9Uog0rGrqJltcXvhwb7F0aj6TobXDhhs9pvMFgixiZtKMJcweESrquCp9Vj/o0b+y23ScvKRpQaEqBT613Cm8RSAeDGu3eGWIJtqHSE0acEb0MCAa/T9iBczRhwskVNiZquQAEgm6hJdndoQQrtqVOy6QSK3rJAVWvJEZizgM5GyYHQ7Dt/NGFBXxEjChI0xTwPelUgChYaIshG0okaVotsh85prg+KuQnrsEcHzhpX6fuu6oLnPOG8ACvk48iih9cq+7ggwAdVwUyDKds4GQClVEylGsvJyPswMI4tNPPp/0xij1gILC6hYykEbYS7o5B9Y5LxFJxZ/b5O403uTB06R3YpLkDSoy+8Mi2OD1TFnb+pyAtrfS3RVoc4AiXgspCGhmgLI+z0sXjBL4T0580ghgcv9CVwGBO702nngJgANYHd2qXNfY5rG+VhXUmhn+ecHB/ixLg+8JKevQMwZo5mvEMM0ZVrHIyi3ShbxsCjkPD5VPOe762zXM3ajnkB9kpn+R7i/d2J9G7f5br0Bug10nNTc1GqP/Dv30OQvVWD5TWVZFdCquyyZS/VpCnpglJSgHQTePmR1XRjSwu/hc+dl7/Sfdvn5p9bP36uJKiUf0E88+N5V4hNb7JFLSJS8AlAsmfiwL87JDtO+pQXPrDEszHqubRzqNZNjf2VprbhZ2BFtWPFhDSGv+Ffq2F5d43jzJaYl/SpFTCueQ9+f00XMwRu58mDLCIjgx0sxGMDIYc0qBo+XZxQsgzDNoMOF98N348HgnOX2pKDlJKMDHM76zw8Of44Pfox/POxPa5Eiqu4/XrYVUIOIvlLooRJNn4tb6SJBR5t1I2NTCvFoo8POMyM7l9h60oGeBWPqEmIdUz5pDxNXXZK7y0P05IcnUe9BuKvyED0ZucCOsXX03sfD8mv8AgzVW3MFHlQ8hph5KKe2/lkhrc8rqrWZKVnns9/YjN5yjL9oPmPiRsgbiPOqAP4Y9DNjKqclAJydji9w2vdpM9c3EPpfMHUquigkzXA5oOYtqOVC9jA5sAH+BdTT1kMYZDZD7g2pXnRLi5r9H1r/h9Y3QwtLU9mSgFHGVmPc8AZRn62aTT/z3aa/7BbCxm4u6rZdTm3XtDIN+v0C3F7MHL2NroAnJNh0iCMSoShtKR1jJ3Jhsl1Qu/5B4eA5cMAui8DN7jpLPf7anPhxjrLBX/DHlOd1V4e51rUD7fIF1dKgVypzwY2MeVYl63mSOL5g+ARGAUiKkQP9C9Q7g+2twQSgdQbjXMqswTrqW8CjAqc+QMExl9udGowia4Wo0WO/TK4Ca80+NoiwpZ93G/XRF4rTyfYG3LXKdrUN9tKtddSv8e0+GdxItFT88rIaz643l6/9cDb2k6uus7fz//r03xEL5vntl5chF7SsmEobEr7Tt1czw7NjPy1Rd03gRfbncNYFO0bFFN5/4p/R8aE+dVVJZX4NT22EFjKXriqHRCCzdBLA2hd9m+umf8NLUFe3nCyJpLLKTWj6KYdyIbKRLGytePTS/sAZLcwF9I5AtdfIG6SA4Y/hDNMpN6woZB15nhxs6TefzxNqjxOp8r7H1f3Xx6OjN+OjGHCSmSmLqNnM9pdOXrTogKx2sBMqQBu3joGCqBRCEKgxIienGM9P/3h38YzgNwx+10M+wO+lrElKBZlykRFZw6QsFSN0gl9bHakhVztcc/3UF6fg3bMEiT56RI6xKGd12vJpaXFNgBsIF0+5gnn2KeZcXEAhf9YjE2ogcGL0EMtIWxpJ2akHiAnB26AgtAgU5ltIaqBcFPZyCF8ykVUS2rfGZWJS8yIjC0h4csbUFNeMu4yXhBIjsTnVlgbM3wLoVTiGX51WTOChriC7pt6mziitk2EMF1A4NboZ9NOScIMmYFQvUK5as5XASAbc0F5rUrEgwVIBYOAGnwLaIu3kb0XHE0vTup6MQwASk1ZCRedJDrzqCcih/DJjU8V7dJUeKQRFv6TgFuXSyCvWfsZQ95MFLYs17sfDk3+DN6flijdE3maMt36U0ylUWbCcYowgcXuXSNegBx8EASG7jHHP0JdQGf8AmuGeBONg0PsPf04O/fWFgXgN6oC/2j6K9eZ99mYvX3YL5fe/EHf13kD16sPAw+1di1/M3YByFXUDCkrWXdUPgltraCZ2DAHw5XJCNYN1vWnwtbs3x96ScY3SdDfj39Ry+1Z9p5xuPl9d0/sxPLKt7ZYqjtweyPnpub8Qf0Z2X7bvFKSdBsUiFKMVMDCTbYdunAg2jHD2DQhs3R3gPwwcBs64lbkTNpw4/dA68Zf+pdsAINdwA4C/VlhZuQUCr2jw3TIqqMhre50SOZqNna0wKraHQ/8F9/Cm+Rs5nBhZ
+sidebar_class_name: "post api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create E-signature request"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/esignature/docusign/{documentId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create a DocuSign E-Signature request; ONLY available with FormKiQ Enterprise
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><MimeTabs
+  className={"openapi-tabs__mime"}
+>
+  <TabItem
+    label={"application/json"}
+    value={"application/json-schema"}
+  >
+    <details
+      style={{}}
+      className={"openapi-markdown__details mime"}
+      data-collapsed={false}
+      open={true}
+    >
+      <summary
+        style={{}}
+        className={"openapi-markdown__details-summary-mime"}
+      >
+        <h3
+          className={"openapi-markdown__details-summary-header-body"}
+        >
+          Body
+        </h3><strong
+          className={"openapi-schema__required"}
+        >
+          required
+        </strong>
+      </summary><div
+        style={{"textAlign":"left","marginLeft":"1rem"}}
+      >
+        
+      </div><ul
+        style={{"marginLeft":"1rem"}}
+      >
+        <SchemaItem
+          collapsible={false}
+          name={"emailSubject"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={undefined}
+          schema={{"type":"string","description":"Email Subject"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"status"}
+          required={false}
+          schemaName={"string"}
+          qualifierMessage={"**Possible values:** [`created`, `sent`]"}
+          schema={{"type":"string","description":"The status of the request","enum":["created","sent"]}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={false}
+          name={"developmentMode"}
+          required={false}
+          schemaName={"boolean"}
+          qualifierMessage={undefined}
+          schema={{"type":"boolean","description":"Whether to enable developer mode"}}
+        >
+          
+        </SchemaItem><SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  signers
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object[]
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <div
+                style={{"marginTop":".5rem","marginBottom":".5rem"}}
+              >
+                
+                
+                List of DocuSign Signers
+                
+                
+              </div><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                >
+                  Array [
+                </div>
+              </li><SchemaItem
+                collapsible={false}
+                name={"name"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Name of Signer"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"email"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Email of Signer"}}
+              >
+                
+              </SchemaItem><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                >
+                  ]
+                </div>
+              </li>
+            </div>
+          </details>
+        </SchemaItem><SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  carbonCopies
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object[]
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <div
+                style={{"marginTop":".5rem","marginBottom":".5rem"}}
+              >
+                
+                
+                List of DocuSign Carbon Copies
+                
+                
+              </div><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                >
+                  Array [
+                </div>
+              </li><SchemaItem
+                collapsible={false}
+                name={"name"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Name of Signer"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"email"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Email of Signer"}}
+              >
+                
+              </SchemaItem><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                >
+                  ]
+                </div>
+              </li>
+            </div>
+          </details>
+        </SchemaItem><SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  recipientTabs
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object[]
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <div
+                style={{"marginTop":".5rem","marginBottom":".5rem"}}
+              >
+                
+                
+                List of DocuSign Recipient Tabs
+                
+                
+              </div><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                >
+                  Array [
+                </div>
+              </li><SchemaItem
+                collapsible={false}
+                name={"type"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={"**Possible values:** [`signHere`]"}
+                schema={{"type":"string","description":"Type of Recipient","enum":["signHere"]}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"pageNumber"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Document Page Number"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"positionX"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Element X Position"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"positionY"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Element Y Position"}}
+              >
+                
+              </SchemaItem><li>
+                <div
+                  style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                >
+                  ]
+                </div>
+              </li>
+            </div>
+          </details>
+        </SchemaItem>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"redirect_url"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Redirect Url to complete DocuSign workflow"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"message"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Result message"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"redirect_url\": \"string\",\n  \"message\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem><TabItem
+        label={"400"}
+        value={"400"}
+      >
+        <div>
+          
+          
+          400 OK
+          
+          
+        </div><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                errors
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of errors
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"key"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Error Key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"error"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Error Message"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"errors\": [\n    {\n      \"key\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

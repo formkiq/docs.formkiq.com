@@ -5,30 +5,227 @@ description: "Adds a new API Key"
 sidebar_label: "Delete API Key"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"DeleteApiKey","description":"Adds a new API Key","tags":["System Management"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"apiKey","in":"path","description":"API Key","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string","description":"Result message"}},"title":"DeleteApiKeyResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"delete","path":"/configuration/apiKeys/{apiKey}","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Delete API Key","description":{"content":"Adds a new API Key","type":"text/plain"},"url":{"path":["configuration","apiKeys",":apiKey"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) API Key","type":"text/plain"},"type":"any","value":"","key":"apiKey"}]},"header":[{"key":"Accept","value":"application/json"}],"method":"DELETE","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "delete api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Delete API Key
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete API Key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/sites/{siteId}/apiKeys/{apiKey}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Adds a new API Key
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"apiKey","in":"path","description":"API Key","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"message"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Result message"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"message\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"path","description":"Site Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"apiKey","in":"path","description":"API Key","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"message"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Result message"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"message\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

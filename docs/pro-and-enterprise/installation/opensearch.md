@@ -57,7 +57,7 @@ Clicking the "Next" button will take you to the stack details page. On this page
 
 ![CloudFormation Stack Name](./img/cf-opensearch-create-stack-name.png)
 
-The first thing you will need to set is the CloudFormation Stack Name. The Stack name can include letters (A-Z and a-z), numbers (0-9), and dashes (-). We recommended to use the naming convention `formkiq-enterprise-opensearch-<app_environment>`, ie: formkiq-enterprise-opensearch-prod, formkiq-enterprise-opensearch-dev, etc. The <app_environment> should match the <app_environment> name used during the FormKiQ installation.
+The first thing you will need to set is the CloudFormation Stack Name. The Stack name can include letters (A-Z and a-z), numbers (0-9), and dashes (-). We recommended to use the naming convention `formkiq-enterprise-opensearch-<app_environment>`, ie: formkiq-enterprise-opensearch-prod, formkiq-enterprise-opensearch-dev, etc. The `<app_environment>` should match the `<app_environment>` name used during the FormKiQ installation.
 
 ### Parameters
 
@@ -141,7 +141,7 @@ Allowed values: standard | gp2 | io1 | gp3
 
 A name for the OpenSearch Service domain. The name must have a minimum length of 3 and a maximum length of 28. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the domain name.
 
-Suggested name format "formkiq-enterprise-<app_environment>"
+Suggested name format `"formkiq-enterprise-<app_environment>"`
 
 #### OpenSearchVersion
 

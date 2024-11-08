@@ -5,30 +5,199 @@ description: "DocuSign callback URL handler; ONLY available with FormKiQ Enterpr
 sidebar_label: "Add E-signature event"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"AddEsignatureDocusignEvents","description":"DocuSign callback URL handler; ONLY available with FormKiQ Enterprise","tags":["E-Signature"],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"redirect_url":{"type":"string","description":"Redirect Url to complete DocuSign workflow"},"message":{"type":"string","description":"Result message"}},"title":"EsignatureDocusignResponse"}}}}},"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"post","path":"/esignature/docusign/events","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Add E-signature event","description":{"content":"DocuSign callback URL handler; ONLY available with FormKiQ Enterprise","type":"text/plain"},"url":{"path":["esignature","docusign","events"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Accept","value":"application/json"}],"method":"POST"}}
+api: eJztV1tv2zYU/iuEWqDtYElJir54L/PSBMuaNlmcrivcIKAlWmZDkSpJxXUN//d9h5Isu0m6dRj2tAaoJZ4Lz+U7F60iUwnLvTT6JI+G0SjPj5wsNPe1FS9NVtPL0a3Q3kWDKBcus7IibvASeQwyy7hSU57dsLcXp2zOda6E/ZGdvTl9z/gtl4pPlWAL6efs2NjylfyNHWkvbGWlE9DqeeGi4SQ6isfdzdHVILLCVUY7AdoqOtjbo59dA3DIzl5Bw1zwXNjAOMoy4Vx8aLS3RsUjpcwiPrOykJrILpuLktOTX1YCOpy3UhfRej24X/S18HOTu38k+0tv1sOyEM4ghQgTlVeVklnIR/rRmfttNtOPIvPwu7KUPS+bGFmRSwvCdW3V3Zu+zt5Fy83eWsW8YZkpKyW8YJu0Loy9mcGPCCaW8I4X4u+odbXyrOMn97z0SjyErYs2yxQJYv4c85J/MTrmlSy4Fwu+jCXCUzQgJQNqK+nnWA+H43oKxdzq4ePVOUckiGc97GVxPno3Hg4vRBEoipfTnA8r7ufpwd7+i3jvefx8P53VOiNRlz5ekWUlAX5UyQvxqRYOj1avU6lvTZMaRyHZwWcuZhx+h3R5OOgOTS4aiEY9K0zkJWLcYKIM0Eo6YtKgOPk2DKMnPzyJBt8lu4Fh9OSwQVp8iRwO/ohH5Zf4JQI1GNVQZ+WX4B0RKhm/Esvvvamrs2BkSGfFnfNza+pi/rOY81tpLMiLudDX2lx7Aczhfuotc++rxkswnJ+NL6kzNFDjC3cNqH9eEuT5UhmeUyPh/ne41cBuP9mjnIjPcM+FDA0nq+hGLEH7K0gNoluuavE/tP6H1oPQWl915uKkMi50X2Qab6nYNLU0b7taKrqR6YS9DRGaELrQl4M1wzRVSLiaN5p2W+gpUVgOFcpUBBfWKInICCcygNQvxzQUGoAgojtB3p4UHIQD3EB9nJgf6LC8lcclvfDHBdmG/5GJmSzqvgNL5+qGta8UcsvBr8wUWnoTy7xKdiskae5FyBMMG5TDYcP6Fu6dG6PWBH1e51LoTISA9drvMB8qsHmIXEFI5nimoJjakmj02DbVtYHUTnwCfKSemeBsO5261WR0fhI1I5lnoeg06qqng9ankfyd4fxGfiKXQMOglkR1dVUZ63/apobYK1OYptNsKwFuXLLFGw7SgF+fXssSo9R1NwUVSRVmL21dBUpA54dGBfw/Og7/QOPKX6Ifbrl2SnfDCmwYgkZu79yo4sATO0j27vi3WCwSHsiJsUXayrr09OTw6M34KIZMMvelIsW7OD5u7KWIDlnX+thrruFNeDyHg+QUcTDUjS7YGWXq6a/vLp8xeqK0Nn3xA/7emxq7pmYzqXNmamwZxgrGp/TY+cg9m9yTmqunbdltnT1LSOmjR+yEGk1eZ909nS7pGG6DcfFMWufZU0JTrNCcng3YlHsAJ6YMiZzlnXtl7x4EE3aJsG5Bi6HZ3AKu0KywdoFIh0LnlcFIcrSITWupcrYElNm5sDNa0b4VvGTbYlK24C7o8Mxo6KuYmbHJWSU0EV0lMjlrY9oEpUsyVkmNluAozfDPGSY9hUBwtyS7aic2BpMapKFb67lesq3NFWxIQ1sCLgjde38wnShBZ0g9G28zsJh1Flq+SArcVU9hh2035lAqbUY35ZEBFGnJkRbblFHrWPcbo6MlS16qndtPRq//i7slLzd3A3lfY7zLo5nNMDQQOSsEI+WOssh3uIcfNIORfcU07+i45Ez7As8wbGnF2Zpn+y+SfSpXmmPA63YfyHN2FG/mGQtj7OsBteo/WP69b8Bm5Hg0rBRzG5N+3TaiVTtnJ1E/Z8midtJSz21mLYZjGKfgXK2m3Al82KzXdIxRYLEITq5o07OSTKG3dffhuLUr0u5R+X4lvPtBtrMJhGVivf4TcOBiHw==
 sidebar_class_name: "post api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Add E-signature event
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Add E-signature event"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/esignature/docusign/events"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 DocuSign callback URL handler; ONLY available with FormKiQ Enterprise
 
-<div><ApiTabs><TabItem label={"200"} value={"200"}><div>
-
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"redirect_url"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Redirect Url to complete DocuSign workflow"}}></SchemaItem><SchemaItem collapsible={false} name={"message"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Result message"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"redirect_url\": \"string\",\n  \"message\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"redirect_url"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Redirect Url to complete DocuSign workflow"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"message"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Result message"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"redirect_url\": \"string\",\n  \"message\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

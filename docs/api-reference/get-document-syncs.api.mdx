@@ -5,34 +5,360 @@ description: "Retrieve the document syncs with external services status"
 sidebar_label: "Get document syncs"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"GetDocumentSyncs","description":"Retrieve the document syncs with external services status","tags":["Documents"],"parameters":[{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}},{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"}},{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"next":{"type":"string","description":"Next page of results token"},"syncs":{"type":"array","description":"List of document syncs","items":{"type":"object","properties":{"service":{"type":"string","description":"To which service the data was synced","enum":["TYPESENSE","OPENSEARCH"]},"status":{"type":"string","description":"The status of the sync","enum":["COMPLETE","FAILED"]},"type":{"type":"string","description":"The type of the sync","enum":["METADATA","TAG"]},"syncDate":{"type":"string","description":"Timestamp of synchronization"},"userId":{"type":"string","description":"User who added document"},"message":{"type":"string","description":"Document sync message"}},"title":"GetDocumentSync"}}},"title":"GetDocumentSyncResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"get","path":"/documents/{documentId}/syncs","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Get document syncs","description":{"content":"Retrieve the document syncs with external services status","type":"text/plain"},"url":{"path":["documents",":documentId","syncs"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""},{"disabled":false,"description":{"content":"Limit Results","type":"text/plain"},"key":"limit","value":""},{"disabled":false,"description":{"content":"Share Identifier","type":"text/plain"},"key":"shareKey","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"}]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Get document syncs
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document syncs"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}/syncs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Retrieve the document syncs with external services status
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"next"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Next page of results token"}}></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>syncs</strong><span style={{"opacity":"0.6"}}> object[]</span></summary><div style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem"}}>
-
-List of document syncs
-
-</div><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}>Array [</div></li><SchemaItem collapsible={false} name={"service"} required={false} schemaName={"string"} qualifierMessage={"**Possible values:** [`TYPESENSE`, `OPENSEARCH`]"} schema={{"type":"string","description":"To which service the data was synced","enum":["TYPESENSE","OPENSEARCH"]}}></SchemaItem><SchemaItem collapsible={false} name={"status"} required={false} schemaName={"string"} qualifierMessage={"**Possible values:** [`COMPLETE`, `FAILED`]"} schema={{"type":"string","description":"The status of the sync","enum":["COMPLETE","FAILED"]}}></SchemaItem><SchemaItem collapsible={false} name={"type"} required={false} schemaName={"string"} qualifierMessage={"**Possible values:** [`METADATA`, `TAG`]"} schema={{"type":"string","description":"The type of the sync","enum":["METADATA","TAG"]}}></SchemaItem><SchemaItem collapsible={false} name={"syncDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Timestamp of synchronization"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who added document"}}></SchemaItem><SchemaItem collapsible={false} name={"message"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document sync message"}}></SchemaItem><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}>]</div></li></div></details></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"next\": \"string\",\n  \"syncs\": [\n    {\n      \"service\": \"TYPESENSE\",\n      \"status\": \"COMPLETE\",\n      \"type\": \"METADATA\",\n      \"syncDate\": \"string\",\n      \"userId\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"shareKey","in":"query","description":"Share Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                syncs
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of document syncs
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"service"}
+                              required={false}
+                              schemaName={"DocumentSyncService (string)"}
+                              qualifierMessage={"**Possible values:** [`TYPESENSE`, `OPENSEARCH`]"}
+                              schema={{"type":"string","description":"Service of Document Sync","enum":["TYPESENSE","OPENSEARCH"],"title":"DocumentSyncService"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"status"}
+                              required={false}
+                              schemaName={"DocumentSyncStatus (string)"}
+                              qualifierMessage={"**Possible values:** [`COMPLETE`, `FAILED`]"}
+                              schema={{"type":"string","description":"Status of Document Sync","enum":["COMPLETE","FAILED"],"title":"DocumentSyncStatus"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"type"}
+                              required={false}
+                              schemaName={"DocumentSyncType (string)"}
+                              qualifierMessage={"**Possible values:** [`METADATA`, `TAG`, `CONTENT`]"}
+                              schema={{"type":"string","description":"Type of Document Sync","enum":["METADATA","TAG","CONTENT"],"title":"DocumentSyncType"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"syncDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Timestamp of synchronization"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"User who added document"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"message"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document sync message"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"syncs\": [\n    {\n      \"service\": \"TYPESENSE\",\n      \"status\": \"COMPLETE\",\n      \"type\": \"METADATA\",\n      \"syncDate\": \"string\",\n      \"userId\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

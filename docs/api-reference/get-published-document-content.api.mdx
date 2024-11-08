@@ -1,0 +1,158 @@
+---
+id: get-published-document-content
+title: "Get published document's contents"
+description: "Get a published document's contents. Certain content types, text/*, application/json, and application/x-www-form-urlencoded. return the  'content' field, while all other content types return a 'contentUrl' for retrieving the content."
+sidebar_label: "Get published document's contents"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get published document's contents"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/publications/{documentId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get a published document's contents. Certain content types, text/*, application/json, and application/x-www-form-urlencoded. return the  "content" field, while all other content types return a 'contentUrl' for retrieving the content.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"307"}
+        value={"307"}
+      >
+        <div>
+          
+          
+          Temporary Redirect
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Location
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

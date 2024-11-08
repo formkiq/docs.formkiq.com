@@ -5,30 +5,300 @@ description: "Return a webhook's details, i.e., its metadata"
 sidebar_label: "Get webhook"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"GetWebhook","tags":["Webhooks"],"description":"Return a webhook's details, i.e., its metadata","parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"webhookId","in":"path","required":true,"description":"Web Hook Param","schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"siteId":{"type":"string","description":"Site Identifier"},"name":{"type":"string","description":"Webhook name"},"url":{"type":"string","description":"Webhook url"},"insertedDate":{"type":"string","description":"Inserted Timestamp"},"id":{"type":"string","description":"Webhook Identifier"},"userId":{"type":"string","description":"User who added document"}},"title":"GetWebhookResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"get","path":"/webhooks/{webhookId}","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Get webhook","description":{"content":"Return a webhook's details, i.e., its metadata","type":"text/plain"},"url":{"path":["webhooks",":webhookId"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Web Hook Param","type":"text/plain"},"type":"any","value":"","key":"webhookId"}]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Get webhook
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get webhook"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/webhooks/{webhookId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
 Return a webhook's details, i.e., its metadata
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"webhookId","in":"path","required":true,"description":"Web Hook Param","schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-200 OK
-
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"siteId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Site Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"name"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Webhook name"}}></SchemaItem><SchemaItem collapsible={false} name={"url"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Webhook url"}}></SchemaItem><SchemaItem collapsible={false} name={"insertedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Inserted Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"id"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Webhook Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who added document"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"siteId\": \"string\",\n  \"name\": \"string\",\n  \"url\": \"string\",\n  \"insertedDate\": \"string\",\n  \"id\": \"string\",\n  \"userId\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"webhookId","in":"path","required":true,"description":"Web Hook Param","schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"siteId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Site Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"name"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Webhook name"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"url"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Webhook url"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"insertedDate"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Inserted Timestamp"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"webhookId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Webhook Identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"userId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"User who added document"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"enabled"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Is webhook enabled"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"siteId\": \"string\",\n  \"name\": \"string\",\n  \"url\": \"string\",\n  \"insertedDate\": \"string\",\n  \"webhookId\": \"string\",\n  \"userId\": \"string\",\n  \"enabled\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

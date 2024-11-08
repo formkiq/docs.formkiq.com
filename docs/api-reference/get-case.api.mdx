@@ -1,0 +1,391 @@
+---
+id: get-case
+title: "Get Case details"
+description: "Returns a Case; ONLY available with FormKiQ Enterprise"
+sidebar_label: "Get Case details"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Case details"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/cases/{caseId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a Case; ONLY available with FormKiQ Enterprise
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"caseId","in":"path","description":"Case Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                case
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <SchemaItem
+                              collapsible={false}
+                              name={"caseId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Case Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"caseNumber"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Case Number"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"documentNumber"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document Number"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"startDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Start Date"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"endDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"End Date"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"insertedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Inserted Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"name"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Case Name"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"description"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Case Description"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      metadata
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"status"}
+                              required={false}
+                              schemaName={"CaseStatus (string)"}
+                              qualifierMessage={"**Possible values:** [`NEW`, `ASSIGNED`, `IN_PROGRESS`, `ON_HOLD`, `ESCALATED`, `RESOLVED`, `CLOSED`, `UNDER_REVIEW`, `AWAITING_CLIENT_RESPONSE`]"}
+                              schema={{"type":"string","description":"Status of the Case","enum":["NEW","ASSIGNED","IN_PROGRESS","ON_HOLD","ESCALATED","RESOLVED","CLOSED","UNDER_REVIEW","AWAITING_CLIENT_RESPONSE"],"title":"CaseStatus"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"User who added document"}}
+                            >
+                              
+                            </SchemaItem>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"case\": {\n    \"caseId\": \"string\",\n    \"caseNumber\": \"string\",\n    \"documentNumber\": \"string\",\n    \"startDate\": \"string\",\n    \"endDate\": \"string\",\n    \"insertedDate\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"metadata\": {},\n    \"status\": \"NEW\",\n    \"userId\": \"string\"\n  }\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

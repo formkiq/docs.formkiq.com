@@ -1,34 +1,252 @@
 ---
 id: delete-document-ocr
 title: "Delete document ocr"
-description: "Delete a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise"
+description: "Delete a document's optical character recognition (OCR) result, if exists;"
 sidebar_label: "Delete document ocr"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"DeleteDocumentOcr","description":"Delete a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise","tags":["Document OCR"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"delete","path":"/documents/{documentId}/ocr","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Delete document ocr","description":{"content":"Delete a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise","type":"text/plain"},"url":{"path":["documents",":documentId","ocr"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""}],"variable":[{"disabled":false,"description":{"content":"(Required) Document Identifier","type":"text/plain"},"type":"any","value":"","key":"documentId"}]},"method":"DELETE","auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "delete api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Delete document ocr
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete document ocr"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/documents/{documentId}/ocr"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
-Delete a document's optical character recognition (OCR) result, if exists; ONLY available with FormKiQ Pro and Enterprise
+Delete a document's optical character recognition (OCR) result, if exists; 
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Path Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+Tesseract available for all editions, but Textract engine and tables and forms options ONLY available with FormKiQ Pro and Enterprise
 
-200 OK
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"message"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Result message"}}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"message\": \"string\"\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       

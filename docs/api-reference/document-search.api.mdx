@@ -1,42 +1,1597 @@
 ---
 id: document-search
 title: "Document search"
-description: "Document search query request; documents are searched primarily using a document tag key and optional tag value, or if Typesense is enabled, searches on the document path and versioned metadata is also available. An optional documentIds parameter is also available in the DocumentSearchBody to filter, with up to 100 documentIds accepted."
+description: "Document search query request;"
 sidebar_label: "Document search"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"DocumentSearch","description":"Document search query request; documents are searched primarily using a document tag key and optional tag value, or if Typesense is enabled, searches on the document path and versioned metadata is also available. An optional documentIds parameter is also available in the DocumentSearchBody to filter, with up to 100 documentIds accepted.","tags":["Document Search"],"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"}},{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"}},{"name":"previous","in":"query","description":"Previous page of results token","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"required":["query"],"type":"object","description":"Document search tag criteria","properties":{"query":{"type":"object","description":"Document tag search criteria","properties":{"text":{"type":"string","description":"Full text search"},"meta":{"type":"object","properties":{"folder":{"type":"string","description":"Searches for a folder"},"path":{"type":"string","description":"Searches for a Path of document"},"indexType":{"type":"string","description":"Searches in an index","enum":["folder"]},"indexFilterBeginsWith":{"type":"string","description":"Returns index records that begins with a particular substring"}},"title":"DocumentSearchItemMeta"},"tag":{"required":["key"],"type":"object","properties":{"beginsWith":{"type":"string","description":"Searches for strings that begin with"},"eq":{"type":"string","description":"Searches for strings that eq"},"eqOr":{"type":"array","description":"Searches for ANY strings that eq","items":{"type":"string"}},"key":{"type":"string","description":"Tag key to search"}},"title":"DocumentSearchItemTag"},"documentIds":{"type":"array","description":"List of DocumentIds to filter search results on","items":{"type":"string"}}},"title":"DocumentSearch"},"responseFields":{"properties":{"tags":{"type":"array","items":{"type":"string"}}},"title":"SearchResponseFields"}},"title":"DocumentSearchRequest"},"examples":{"Search_By_Key":{"value":{"query":{"tag":{"key":"category"}}}},"Search_By_Value":{"value":{"query":{"tag":{"key":"category","eq":"person"}}}},"Tag_Value_Begins_With":{"value":{"query":{"tag":{"key":"firstname","beginsWith":"jo"}}}},"Search_By_Value_for_Specific_Documents":{"value":{"query":{"tag":{"key":"category","eq":"person"},"documentIds":["1","2"]}}}}}}},"responses":{"200":{"description":"200 OK","headers":{"Access-Control-Allow-Origin":{"schema":{"type":"string"}},"Access-Control-Allow-Methods":{"schema":{"type":"string"}},"Access-Control-Allow-Headers":{"schema":{"type":"string"}}},"content":{"application/json":{"schema":{"type":"object","properties":{"next":{"type":"string","description":"Next page of results token"},"previous":{"type":"string","description":"Previous page of results token"},"documents":{"type":"array","description":"List of search result documents","items":{"type":"object","properties":{"siteId":{"type":"string","description":"Site Identifier"},"path":{"type":"string","description":"Path or Name of document"},"insertedDate":{"type":"string","description":"Inserted Timestamp"},"lastModifiedDate":{"type":"string","description":"Last Modified Timestamp"},"folder":{"type":"boolean","description":"Is Result a Document Folder"},"indexKey":{"type":"string","description":"populated if search result are from an index"},"checksum":{"type":"string","description":"Document checksum, changes when document file changes"},"documentId":{"type":"string","description":"Document Identifier"},"contentType":{"type":"string","description":"Document Content-Type"},"userId":{"type":"string","description":"User who added document"},"contentLength":{"type":"integer","description":"Document size"},"versionId":{"type":"string","description":"Document version"},"belongsToDocumentId":{"type":"string","description":"Parent Document Identifier"},"matchedTag":{"type":"object","properties":{"key":{"type":"string","description":"Tag key"},"value":{"type":"string","description":"Tag value"},"type":{"type":"string","description":"Tag type"}},"title":"DocumentSearchMatchTag"},"tags":{"type":"object"}},"title":"SearchResultDocument"}}},"title":"DocumentSearchResponse"}}}}},"security":[{"ApiAuthorization":[]}],"x-amazon-apigateway-integration":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"},"extensions":[{"key":"x-amazon-apigateway-integration","value":{"uri":{"Fn::Sub":"arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DocumentsApiRequests.Arn}/invocations"},"responses":{"default":{"statusCode":"200","responseParameters":{"method.response.header.Access-Control-Allow-Methods":"'*'","method.response.header.Access-Control-Allow-Headers":"'Content-Type,X-Amz-Date,Authorization,X-Api-Key'","method.response.header.Access-Control-Allow-Origin":"'*'"}}},"passthroughBehavior":"when_no_templates","httpMethod":"POST","type":"aws_proxy","payloadFormatVersion":"1.0"}}],"method":"post","path":"/search","servers":[{"url":"http://localhost","description":"Local development server"}],"securitySchemes":{"ApiAuthorization":{"type":"oauth2","flows":{},"x-amazon-apigateway-authorizer":{"type":"jwt","jwtConfiguration":{"issuer":{"Fn::Sub":"https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"},"audience":[{"Fn::Sub":"${CognitoUserPoolClient}"}]},"identitySource":"$request.header.Authorization"}}},"jsonRequestBodyExample":{"query":{"text":"string","meta":{"folder":"string","path":"string","indexType":"folder","indexFilterBeginsWith":"string"},"tag":{"beginsWith":"string","eq":"string","eqOr":["string"],"key":"string"},"documentIds":["string"]},"responseFields":{"tags":["string"]}},"info":{"title":"FormKiQ HTTP API","contact":{"name":"FormKiQ","url":"https://formkiq.com","email":"support@formkiq.com"},"x-logo":{"url":"https://docs.formkiq.com/img/formkiq-wordmark.png","backgroundColor":"#FFFFFF","altText":"FormKiQ Logo"},"license":{"name":"Apache 2.0","url":"https://www.apache.org/licenses/LICENSE-2.0.html"},"description":"Formkiq API: Document Management Platform API using OAuth(JWT) Authentication\n\nYou can find out more about FormKiQ at [https://formkiq.com](http://formkiq.com).\n\n## Introduction\n\nFormKiQ is an API-first, battle-tested document management API. The FormKiQ API provides all the API endpoints to build your Perfect Document Management Platform.\n\nFormKiQ API was built on top of [OpenAPI specification](https://www.openapis.org), so it is easy to use the API spec file with any application that supports the OpenAPI specification.\n\nOpen API OAuth Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml\n\nOpen API IAM Specification - https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-iam.yaml\n\n## Authentication\nFormKiQ offers three forms of authentication:\n  - OAuth(JWT)\n  - AWS IAM\n  - API Key","version":"1.12.0"},"postman":{"name":"Document search","description":{"content":"Document search query request; documents are searched primarily using a document tag key and optional tag value, or if Typesense is enabled, searches on the document path and versioned metadata is also available. An optional documentIds parameter is also available in the DocumentSearchBody to filter, with up to 100 documentIds accepted.","type":"text/plain"},"url":{"path":["search"],"host":["{{baseUrl}}"],"query":[{"disabled":false,"description":{"content":"Site Identifier","type":"text/plain"},"key":"siteId","value":""},{"disabled":false,"description":{"content":"Limit Results","type":"text/plain"},"key":"limit","value":""},{"disabled":false,"description":{"content":"Next page of results token","type":"text/plain"},"key":"next","value":""},{"disabled":false,"description":{"content":"Previous page of results token","type":"text/plain"},"key":"previous","value":""}],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"oauth2","oauth2":[]}}}
+api: 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
 sidebar_class_name: "post api-method"
-info_path: docs/api-reference/formkiq-http-api
+info_path: docs/api-reference/formkiq-api
 custom_edit_url: null
 ---
 
 import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
 import MimeTabs from "@theme/MimeTabs";
 import ParamsItem from "@theme/ParamsItem";
 import ResponseSamples from "@theme/ResponseSamples";
 import SchemaItem from "@theme/SchemaItem";
 import SchemaTabs from "@theme/SchemaTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 
-## Document search
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Document search"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/search"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
 
 
-Document search query request; documents are searched primarily using a document tag key and optional tag value, or if Typesense is enabled, searches on the document path and versioned metadata is also available. An optional documentIds parameter is also available in the DocumentSearchBody to filter, with up to 100 documentIds accepted.
+Document search query request; 
 
-<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Query Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"previous","in":"query","description":"Previous page of results token","schema":{"type":"string"}}}></ParamsItem></ul></div></details><MimeTabs><TabItem label={"application/json"} value={"application/json-schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Request Body</strong><strong style={{"fontSize":"var(--ifm-code-font-size)","color":"var(--openapi-required)"}}> required</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>query</strong><span style={{"opacity":"0.6"}}> object</span><strong style={{"fontSize":"var(--ifm-code-font-size)","color":"var(--openapi-required)"}}> required</strong></summary><div style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem"}}>
+Supports searching DynamoDB for document(s) by a single TAG key and/or value. Value can be "exacted" or "begins_with" matched. Search can be filtered to only check certain documentIds (up to 100 documentIds accepted).
 
-Document tag search criteria
+If using Enteprise TagSchema Composite Keys feature then multiple tag(s) can be searched for.
 
-</div><SchemaItem collapsible={false} name={"text"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Full text search"}}></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>meta</strong><span style={{"opacity":"0.6"}}> object</span></summary><div style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"folder"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Searches for a folder"}}></SchemaItem><SchemaItem collapsible={false} name={"path"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Searches for a Path of document"}}></SchemaItem><SchemaItem collapsible={false} name={"indexType"} required={false} schemaName={"string"} qualifierMessage={"**Possible values:** [`folder`]"} schema={{"type":"string","description":"Searches in an index","enum":["folder"]}}></SchemaItem><SchemaItem collapsible={false} name={"indexFilterBeginsWith"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Returns index records that begins with a particular substring"}}></SchemaItem></div></details></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>tag</strong><span style={{"opacity":"0.6"}}> object</span></summary><div style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"beginsWith"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Searches for strings that begin with"}}></SchemaItem><SchemaItem collapsible={false} name={"eq"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Searches for strings that eq"}}></SchemaItem><SchemaItem collapsible={false} name={"eqOr"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"Searches for ANY strings that eq","items":{"type":"string"}}}></SchemaItem><SchemaItem collapsible={false} name={"key"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag key to search"}}></SchemaItem></div></details></SchemaItem><SchemaItem collapsible={false} name={"documentIds"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","description":"List of DocumentIds to filter search results on","items":{"type":"string"}}}></SchemaItem></div></details></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>responseFields</strong><span style={{"opacity":"0.6"}}> SearchResponseFields</span></summary><div style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"tags"} required={false} schemaName={"string[]"} qualifierMessage={undefined} schema={{"type":"array","items":{"type":"string"}}}></SchemaItem></div></details></SchemaItem></ul></details></TabItem></MimeTabs><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+If Typesense is enabled, full text search is supported through the "text" parameter. Full text search will look for the text in the "content" and/or document "metadata".
 
-200 OK
+DocumentIds parameter allows you to filter your results to a specific set of documents. 
 
-</div><details style={{"textAlign":"left","marginBottom":"1rem"}} data-collaposed={true} open={false}><summary style={{}}><strong>Response Headers</strong></summary><ul style={{"marginLeft":"1rem"}}><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Origin</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Methods</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li><li className={"schemaItem"}><summary style={{}}><strong>Access-Control-Allow-Headers</strong><span style={{"opacity":"0.6"}}> string</span></summary><div></div></li></ul></details><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"next"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Next page of results token"}}></SchemaItem><SchemaItem collapsible={false} name={"previous"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Previous page of results token"}}></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>documents</strong><span style={{"opacity":"0.6"}}> object[]</span></summary><div style={{"marginLeft":"1rem"}}><div style={{"marginTop":".5rem","marginBottom":".5rem"}}>
+See requestBody examples below for commmon examples.
 
-List of search result documents
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
 
-</div><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}>Array [</div></li><SchemaItem collapsible={false} name={"siteId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Site Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"path"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Path or Name of document"}}></SchemaItem><SchemaItem collapsible={false} name={"insertedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Inserted Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"lastModifiedDate"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Last Modified Timestamp"}}></SchemaItem><SchemaItem collapsible={false} name={"folder"} required={false} schemaName={"boolean"} qualifierMessage={undefined} schema={{"type":"boolean","description":"Is Result a Document Folder"}}></SchemaItem><SchemaItem collapsible={false} name={"indexKey"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"populated if search result are from an index"}}></SchemaItem><SchemaItem collapsible={false} name={"checksum"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document checksum, changes when document file changes"}}></SchemaItem><SchemaItem collapsible={false} name={"documentId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Identifier"}}></SchemaItem><SchemaItem collapsible={false} name={"contentType"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document Content-Type"}}></SchemaItem><SchemaItem collapsible={false} name={"userId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"User who added document"}}></SchemaItem><SchemaItem collapsible={false} name={"contentLength"} required={false} schemaName={"integer"} qualifierMessage={undefined} schema={{"type":"integer","description":"Document size"}}></SchemaItem><SchemaItem collapsible={false} name={"versionId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Document version"}}></SchemaItem><SchemaItem collapsible={false} name={"belongsToDocumentId"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Parent Document Identifier"}}></SchemaItem><SchemaItem collapsible={true} className={"schemaItem"}><details style={{}}><summary style={{}}><strong>matchedTag</strong><span style={{"opacity":"0.6"}}> object</span></summary><div style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"key"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag key"}}></SchemaItem><SchemaItem collapsible={false} name={"value"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag value"}}></SchemaItem><SchemaItem collapsible={false} name={"type"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Tag type"}}></SchemaItem></div></details></SchemaItem><SchemaItem collapsible={false} name={"tags"} required={false} schemaName={"object"} qualifierMessage={undefined} schema={{"type":"object"}}></SchemaItem><li><div style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}>]</div></li></div></details></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"next\": \"string\",\n  \"previous\": \"string\",\n  \"documents\": [\n    {\n      \"siteId\": \"string\",\n      \"path\": \"string\",\n      \"insertedDate\": \"string\",\n      \"lastModifiedDate\": \"string\",\n      \"folder\": true,\n      \"indexKey\": \"string\",\n      \"checksum\": \"string\",\n      \"documentId\": \"string\",\n      \"contentType\": \"string\",\n      \"userId\": \"string\",\n      \"contentLength\": 0,\n      \"versionId\": \"string\",\n      \"belongsToDocumentId\": \"string\",\n      \"matchedTag\": {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"type\": \"string\"\n      },\n      \"tags\": {}\n    }\n  ]\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"previous","in":"query","description":"Previous page of results token","schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><MimeTabs
+  className={"openapi-tabs__mime"}
+>
+  <TabItem
+    label={"application/json"}
+    value={"application/json-schema"}
+  >
+    <details
+      style={{}}
+      className={"openapi-markdown__details mime"}
+      data-collapsed={false}
+      open={true}
+    >
+      <summary
+        style={{}}
+        className={"openapi-markdown__details-summary-mime"}
+      >
+        <h3
+          className={"openapi-markdown__details-summary-header-body"}
+        >
+          Body
+        </h3><strong
+          className={"openapi-schema__required"}
+        >
+          required
+        </strong>
+      </summary><div
+        style={{"textAlign":"left","marginLeft":"1rem"}}
+      >
+        
+      </div><ul
+        style={{"marginLeft":"1rem"}}
+      >
+        <SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  query
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   object
+                </span><span
+                  className={"openapi-schema__divider"}
+                >
+                  
+                </span><span
+                  className={"openapi-schema__required"}
+                >
+                  required
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <div
+                style={{"marginTop":".5rem","marginBottom":".5rem"}}
+              >
+                
+                
+                Document tag search criteria
+                
+                
+              </div><SchemaItem
+                collapsible={false}
+                name={"text"}
+                required={false}
+                schemaName={"string"}
+                qualifierMessage={undefined}
+                schema={{"type":"string","description":"Full text search"}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={true}
+                className={"schemaItem"}
+              >
+                <details
+                  style={{}}
+                  className={"openapi-markdown__details"}
+                >
+                  <summary
+                    style={{}}
+                  >
+                    <span
+                      className={"openapi-schema__container"}
+                    >
+                      <strong
+                        className={"openapi-schema__property"}
+                      >
+                        meta
+                      </strong><span
+                        className={"openapi-schema__name"}
+                      >
+                         object
+                      </span>
+                    </span>
+                  </summary><div
+                    style={{"marginLeft":"1rem"}}
+                  >
+                    <SchemaItem
+                      collapsible={false}
+                      name={"folder"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for a folder"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"path"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for a Path of document"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"eq"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that eq"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"indexType"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={"**Possible values:** [`folder`]"}
+                      schema={{"type":"string","description":"Searches in an index","enum":["folder"]}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"indexFilterBeginsWith"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Returns index records that begins with a particular substring"}}
+                    >
+                      
+                    </SchemaItem>
+                  </div>
+                </details>
+              </SchemaItem><SchemaItem
+                collapsible={true}
+                className={"schemaItem"}
+              >
+                <details
+                  style={{}}
+                  className={"openapi-markdown__details"}
+                >
+                  <summary
+                    style={{}}
+                  >
+                    <span
+                      className={"openapi-schema__container"}
+                    >
+                      <strong
+                        className={"openapi-schema__property"}
+                      >
+                        attribute
+                      </strong><span
+                        className={"openapi-schema__name"}
+                      >
+                         object
+                      </span>
+                    </span>
+                  </summary><div
+                    style={{"marginLeft":"1rem"}}
+                  >
+                    <SchemaItem
+                      collapsible={false}
+                      name={"eq"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that eq"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"eqOr"}
+                      required={false}
+                      schemaName={"string[]"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"array","description":"Searches for ANY strings that eq","items":{"type":"string"}}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"beginsWith"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that begin with"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={true}
+                      className={"schemaItem"}
+                    >
+                      <details
+                        style={{}}
+                        className={"openapi-markdown__details"}
+                      >
+                        <summary
+                          style={{}}
+                        >
+                          <span
+                            className={"openapi-schema__container"}
+                          >
+                            <strong
+                              className={"openapi-schema__property"}
+                            >
+                              range
+                            </strong><span
+                              className={"openapi-schema__name"}
+                            >
+                               object
+                            </span>
+                          </span>
+                        </summary><div
+                          style={{"marginLeft":"1rem"}}
+                        >
+                          <SchemaItem
+                            collapsible={false}
+                            name={"start"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"Start of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"end"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"End of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"type"}
+                            required={false}
+                            schemaName={"SearchRangeDataType (string)"}
+                            qualifierMessage={"**Possible values:** [`STRING`, `NUMBER`]"}
+                            schema={{"type":"string","description":"Search Range Data Type","enum":["STRING","NUMBER"],"default":"STRING","title":"SearchRangeDataType"}}
+                          >
+                            
+                          </SchemaItem>
+                        </div>
+                      </details>
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"key"}
+                      required={true}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Attribute key to search"}}
+                    >
+                      
+                    </SchemaItem>
+                  </div>
+                </details>
+              </SchemaItem><SchemaItem
+                collapsible={true}
+                className={"schemaItem"}
+              >
+                <details
+                  style={{}}
+                  className={"openapi-markdown__details"}
+                >
+                  <summary
+                    style={{}}
+                  >
+                    <span
+                      className={"openapi-schema__container"}
+                    >
+                      <strong
+                        className={"openapi-schema__property"}
+                      >
+                        attributes
+                      </strong><span
+                        className={"openapi-schema__name"}
+                      >
+                         object[]
+                      </span>
+                    </span>
+                  </summary><div
+                    style={{"marginLeft":"1rem"}}
+                  >
+                    <div
+                      style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                    >
+                      
+                      
+                      List of Composite Key attributes to filter search results on
+                      
+                      
+                    </div><li>
+                      <div
+                        style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                      >
+                        Array [
+                      </div>
+                    </li><SchemaItem
+                      collapsible={false}
+                      name={"eq"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that eq"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"eqOr"}
+                      required={false}
+                      schemaName={"string[]"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"array","description":"Searches for ANY strings that eq","items":{"type":"string"}}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"beginsWith"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that begin with"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={true}
+                      className={"schemaItem"}
+                    >
+                      <details
+                        style={{}}
+                        className={"openapi-markdown__details"}
+                      >
+                        <summary
+                          style={{}}
+                        >
+                          <span
+                            className={"openapi-schema__container"}
+                          >
+                            <strong
+                              className={"openapi-schema__property"}
+                            >
+                              range
+                            </strong><span
+                              className={"openapi-schema__name"}
+                            >
+                               object
+                            </span>
+                          </span>
+                        </summary><div
+                          style={{"marginLeft":"1rem"}}
+                        >
+                          <SchemaItem
+                            collapsible={false}
+                            name={"start"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"Start of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"end"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"End of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"type"}
+                            required={false}
+                            schemaName={"SearchRangeDataType (string)"}
+                            qualifierMessage={"**Possible values:** [`STRING`, `NUMBER`]"}
+                            schema={{"type":"string","description":"Search Range Data Type","enum":["STRING","NUMBER"],"default":"STRING","title":"SearchRangeDataType"}}
+                          >
+                            
+                          </SchemaItem>
+                        </div>
+                      </details>
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"key"}
+                      required={true}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Attribute key to search"}}
+                    >
+                      
+                    </SchemaItem><li>
+                      <div
+                        style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                      >
+                        ]
+                      </div>
+                    </li>
+                  </div>
+                </details>
+              </SchemaItem><SchemaItem
+                collapsible={true}
+                className={"schemaItem"}
+              >
+                <details
+                  style={{}}
+                  className={"openapi-markdown__details"}
+                >
+                  <summary
+                    style={{}}
+                  >
+                    <span
+                      className={"openapi-schema__container"}
+                    >
+                      <strong
+                        className={"openapi-schema__property"}
+                      >
+                        tag
+                      </strong><span
+                        className={"openapi-schema__name"}
+                      >
+                         object
+                      </span>
+                    </span>
+                  </summary><div
+                    style={{"marginLeft":"1rem"}}
+                  >
+                    <SchemaItem
+                      collapsible={false}
+                      name={"beginsWith"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that begin with"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"eq"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that eq"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"eqOr"}
+                      required={false}
+                      schemaName={"string[]"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"array","description":"Searches for ANY strings that eq","items":{"type":"string"}}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={true}
+                      className={"schemaItem"}
+                    >
+                      <details
+                        style={{}}
+                        className={"openapi-markdown__details"}
+                      >
+                        <summary
+                          style={{}}
+                        >
+                          <span
+                            className={"openapi-schema__container"}
+                          >
+                            <strong
+                              className={"openapi-schema__property"}
+                            >
+                              range
+                            </strong><span
+                              className={"openapi-schema__name"}
+                            >
+                               object
+                            </span>
+                          </span>
+                        </summary><div
+                          style={{"marginLeft":"1rem"}}
+                        >
+                          <SchemaItem
+                            collapsible={false}
+                            name={"start"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"Start of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"end"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"End of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"type"}
+                            required={false}
+                            schemaName={"SearchRangeDataType (string)"}
+                            qualifierMessage={"**Possible values:** [`STRING`, `NUMBER`]"}
+                            schema={{"type":"string","description":"Search Range Data Type","enum":["STRING","NUMBER"],"default":"STRING","title":"SearchRangeDataType"}}
+                          >
+                            
+                          </SchemaItem>
+                        </div>
+                      </details>
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"key"}
+                      required={true}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Tag key to search"}}
+                    >
+                      
+                    </SchemaItem>
+                  </div>
+                </details>
+              </SchemaItem><SchemaItem
+                collapsible={true}
+                className={"schemaItem"}
+              >
+                <details
+                  style={{}}
+                  className={"openapi-markdown__details"}
+                >
+                  <summary
+                    style={{}}
+                  >
+                    <span
+                      className={"openapi-schema__container"}
+                    >
+                      <strong
+                        className={"openapi-schema__property"}
+                      >
+                        tags
+                      </strong><span
+                        className={"openapi-schema__name"}
+                      >
+                         object[]
+                      </span>
+                    </span>
+                  </summary><div
+                    style={{"marginLeft":"1rem"}}
+                  >
+                    <div
+                      style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                    >
+                      
+                      
+                      List of Composite Key tags to filter search results on
+                      
+                      
+                    </div><li>
+                      <div
+                        style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                      >
+                        Array [
+                      </div>
+                    </li><SchemaItem
+                      collapsible={false}
+                      name={"eq"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that eq"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"beginsWith"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Searches for strings that begin with"}}
+                    >
+                      
+                    </SchemaItem><SchemaItem
+                      collapsible={true}
+                      className={"schemaItem"}
+                    >
+                      <details
+                        style={{}}
+                        className={"openapi-markdown__details"}
+                      >
+                        <summary
+                          style={{}}
+                        >
+                          <span
+                            className={"openapi-schema__container"}
+                          >
+                            <strong
+                              className={"openapi-schema__property"}
+                            >
+                              range
+                            </strong><span
+                              className={"openapi-schema__name"}
+                            >
+                               object
+                            </span>
+                          </span>
+                        </summary><div
+                          style={{"marginLeft":"1rem"}}
+                        >
+                          <SchemaItem
+                            collapsible={false}
+                            name={"start"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"Start of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"end"}
+                            required={true}
+                            schemaName={"string"}
+                            qualifierMessage={undefined}
+                            schema={{"type":"string","description":"End of range query"}}
+                          >
+                            
+                          </SchemaItem><SchemaItem
+                            collapsible={false}
+                            name={"type"}
+                            required={false}
+                            schemaName={"SearchRangeDataType (string)"}
+                            qualifierMessage={"**Possible values:** [`STRING`, `NUMBER`]"}
+                            schema={{"type":"string","description":"Search Range Data Type","enum":["STRING","NUMBER"],"default":"STRING","title":"SearchRangeDataType"}}
+                          >
+                            
+                          </SchemaItem>
+                        </div>
+                      </details>
+                    </SchemaItem><SchemaItem
+                      collapsible={false}
+                      name={"key"}
+                      required={true}
+                      schemaName={"string"}
+                      qualifierMessage={undefined}
+                      schema={{"type":"string","description":"Tag key to search"}}
+                    >
+                      
+                    </SchemaItem><li>
+                      <div
+                        style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                      >
+                        ]
+                      </div>
+                    </li>
+                  </div>
+                </details>
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"documentIds"}
+                required={false}
+                schemaName={"string[]"}
+                qualifierMessage={undefined}
+                schema={{"type":"array","description":"List of DocumentIds to filter search results on","items":{"type":"string"}}}
+              >
+                
+              </SchemaItem>
+            </div>
+          </details>
+        </SchemaItem><SchemaItem
+          collapsible={true}
+          className={"schemaItem"}
+        >
+          <details
+            style={{}}
+            className={"openapi-markdown__details"}
+          >
+            <summary
+              style={{}}
+            >
+              <span
+                className={"openapi-schema__container"}
+              >
+                <strong
+                  className={"openapi-schema__property"}
+                >
+                  responseFields
+                </strong><span
+                  className={"openapi-schema__name"}
+                >
+                   SearchResponseFields
+                </span>
+              </span>
+            </summary><div
+              style={{"marginLeft":"1rem"}}
+            >
+              <SchemaItem
+                collapsible={false}
+                name={"attributes"}
+                required={false}
+                schemaName={"string[]"}
+                qualifierMessage={undefined}
+                schema={{"type":"array","items":{"type":"string"}}}
+              >
+                
+              </SchemaItem><SchemaItem
+                collapsible={false}
+                name={"tags"}
+                required={false}
+                schemaName={"string[]"}
+                qualifierMessage={undefined}
+                schema={{"type":"array","items":{"type":"string"}}}
+              >
+                
+              </SchemaItem>
+            </div>
+          </details>
+        </SchemaItem>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"previous"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Previous page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                documents
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of search result documents
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"siteId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Site Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"path"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Path or Name of document"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"deepLinkPath"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Path or Name of deep link"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"insertedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Inserted Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"lastModifiedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Last Modified Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"folder"}
+                              required={false}
+                              schemaName={"boolean"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"boolean","description":"Is Result a Document Folder"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"indexKey"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"populated if search result are from an index"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"checksum"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document checksum, changes when document file changes"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"documentId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"contentType"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document Content-Type"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"User who added document"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"contentLength"}
+                              required={false}
+                              schemaName={"integer"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"integer","description":"Document size"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"versionId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Document version"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"belongsToDocumentId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Parent Document Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      matchedAttribute
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"key"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag key"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"stringValue"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Attribute with string value"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"numberValue"}
+                                    required={false}
+                                    schemaName={"number"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"number","description":"Attribute with number value"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"booleanValue"}
+                                    required={false}
+                                    schemaName={"boolean"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"boolean","description":"Attribute with boolean value"}}
+                                  >
+                                    
+                                  </SchemaItem>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      matchedTag
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"key"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag key"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"value"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag value"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"type"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag type"}}
+                                  >
+                                    
+                                  </SchemaItem>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      matchedTags
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"key"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag key"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"value"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag value"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"type"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Tag type"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      tags
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <SchemaItem
+                                    name={"property name*"}
+                                    required={false}
+                                    schemaName={"any"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"object","additionalProperties":true}}
+                                    collapsible={false}
+                                    discriminator={false}
+                                  >
+                                    
+                                  </SchemaItem>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      attributes
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <SchemaItem
+                                    collapsible={true}
+                                    className={"schemaItem"}
+                                  >
+                                    <details
+                                      style={{}}
+                                      className={"openapi-markdown__details"}
+                                    >
+                                      <summary
+                                        style={{}}
+                                      >
+                                        <span
+                                          className={"openapi-schema__container"}
+                                        >
+                                          <strong
+                                            className={"openapi-schema__property"}
+                                          >
+                                            property name*
+                                          </strong><span
+                                            className={"openapi-schema__name"}
+                                          >
+                                             SearchResultDocumentAttribute
+                                          </span>
+                                        </span>
+                                      </summary><div
+                                        style={{"marginLeft":"1rem"}}
+                                      >
+                                        <SchemaItem
+                                          collapsible={false}
+                                          name={"stringValues"}
+                                          required={false}
+                                          schemaName={"string[]"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"array","description":"Attribute with string values","items":{"type":"string"}}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"numberValues"}
+                                          required={false}
+                                          schemaName={"number[]"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"array","description":"Attribute with number values","items":{"type":"number"}}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"booleanValue"}
+                                          required={false}
+                                          schemaName={"boolean"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"boolean","description":"Attribute with boolean value"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"valueType"}
+                                          required={false}
+                                          schemaName={"AttributeValueType (string)"}
+                                          qualifierMessage={"**Possible values:** [`BOOLEAN`, `KEY_ONLY`, `NUMBER`, `STRING`, `PUBLICATION`, `CLASSIFICATION`, `COMPOSITE_STRING`]"}
+                                          schema={{"type":"string","description":"Attribute Value Type","enum":["BOOLEAN","KEY_ONLY","NUMBER","STRING","PUBLICATION","CLASSIFICATION","COMPOSITE_STRING"],"title":"AttributeValueType"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"insertedDate"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"string","description":"Inserted Timestamp"}}
+                                        >
+                                          
+                                        </SchemaItem>
+                                      </div>
+                                    </details>
+                                  </SchemaItem>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      metadata
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <div
+                                    style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                                  >
+                                    
+                                    
+                                    List of document Metadata
+                                    
+                                    
+                                  </div><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"key"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Metadata key"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"value"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Metadata value"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"values"}
+                                    required={false}
+                                    schemaName={"string[]"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"array","description":"Metadata values","items":{"type":"string","description":"Metadata value"}}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"previous\": \"string\",\n  \"documents\": [\n    {\n      \"siteId\": \"string\",\n      \"path\": \"string\",\n      \"deepLinkPath\": \"string\",\n      \"insertedDate\": \"string\",\n      \"lastModifiedDate\": \"string\",\n      \"folder\": true,\n      \"indexKey\": \"string\",\n      \"checksum\": \"string\",\n      \"documentId\": \"string\",\n      \"contentType\": \"string\",\n      \"userId\": \"string\",\n      \"contentLength\": 0,\n      \"versionId\": \"string\",\n      \"belongsToDocumentId\": \"string\",\n      \"matchedAttribute\": {\n        \"key\": \"string\",\n        \"stringValue\": \"string\",\n        \"numberValue\": 0,\n        \"booleanValue\": true\n      },\n      \"matchedTag\": {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"type\": \"string\"\n      },\n      \"matchedTags\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"tags\": {},\n      \"attributes\": {},\n      \"metadata\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"values\": [\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
       
