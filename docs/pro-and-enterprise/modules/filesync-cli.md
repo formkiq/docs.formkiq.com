@@ -61,13 +61,26 @@ After installation, open the `Outputs` tab of the CloudFormation Stack and make 
 
 ### FileSync CLI Download
 
-The FileSync CLI can be found on its [GitHub Releases](https://github.com/formkiq/formkiq-module-filesync-cli/releases) page. 
+The CLI executables are stored in a your FormKiQ S3 bucket, which is accessible only through your authorized AWS account(s). To install the CLI, you must use AWS CloudShell to access and copy the files from the S3 bucket before downloading them to your local machine.
 
-It is available for:
+#### Available Versions
 
-* Windows
-* Linux
-* Mac
+| Platform | Download Link |
+|----------|---------------|
+| Windows  | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-windows-amd64.zip |
+| Linux    | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-linux-amd64.zip   |
+| macOS    | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-darwin-amd64.zip   |
+
+#### Access the CLI Artifact via AWS CloudShell
+
+1. Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home) in the AWS Management Console.
+2. Use the `aws s3 cp` command to copy the CLI artifact from the S3 bucket to your CloudShell environment.
+
+```bash
+aws s3 cp s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-windows-amd64.zip .
+```
+
+3. Once the file is in your CloudShell environment, use the Download file option under the Actions menu to transfer it to your local machine.
 
 ## Usage
 
