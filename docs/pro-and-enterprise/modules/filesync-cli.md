@@ -67,9 +67,9 @@ The CLI executables are stored in a your FormKiQ S3 bucket, which is accessible 
 
 | Platform | Download Link |
 |----------|---------------|
-| Windows  | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-windows-amd64.zip |
-| Linux    | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-linux-amd64.zip   |
-| macOS    | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-darwin-amd64.zip   |
+| Windows  | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-windows-amd64.zip |
+| Linux    | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-linux-amd64.zip   |
+| macOS    | s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-darwin-amd64.zip   |
 
 #### Access the CLI Artifact via AWS CloudShell
 
