@@ -74,13 +74,22 @@ The CLI executables are stored in a your FormKiQ S3 bucket, which is accessible 
 #### Access the CLI Artifact via AWS CloudShell
 
 1. Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home) in the AWS Management Console.
+
+![AWS CloudShell](./img/cloudshell.png)
+
 2. Use the `aws s3 cp` command to copy the CLI artifact from the S3 bucket to your CloudShell environment.
+
+![AWS CloudShell S3 Copy](./img/cloudshell-cli-copy.png)
 
 ```bash
 aws s3 cp s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-windows-amd64.zip .
 ```
 
+![AWS CloudShell S3 Copy Example](./img/cloudshell-cli-copy-example.png)
+
 3. Once the file is in your CloudShell environment, use the Download file option under the Actions menu to transfer it to your local machine.
+
+![AWS CloudShell FormKiQ CLI Download](./img/cloudshell-cli-download.png)
 
 ## Usage
 
@@ -88,6 +97,7 @@ aws s3 cp s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-1.5.0-windows-amd
 usage: fk
     --configure          configure AWS credentials
     --delete-documents   Delete documents
+    --delete-site        Delete Site
     --import             Import csv file
     --list               list document ids
     --show               show sync profiles
