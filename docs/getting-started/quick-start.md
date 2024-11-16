@@ -14,15 +14,43 @@ For this quickstart you will need access to an AWS account, preferably with admi
 
 If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
 
-### Increase AWS Lambda Concurrent Executions
+### AWS Lambda Concurrent Executions
 
 Concurrent executions refer to the number of function invocations that are being handled simultaneously. Each time your Lambda function is invoked, a new instance of the function is created to handle the request. [AWS Lambda](https://aws.amazon.com/pm/lambda) imposes default concurrency limits to prevent misuse and manage resource allocation.
 
 By default, AWS limits the number of concurrent executions for [Lambda](https://aws.amazon.com/pm/lambda) functions to **10** per AWS region. It is recommended that you request to have this increased to account default of **1000**.
 
+#### Check Concurrent Executions
+
+![Open CloudShell](./img/cloudshell.png)
+
+Run **aws cli** command:
+
+```
+aws service-quotas get-service-quota --service-code lambda --quota-code L-B99A9384 --region <AWS_REGION>
+```
+
+Resulting **Value** shows the AWS Lambda Concurrent executions.
+
+```
+{
+    "Quota": {
+        "ServiceCode": "lambda",
+        "ServiceName": "AWS Lambda",
+        "QuotaCode": "L-B99A9384",
+        "QuotaName": "Concurrent executions",
+        "Value": 1000.0,
+        "Unit": "None",
+        ...
+    }
+}
+```
+
 :::note
 This increase must be requested for each region FormKiQ will be deployed into.
 :::
+
+#### Request Concurrent Executions Increase
 
 You can request this increase via the Service Quotas Dashboard:
 
@@ -46,13 +74,17 @@ For more information, please refer to this [AWS Tutorial on Requesting a Quota I
 
 ### AWS Service Role For ECS
 
-Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. The easiest fix is to open up AWS CLI (you can do this using [AWS CloudShell](https://aws.amazon.com/cloudshell/)) and run the following against your account:
+Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. 
+
+![Open CloudShell](./img/cloudshell.png)
+
+Run **aws cli** command:
 
 ```
 aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 ```
 :::note
-NOTE: you will receive a message such as `An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation: Service role name AWSServiceRoleForECS has been taken in this account, please try a different suffix.`
+You will receive a message such as `An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation: Service role name AWSServiceRoleForECS has been taken in this account, please try a different suffix.`
 
 This means that this step has already been performed, either in CloudShell or by a previous FormKiQ installation process, so you do not need to take any further action.
 
