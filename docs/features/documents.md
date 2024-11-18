@@ -139,7 +139,7 @@ Actions are indicated which edition of FormKiQ they are supported in.
 Scans the document using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats. Documents are automatically flagged with the scan result.
 
 :::note
-Supported in FormKiQ PRO / Enterprise
+Available as an Add-On Module
 :::
 
 ### DOCUMENTTAGGING
@@ -151,8 +151,52 @@ Intelligent document tagging for accurate categorization of documents using arti
   - **tags**: Comma-delimited list of keywords for tagging. Example: `author,title,description`
 
 :::note
-Supported in FormKiQ Core / PRO / Enterprise
+Available as an Add-On Module
 :::
+
+### EVENTBRIDGE
+
+The **EVENTBRIDGE** document action allows seamless integration with AWS EventBridge. When triggered, this action sends the document and associated metadata as an event to EventBridge, enabling further processing, automation, or integration with downstream AWS services.
+
+This feature is ideal for building event-driven architectures where documents are a key part of your workflows.
+
+#### Example Payload
+
+When a document action is triggered, the following JSON payload is sent to the configured EventBridge event bus:
+
+```json
+{
+  "siteId": "string",
+  "path": "string",
+  "deepLinkPath": "string",
+  "insertedDate": "string",
+  "lastModifiedDate": "string",
+  "checksum": "string",
+  "checksumType": "SHA1",
+  "documentId": "string",
+  "contentType": "string",
+  "userId": "string",
+  "contentLength": 0,
+  "versionId": "string",
+  "metadata": [
+    {
+      "key": "string",
+      "value": "string",
+      "values": [
+        "string"
+      ]
+    }
+  ],
+  "attributes":[{
+    "key":"string",
+    "stringValue":"string",
+    "stringValues":[],
+    "numberValue":"numeric",
+    "numberValues":[]
+  }],
+  "url":"S3 Presigned Url"
+}
+```
 
 ### FULLTEXT
 
@@ -164,7 +208,7 @@ Extracts full text from documents for indexing and search purposes.
 :::note
 [Typesense](https://typesense.org) is Supported in FormKiQ Core
 
-[OpenSearch](https://aws.amazon.com/opensearch-service/) is Supported in FormKiQ PRO / Enterprise
+[OpenSearch](https://aws.amazon.com/opensearch-service/) is available as an Add-On Module
 :::
 
 ### NOTIFICATION
@@ -179,9 +223,6 @@ Sends notifications about document status or actions performed on a document.
   - **notificationText**: Text content of the notification email. Example: `Email Text`
   - **notificationHtml**: HTML content of the notification email. Example: `Email HTML Text`
 
-:::note
-Supported in FormKiQ Core / PRO / Enterprise
-:::
 
 ### Optical Character Recognition (OCR)
 
@@ -199,7 +240,7 @@ See [OCR Feature](/docs/features/ocr) for more details about this feature.
 :::note
 [Tesseract](https://github.com/tesseract-ocr/tesseract) is Supported in FormKiQ Core
 
-[Amazon Textract](https://aws.amazon.com/textract/) is Supported in FormKiQ PRO / Enterprise
+[Amazon Textract](https://aws.amazon.com/textract/) is Available as an Add-On Module
 :::
 
 ### QUEUE
@@ -233,7 +274,7 @@ Users can access previous versions, compare changes, and restore earlier iterati
 [See full API documentation here](/docs/api-reference/get-document-versions)
 
 :::note
-only supported in FormKiQ PRO / Enterprise
+Available as an Add-On Module
 :::
 
 ## Document User Activities
@@ -243,5 +284,5 @@ FormKiQ tracks user's document activities and logs all interactions users have w
 [See full API documentation here](/docs/api-reference/get-user-activities)
 
 :::note
-only supported in FormKiQ PRO / Enterprise
+Available as an Add-On Module
 :::
