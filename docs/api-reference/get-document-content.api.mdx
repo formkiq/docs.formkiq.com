@@ -1,13 +1,13 @@
 ---
 id: get-document-content
 title: "Get document's contents"
-description: "Get a document's contents. Certain content types, text/*, application/json, and application/x-www-form-urlencoded. return the  'content' field, while all other content types return a 'contentUrl' for retrieving the content."
+description: "Retrieves the content of the document with the specified `documentId`."
 sidebar_label: "Get document's contents"
 hide_title: true
 hide_table_of_contents: true
-api: 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
+api: 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
 sidebar_class_name: "get api-method"
-info_path: docs/api-reference/formkiq-api
+info_path: docs/api-reference/formkiq-api-jwt
 custom_edit_url: null
 ---
 
@@ -41,7 +41,12 @@ import TabItem from "@theme/TabItem";
 
 
 
-Get a document's contents. Certain content types, text/*, application/json, and application/x-www-form-urlencoded. return the  "content" field, while all other content types return a 'contentUrl' for retrieving the content.
+Retrieves the content of the document with the specified `documentId`.
+- If the content is plain text and under 6 MB, the content will be returned directly.
+- If the content is plain text but exceeds 6 MB, an error will be returned.
+- For documents not in plain text format, pre-signed S3 URLs will be returned to download the content from S3.
+It is recommended to use the `/documents/{documentId}/url` endpoint to retrieve pre-signed S3 URLs for downloading the content.
+
 
 <Heading
   id={"request"}
@@ -98,7 +103,7 @@ Get a document's contents. Certain content types, text/*, application/json, and 
         
       </ParamsItem><ParamsItem
         className={"paramsItem"}
-        param={{"name":"versionKey","in":"query","description":"Version Key","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+        param={{"name":"versionKey","in":"query","description":"Version Key (version key required URL encoding)","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem><ParamsItem

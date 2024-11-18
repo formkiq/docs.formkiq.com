@@ -4,155 +4,219 @@ sidebar_position: 1
 
 # Document Generation
 
-The document generation API allows the generation of documents from a custom template and a data document. This API can be used for generatng invoice, reports, letters and other types of documents where a predefined format needs to be populated with dynamic data.
+The Document Generation feature in the FormKiQ Document Management Platform enables the creation of dynamic documents by combining a predefined document template with one or more data sources. The document generation process uses the Apache FreeMarker templating engine, offering robust capabilities for customizing document content.
 
-## `POST /documents/{documentId}/generate`
+## Benefits
 
-This API allows the generatation of a document based from a template file.
+- **Efficiency**: Streamline document creation workflows by automating repetitive tasks.
+- **Customization**: Use powerful templating features with Apache FreeMarker to create tailored outputs.
+- **Scalability**: Handle large volumes of document generation requests with ease.
+- **Flexibility**: Generate documents in multiple output formats, such as DOCX and PDF.
 
-The body of the request looks as follows:
+
+## Apache FreeMarker Syntax
+
+Here are a few examples of Apache FreeMarker syntax commonly used in templates:
+
+For the complete reference, visit the official [Apache FreeMarker Documentation](https://freemarker.apache.org/docs/index.html).
+
+### Variable Insertion
+
+Insert variables directly into the template.
+```ftl
+Hello, ${user.name}!
+```
+
+### Conditional Logic
+
+Use conditional statements to customize output based on data values.
 
 ```
+<#if user.age >= 18>
+  Welcome to the adult portal.
+<#else>
+  Welcome to the kids' section.
+</#if>
+```
+
+### Looping Through a List
+
+Iterate over a collection to display repeated content.
+
+```
+<#list products as product>
+  - ${product.name}: ${product.price}
+</#list>
+```
+
+### Nested Loops
+
+Handle nested data structures for complex templates.
+
+```
+<#list orders as order>
+  Order ID: ${order.id}
+  <#list order.items as item>
+    - ${item.name} (${item.quantity})
+  </#list>
+</#list>
+```
+
+### Default Values
+
+Provide default values for missing data.
+
+```
+Customer Name: ${customer.name!"Unknown Customer"}
+```
+
+### String Manipulation
+
+Perform basic string operations.
+
+```
+Customer Name (Uppercase): ${customer.name?upper_case}
+Order Total (Formatted): ${order.total?string.currency}
+```
+
+### Date Formatting
+
+Format dates for better readability.
+
+```
+Order Date: ${order.date?string("yyyy-MM-dd")}
+```
+
+### Conditional Assignments
+
+Assign values based on conditions.
+
+```
+<#assign status = (order.total > 100) ? "Premium" : "Standard">
+Order Status: ${status}
+```
+
+### Comments
+
+Add comments to templates for clarity.
+
+```
+<#-- This is a single-line comment -->
+```
+
+
+## API Endpoints
+
+POST `/documents/{documentId}/generate`
+
+where the documentId is the template document id.
+
+For full API documentation, See [full documentation here](/docs/api-reference/add-document-generate).
+
+### Sample API Requests
+
+#### Request
+
+```json
+POST /documents/{documentId}/generate
 {
-  "templateDocumentId": "string",
-  "outputType": "DOCX"
+  "locale": {
+    "language": "en",
+    "country": "US"
+  },
+  "datasources": [
+    {
+      "name": "customerData",
+      "documentId": "12345",
+      "dataRoot": "data"
+    }
+  ],
+  "outputType": "PDF",
+  "saveAsDocumentId": "67890",
+  "path": "/output/reports/customer_report.pdf"
 }
 ```
 
-### DocumentId
-The document identifier that contains the dynamic data information.
+#### Explanation of Fields
 
-### TemplateDocumentId
-The document identifer that defines which template document to use.
+* locale: Specifies the language and country for locale-specific data formatting.
 
-### OutputType
-The output type of the generated document.
+  * language: Language code (e.g., en (English), fr (French), de (German)) following the ISO 639-1 standard.
+  * country: Country code (e.g., "US" for the United States) following the ISO 3166-1 standard.
+* datasources: A list of data sources to merge with the template.
+  * name: Name of the data source.
+  * documentId: Document ID of the data source file.
+  * dataRoot: Root key in the data source to use as the base.
+  * outputType: Format of the generated document. Supported values: DOCX, PDF.
+  * saveAsDocumentId: Specific Document ID for saving the generated document.
+  * path: File path to save the generated document.
 
-:::note
-Supports Template documents that are in DOCX format
-:::
 
-## Template Fields
+## DataSource
 
-In the document generation API, template fields are specified using field names enclosed in curly backets, such as `{field_name}`. These placeholders indicate where dynamic data from the data document should be inserted within the template. 
+The DataSource is a JSON document that provides the values used to populate the placeholders and logic within the Apache FreeMarker template. This enables dynamic content generation by combining the static structure of the template with the dynamic data from the DataSource.
 
-During the document generation process, each placeholder in the template is replaced with the corresponding value from the data document based on the field name.
+### Key Attributes of a DataSource
 
-### Fields
+- **JSON Document**: The data source must be structured as a JSON document. Each key-value pair in the document corresponds to a variable or object used in the template.
+- **`dataRoot` Parameter**: Controls the root node of the JSON document to load into the template. This allows flexibility in selecting the portion of the document to use for rendering.
 
-Fields within the template are represented by field names enclosed in curly brackets, e.g, `{field_name}`. These placeholders are replaced with the corresponding values from the data document.
+### Example of a DataSource
 
-#### Document Example
-
-The following example demonstrates using a DOCX template and data document to generate a final DOCX document.
-
-##### Template Document
-
-Create a DOCX file with the following content.
-
-```
-Invoice: {invoice_number} | Date: {date}
-```
-
-##### Data Document
-
-Using the following data document, we will use the invoice_number, date to create a new document with the values populated.
-
-```
+#### JSON DataSource
+```json
 {
-  "data": {
-    "invoice_number": "12345",
-    "date": "Jan 1, 2024"
-  }
-}
-```
-
-##### API Request
-
-If the stored template document has a FormKiQ document id of `c061f1dd-f61c-465aa7cb-c14edd0f095d` and the data document has a FormKiQ document id of `d96c3899-cfbe-42febc80-04fdc0266306`.
-
-Sending the following request
-
-```
-POST /documents/d96c3899-cfbe-42febc80-04fdc0266306/generate
-
-{
-  "templateDocumentId": "c061f1dd-f61c-465aa7cb-c14edd0f095d",
-  "outputType": "DOCX"
-}
-```
-
-Will result in a new document being generated and the document id returned in the response.
-
-```
-{
-  "documentId": "86f3f1de-e165-48f0-90af-2f585bf53050"
-}
-```
-
-### Sections
-
-Sections in the template can be dynamically generated using special section placeholders. These placeholders mark a block of content that can be repeated or conditionally included based on the data document.
-
-#### Document Table Example
-
-The following example demonstrates generating tabular data using a DOCX template and data document to generate a final DOCX document.
-
-##### Template Document
-
-Create a DOCX file with the following content.
-
-| Product | Quantity |
-| ------- | -------- |
-| `{#items}{product}` | `{quantity}{/items}` |
-
-##### Data Document
-
-Using the following data document, we will use the items to create a new document with the values populated inside of a table.
-
-```
-{
-  "data":{
-    "items":[
+  "company": {
+    "name": "Acme Corp",
+    "location": "New York",
+    "employees": [
       {
-        "product": "shampoo",
-        "quantity": "10"
+        "name": "John Doe",
+        "position": "Manager",
+        "age": 35
       },
       {
-        "product": "soap",
-        "quantity": "5"
+        "name": "Jane Smith",
+        "position": "Engineer",
+        "age": 29
       }
     ]
   }
 }
 ```
 
-##### API Request
+### Using dataRoot
 
-If the stored template document has a FormKiQ document id of `94a574f2-2e2b-40ea-920f-c8131b510424` and the data document has a FormKiQ document id of `7c3eeb64-5977-41da-9364-ccf8aa94a30a`.
-
-Sending the following request
+By specifying dataRoot: **company**, only the data under the company key is accessible in the template.
 
 ```
-POST /documents/7c3eeb64-5977-41da-9364-ccf8aa94a30a/generate
-
-{
-  "templateDocumentId": "94a574f2-2e2b-40ea-920f-c8131b510424",
-  "outputType": "DOCX"
-}
+Company Name: ${name}
+Location: ${location}
+<#list employees as employee>
+  - ${employee.name}, ${employee.position}
+</#list>
 ```
 
-Will result in a new document being generated and the document id returned in the response.
+## Document Attributes
 
+In addition to the user-provided DataSource, **Document Attributes** associated with the document are automatically loaded and added to the DataSource. This ensures that metadata and other predefined attributes related to the document can be directly utilized in the template without additional configuration.
+
+### Example
+
+**Document Attributes**
+
+| **Attribute Key** | **Value**                          |
+|--------------------|------------------------------------|
+| title            | Quarterly Financial Report        |
+| author           | Jane Doe                          |
+| createdDate      | 2024-01-15                        |
+| department       | Finance                           |
+
+**Template**
+
+```ftl
+Document Title: ${title}
+Author: ${author}
+Date Created: ${createdDate}
+Department: ${department}
 ```
-{
-  "documentId": "cc094434-b19f-44d8-9037-50419e0cf672"
-}
-```
-
-When opening the document you will see the following table generated.
-
-| Product | Quantity |
-| ------- | -------- |
-| shampoo | 10 |
-| soap | 5 |
