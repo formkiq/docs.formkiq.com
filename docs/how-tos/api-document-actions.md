@@ -66,7 +66,7 @@ A successful message return the document id that was created.
 
 ## Add Document with OCR & FULLTEXT Actions
 
-FormKiQ Core has OCR with Tesseract, while [FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have an <a href="/docs/pro-and-enterprise/modules/enhanced-document-ocr">Enhanced Document OCR Module</a>. [FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) also has an <a href="/docs/pro-and-enterprise/modules/enhanced-fulltext-document-search">Enhanced Fulltext Document Search Module</a> which can be used to automatically run a OCR scan on a document and put the OCR results automatically into [OpenSearch](https://aws.amazon.com/opensearch-service) to enable full text document searching.
+FormKiQ Core has OCR with Tesseract, while [FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have an <a href="/docs/add-on-modules/modules/enhanced-document-ocr">Enhanced Document OCR Module</a>. [FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) also has an <a href="/docs/add-on-modules/modules/enhanced-fulltext-document-search">Enhanced Fulltext Document Search Module</a> which can be used to automatically run a OCR scan on a document and put the OCR results automatically into [OpenSearch](https://aws.amazon.com/opensearch-service) to enable full text document searching.
 
 
 ```

@@ -10,7 +10,7 @@ sidebar_position: 5
 
 Before you can install the OpenSearch module, you need to have installed FormKiQ Pro/Enterprise and the VPC. The installation links can be found below:
 
-* [FormKiQ Pro/Enterprise](/docs/pro-and-enterprise/installation/formkiq)
+* [FormKiQ Pro/Enterprise](/docs/add-on-modules/installation/formkiq)
 * [VPC](/docs/getting-started/quick-start#create-vpc)
 
 Before installation verify that the AWSServiceRoleForAmazonOpenSearchService has been enabled on your AWS Account. The easiest fix is to open up AWS CLI and run the following against your account once.

@@ -4,17 +4,17 @@ sidebar_position: 1
 
 # Pre-Hook Option
 
-This tutorial show you how to use the "--pre-hook" option in the [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli) to add document metadata at the same time as syncing documents to FormKiQ.
+This tutorial show you how to use the "--pre-hook" option in the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) to add document metadata at the same time as syncing documents to FormKiQ.
 
 We will be:
 
-* Using the [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli) to sync documents to FormKiQ and add document metadata at the same time
+* Using the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) to sync documents to FormKiQ and add document metadata at the same time
 
 ## What you’ll need
 
 * Access to a FormKiQ Pro or FormKiQ Enterprise installation
 
-* Installed and configured the [FileSync CLI](/docs/pro-and-enterprise/modules/filesync-cli)
+* Installed and configured the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli)
 
 
 ## Pre-requisite

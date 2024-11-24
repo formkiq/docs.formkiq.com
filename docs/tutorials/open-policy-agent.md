@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Open Policy Agent
 
-This tutorial uses the FormKiQ [Open Policy Agent module](/docs/pro-and-enterprise/modules/open_policy_agent) to demonstrate how to protect documents using access attributes.
+This tutorial uses the FormKiQ [Open Policy Agent module](/docs/add-on-modules/modules/open_policy_agent) to demonstrate how to protect documents using access attributes.
 
 We will be:
 

@@ -82,7 +82,7 @@ FormKiQ supports extracting text from a PNG document in two ways that have a dif
 
 FormKiQ uses [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service) to provide enhanced document searching ability. The costs for [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service) can vary greatly depending on requirements and whether you are using On-Demand or Reserved Instances.
 
-See [Sizing Cluster](/docs/pro-and-enterprise/modules/enhanced-fulltext-document-search#amazon-opensearch-service) for determining your cluster requirements.
+See [Sizing Cluster](/docs/add-on-modules/modules/enhanced-fulltext-document-search#amazon-opensearch-service) for determining your cluster requirements.
 
 ### Multi-AZ with Standby and Dedicated Master Nodes (99.99% availability)
 
