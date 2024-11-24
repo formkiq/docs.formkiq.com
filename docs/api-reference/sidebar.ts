@@ -4,7 +4,7 @@ const sidebar: SidebarsConfig = {
   apisidebar: [
     {
       type: "doc",
-      id: "api-reference/formkiq-api",
+      id: "api-reference/formkiq-api-jwt",
     },
     {
       type: "category",
@@ -24,6 +24,42 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
+          id: "api-reference/add-site",
+          label: "Add Site",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/update-site",
+          label: "Update Site",
+          className: "api-method patch",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-site-groups",
+          label: "Get group(s) and permissions belonging to site",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-site-group",
+          label: "Get group and permissions belonging to site",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/delete-site-group",
+          label: "Deletes Site Group and permissions",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "api-reference/set-site-group-permissions",
+          label: "Set Site's Group Permissions",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
           id: "api-reference/get-opensearch-index",
           label: "Get site(s) OpenSearch index settings",
           className: "api-method get",
@@ -37,7 +73,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "api-reference/delete-opensearch-index",
-          label: "Deletst site(s) OpenSearch index",
+          label: "Deletes site(s) OpenSearch index",
           className: "api-method delete",
         },
         {
@@ -90,6 +126,12 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
+          id: "api-reference/get-sites-schema-attribute-allowed-values",
+          label: "Get Attribute Allowed Values",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
           id: "api-reference/get-sites-classifications",
           label: "Get Sites Classifications",
           className: "api-method get",
@@ -117,6 +159,12 @@ const sidebar: SidebarsConfig = {
           id: "api-reference/set-classification",
           label: "Set Classification",
           className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-classification-attribute-allowed-values",
+          label: "Get Classification's Attribute Allowed Values",
+          className: "api-method get",
         },
       ],
     },
@@ -393,6 +441,12 @@ const sidebar: SidebarsConfig = {
           id: "api-reference/delete-attribute",
           label: "Delete attribute",
           className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-attribute-allowed-values",
+          label: "Get Attribute Allowed Values",
+          className: "api-method get",
         },
       ],
     },
@@ -698,36 +752,6 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Tag Schema",
-      items: [
-        {
-          type: "doc",
-          id: "api-reference/get-tag-schemas",
-          label: "Get tag schemas",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/add-tag-schema",
-          label: "Add tag schemas",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api-reference/get-tag-schema",
-          label: "Get tag schema",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/delete-tag-schema",
-          label: "Delete tag schema",
-          className: "api-method delete",
-        },
-      ],
-    },
-    {
-      type: "category",
       label: "Antivirus",
       items: [
         {
@@ -751,7 +775,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "api-reference/get-document-user-activities",
-          label: "Get user activities",
+          label: "Get user activities for a document",
           className: "api-method get",
         },
       ],
@@ -894,21 +918,15 @@ const sidebar: SidebarsConfig = {
       items: [
         {
           type: "doc",
-          id: "api-reference/add-esignature-docusign",
-          label: "Create E-signature request",
+          id: "api-reference/add-docusign-envelopes",
+          label: "Create Docusign Envelope request",
           className: "api-method post",
         },
         {
           type: "doc",
-          id: "api-reference/get-esignature-docusign-config",
-          label: "Get E-signature config",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/set-esignature-docusign-config",
-          label: "Set E-signature config",
-          className: "api-method put",
+          id: "api-reference/add-docusign-recipient-view",
+          label: "Create Docusign Recipient View request",
+          className: "api-method post",
         },
         {
           type: "doc",
@@ -1251,6 +1269,42 @@ const sidebar: SidebarsConfig = {
           id: "api-reference/get-examine-pdf",
           label: "Add Examine Pdf",
           className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Document Generation",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/add-document-generate",
+          label: "Add Document Generate",
+          className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Google Integration",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/add-google-document-export",
+          label: "Add Google Document Export",
+          className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Reindex",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/add-reindex-document",
+          label: "Reindex metadata on a document",
+          className: "api-method post",
         },
       ],
     },

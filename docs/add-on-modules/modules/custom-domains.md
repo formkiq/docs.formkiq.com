@@ -40,6 +40,10 @@ The template requires the following parameters to be defined:
 - **KeyCertificateArn:** The ARN of the ACM certificate for the FormKiQ Key API.
 - **AuthCertificateArn:** The ARN of the ACM certificate for the FormKiQ Auth API.
 
+:::note
+The ACM certificate for the FormKiQ Console must be in the us-east-1 region due to Amazon CloudFront requirements
+:::
+
 ### Optional Parameters
 - **HostedZoneId:** (Optional) The Route 53 Hosted Zone ID where the A records will be added. This parameter is used if you want the template to automatically create DNS records in Route 53.
 

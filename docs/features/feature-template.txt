@@ -1,0 +1,50 @@
+# <Feature Name>
+
+Briefly describe what the feature is and what it does.
+
+## Use Cases
+
+Outline scenarios or business cases where the feature is most beneficial.
+
+## Benefits
+Highlight specific advantages of using this feature to help customers understand its value.
+
+## Prerequisites
+List any requirements needed before using the feature, like specific configurations or permissions.
+
+## Getting Started
+Step-by-step instructions to enable or activate the feature.
+
+## How It Works
+Explain the functionality in more depth, possibly including architecture, workflows, or data flow where relevant.
+
+## API Endpoints
+
+The API Endpoints can be found under the path **/feature**. [See full documentation here](#)
+
+## Sample API Requests
+Provide example API requests and responses in JSON, with explanations of each field.
+
+## Usage Instructions
+Detailed steps or procedures on how to use the feature effectively, possibly with subheadings like:
+- **Basic Usage**
+- **Advanced Usage**
+- **Best Practices**
+
+## Configuration Options
+Describe configurable parameters with explanations of each setting and its impact.
+
+## Examples
+Include example use cases, code snippets, or sample configurations to illustrate common applications.
+
+## Common Issues and Troubleshooting
+Document known issues or challenges with steps to troubleshoot.
+
+## FAQs
+Address frequently asked questions related to the feature.
+
+## Related Features and Integrations
+Mention related features or integrations within the platform that complement this feature.
+
+## Additional Resources
+Link to external resources, API references, or relevant documentation for further reading.

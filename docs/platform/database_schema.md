@@ -89,9 +89,12 @@ The Document Entity consists of attributes that capture essential information ab
 | userId | Create by user |
 | path | Document path |
 | deepLinkPath | Document deep link path |
+| metadata | Key / Value with Key starting with "md#" |
 | contentType | Mime Content Type |
+| contentLength | Mime Content Type |
 | checksum | Document content checksum |
-| tagSchemaId | Tag Schema for document |
+| checksumType | Document content checksum type |
+| s3version | Document Content S3 version |
 
 ### Child Document
 
@@ -247,29 +250,6 @@ Document Tag(s) entity with multiple values.
 | userId | Create by user |
 | inserteddate | Inserted Date |
 
-### Document Activity
-
-Contains list of document activities.
-
-#### Entity Key Schema
-							
-| Attributes   | Format |
-| -------- | ------- | 
-| PK | "doc#" + documentId  |
-| SK | "activity#" + yyyy-MM-dd’T’HH:mm:ssZ |
-| GSI1PK | "activity#user#" + username  |
-| GSI1SK | "activity#" + yyyy-MM-dd’T’HH:mm:ssZ + "#" + documentId | 
-| GSI2PK | "activity#"  |
-| GSI2SK | "activity#" + yyyy-MM-dd’T’HH:mm:ssZ + "#" + documentId | 
-
-#### Entity Attributes
-
-| Attributes   | Description |
-| -------- | ------- | 
-| documentId | Document Identifier  |
-| type | Type of User Activity (view, add, change, delete) | 
-| userId | Create by user |
-| inserteddate | Inserted Date | 
 
 ### Document Attribute
 
@@ -296,17 +276,6 @@ Document Attribute entity.
 | numberValue | number value |
 | booleanValue | boolean value |
 
-### Document Attribute Version
-
-Document Version Attribute entity.
-
-#### Entity Key Schema
-							
-| Attributes   | Format |
-| -------- | ------- | 
-| PK | "doc#" + documentId  |
-| SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss + "#" + value |
-| archive#SK | "attr#" + key + "#" + value |
 
 ### Document Publication
 
@@ -328,6 +297,110 @@ Document Publication entity.
 | s3Version | Document S3 Version Key |
 | documentId | Document Idenitifer |
 | userId | Create by user |
+
+## Document User Activity
+
+Document User Activities refers to the tracking and logging of actions performed on documents within a system.
+
+These activities typically include operations such as CREATE, VIEW, DELETE, and MODIFY, allowing administrators or users to monitor the lifecycle and interactions with documents. 
+
+This tracking provides visibility into who accessed or altered a document, when the action occurred, and what changes were made. Document Activities are crucial for auditing, security, compliance, and overall document management, ensuring accountability and transparency in document usage.
+
+:::note
+These attributes are stored in the "versions" DynamoDB table.
+:::
+
+### Document Activity
+
+The main document user activity tracking record. Depending on the type of document activity, the versionPk, versionSk refers to the record associated with the activity.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "activity#" + yyyy-MM-dd’T’HH:mm:ss.ffffffZ |
+| GSI1PK | "activity#user#" + username  |
+| GSI1SK | "activity#" + yyyy-MM-dd’T’HH:mm:ss.ffffffZ + "#" + documentId | 
+| GSI2PK | "activity#"  |
+| GSI2SK | "activity#" + yyyy-MM-dd’T’HH:mm:ss.ffffffZ + "#" + documentId | 
+
+#### Entity Attributes
+
+| Attributes   | Description |
+| -------- | ------- | 
+| documentId | Document Identifier  |
+| type | Type of User Activity (view, add, change, delete) | 
+| userId | Create by user |
+| versionPk | PK key for version table | 
+| versionSk | SK key for version table | 
+| inserteddate | Inserted Date | 
+
+### Document Metadata
+
+Document Metadata refers to the metadata information attached to the document.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "doc#" + yyyy-MM-dd’T’HH:mm:ss |
+
+#### Entity Attributes
+
+| Attributes   | Format | Description |
+| -------- | ------- | 
+| documentId | Document Identifier  |
+| path | Document path |
+| inserteddate | Inserted Date | 
+| lastModifiedDate | Last Modified Date |
+| deepLinkPath | Document deep link path |
+| metadata | Key / Value with Key starting with "md#" |
+
+### Document Version
+
+Document Version Tracking refers to the process of recording and managing changes made to the content of a document over time. Each time a document is edited or updated, a new version is created, allowing users to track and compare previous iterations of the document.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "document#" + yyyy-MM-dd’T’HH:mm:ss
+
+#### Entity Attributes
+
+| Attributes   | Format | Description |
+| -------- | ------- | 
+| contentType | Mime Content Type |
+| contentLength | Mime Content Type |
+| checksum | Document content checksum |
+| checksumType | Document content checksum type |
+| s3version | Document Content S3 version |
+
+### Document Attribute Version
+
+Document Attribute Tracking refers to the monitoring and recording of changes made to the metadata or properties associated with a document.
+
+#### Entity Key Schema
+							
+| Attributes   | Format |
+| -------- | ------- | 
+| PK | "doc#" + documentId  |
+| SK | "attr#" + key + "#" + yyyy-MM-dd’T’HH:mm:ss + "#" + value |
+
+#### Entity Attributes
+
+| Attributes   | Format | Description |
+| -------- | ------- | 
+| archive#SK | "attr#" + key + "#" + value | The previous SK that was used in the Documents table, used | | ocumentId | Document Identifier  |
+| key | attribute key |
+| index | attribute index |
+| valueType | Type of Attribute (string, number, boolean, publication)
+| stringValue | string value |
+| numberValue | number value |
+| booleanValue | boolean value |
 
 ## Attributes
 

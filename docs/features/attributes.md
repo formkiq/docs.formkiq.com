@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Attributes
@@ -11,8 +11,6 @@ Attributes are created at the site level and then assigned to an additional docu
 The main reason for this is to enable attribute-driven and attribute-aware actions within FormKiQ, such as creating a conditional workflow step. By sharing certain properties such as the data type, actions can be applied consistently.
 
 An attribute is defined by its key, data type, and type. These properties ensure that each attribute is uniquely identified, appropriately typed, and categorized according to its usage within the system.
-
-## Attribute Structure
 
 An attribute is defined by its key, data type, and type. These properties ensure that each attribute is uniquely identified, appropriately typed, and categorized according to its usage within the system.
 
@@ -27,80 +25,35 @@ An attribute is defined by its key, data type, and type. These properties ensure
       - `STANDARD`: Regular attributes used for general purposes.
       - `OPA`: Attributes that are used with Open Policy Agent for policy-based access control, enabling complex, attribute-based policies for document access and management.
 
-### Example Attribute JSON
+## API Endpoints
 
-Here is an example configuration of an attribute using the supported structure and properties:
+The Attributes API provides a flexible way to manage and retrieve metadata attributes associated with documents. These attributes can represent document properties or tags that help in organizing, searching, and filtering documents. 
 
-```json
-{
-  "attribute": {
-    "key": "documentId",
-    "dataType": "STRING",
-    "type": "STANDARD"
-  }
-}
-```
+[See full API documentation here](/docs/api-reference/add-attribute)
 
-## Attribute Properties Explained
+## Use Cases
 
-### Key
-The unique identifier for the attribute within the system. This key is used to reference the attribute in various operations, such as searching and categorizing documents.
+  1.  **Listing Available Attributes**
+Retrieve a comprehensive list of all document attributes available for a given site. This can be useful when populating UI elements for filtering or categorizing documents.
+  2.  **Adding Custom Attributes**
+Allows users to add new attributes that can be associated with documents, enabling custom metadata tailored to organizational needs.
+  3.  **Retrieving a Specific Attribute**
+Fetch details about a specific attribute using its unique key. This can be helpful for applications needing detailed information about an attribute’s properties or configurations.
+  4.  **Deleting an Attribute**
+Enables users to remove attributes that are no longer relevant, simplifying data management and ensuring metadata stays up-to-date.
+  5.  **Getting Allowed Values for an Attribute**
+Retrieves a list of allowed values for an attribute, supporting scenarios where attributes have predefined options (e.g., status fields, categories). This can help maintain consistency and integrity in document categorization.
 
-### DataType
-Defines the type of data the attribute will hold. This ensures that the attribute's values are consistent and can be validated appropriately.
+## Reserved Attribute Keys
 
-- **STRING**: Used for attributes that contain textual information, such as titles, authors, or descriptions.
-- **NUMBER**: Used for attributes that contain numeric values, such as page counts, version numbers, or identifiers.
-- **BOOLEAN**: Used for attributes that hold true or false values, such as flags for review status or publication status.
-- **KEY_ONLY**: Used for attributes that are primarily identifiers without additional data, serving as unique keys.
+The following attribute keys are reserved for internal use by FormKiQ and cannot be used as custom attribute keys.
 
-### Type
-Specifies the categorization of the attribute based on its usage within the DMS.
+* Classification: Reserved for document classification purposes. [Document Classification Documentation](/docs/features/documents#document-classifications)
 
-- **STANDARD**: Regular attributes that are used for general metadata purposes.
-- **OPA**: Attributes that are used with Open Policy Agent for policy-based access control, enabling complex, attribute-based policies for document access and management.
+* Relationships: Reserved for defining relationships between documents. [Document Relationships Documentation](/docs/features/documents#document-relationships)
 
-## Example Attributes
+* MalwareScanResult: Reserved for storing results from malware scans.
 
-Here are additional examples of attributes with various configurations:
+* EsignatureDocusignEnvelopeId: Reserved for tracking DocuSign envelope IDs in e-signature workflows.
 
-```json
-{
-  "attribute": {
-    "key": "author",
-    "dataType": "STRING",
-    "type": "STANDARD"
-  }
-}
-```
-
-```json
-{
-  "attribute": {
-    "key": "pageCount",
-    "dataType": "NUMBER",
-    "type": "STANDARD"
-  }
-}
-```
-
-```json
-{
-  "attribute": {
-    "key": "isReviewed",
-    "dataType": "BOOLEAN",
-    "type": "STANDARD"
-  }
-}
-```
-
-
-```json
-{
-  "attribute": {
-    "key": "security",
-    "dataType": "STRING",
-    "type": "OPA"
-  }
-}
-```
+* EsignatureDocusignStatus: Reserved for tracking the status of DocuSign e-signature requests.
