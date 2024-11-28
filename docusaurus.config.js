@@ -169,6 +169,21 @@ const config = {
           }
         }
       }
+    ],
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+        ],
+        createRedirects(existingPath) {
+          if (existingPath.includes('/pro-and-enterprise')) {
+            return [
+              existingPath.replace('/add-on-modules', '/pro-and-enterprise'),
+            ];
+          }
+          return undefined; // Return a falsy value: no redirect created
+        }
+      },
     ]
   ],
 
