@@ -173,21 +173,13 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects: [
-        {
-          to: '/docs/add-on-modules/modules/custom-domains',
-          from: '/docs/pro-and-enterprise/modules/custom-domains',
-        }],
         createRedirects(existingPath) {
-          console.log('Checking path:', existingPath);  // Add debug logging
-          if (existingPath.includes('/pro-and-enterprise')) {
-            const newPath = existingPath.replace('/add-on-modules', '/pro-and-enterprise');
-            console.log('Creating redirect:', newPath);  // Add debug logging
-            return [newPath];
+          if (existingPath === '/docs/add-on-modules/modules/custom-domains') {
+            return ['/docs/pro-and-enterprise/modules/custom-domains'];
           }
           return undefined;
         }
-      },
+      }
     ]
   ],
 
