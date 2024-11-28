@@ -173,8 +173,10 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects: [
-        ],
+        redirects: [{
+          to: '/docs/add-on-modules/modules/custom-domains',
+          from: '/docs/pro-and-enterprise/modules/custom-domains',
+        }],
         createRedirects(existingPath) {
           if (existingPath.includes('/pro-and-enterprise')) {
             return [
