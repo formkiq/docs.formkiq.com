@@ -178,7 +178,6 @@ const config = {
           to: '/docs/add-on-modules/modules/custom-domains',
           from: '/docs/pro-and-enterprise/modules/custom-domains',
         }],
-        ignoreRedirectPages: true,
       },
     ]
   ],
