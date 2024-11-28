@@ -2,32 +2,18 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 import {themes as prismThemes} from 'prism-react-renderer';
-// const lightCodeTheme = require('prism-react-renderer/themes/github');
-// const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'FormKiQ',
   tagline: 'Build your perfect document management solution with the FormKiQ Platform',
   favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
   url: 'https://docs.formkiq.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'FormKiQ', // Usually your GitHub org/user name.
-  projectName: 'formkiq', // Usually your repo name.
-
+  organizationName: 'FormKiQ',
+  projectName: 'formkiq',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -44,21 +30,13 @@ const config = {
         },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/formkiq/docs.formkiq.com/tree/main/',
-          // docLayoutComponent: "@theme/DocPage",
-          // sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/formkiq/docs.formkiq.com/tree/main/',
           docRootComponent: "@theme/DocRoot",
-          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+          docItemComponent: "@theme/ApiItem",
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -75,7 +53,6 @@ const config = {
           hideable: true
         }
       },
-      // Replace with your project's social card
       navbar: {
         title: 'FormKiQ Docs',
         logo: {
@@ -91,7 +68,7 @@ const config = {
             href: 'https://formkiq.com',
             logo: {
               alt: 'FormKiQ Docs',
-             src: 'img/logo.png',
+              src: 'img/logo.png',
             }
           },
           {
@@ -129,22 +106,11 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} FormKiQ, Inc. Built with Docusaurus.`,
       },
       algolia: {
-      // Algolia application ID, found in the Algolia dashboard
-      appId: 'GGHVG096JW',
-
-      // Public API key: it is safe to include it in your frontend
-      apiKey: 'f5ed2fcbe2c7680eb8e92953a38d004e',
-
-      // Index name to target, found in the Algolia dashboard
-      indexName: 'docs',
-
-      // Optional: if Algolia is powered by DocSearch
-      contextualSearch: true,
-
-      searchPagePath: 'search',
-
-      // Optional: Specifies search parameters
-      //searchParameters: {},
+        appId: 'GGHVG096JW',
+        apiKey: 'f5ed2fcbe2c7680eb8e92953a38d004e',
+        indexName: 'docs',
+        contextualSearch: true,
+        searchPagePath: 'search',
       },
       prism: {
         theme: prismThemes.github,
@@ -152,7 +118,7 @@ const config = {
       },
     }),
 
-    plugins: [
+  plugins: [
     [
       "docusaurus-plugin-openapi-docs",
       {
@@ -170,16 +136,7 @@ const config = {
         }
       }
     ],
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: [
-        {
-          to: '/docs/add-on-modules/modules/custom-domains',
-          from: '/docs/pro-and-enterprise/modules/custom-domains',
-        }],
-      },
-    ]
+    require.resolve('./plugins/redirect-plugin.js')
   ],
 
   themes: ["docusaurus-theme-openapi-docs"]
