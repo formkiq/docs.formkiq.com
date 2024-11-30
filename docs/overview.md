@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. **FormKiQ strives to be the most flexible, customizable and cost-effective document management platform available**, whether functioning as a turnkey document management system or providing a secure and scalable document layer for multitier architectures.
 
-![FormKiQ Architecture](./img/architecture_formkiq_core.png)
+![FormKiQ Architecture](./img/formkiq_architecture.png)
 
 FormKiQ is an API-first document management platform that deploys to your [Amazon Web Services](https://aws.amazon.com) account. It's flexible and scalable design allows for anyone to quickly and easily add document management functionality to any application, through our robust set of document management APIs, reducing development time by up to 300%. Since FormKiQ deploys into your account, in almost all AWS regions, you can maintain full control of your documents 100% of the time.
 
