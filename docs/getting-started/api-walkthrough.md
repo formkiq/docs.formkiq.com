@@ -12,112 +12,129 @@ This tutorial will take you through the basics of the FormKiQ Document API, incl
 
 ## Prerequisite
 
-* You have installed FormKiQ; see the [Quick Start](./quick-start)
-* Install a API Client like https://www.postman.com.
+* You have installed FormKiQ; see the [Quick Start](/docs/category/getting-started)
 
-## OpenAPI
+## Postman Public API Network
+
+The [FormKiQ API is available on the Postman Public API network](https://www.postman.com/formkiq/formkiq-api/overview). By using the Postman Public API network, you can enter your FormKiQ connection details and immediately be able to test and user the FormKiQ API.
+
+![Postman JWT Login](./img/postman-formkiq-api.png)
+
+There are 3 Collections in the FormKiQ API. Each collection is the same API but using a different authorization scheme. 
+
+* **JWT Authentication Collection**: Uses JSON Web Tokens (JWT) for stateless, token-based authentication. Suitable for applications requiring secure, session-based communication.
+
+* **AWS IAM Authentication Collection**: Leverages AWS Identity and Access Management (IAM) for authentication. Ideal for AWS-integrated environments where IAM roles and policies manage access control.
+
+* **API Key Authentication Collection**: Employs API keys for straightforward authentication. Perfect for quick integration and testing purposes.
+
+:::note
 
 The FormKiQ API was built using the OpenAPI specification. OpenAPI is an open standard for how to describe API endpoints, request bodies and their responses.
 
 Since it is an open standard it is supported by many applications. In this case, we can import them into Postman and quickly get access to the FormKiQ API.
 
 The FormKIQ OpenAPI specifications can be found on the FormKiQ Core's github page in the https://github.com/formkiq/formkiq-core/tree/master/docs/openapi folder.
+:::
 
-| File    | Url |
-| -------- | ------- |
-| `openapi-auth.yaml` | https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-auth.yaml |
-| `openapi-jwt.yaml` | https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml |
+## Authentication
 
-The `openapi-auth.yaml` describes then authentication APIs available. We will use this to get the access token required for accessing the FormKiQ API.
+Depending on which authentication you want to use, below find instructions for each method.
 
-The `openapi-jwt.yaml` describes the entire document management API that FormKiQ provides.
+### JWT Token
 
-## Postman Import
+Follow these steps to retrieve a JWT token using your browser's developer tools. The JWT token will be configured in the FormKiQ JWT API collection in the following section.
 
-![Postman](./img/postman.png)
+#### **Google Chrome**
 
-To import the FormKiQ API into Postman, start by opening Postman.
+1. Log in to the FormKiQ Web Console.
+2. Press `F12` (or `Ctrl+Shift+I` / `Cmd+Option+I` on macOS) to open the Developer Tools.
+3. Click on the **Network** tab.
+4. Refresh the page or perform an action within the console.
+5. Locate a network request containing the token. Look in the **Authorization** header or the response body.
+6. Right-click on the request and select **Copy** > **Copy as cURL** or inspect its details to find the JWT token.
 
-![Postman Import](./img/postman-import.png)
+#### **Safari**
 
-To import the FormKiQ API:
+1. Open Safari and log in to the FormKiQ Web Console.
+2. Enable the Develop menu if it's not already visible:
+   - Go to **Safari > Preferences > Advanced** and check **Show Develop menu in menu bar**.
+3. Press `Cmd+Option+I` to open the Web Inspector.
+4. Navigate to the **Network** tab.
+5. Perform an action (e.g., refresh the page) to populate network requests.
+6. Find the request containing the token in the **Authorization** header or response body.
+7. Inspect the request for the JWT token and copy it as needed.
 
-* Click the `Import` button
-* Enter the URL for the openapi-auth.yaml file
-* Click the `Continue` button
+#### **Mozilla Firefox**
 
-By default Postman will import/sort the API by url. The FormKiQ API has tagged every URL so we will change Postman to import by tag, this will make the API much more readable and organized.
+1. Log in to the FormKiQ Web Console.
+2. Press `Ctrl+Shift+I` (or `Cmd+Option+I` on macOS) to open Developer Tools.
+3. Go to the **Network** tab.
+4. Refresh the page or perform an action within the console.
+5. Look for a network request with the JWT token in the **Authorization** header or response body.
+6. Right-click on the request and select **Copy** > **Copy Request Headers** or inspect its details to retrieve the JWT token.
 
-To do this:
+### AWS IAM
 
-![Postman Import Sort](./img/postman-import-sort.png)
+To use AWS IAM authentication, you will need to create an AWS IAM user with the **AmazonAPIGatewayInvokeFullAccess** policy attached and generate an access key and secret key for the user. The AmazonAPIGatewayInvokeFullAccess policy is what allows the user access to call the API Gateway which controls access to the FormKiQ API.
 
-* Click the `Show advanced settings`
-* Scroll down to `Folder organization`
-* Change from `Paths` to `Tags`
-* Click the `Import` button to finish
+* Create a new IAM user in the [AWS IAM Console](https://console.aws.amazon.com/iam/home)
+* Attach the AmazonAPIGatewayInvokeFullAccess policy to the user
+* Create an AccessKey / SecretKey for the IAM user.
 
-Repeat the steps for the `openapi-jwt.yaml` URL and you will end up with both the `FormKiQ Authentication API` and `FormKiQ HTTP API`.
+### API Key
 
-![Postman Import Finished](./img/postman-import-finished.png)
+To generate an API key using the FormKiQ Console, log in and navigate to the **API Keys** in the Administration section. 
+
+Click **Create new**, provide a name for the key and select the permissions associated. Once generated, copy the API key immediately, as it will be required to authenticate API requests.
+
+![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
 
 ## Configure Postman
 
-We now need to connect Postman to a FormKiQ installation. To do this we need to login to the [AWS Management Console](https://console.aws.amazon.com) and goto the [CloudFormation Console](https://console.aws.amazon.com/cloudformation/home).
+The following are instruction on how to configure Postman for each collection.
 
-image::formkiq-cloudformation-outputs.png[FormKiQ CloudFormation Outputs,1000,1000]
+You will need the API urls for each authentication method which can be found in the **Outputs** of your CloudFormation installation.
 
-Clicking the FormKiQ installation and the `Outputs` we will see the different AWS resources that were created. To configure Postman we will need 2 values from the list, the `CognitoApiEndpoint` and the `HttpApiUrl`.
+![FormKiQ API Urls](./img/fk-api-urls.png)
 
-Go back to Postman and click on the `three-dots` next to the `FormKiQ Authentication API` and select `Edit`.
+Click on the **Variables** button on each collection and enter the following information.
 
-image::postman-edit-auth.png[Postman Edit Auth API,1000,1000]
+### FormKiQ API JWT
 
-Select the `Variables` tab and for the `baseUrl` variable, set the `CURRENT VALUE` to the value from the `CognitoApiEndpoint`.
+The JWT API requires the entering of the **HttpApiUrl** into the **baseUrl** variable and the JWT Token obtains above into the **token** variable.
 
-image::postman-edit-variables-auth.png[Postman Edit Auth Variables,1000,1000]
+![FormKiQ API Urls](./img/postman-jwt-collection-config.png)
 
-Follow the same steps for the `FormKiQ HTTP API` and set the `CURRENT VALUE` of the `baseUrl` to the value from the `HttpApiUrl`.
+### FormKiQ API IAM
 
-image::postman-edit-variables-http.png[Postman Edit HTTP Variables,1000,1000]
+The IAM API requires the entering of the **IamApiUrl** into the **baseUrl** variable, the **awsRegion** is the region that your FormKiQ installation is in.
 
-Postman has now been connected to FormKiQ, we can now use the FormKiQ API.
-
-## JWT Authentication
-
-To use the FormKiQ API, we need an access token. Using the `FormKiQ Authentication API` makes it really easy to get one.
-
-![Postman JWT Login](./img/postman-jwt-login.png)
-
-
-* Open the `Login` API under `FormKiQ Authentication API`
-* Click the `Body` tab
-* Enter your username / password
-* Click `Send`
-
-You should receive a response back that contains a `AccessToken`. Using this access token will allow us to use the FormKiQ API.
+The accessKey, secretKey and sessionToken are you IAM access. 
 
 :::note
-The response contains a `ExpiresIn` value. This is the time in seconds that the access token is valid for.
+If you only have the accessKey / secretKey, you can leave the sessionToken empty.
 :::
 
-## Add a Document
+![FormKiQ API Urls](./img/postman-iam-collection-config.png)
 
-To add a document, open the `FormKiQ HTTP API` and under the `Documents` folder you will find the `Add Document` API.
+### FormKiQ API Key
 
-Opening the `Add Document` API, we will need to make 2 changes.
+The Key API requires the entering of the **KeyApiUrl** into the **baseUrl** variable and the generated apiKey into the **apiKey** variable.
 
-image::postman-adddocument-params.png[Postman Add Document Params,1000,1000]
+![FormKiQ API Urls](./img/postman-apikey-collection-config.png)
 
-On the `Params` tab, unselect the siteId parameter. The siteId parameter is used to specify a specific tenant to add a document to. Since we have not created any additional tenant unselecting the siteId, FormKiQ will default to using the default siteId.
+## FormKiQ API
 
-![Postman Add Document Authentication](./img/postman-adddocument-authentication.png)
+Now that the FormKiQ API is configured, we walk through a very basic API functions.
 
-On the `Authorization` tab, in the `Access Token` input, we need to copy and paste the access token we got from the `FormKiQ Authentication API`.
+### Add a Document
 
-image::postman-adddocument-body.png[Postman Add Document Body,1000,1000]
+To add a document, open the **FormKiQ API** and under the **Documents** folder you will find the **Add new Document** API.
 
-On the `Body` tab, we can now define the document we would like to add.
+![Add Document API](./img/postman-add-document.png)
+
+Click the **Body** tab, we can now define the document we would like to add.
 
 There are a number of fields we can configure in the request.
 
@@ -182,17 +199,16 @@ You can also specify tags and metadata when creating a document:
 There is a maximum file size of 5 MB for the content. Large file uploads are supported by the Add Document Upload where you can create documents the same way, but in addition a documentId being returned you’ll also get an S3 Presigned URL that allows you to upload files up to 5 GB.
 :::
 
-## Get Document Metadata
+### Get Document Metadata
 
-We can now retrieve the newly added document by using the `Get Document` API.
+We can now retrieve the newly added document by using the **Get Document** API.
 
 ![Postman Get Document](./img/postman-get-document.png)
 
-Once again we need to:
+Under the **Params** tab:
 
-* Unselect the siteId parameter
+* Unselect the siteId, shareKey parameters
 * Add the DocumentId path variable
-* In the `Authorization` tab, add the Access token
 
 Sending the request, will return the document information.
 
@@ -217,19 +233,18 @@ Sending the request, will return the document information.
 The document tags are stored separate to the document. You can use the APIs under the `Document Tags` to retrieve them.
 :::
 
-## Update Document
+### Update Document
 
-The `Update Document` API is used to update the document. You can use this API to update the document content or to add/update metadata and/or tags.
+The **Update Document** API is used to update the document. You can use this API to update the document content or to add/update metadata and/or tags.
 
 ![Postman Update Document](./img/postman-update-document.png)
 
-Once again we need to:
+Under the **Params** tab:
 
-* Unselect the siteId parameter
+* Unselect the siteId, shareKey parameters
 * Add the DocumentId path variable
-* In the `Authorization` tab, add the Access token
 
-Click on the `Body` tab. The request body is the same as the add document request body.
+Click on the **Body** tab. The request body is the same as the add document request body.
 
 So you can easily update the document content, add a tag and a metadata all with one request.
 
@@ -253,7 +268,7 @@ So you can easily update the document content, add a tag and a metadata all with
 }
 ```
 
-Using the `Get Document` request from the previous step, you'll see the response has now changed.
+Using the **Get Document** request from the previous step, you'll see the response has now changed.
 
 ```
 {
@@ -275,11 +290,11 @@ Using the `Get Document` request from the previous step, you'll see the response
 }
 ```
 
-## Get Document
+### Get Document
 
-There are two ways to get the document contents, through the `Get Document Content` or `Get Document Url` APIs.
+There are two ways to get the document contents, through the **Get Document Content** or **Get Document Url** APIs.
 
-The only difference between the two APIs, is the `Get Document Content` will return the actual document content if it is a text/\*, application/x-www-form-urlencoded or application/json.
+The only difference between the two APIs, is the **Get Document Content** will return the actual document content if it is a text/\*, application/x-www-form-urlencoded or application/json.
 
 ```
 {
@@ -289,7 +304,7 @@ The only difference between the two APIs, is the `Get Document Content` will ret
 }
 ```
 
-If the content is not a text document or the `Get Document Url` is used, a [Presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html) is returned which allows access to the file without any additional security credentials or permissions. The duration of the access can be controlled via request parameters.
+If the content is not a text document or the **Get Document Url** is used, a [Presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html) is returned which allows access to the file without any additional security credentials or permissions. The duration of the access can be controlled via request parameters.
 
 ```
 {
@@ -298,20 +313,19 @@ If the content is not a text document or the `Get Document Url` is used, a [Pres
 }
 ```
 
-## Document Search
+### Document Search
 
-The `Document Search` API allows for easy and quick searching for documents by their metadata.
+The **Document Search** API allows for easy and quick searching for documents by their metadata.
 
-image::postman-document-search-params.png[Postman Document Search,1000,1000]
+![Postman Update Document](./img/postman-document-search-params.png)
 
-Once again we need to:
+Under the **Params** tab:
 
 * Unselect all parameters
-* In the `Authorization` tab, add the Access token
 
-In the `Body` tab, we can specify the search criteria.
+In the **Body** tab, we can specify the search criteria.
 
-*Search by Document Tag Key*
+#### Search by Document Tag Key
 
 ```
 {
@@ -323,7 +337,7 @@ In the `Body` tab, we can specify the search criteria.
 }
 ```
 
-*Search by Document Tag Key & Value*
+#### Search by Document Tag Key & Value
 
 ```
 {
@@ -336,7 +350,7 @@ In the `Body` tab, we can specify the search criteria.
 }
 ```
 
-*Search by Metadata Text*
+#### Search by Metadata Text
 
 ```
 {
