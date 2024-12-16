@@ -10,9 +10,9 @@ FormKiQ document management platform brings a new dimension to efficiency and ac
 
 FormKiQ support optical character recognition through the following services:
 
-[Amazon Textract](https://aws.amazon.com/textract/) is AWS fully managed machine learning (ML) service that automatically extracts text, handwriting, and data from scanned documents (available in FormKiQ Pro/Enterprise).
+[Amazon Textract](https://aws.amazon.com/textract/) is AWS fully managed machine learning (ML) service that automatically extracts text, handwriting, and data from scanned documents (available in FormKiQ Essentials, Advanced, and Enterprise).
 
-[Tesseract OCR](https://github.com/tesseract-ocr/tesseract) is an open-source software tool developed by Google that is used to convert images containing printed or handwritten text into machine-readable text (available in FormKiQ Core/Pro/Enterprise).
+[Tesseract OCR](https://github.com/tesseract-ocr/tesseract) is an open-source software tool developed by Google that is used to convert images containing printed or handwritten text into machine-readable text (available in all offerings of FormKiQ, including FormKiQ Core).
 
 ### Supported Document Types
 

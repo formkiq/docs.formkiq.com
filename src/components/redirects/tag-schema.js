@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/tag-schema' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/tag-schema' + location.hash);
   }, []);
 
   return null;

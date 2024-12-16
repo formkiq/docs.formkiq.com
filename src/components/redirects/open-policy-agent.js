@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/open-policy-agent' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/open-policy-agent' + location.hash);
   }, []);
 
   return null;

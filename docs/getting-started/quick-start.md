@@ -5,25 +5,19 @@ toc_max_heading_level: 2
 
 # Quick Start (AWS)
 
-**A quick start guide for deploying FormKiQ into your AWS account using CloudFormation.**
+**Deploying FormKiQ into your AWS account with CloudFormation.**
 
-Deploying FormKiQ into your AWS account is quick and seamless with AWS CloudFormation, enabling you to automate the setup of the FormKiQ platform.
-
-To get started, select the CloudFormation template URL corresponding to your region from the provided list. The CloudFormation template will walk you through the configuration parameters to custom your FormKiQ installation.
-
-AWS CloudFormation will handle the deployment process, automatically provisioning and connecting all required resources. In about 15 minutes, your FormKiQ platform will be live and ready to use.
+Deploy and configure FormKiQ in your AWS account in approximately 15 minutes using AWS CloudFormation. The automated setup process provisions and connects all required resources through a streamlined installation workflow.
 
 ## Prerequisites
 
-For this quickstart you will need access to an AWS account, preferably with administrator access. The FormKiQ installation will create a number of AWS services and using an account with administrator access will ensure you have the correct permissions.
+For this quickstart you will need access to an AWS account with administrator access to ensure proper permissions for creating required AWS services.
 
 If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
 
 ### AWS Lambda Concurrent Executions
 
-Concurrent executions refer to the number of function invocations that are being handled simultaneously. Each time your Lambda function is invoked, a new instance of the function is created to handle the request. [AWS Lambda](https://aws.amazon.com/pm/lambda) imposes default concurrency limits to prevent misuse and manage resource allocation.
-
-By default, AWS limits the number of concurrent executions for [Lambda](https://aws.amazon.com/pm/lambda) functions to **10** per AWS region. It is recommended that you request to have this increased to account default of **1000**.
+Concurrent executions refer to the number of function invocations being handled simultaneously. [AWS Lambda](https://aws.amazon.com/pm/lambda) defaults to **10** concurrent executions per region. Request an increase to **1000** before installation.
 
 #### Check Concurrent Executions
 
@@ -31,14 +25,14 @@ By default, AWS limits the number of concurrent executions for [Lambda](https://
 
 Run **aws cli** command:
 
-```
+```bash
 aws service-quotas get-service-quota --service-code lambda \
 --quota-code L-B99A9384 --region <AWS_REGION>
 ```
 
 Resulting **Value** shows the AWS Lambda Concurrent executions.
 
-```
+```json
 {
     "Quota": {
         "ServiceCode": "lambda",
@@ -53,255 +47,179 @@ Resulting **Value** shows the AWS Lambda Concurrent executions.
 ```
 
 :::note
-This increase must be requested for each region FormKiQ will be deployed into.
+Request this increase for each region where you'll deploy FormKiQ.
 :::
 
 #### Request Concurrent Executions Increase
 
-You can request this increase via the Service Quotas Dashboard:
+Request through the Service Quotas Dashboard:
 
-| AWS Region    | Request Increase Link |
-| -------- | ------- |
-| us-east-1 | https://us-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| us-east-2 | https://us-east-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| us-west-2 | https://us-west-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| ca-central-1 | https://ca-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| eu-central-1 | https://eu-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| eu-west-1 | https://eu-west-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| eu-west-3 | https://eu-west-3.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| ap-south-1 | https://ap-sout-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| ap-southeast-1 | https://ap-southeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| ap-southeast-2 | https://ap-southeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| ap-northeast-2 | https://ap-northeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
-| sa-east-1 | https://sa-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas |
+| AWS Region | Location | Request Increase Link |
+|------------|-----------|-------------------|
+| us-east-1 | N. Virginia | [Request Increase](https://us-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| us-east-2 | Ohio | [Request Increase](https://us-east-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| us-west-2 | Oregon | [Request Increase](https://us-west-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ca-central-1 | Canada (Central) | [Request Increase](https://ca-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| eu-central-1 | Frankfurt | [Request Increase](https://eu-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| eu-west-1 | Ireland | [Request Increase](https://eu-west-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| eu-west-3 | Paris | [Request Increase](https://eu-west-3.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ap-south-1 | Mumbai | [Request Increase](https://ap-sout-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ap-southeast-1 | Singapore | [Request Increase](https://ap-southeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ap-southeast-2 | Sydney | [Request Increase](https://ap-southeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ap-northeast-2 | Seoul | [Request Increase](https://ap-northeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| sa-east-1 | São Paulo | [Request Increase](https://sa-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 
-For more information, please refer to this [AWS Tutorial on Requesting a Quota Increase](https://aws.amazon.com/getting-started/hands-on/request-service-quota-increase/).
-
+For more information, see the [AWS Tutorial on Requesting a Quota Increase](https://aws.amazon.com/getting-started/hands-on/request-service-quota-increase/).
 
 ### AWS Service Role For ECS
 
-Before installation verify that the AWSServiceRoleForECS has been enabled on your AWS Account. 
+Verify that AWSServiceRoleForECS is enabled on your AWS Account before installation.
 
 ![Open CloudShell](./img/cloudshell.png)
 
 Run **aws cli** command:
 
-```
+```bash
 aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 ```
+
 :::note
-You will receive a message such as `An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation: Service role name AWSServiceRoleForECS has been taken in this account, please try a different suffix.`
-
-This means that this step has already been performed, either in CloudShell or by a previous FormKiQ installation process, so you do not need to take any further action.
-
-If you attempted to run a FormKiQ installation before doing this step, the installation will likely have failed, but will likely have created this role, so you would receive this error message.
-
-In either of these cases, you should now be able to install FormKiQ in your AWS Account.
+An error message "Service role name AWSServiceRoleForECS has been taken in this account" indicates this step is already complete.
 :::
-
 
 ## Installation Links
 
 **For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g)**
 
 :::note
-NOTE: Please ensure you've read the Prerequisites above and that AWSServiceRoleforECS has been enabled for your account.
+Ensure you've completed the prerequisites and enabled AWSServiceRoleforECS.
 :::
 
-The FormKiQ installation process uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
+The FormKiQ installation uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation) to automate resource creation and management.
 
-To install FormKiQ, **click** the installation link for the AWS region you want to deploy FormKiQ into below:
+Select your AWS region from the installation links below:
 
-| AWS Region    | Install Link | AWS Region    | Install Link | 
-| -------- | ------- | -------- | ------- |
-| us-east-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.16.0/template.yaml)| us-east-2 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.16.0/template.yaml)|
-| us-west-2 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.16.0/template.yaml)| ca-central-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.16.0/template.yaml)|
-| eu-central-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.16.0/template.yaml)| eu-west-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.16.0/template.yaml)|
-| eu-west-3 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-west-3.s3.amazonaws.com/1.16.0/template.yaml)| ap-south-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.16.0/template.yaml)|
-| ap-southeast-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.16.0/template.yaml)| ap-southeast-2 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.16.0/template.yaml)|
-| ap-northeast-2 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.16.0/template.yaml)| sa-east-1 | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.16.0/template.yaml)|
-
-:::note
-If the region you want to use is not listed, follow the [Install with SAM CLI](#install-with-sam-cli).
-
-In addition to most AWS Regions, FormKiQ Core is also available to install using SAM CLI into the **AWS GovCloud (US) West** region; however, it is not currently available for **AWS GovCloud (US) East**.
-
-FormKiQ Core does not currently support **AWS China** installations, mainly due to a mismatch in the AWS product versions available.
-:::
+| AWS Region | Location | Install Link |
+|------------|-----------|------------|
+| us-east-1 | N. Virginia | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.16.0/template.yaml) |
+| us-east-2 | Ohio | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.16.0/template.yaml) |
+| us-west-2 | Oregon | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.16.0/template.yaml) |
+| ca-central-1 | Canada (Central) | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.16.0/template.yaml) |
+| eu-central-1 | Frankfurt | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.16.0/template.yaml) |
+| eu-west-1 | Ireland | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.16.0/template.yaml) |
+| eu-west-3 | Paris | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-eu-west-3.s3.amazonaws.com/1.16.0/template.yaml) |
+| ap-south-1 | Mumbai | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.16.0/template.yaml) |
+| ap-southeast-1 | Singapore | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.16.0/template.yaml) |
+| ap-southeast-2 | Sydney | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.16.0/template.yaml) |
+| ap-northeast-2 | Seoul | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.16.0/template.yaml) |
+| sa-east-1 | São Paulo | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-core-prod&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.16.0/template.yaml) |
 
 :::note
-NOTE: For FormKiQ Pro and Enterprise users, you'll find a similar single click installation URL in your custom [GitHub](https://github.com) repository you were provided.
+- For unlisted regions, use [SAM CLI installation](#install-with-sam-cli)
+- FormKiQ Core supports AWS GovCloud (US) West but not East
+- AWS China installations are not currently supported
+- **FormKiQ Essentials, Advanced, and Enterprise users:** use your custom CloudFormation template links provided by the FormKiQ team
 :::
 
 ## Install FormKiQ
 
-Clicking the above installation link will bring you to the AWS CloudFormation Console. The FormKiQ installation URL will be auto populated in the **Amazon S3 URL**.
+After selecting your region, you'll see the AWS CloudFormation Console with the FormKiQ installation URL pre-populated.
 
 ![CloudFormation Create Stack](./img/cf-create-stack.png)
 
-Click the **Next** button to move to the next page.
+Click **Next** to continue.
 
 ### Set Stack Name
 
-The stack name uniquely identifies your FormKiQ deployment within AWS CloudFormation. 
-
-We recommended to use the naming convention **formkiq-core-&lt;app_environment&gt;**, ie: formkiq-core-prod, formkiq-core-dev, etc. The **&lt;app_environment&gt;** allows you to differentiate between multiple installations of FormKiQ. This will give context to each FormKiQ installation and prevent accidentally deleting the wrong FormKiQ installation stack.
+Name your stack using the format **formkiq-core-&lt;app_environment&gt;** (e.g., formkiq-core-prod).
 
 ![CloudFormation Stack Name](./img/cf-create-stack-name.png)
 
 :::note
-For production installations, we recommend using [AWS Organizations](https://aws.amazon.com/organizations) to create a separate account to run your production version of FormKiQ. AWS makes it easy to switch between accounts within an organization, and best practice is to keep your production environment in a separate account from any non-production resources. This not only helps with security, but also to help organize your costs. Ideally, you would have a new AWS account within your AWS organization for each environment (e.g., dev, test/qa, staging/pre-prod, and production).
+For production, we recommend using [AWS Organizations](https://aws.amazon.com/organizations) and separate accounts for different environments.
 :::
 
 ### Installation Parameters
 
-The following is description of the FormKiQ installation parameters:
+Configure your installation:
 
 ![CloudFormation Stack Parameters](./img/cf-create-stack-parameters.png)
 
-#### **AdminEmail** *(Required)*:
+#### Required Parameters
+- **AdminEmail**: Administrator email address
+- **AppEnvironment**: Environment identifier (prod, staging, dev, etc.)
 
-The email address of the administrator who will manage the FormKiQ
+#### Optional Parameters
+- **CapacityProvider**: AWS Fargate capacity provider (for Typesense)
+- **EnablePublicUrls**: Enable public endpoints (default: false)
+- **PasswordMinimumLength**: Minimum password length
+- **Password Requirements**: Several properties to configure requirements for length, lowercase, numbers, symbols, and uppercase
+- **TypesenseApiKey**: API key for Typesense
+- **TypesenseMemory**: Typesense memory allocation
+- **VpcStackName**: VPC stack name (used for Typesense or OpenSearch)
 
-:::note
-Installations to AWS GovCloud (US) do not create an admin user. Instructions for creating an initial user [can be found here](/docs/platform/document_console#creating-the-initial-console-user).
-:::
+### Configure Stack Options
 
-#### **AppEnvironment** *(Required)*:
-
-AppEnvironment is a unique identifier for FormKiQ installations. The identifier should provider context to what kind of information is contained in the installation, IE: prod, staging, dev.
-
-#### **EnablePublicUrls**:
-
-Whether to enable "/public" endpoints, defaults to false. Public endpoints allow external users to submit documents, such as through a web form. As with any publicly-available functionality, there is a risk of abuse if enabled.
-
-:::note
-You can always enable/disable your public endpoints at any time by updating your FormKiQ CloudFormation Stack and changing the value you've set.
-:::
-
-#### **PasswordMinimumLength**:
-
-Set the Amazon Cognito password policies, minimum password length requirement for all users.
-
-#### **PasswordRequireLowercase**:
-
-Set the Amazon Cognito password policies, to require one lowercase letter in all passwords.
-
-#### **PasswordRequireNumbers**:
-
-Set the Amazon Cognito password policies, to require one number in all passwords.
-
-#### **PasswordRequireSymbols**:
-
-Set the Amazon Cognito password policies, to require one symbol in all passwords.
-
-#### **PasswordRequireUppercase**:
-
-Set the Amazon Cognito password policies, to require one uppercase letter in all passwords.
-
-#### **VpcStackName**:
-
-The name of the CloudFormation VPC stack that can be created after the initial FormKiQ install, using the add-on CloudFormation template for VPC https://docs.formkiq.com/docs/getting-started/quick-start#create-vpc.
-
-Some services such as Typesense, and OpenSearch require a VPC. Only required if you are using any of these services; otherwise, this can remain empty.
-
-#### **TypesenseApiKey**:
-
-Optional: API Key to access the [Typesense](https://typesense.org) server. Typesense is used to provide full text search support for document metadata. The API Key can be any random string of characters. To enable Typesense, the **VpcStackName** also needs to be set (see link:#vpc-cloudformation[VPC CloudFormation]).
-
-#### **TypesenseMemory**:
-
-Amount of memory (in MB) allocated to Typesense (suggested to be 2-3 times the size of your data). Can be left as default if Typesense isn't used.
-
-#### **CapacityProvider**:
-
-AWS Fargate capacity provider to use. (Only required if using Typesense)
-
-:::note
-Typesense is optional, since it requires a VPC to be created, which can add to your AWS usage costs. Without Typesense, you will only be able to search documents using tags and the document's created date.
-:::
-
-Click the **Next** button to move to the next page.
-
-### Configure stack options
-
-Scroll down to the bottom of the page, select **ALL** the checkboxes.
+Select **ALL** checkboxes at the bottom.
 
 ![Setup Stack Options](./img/cf-create-stack-options.png)
 
-Click the **Next** button to move to the next page.
+Click **Next** to proceed.
 
-### Review and create
+### Review and Create
 
-Scroll down to the bottom.
+Review your configuration and click **Submit**.
 
 ![Setup Stack Options](./img/cf-create-stack-review-and-create.png)
 
-Click the **Submit** button to start the FormKiQ installation.
-
 :::info
-You will receive an email to the AdminEmail account once the installation is complete. Once you receive your email you can move to the next section to setup your Admin password.
-:::
-
-:::note
-The CloudFormation installation of your new FormKiQ stack should take between fifteen and thirty minutes.
+- Installation takes 15-30 minutes
+- You'll receive an admin email when complete
 :::
 
 ### Configure Admin Password
 
-Once the FormKiQ CloudFormation installation has completed, an email will be sent to the email specified as the AdminEmail. This email will contain a link that will confirm the email address and allow the recipient to set a password for the administrator account.
-
-* Clicking the **Verify Email** link will allow you to set your administrator password.
+1. Check your admin email for the verification link
+2. Click "Verify Email" to set your password
 
 ![Welcome to FormKiQ](./img/welcome-to-formkiq.png)
 
-:::note
-Installations to AWS GovCloud (US) do not include a Welcome email by default, since the admin user needs to created manually. Instructions for creating an initial user [can be found here](/docs/platform/document_console#creating-the-initial-console-user).
-:::
-
-
-#### Set Admin Password
-
-Clicking on the **Verify Email** link will open the FormKiQ console and allow you to set the Admin password.
+3. Set your admin password
 
 ![Set Admin Password](./img/fk-console-setpassword.png)
 
-#### FormKiQ Console
-
-Once your password is set you can now login to the FormKiQ Console.
+4. Access the FormKiQ Console
 
 ![FormKiQ Console Home](./img/fk-console-home.png)
 
-:::info
-Additional FormKiQ users can be created using [Amazon Cognito](/docs/platform/api_security). See [API Security](/docs/platform/api_security) for more information.
-:::
-
 :::note
-Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-image).
+AWS GovCloud (US) requires [manual admin user creation](/docs/platform/document_console#creating-the-initial-console-user).
 :::
 
 ## Install VPC
 
-Certain FormKiQ features (e.g. Typesense and the OpenSearch add-on) require a VPC to be configured.
+For Typesense or OpenSearch, install the VPC stack:
 
-Below is a CloudFormation link to a custom VPC template that works with FormKiQ to add VPC support to FormKiQ.
+Select your region's VPC template:
 
-:::note
-Select the link below that is **in the same region as your FormKiQ installation**.
-:::
-
-| AWS Region    | Install Link | AWS Region    | Install Link |
-| -------- | ------- | -------- | ------- |
-| us-east-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.16.0/vpc.yaml) | us-east-2 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.16.0/vpc.yaml) |
-| us-west-2 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.16.0/vpc.yaml) | ca-central-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
-| eu-central-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.16.0/vpc.yaml) | eu-west-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
-| eu-west-3 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-3.s3.amazonaws.com/1.16.0/vpc.yaml) | ap-south-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
-| ap-southeast-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.16.0/vpc.yaml) | ap-southeast-2 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.16.0/vpc.yaml) |
-| ap-northeast-2 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.16.0/vpc.yaml) | sa-east-1 | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| AWS Region | Location | Install Link |
+|------------|-----------|------------|
+| us-east-1 | N. Virginia | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| us-east-2 | Ohio | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| us-west-2 | Oregon | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| ca-central-1 | Canada (Central) | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| eu-central-1 | Frankfurt | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| eu-west-1 | Ireland | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| eu-west-3 | Paris | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-3.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| ap-south-1 | Mumbai | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| ap-southeast-1 | Singapore | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| ap-southeast-2 | Sydney | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| ap-northeast-2 | Seoul | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.16.0/vpc.yaml) |
+| sa-east-1 | São Paulo | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.16.0/vpc.yaml) |
 
 ### Create CloudFormation Stack
 
-After clicking one of the one-click VPC installation links and logging into your AWS account, you'll be brought to the CloudFormation Create Stack console. The **Amazon S3 URL** is populated with the FormKiQ VPC installation URL.
+After selecting your VPC installation link and logging in, you'll see the CloudFormation Create Stack console with the pre-populated FormKiQ VPC installation URL.
 
 ![CloudFormation Create Stack](./img/cf-createstack-vpc.png)
 

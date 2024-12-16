@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/onlyoffice-document-collaboration' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/onlyoffice-document-collaboration' + location.hash);
   }, []);
 
   return null;

@@ -2,13 +2,13 @@
 sidebar_position: 1
 ---
 
-# FormKiQ Pro/Enterprise
+# Essentials, Advanced, and Enterprise
 
-**A guide for deploying FormKiQ Pro/Enterprise into your AWS account.**
+**Deploying FormKiQ Essentials/Advanced/Enterprise in AWS.**
 
 ## Prerequisites
 
-Before installing FormKiQ Pro/Enterprise make sure to review the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
+Before installing FormKiQ Essentials, Advanced, or Enterprise, make sure to review the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
 
 ## Installation
 
@@ -55,9 +55,15 @@ For production installations, we recommend using [AWS Organizations](https://aws
 
 Most installation parameters are the same between Core, Pro, and Enterprise. A description of the similar parameters can be found [here](/docs/getting-started/quick-start#set-admin-email).
 
-### Pro/Enterprise Parameters
+### Essentials, Advanced, and Enterprise Parameters
 
-The following are Pro/Enterprise specific parameters:
+The following are specific parameters that are used by some customers, based on specific configuration and module choices:
+
+#### CertificateStackName
+
+![Certificate Stack Name](./img/cf-certificate-stackname.png)
+
+After the deploying the FormKiQ Certificate stack, the name of the CloudFormation stack that was deployed can be entered here, to connect the SSL certificates with the FormKiQ installation.
 
 #### OpenSearchStackName
 
@@ -65,11 +71,8 @@ The following are Pro/Enterprise specific parameters:
 
 After the Amazon OpenSearch Service is deployed following the [FormKiQ OpenSearch Installation guide](/docs/add-on-modules/installation/opensearch), the name of the CloudFormation stack that was deployed can be entered here, to connect the OpenSearch installation with the FormKiQ installation.
 
-#### CertificateStackName
-
-![Certificate Stack Name](./img/cf-certificate-stackname.png)
-
-After the deploying the FormKiQ Certificate stack, the name of the CloudFormation stack that was deployed can be entered here, to connect the SSL certificates with the FormKiQ installation.
+:::note
+You will also need to specify a VpcStackName if OpenSearch is being deployed.
 
 ### Complete Installation
 

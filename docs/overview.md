@@ -6,15 +6,26 @@ sidebar_position: 1
 
 Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. **FormKiQ strives to be the most flexible, customizable and cost-effective document management platform available**, whether functioning as a turnkey document management system or providing a secure and scalable document layer for multitier architectures.
 
+## Architecture
 ![FormKiQ Architecture](./img/formkiq_architecture.png)
 
-FormKiQ is an API-first document management platform that deploys to your [Amazon Web Services](https://aws.amazon.com) account. It's flexible and scalable design allows for anyone to quickly and easily add document management functionality to any application, through our robust set of document management APIs, reducing development time by up to 300%. Since FormKiQ deploys into your account, in almost all AWS regions, you can maintain full control of your documents 100% of the time.
+## Key Features
+FormKiQ is an API-first document management platform that deploys to your [Amazon Web Services](https://aws.amazon.com) account. Its flexible and scalable design allows for anyone to quickly and easily add document management functionality to any application, through our robust set of document management APIs, reducing development time by up to two-thirds.
 
-FormKiQ has been designed using *headless architecture* design principles, which means that the web UI is completely decoupled from the backend API. This allows not only for any other web application to be integrated with the Document API (with the ReactJS web console available as a reference), but also allows for other front-ends to be created, such as a mobile app, and makes the API available for backend services and integrations.
+## Deployment
+FormKiQ deploys into your AWS account and is available in most AWS regions, giving you full control of your documents 100% of the time.
+
+## Technical Design
+FormKiQ uses headless architecture, separating the web UI from the backend API. This allows integration with any web application (using our ReactJS console as reference), mobile apps, and backend services.
 
 FormKiQ is built to scale, for any use case. It can be used by the largest corporation to the smallest team, employing serverless technology so you only pay for what you use.
 
-FormKiQ (https://github.com/formkiq/formkiq-core) is an Open Core product. The core document management functionality is made available through an Open Source license. Additional, advanced document management functionality, as well and add-on modules, professional services, and both on-boarding and operational support are available via https://formkiq.com.
+## Licensing
+FormKiQ (https://github.com/formkiq/formkiq-core) is an Open Core product. The core document management functionality is made available through an Open Source license. Additional document management functionality, as well as add-on modules, professional services, and both on-boarding and operational support are available with FormKiQ Essentials, Advanced, and Enterprise, via [https://formkiq.com](https://formkiq.com).
 
+## Support
 **For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ)**
 
+:::note
+Our commercially-licensed FormKiQ offerings have additional support options, including the **[FormKiQ Support Portal](https://formkiq.freshdesk.com/support/home)**, Zoom sessions, and a private Slack channel.
+:::

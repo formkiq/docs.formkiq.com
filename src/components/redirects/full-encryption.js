@@ -8,7 +8,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/full-encryption' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/full-encryption' + location.hash);
   }, []);
 
   return null;

@@ -200,6 +200,8 @@ The API that uses the IAM authentication can be found in the CloudFormation Outp
 
 :::note
 You need the IAM execute-api permission to be able to use IAM Authentication and all requests will be run with administration privileges.
+
+**For more information on creating this IAM User, please [see the instructions in our API Walkthrough](/docs/getting-started/api-walkthrough/#aws-iam).**
 :::
 
 ### API Key

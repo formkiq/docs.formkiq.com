@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/e-signature' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/e-signature' + location.hash);
   }, []);
 
   return null;
