@@ -12,7 +12,7 @@ We will be:
 
 ## What you’ll need
 
-* Access to a FormKiQ Pro or FormKiQ Enterprise installation
+* Access to a FormKiQ Essentials, Advanced, or Enterprise installation
 
 * Installed and configured the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli)
 

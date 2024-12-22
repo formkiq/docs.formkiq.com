@@ -4,78 +4,84 @@ sidebar_position: 5
 
 # Document Storage
 
-FormKiQ uses the [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) as the backend object store for all documents. Amazon S3 is a manage object storage service that offers industry-leading scalability, data availability, security, and performance.
+FormKiQ uses [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) as its document storage backend. S3 provides:
+- Industry-leading scalability and availability
+- Enterprise-grade security
+- High performance
+- Cost-effective storage with multiple storage classes
+- Fine-grained access controls for compliance requirements
 
-Amazon S3 is a cost-effective storage solution that's easy-to-use, supports multiple storage classes for cost optimization, and allows for fine-tuned access controls to meet specific business, organizational, and compliance requirements.
+## Storage Architecture
 
-By default FormKiQ installs with `two` S3 buckets.
+FormKiQ deploys two S3 buckets by default:
 
-| Bucket | Description
-| -------- | ------- |
-| Staging | A temporary holding place for documents waiting for processing |
-| Documents | The permanent post-processing document storage |
+| Bucket | Purpose |
+|--------|---------|
+| Staging | Temporary storage for documents awaiting processing |
+| Documents | Permanent storage for processed documents |
 
+## Document Organization
 
-## Path Layout
+### S3 Key Structure
+FormKiQ uses a specific S3 key structure to support multi-tenant document management:
 
-FormKiQ is a multi-tenant application, so a specific S3 key structure is used to identify which tenant owns the document.
+1. **Default Tenant Documents**
+   - Root-level files (e.g., `document1.txt`) belong to the `DEFAULT` siteId
+   - Files can also use the `default/` prefix (e.g., `default/document1.txt`)
 
-### Documents added to ROOT
+2. **Tenant-Specific Documents**
+   - Use tenant name as prefix (e.g., `group1/document1.txt`)
+   - Documents belong to the tenant specified in the prefix
 
-Any documents that are added to the "ROOT" of the S3 bucket, e.g. a document with S3 key of `document1.txt`, are assumed to be part of the `DEFAULT` siteId.
+3. **Path Support** (v1.7.0+)
+   - Automatically creates `path` tags for nested documents
+   - Must start with either `default/` or `{siteId}/`
+   - Examples:
+     - `default/dir1/dir2/document1.txt` → path: `dir1/dir2/document1.txt` (default tenant)
+     - `group1/dir1/dir2/document2.txt` → path: `dir1/dir2/document2.txt` (group1 tenant)
 
-Documents can also be added to the `DEFAULT` siteId if the key starts with `default`, e.g. S3 key of `default/document1.txt`.
-
-### Documents added to SiteId
-
-Documents can be added to a specific siteId by having that siteId as the first "folder" of they key, e.g. S3 key of `group1/document1.txt` will add the document1.txt to the `group1` siteId.
-
-### Documents with a PATH
-
-As of version 1.7.0, documents can be added and have a `path` tag automatically created. Following the same pattern as above *EXCEPT* the S3 key *MUST* start with either `default` or the `siteId` path.
-
-For examples:
-
-S3 key of `default/dir1/dir2/document1.txt` will add a document with a `path` tag of `dir1/dir2/document1.txt` to the `default` siteId.
-
-S3 key of `group1/dir1/dir2/document2.txt` will add a document with a `path` tag of `dir1/dir2/document2.txt` to the `group1` siteId.
-
-
-## Add Document Workflow
+## Document Processing Workflow
 
 ![S3 Architecture](./img/architecture_s3.png)
 
-Documents can be added to S3 via the FormKiQ API or directly to the `Staging` S3 bucket. While it is recommended to only use the API for your standard workflow, it can be advantageous to add documents directly to the `Staging` S3 bucket, for operations such as initial document migration.
-
-When a document is added to the `Staging` S3 bucket, an S3 object create event is created that calls the Document Create [AWS Lambda](https://aws.amazon.com/lambda/). The Document Create Lambda writes a record to [Amazon DynamoDB](https://aws.amazon.com/documentdb/), and moves the document to the `Documents` S3 bucket.
-
-Once the document is added to the `Documents` S3 bucket, another S3 event is created which adds a message to the Update Document [Amazon SQS queue](https://aws.amazon.com/sqs). An Update Document Lambda is listening to the Update Document SQS queue and adds and updates document metadata whenever an event is added to the queue. Any S3 object tags that have been specified will also be included as document metadata.
+### Standard Flow
+1. Documents are added via FormKiQ API or directly to the Staging bucket
+2. S3 create event triggers Document Create Lambda
+3. Lambda:
+   - Creates DynamoDB record
+   - Moves document to Documents bucket
+4. Documents bucket triggers:
+   - Message added to Update Document SQS queue
+   - Update Document Lambda processes metadata and tags
+   - SNS notification for additional processing
 
 :::note
-Each time a document is create or updated the AWS Lambda function also posts a message to [Amazon Simple Notification Service](https://aws.amazon.com/sns), which can be used to trigger additional document processing.
+Every document creation or update triggers an SNS notification, enabling custom processing workflows.
 :::
 
-## FKB64 File Format
+## Direct Upload Format (FKB64)
 
-For initial document migration or other occasional uses, the `Staging` S3 bucket does allow direct uploads using a internal file format.
+For special cases like bulk migration, FormKiQ supports direct uploads to the Staging bucket using the `.fkb64` format.
 
 :::warning
-Writing files directly to the `Documents` S3 bucket (i.e., not the `Staging` bucket) is *NOT* supported and may cause stability issues.
+Never upload files directly to the Documents bucket - this can cause system instability.
 :::
 
-As of version 1.7.0, you can use the S3 Layout describe above if the S3 key ends in `.fkb64`
+### FKB64 File Specification
+Files must:
+- End in `.fkb64` extension
+- Contain valid JSON matching the [Add Document Request](https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument) format
 
-For example creating the following JSON and saving it as `document1.fkb64` in the ROOT of the `Staging` bucket will add the `content` field as a document in the `default` siteId.
-
-Required fields are marked below.
-
-```
+Required fields:
+```json
 {
+  "userId": "joesmith",
+  "contentType": "text/plain",
+  "isBase64": true,
+  "content": "dGhpcyBpcyBhIHRlc3Q=",
+  
+  // Optional fields
   "path": "document1.txt",
-  "userId": "joesmith", // <required>
-  "contentType": "text/plain", // <required>
-  "isBase64": true, // <required>
-  "content": "dGhpcyBpcyBhIHRlc3Q=", // <required>
   "tags": [
     {
       "key": "category",
@@ -95,4 +101,6 @@ Required fields are marked below.
 }
 ```
 
-Note: The `.fkb64` matches the [Add Document Request](https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument). Refer to the API for a listing of all properties.
+:::note
+See the [API documentation](https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument) for all available properties.
+:::

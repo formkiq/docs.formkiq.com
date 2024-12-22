@@ -4,99 +4,122 @@ sidebar_position: 6
 
 # Document Console
 
-
 ## Overview
 
-The FormKiQ Document Console is an intuitive and user-friendly web application built using [React](https://react.dev), designed to serve as the frontend for efficiently managing your digital documents. This powerful tool offers a seamless and modern interface, making document management an effortless and organized process.
+FormKiQ Document Console is a modern web application built with [React](https://react.dev) that provides an intuitive interface for managing your digital documents. This frontend application offers comprehensive document management capabilities while maintaining security and ease of use.
 
-Key features of the FormKiQ Document Console include:
+### Core Features
 
-1. **User-Friendly Interface**: The application boasts a clean and user-friendly design, ensuring that users can navigate through their documents with ease.
+- **Document Management**
+  - Upload documents from any device
+  - Preview documents without downloading
+  - Create folders and maintain hierarchical organization
+  - Add attributes and schemas for better categorization
+  - Powerful search across all document properties
 
-2. **Document Organization**: The console provides a central hub for organizing and categorizing your documents. Users can easily create folders, assign tags, and maintain a structured hierarchy for their files.
+- **Security & Access Control**
+  - User authentication and authorization
+  - Role-based access control
+  - Document-level permissions
+  - Encryption support
 
-3. **Document Upload**: Users can upload documents directly from their devices. This flexibility simplifies the process of populating the document repository.
+- **Administration**
+  - Configure document usage limits
+  - Manage integration settings
+  - Create and manage API keys
+  - Customize interface settings and themes
 
-4. **Document Preview**: The console allows users to preview documents without the need to download them. This feature can save time and provide a quick overview of the content.
+### Edition-Specific Features
 
-5. **Document Search**: The search functionality enables users to find specific documents using keywords, tags, or other search parameters. This feature is particularly useful for those dealing with large document repositories.
+- **Essentials**
+  - Basic workflow engine
+  - Document queues
+  - Single sign-on (SSO) support
 
-6. **Security**: As with the FormKiQ Document API itself, the FormKiQ Document Console includes security measures to protect sensitive information. This can include user authentication, encryption, and access control to ensure that only authorized personnel can access certain documents.
+- **Advanced & Enterprise**
+  - Advanced workflow orchestration
+  - Custom queue routing and management
+  - Enhanced IDP (Intelligent Document Processing) with custom models
+  - Multi-step approval flows
+  - Custom modules, features, and white-labelling
 
-7. **Configuration**: The console allows configuration settings to be updated, including document usage limits, OpenAI settings, and the creation of API Keys for the Document API.
+## Deployment Options
 
-8. **Customization**: The application may offer options for customizing the interface, such as choosing themes, layouts, or personalized settings to meet individual preferences.
+### CloudFront/S3 Deployment
 
+The default deployment utilizes AWS infrastructure for optimal performance:
 
-## CloudFront / S3
+- **CloudFront**: Content delivery network (CDN) providing:
+  - High performance
+  - Global distribution
+  - Enhanced security
+  - SSL/TLS encryption
 
-The FormKiQ Document Console uses [AWS CloudFront](https://aws.amazon.com/cloudfront) and [Amazon S3](https://aws.amazon.com/s3/) to efficiently serve the console as a Single Page Application (SPA).
-
-[AWS CloudFront](https://aws.amazon.com/cloudfront) is a content delivery network (CDN) service built for high performance, and security.
-
-[Amazon S3](https://aws.amazon.com/s3/) is an object store that contains the console source files.
+- **Amazon S3**: Storage backend containing:
+  - Console application files
+  - Static assets
+  - Configuration files
 
 :::note
-NOTE: In some specialized AWS regions, such as **AWS GovCloud (US) West**, the console is not available via CloudFront, and will need to be run as a Docker Image ([see below](/docs/platform/document_console#docker-image)).
+CloudFront is not available in certain AWS regions (e.g., **AWS GovCloud (US) West**). For these regions, use the Docker deployment option below.
 :::
 
-## Docker Image
+### Docker Deployment
 
-The FormKiQ Document Console is also available as a [docker image](https://hub.docker.com/repository/docker/formkiq/document-console) that can be used when [AWS CloudFront](https://aws.amazon.com/cloudfront) is not available, as with deployments into **AWS GovCloud (US) West**.
+For environments where CloudFront isn't available, FormKiQ provides an official [Docker image](https://hub.docker.com/repository/docker/formkiq/document-console).
 
-To run the docker image collect the following CloudFormation outputs from your FormKiQ installation.
+#### Prerequisites
+Collect the following CloudFormation outputs from your FormKiQ installation:
 
 ![Document Console CloudFormation Outputs](./img/document-console-cf-outputs.png)
 
-| Environment Varaible    | Description |
-| -------- | ------- |
-| `HTTP_API_URL` | The URL for the API endpoint that uses Cognito authorization |
-| `COGNITO_USER_POOL_ID` | The Cognito User Pool Id |
-| `COGNITO_CLIENT_ID` | The Cognito Client Id |
-| `COGNITO_API_URL` | The Cognito Login API endpoint |
+| Environment Variable | Description |
+|---------------------|-------------|
+| `HTTP_API_URL` | API endpoint using Cognito authorization |
+| `COGNITO_USER_POOL_ID` | Cognito User Pool identifier |
+| `COGNITO_CLIENT_ID` | Cognito Client identifier |
+| `COGNITO_API_URL` | Cognito Login API endpoint |
 
-### Docker Run Command
-
-```
+#### Launch Command
+```bash
 docker run -p 80:80 \
--e HTTP_API_URL=... \
--e COGNITO_USER_POOL_ID=... \
--e COGNITO_CLIENT_ID=... \
--e COGNITO_API_URL=... \ 
-formkiq/document-console:VERSION
+  -e HTTP_API_URL=... \
+  -e COGNITO_USER_POOL_ID=... \
+  -e COGNITO_CLIENT_ID=... \
+  -e COGNITO_API_URL=... \
+  formkiq/document-console:VERSION
 ```
 
-### Creating the Initial Console User
+## Initial Setup
 
-In some cases, such as when deploying FormKiQ to AWS GovCloud (US) West, no admin user is created automatically and the console is not automatically deployed.
+In environments like AWS GovCloud (US) West where automatic setup isn't available, you'll need to:
+1. Deploy the console using Docker
+2. Configure the welcome email
+3. Create the initial admin user
 
-While it's possible to use only AWS IAM authentication, or to create an API Key using IAM and then use key-based authentication, both JSON Web Token (JWT) authentication and the FormKiQ Document Console require at least one Amazon Cognito user to be created and for that user's password to be set.
+### Configuring Welcome Email
 
-To do this, you can [run the docker image](/docs/platform/document_console#docker-run-command), either locally or within a container running in AWS, such as an EC2 or Lambda.
+1. Locate the CognitoCustomMessage Lambda function:
+   ![Searching for the CognitoCustomMessage Lambda](./img/document-console-lambda-search.png)
 
-You will also need to update the Welcome Email template, by updating an Environment Variable in the CognitoCustomMessage Lambda function.
+2. Navigate to Configuration → Environment Variables:
+   ![Environment Variables Configuration](./img/document-console-custommessage-before.png)
 
-**1. Find the Lambda function by filtering for "CognitoCustomMessage"**
+3. Set the `REDIRECT_URI` environment variable:
+   - For local deployment: `http://localhost`
+   - For EC2 deployment: Your EC2 instance URL
+   ![Setting REDIRECT_URI](./img/document-console-custommessage-after.png)
 
-![Searching for the CognitoCustomMessage Lambda](./img/document-console-lambda-search.png)
+### Creating Initial Admin User
 
-Once you've found it, click on the name of the function.
+1. Follow the instructions in the [API Security section](/docs/platform/api_security#add-user-to-site) to create your first user
+2. The user will receive a welcome email with a password setup link
+3. After setting the password, this user can access the console and create additional users
 
-**2. Open the Environment Variables tab via the top-level "Configuration" tab**
+## Customization
 
-![The Environment Variables tab for the CognitoCustomMessage Lambda](./img/document-console-custommessage-before.png)
+The FormKiQ Document Console is open source. You can find the source code and contribution guidelines on [GitHub](https://github.com/formkiq/formkiq-document-console).
 
-**3. Update the REDIRECT_URI Environment Variable**
-
-The value should be set to the base URL of your container running the Console docker image, such as `http://localhost` or an EC2 instance URL (if you are running the container on EC2).
-
-![Setting the REDIRECT_URI Environment Variable for the CognitoCustomMessage Lambda](./img/document-console-custommessage-after.png)
-
-**4. Create the Initial Amazon Cognito User**
-
-You can find instructions on creating a user in the [API Security section](/docs/platform/api_security#add-user-to-site). Once you've created your user, the Welcome Email sent to that user should now provide a working link to allow the setting of the password.
-
-
-## Customizations
-
-The source code to the FormKiQ Document Console is available via its [GitHub page](https://github.com/formkiq/formkiq-document-console).
+:::note
+While JWT and console authentication require at least one Cognito user, you can also use AWS IAM authentication or API key-based authentication for programmatic access.
+:::

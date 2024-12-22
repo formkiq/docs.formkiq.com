@@ -6,12 +6,28 @@ sidebar_position: 3
 
 ## Overview
 
-FormKiQ is designed with a robust security framework to safeguard the access to documents, prioritizing robust protection measures at every layer of its architecture. FormKiQ supports advanced access control mechanisms using Role-Based Access Control (RBAC) with [Amazon Cognito Groups](https://aws.amazon.com/cognito) and Attribute-Based Access Control (ABAC) through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). These features ensure that users have appropriate access to documents based on their roles and specific attributes.
+FormKiQ is designed with a robust security framework to safeguard access to documents, prioritizing protection measures at every layer of its architecture. FormKiQ supports advanced access control mechanisms using Role-Based Access Control (RBAC) with [Amazon Cognito Groups](https://aws.amazon.com/cognito) and Attribute-Based Access Control (ABAC) through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). These features ensure users have appropriate access to documents based on their roles and specific attributes.
 
 :::note
 By default the `AdminEmail` configured during the installation process is setup as an administrator with full access
 :::
 
+## Data Security
+
+FormKiQ implements comprehensive security through encryption, access controls, and authentication:
+
+### Encryption in Transit
+All data transmissions are encrypted using:
+- TLS 1.2 or higher
+- HTTPS-only endpoints
+- API Gateway managed certificates
+
+### Encryption at Rest
+FormKiQ Essentials, Advanced, and Enterprise offerings use AWS-managed encryption services for:
+
+- Document Storage (S3)
+- Metadata Storage (DynamoDB)
+- Search Index (OpenSearch, part of the Enhanced Full-Text Search Add-On Module)
 
 ## Role-Based Access Control (RBAC)
 
@@ -151,7 +167,7 @@ Due to OPA's partial evaluation flexibility there are some limitation to be awar
 When using searching for documents using POST `/search`, if you are using multiple attributes criteria you will need to have an attribute `composite key` configured to enable DynamoDb to search for the criteria. Alternatively using POST `/searchFulltext` uses OpenSearch and does not have such limitation.
 
 :::note
-Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Pro/Enterprise](https://www.formkiq.com/products/formkiq-enterprise).
+Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Advanced/Enterprise](https://www.formkiq.com/products/formkiq-advanced).
 :::
 
 ## API Endpoints 

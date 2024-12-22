@@ -20,7 +20,7 @@ The code for the tutorial can be found within the [FormKiQ Github Tutorials](htt
 
 * A text editor or IDE - for example [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
 
-* Access to a FormKiQ PRO / Enterprise installation
+* Access to a FormKiQ Advanced/Enterprise installation
 
 * The `HttpApiUrl` found on the CloudFormation Outputs tab
 

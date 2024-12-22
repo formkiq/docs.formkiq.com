@@ -8,7 +8,7 @@ This tutorial show you how to use the "--sync-dynamodb" option in the [FileSync 
 
 ## What you’ll need
 
-* Access to a FormKiQ Pro or FormKiQ Enterprise installation
+* Access to a FormKiQ Advanced or Enterprise installation
 
 * An installed and configured latest version of the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli)
 

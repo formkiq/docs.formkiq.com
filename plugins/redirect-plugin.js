@@ -6,6 +6,12 @@ module.exports = function redirectPlugin(context, options) {
         const {addRoute} = actions;
         
         addRoute({
+          path: '/docs/platform/api_security',
+          component: '@site/src/components/redirects/security',
+          exact: true
+        });
+
+        addRoute({
           path: '/docs/pro-and-enterprise/modules/custom-domains',
           component: '@site/src/components/redirects/custom-domains',
           exact: true

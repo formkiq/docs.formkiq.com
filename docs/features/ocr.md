@@ -27,3 +27,5 @@ FormKiQ support optical character recognition through the following services:
 | BMP |  |
 | DOC |  |
 | DOCX |  |
+| XLS |  |
+| XLSX |  |
