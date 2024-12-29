@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/custom-domains' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/custom-domains' + location.hash);
   }, []);
 
   return null;

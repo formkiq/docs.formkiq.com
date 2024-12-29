@@ -4,80 +4,107 @@ sidebar_position: 1
 
 # Dead-Letter Queue (DLQ)
 
+## Overview
+
+FormKiQ uses a message-driven architecture where components communicate through asynchronous message passing. This approach:
+- Decouples system components
+- Increases system resilience
+- Prevents cascading failures
+- Enables graceful handling of high load conditions
+
 ![SQS Dead Letter Queue](./img/dlq-dead-letter-queue.png)
 
-FormKiQ uses a message-driven architecture, where communication between different components of a system occurs through asynchronous message passing. By decoupling components and using asynchronous communication, message-driven architectures are inherently more resilient to failures. If one component fails or becomes overloaded, it doesn't necessarily impact the entire system, as messages can be queued and processed later. 
+## Understanding Dead-Letter Queues
 
-[Amazon Simple Queue Service (SQS) Dead Letter Queues (DLQs)](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) are a feature provided by AWS SQS to help manage messages that cannot be processed successfully by consumers. In a message-driven architecture, where different components communicate via message queues, DLQs play a crucial role in handling messages that fail processing for various reasons such as processing errors, or exceeding processing rate limits.
+[Amazon SQS Dead-Letter Queues (DLQs)](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) provide a mechanism for handling messages that fail processing. FormKiQ implements a centralized DLQ that:
+- Captures failed messages from all queues
+- Enables investigation of processing failures
+- Allows message reprocessing when appropriate
+- Provides monitoring and alerting capabilities
 
-FormKiQ has a single DLQ that provides a centralized location for managing and analyzing messages that couldn't be processed successfully. These messages then can be investigated to determine the reasons behind message failures; this is done by examining the contents of the DLQ, and  if the message is valid, it can be sent to be reprocessed.
+## Monitoring and Alerts
 
-## Dead-Letter Queue Alerts
-
-Amazon CloudWatch Alarms are a feature provided by AWS CloudWatch, a monitoring and observability service offered by Amazon Web Services (AWS). CloudWatch Alarms allow you to set up notifications and trigger automated actions based on predefined thresholds or conditions related to metrics collected by CloudWatch. 
-
-FormKiQ installs a CloudWatch Alarm that can notify you when a message cannot be processed and is put into the DLQ.
+### CloudWatch Alarms
+FormKiQ automatically configures Amazon CloudWatch Alarms to monitor the DLQ. These alarms:
+- Track failed message metrics
+- Trigger notifications when messages enter the DLQ
+- Integrate with Amazon SNS for alerting
 
 ![CloudWatch DLQ Alert](./img/dlq-alerts.png)
 
-### Subscribe to DLQ
+### Setting Up Email Notifications
 
-The DLQ alert is connected to [Amazon Simple Notification Service](https://aws.amazon.com/sns/). This allows you to subscribe an email address to the alerts, enabling you to be notified via email if there are any messages that cannot be processed.
+To receive email alerts when messages fail processing:
 
-To subscribe:
+1. Access the [Amazon SNS console](https://console.aws.amazon.com/sns/v3/home)
+2. Locate the DLQ topic
+   ![SNS DLQ Topic](./img/dlq-sns-topic.png)
 
-Visit the [Amazon Simple Notification Service console](https://console.aws.amazon.com/sns/v3/home) and find the SNS DLQ topic.
+3. Create a subscription:
+   - Select the topic
+   - Click the `Subscriptions` tab
+   - Click `Create Subscription`
+   ![SNS DLQ Topic](./img/dlq-sns-subscribe-list.png)
 
-![SNS DLQ Topic](./img/dlq-sns-topic.png)
+4. Configure the subscription:
+   - Verify the Topic ARN
+   - Select `Email` as the Protocol
+   - Enter your email address
+   - Click `Create subscription`
+   ![SNS DLQ Topic](./img/dlq-sns-subscribe.png)
 
-Select the topic and under the `Subscriptions` tab, click the `Create Subscription` button.
+5. Confirm the subscription:
+   - Check your email for a confirmation message
+   - Click the verification link
+   ```
+   You have chosen to subscribe to the topic:
+   arn:aws:sns:us-east-2:1111111111:FormKiQ-DLQ-dev-Alert
 
-![SNS DLQ Topic](./img/dlq-sns-subscribe-list.png)
+   To confirm this subscription, click or visit the link below 
+   (If this was in error no action is necessary):
+   Confirm subscription
+   ```
 
-Ensure the correct Topic ARN is selected. Select `Email` from the Protocol dropdown and enter your email address under the `Endpoint` and click the `Create subscription` button.
+## Message Reprocessing (Redrive)
 
-![SNS DLQ Topic](./img/dlq-sns-subscribe.png)
+When messages fail processing, you can redirect them back to their original queue using the DLQ redrive feature:
 
-You will then receive an email similar to the one below. You'll need to click the link to verify your subscription. Once that is done, you'll receive an email every time a message fails to be processed.
+1. Access the DLQ:
+   - Find your FormKiQ installation's dead letter queue
+   ![SQS Dead Letter Queue](./img/dlq-dead-letter-queue.png)
 
-```
-You have chosen to subscribe to the topic:
-arn:aws:sns:us-east-2:1111111111:FormKiQ-DLQ-dev-Alert
+2. Start the redrive process:
+   - Click `Start DLQ redrive`
+   ![CloudWatch DLQ Alert](./img/dlq-redrive.png)
 
-To confirm this subscription, click or visit the link below (If this was in error no action is necessary):
-Confirm subscription
-```
+3. Review messages:
+   - Click `Poll for messages` with default settings
+   ![CloudWatch DLQ Alert](./img/dlq-redrive-message-poll.png)
+   - Examine message contents by clicking individual messages
+   - Delete invalid messages if needed
 
-## Reprocess Messages (Redrive)
-
-When a message fails to be processed, it can be sent back to its original queue for reprocessing. First, find the dead letter queue for your FormKiQ installation.
-
-![SQS Dead Letter Queue](./img/dlq-dead-letter-queue.png)
-
-To start the Redrive process click the `Start DLQ redrive`.
-
-![CloudWatch DLQ Alert](./img/dlq-redrive.png)
-
-The default Redrive configuration should be fine. Click the `Poll for messages` button. This will will list the messages in the DLQ.
-
-![CloudWatch DLQ Alert](./img/dlq-redrive-message-poll.png)
-
-Once you have your list of messages, you can:
-
-* Click on the message to see the contents
-
-* Select and Delete any invalid messages or messages you do not want to process
-
-* Send the messages back to their original queue for reprocessing
-
-To send the messages back to their original queue:
-
-* Select the message(s)
-
-* Click the `DLQ redrive` button
-
-The messages will be then sent back to the original queue and reprocessed again.
+4. Reprocess messages:
+   - Select messages for reprocessing
+   - Click `DLQ redrive`
+   - Messages return to their original queue
 
 :::note
-If the messages fail to process again, they will end up back in the DLQ.
+Messages that fail processing again will return to the DLQ. This helps identify persistent issues that require investigation.
 :::
+
+## Best Practices
+
+1. **Regular Monitoring**
+   - Set up email notifications
+   - Review DLQ contents periodically
+   - Track failure patterns
+
+2. **Investigation**
+   - Examine message contents
+   - Review system logs
+   - Identify root causes
+
+3. **Reprocessing**
+   - Fix underlying issues before redriving
+   - Monitor reprocessed messages
+   - Document persistent failures

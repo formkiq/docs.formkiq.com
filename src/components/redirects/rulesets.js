@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/rulesets' + location.hash);
+    history.replace('/docs/features/rulesets' + location.hash);
   }, []);
 
   return null;

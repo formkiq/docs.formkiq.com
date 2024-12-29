@@ -98,8 +98,7 @@ curl -X POST https://HTTP_API_URL/search \
 
 ## Search for Document Composite Key
 
-[FormKiQ Pro and Enterprise](https://www.formkiq.com/products/formkiq-pro) have a <a href="/docs/add-on-modules/modules/tag-schema">TagSchema Module</a> which allows defining document composite keys which allows for searching for multiple tags.
-
+FormKiQ alo includes the ability to define composite keys at the site or classification level, which allows for searching for multiple tags.
 
 ```
 curl -X POST https://HTTP_API_URL/search \

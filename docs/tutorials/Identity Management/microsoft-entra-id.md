@@ -16,12 +16,9 @@ We will be:
 
 ## What you’ll need
 
-* Access to a FormKiQ Pro or FormKiQ Enterprise installation
+* Access to a FormKiQ Essentials, Advanced, or Enterprise installation, including administrative access
 
 * Administrative access to a Microsoft Entra ID service
-
-* Administrative access to a FormKiQ Pro or FormKiQ Enterprise installation
-
 
 ## Pre-requisite
 

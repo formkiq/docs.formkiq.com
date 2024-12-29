@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/single-sign-on-and-custom-jwt-authorizer' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer' + location.hash);
   }, []);
 
   return null;

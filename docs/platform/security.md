@@ -6,12 +6,28 @@ sidebar_position: 3
 
 ## Overview
 
-FormKiQ is designed with a robust security framework to safeguard the access to documents, prioritizing robust protection measures at every layer of its architecture. FormKiQ supports advanced access control mechanisms using Role-Based Access Control (RBAC) with [Amazon Cognito Groups](https://aws.amazon.com/cognito) and Attribute-Based Access Control (ABAC) through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). These features ensure that users have appropriate access to documents based on their roles and specific attributes.
+FormKiQ is designed with a robust security framework to safeguard access to documents, prioritizing protection measures at every layer of its architecture. FormKiQ supports advanced access control mechanisms using Role-Based Access Control (RBAC) with [Amazon Cognito Groups](https://aws.amazon.com/cognito) and Attribute-Based Access Control (ABAC) through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). These features ensure users have appropriate access to documents based on their roles and specific attributes.
 
 :::note
 By default the `AdminEmail` configured during the installation process is setup as an administrator with full access
 :::
 
+## Data Security
+
+FormKiQ implements comprehensive security through encryption, access controls, and authentication:
+
+### Encryption in Transit
+All data transmissions are encrypted using:
+- TLS 1.2 or higher
+- HTTPS-only endpoints
+- API Gateway managed certificates
+
+### Encryption at Rest
+FormKiQ Essentials, Advanced, and Enterprise offerings use AWS-managed encryption services for:
+
+- Document Storage (S3)
+- Metadata Storage (DynamoDB)
+- Search Index (OpenSearch, part of the Enhanced Full-Text Search Add-On Module)
 
 ## Role-Based Access Control (RBAC)
 
@@ -51,47 +67,39 @@ The Cognito User pool can be found by visiting the [Cognito Console](https://con
 
 Creating a new Multi-Tenant Site is as easy as creating a new group and adding users to the group.
 
-To add a new group to Amazon Cognito:
+To add a new group:
 
-* Open the [Amazon Cognito Console](https://console.aws.amazon.com/cognito)
-* Click on the `Group` tab and click `Create Group`
+* Open the FormKiQ Console as an Administrator
+* Click on the **Groups** menu option under the **Administration** left menu
+* Click **Create New Group** and enter the name of the group
 
-![Cognito Home](./img/cognito-add-group.png)
-
-* Enter a `Group Name` and click `Create Group`
-
-![Cognito Home](./img/cognito-create-group.png)
+![Console Add Group](./img/fk-console-add-group.png)
 
 The site has now been created and you can add users to this group to give them access to the finance site.
 
-![Cognito Group List](./img/cognito-groups-list-finance.png)
-
 ### Add User to Site
 
-:::note
-If you do not see a Cognito User pool, check that the region you are in matches the region where you have installed FormKiQ.
-:::
+To add a new user:
 
-![Cognito Users Tab](./img/cognito-create-user.png)
+* Open the FormKiQ Console as an Administrator
+* Click on the **Users** menu option under the **Administration** left menu
+* Click **Create New User** and enter the name of the user
 
-Clicking the Cognito Users tab, you should see the administrator user that was created during the installation process.
+![Console Add User](./img/fk-console-add-user.png)
 
-To add a new user, click the `Create user` button.
+### Add User to Group
 
-![Cognito Create User](./img/cognito-create-user.png)
+To add a user to a group:
 
-On the *Create User* page,
+* Open the FormKiQ Console as an Administrator
+* Click on the **Groups** menu option under the **Administration** left menu
+* Click the far right menu on the Group you want to add the user to and click Add Member
 
-* enter the `Email Address` of the user to create
-* select `Send an email invitation`
-* click `Mark email address as verified`
-* select `Generate a password`
+![Console Add User](./img/fk-console-add-group-add-members.png)
 
-Click the `Create user` button to finish creating the new user. The user receive an email at the specified email address, with a link to finalize setting up their account.
+You can search for the user and add it to the group.
 
-![Cognito User List](./img/cognito-user-list.png)
-
-The user is now created with read / write access to the default site id.
+![Console Add User](./img/fk-console-add-group-add-member.png)
 
 ## Attribute-Based Access Control (ABAC)
 
@@ -159,7 +167,7 @@ Due to OPA's partial evaluation flexibility there are some limitation to be awar
 When using searching for documents using POST `/search`, if you are using multiple attributes criteria you will need to have an attribute `composite key` configured to enable DynamoDb to search for the criteria. Alternatively using POST `/searchFulltext` uses OpenSearch and does not have such limitation.
 
 :::note
-Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Pro/Enterprise](https://www.formkiq.com/products/formkiq-enterprise).
+Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Advanced/Enterprise](https://www.formkiq.com/products/formkiq-advanced).
 :::
 
 ## API Endpoints 
@@ -208,6 +216,8 @@ The API that uses the IAM authentication can be found in the CloudFormation Outp
 
 :::note
 You need the IAM execute-api permission to be able to use IAM Authentication and all requests will be run with administration privileges.
+
+**For more information on creating this IAM User, please [see the instructions in our API Walkthrough](/docs/getting-started/api-walkthrough/#aws-iam).**
 :::
 
 ### API Key

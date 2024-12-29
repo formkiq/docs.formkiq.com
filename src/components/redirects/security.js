@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/enhanced-document-ocr' + location.hash);
+    history.replace('/docs/platform/security' + location.hash);
   }, []);
 
   return null;

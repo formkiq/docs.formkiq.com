@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/add-on-modules/modules/tag-schema' + location.hash);
+    history.replace('/docs/features/schemas' + location.hash);
   }, []);
 
   return null;

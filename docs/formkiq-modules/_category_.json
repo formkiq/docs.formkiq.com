@@ -1,0 +1,10 @@
+{
+  "label": "FormKiQ Modules",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "Modules available as part of FormKiQ's commercially-licensed offerings."
+  }
+}

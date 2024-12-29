@@ -1,128 +1,159 @@
-# DynamoDB Backup
+---
+sidebar_position: 1
+---
 
-## Introduction
-This backup policy outlines the procedures for creating, maintaining, and restoring backups of DynamoDB tables to ensure data durability, business continuity, and quick recovery in case of data loss, corruption, or unintentional modification.
+# DynamoDB Backup Strategy
 
-Depending on your companies Recovery Time Objective (RTO), Recovery Point Objective (RPO) objectives, regulatory, and business requirements for data retention the default FormKiQ configuration may be enough or you might need to enable additional backup strategies.
+## Overview
 
-## Point-in-Time Recovery
+FormKiQ's backup strategy ensures data durability and business continuity through multiple backup mechanisms. Your specific backup implementation should align with your organization's:
+- Recovery Time Objective (RTO)
+- Recovery Point Objective (RPO)
+- Regulatory requirements
+- Data retention policies
 
-By default FormKiQ sets up all DynamoDb tables that store document data with Point-in-Time Recovery (PITR) enabled. This ensures continuous backups of these tables and allows for the recovery from human errors, data corruption, or accidental table modifications.
+## Default Protection: Point-in-Time Recovery
 
-With Point-in-Time Recovery (PITR), enabled this will provide continuous backups for up to **35 days** window.
+FormKiQ enables Point-in-Time Recovery (PITR) by default for all document-related DynamoDB tables. This provides:
+- Continuous backup coverage
+- 35-day recovery window
+- Protection against accidental modifications
+- Quick recovery from data corruption
 
-## Additional Backup Strategy
+## Additional Backup Options
 
-### On-Demand Backups
+### 1. On-Demand Backups
 
-On-demand backups create a snapshot of the entire DynamoDB table, which is retained until explicitly deleted. On-demand backups are not continuous but can be created at specific points in time.
+Create complete table snapshots that persist until explicitly deleted.
 
-#### When to Implement:
-  - Before making significant schema changes or data migrations.
-  - Prior to any major deployments or upgrades that could potentially cause data corruption.
-  - To comply with long-term retention policies that exceed the 35-day limit of PITR.
-  - For tables that are not frequently updated but need long-term, stable backup points.
+**Best For:**
+- Pre-deployment safeguards
+- Schema migration protection
+- Long-term retention (beyond 35 days)
+- Compliance requirements
+- Stable recovery points
 
-#### Why to Implement
+**Implementation:**
+- Use AWS Management Console, CLI, or SDK
+- Automate with AWS Lambda or AWS Backup
+- Typical retention: 90 days
+- Schedule around significant system changes
 
-On-demand backups provide a stable snapshot for long-term retention and disaster recovery outside the 35-day PITR window. This is especially useful for audit purposes or meeting compliance requirements where longer retention periods are necessary.
+### 2. AWS Backup Integration
 
-#### How to Implement
-  - Use the AWS Management Console, AWS CLI, or SDK to create on-demand backups.
-  - Schedule on-demand backups using automation (e.g., AWS Lambda, AWS Backup, or a CI/CD pipeline).
-  - Retain these backups for a specified time, typically **90 days**.
+Centralized backup management across AWS services.
 
-### AWS Backup Integration
+**Best For:**
+- Multi-resource environments
+- Cross-region redundancy
+- Cross-account protection
+- Compliance automation
+- Unified backup management
 
-AWS Backup is a centralized backup service for managing backups across multiple AWS services, including DynamoDB.
+**Implementation:**
+- Define backup plans
+- Configure cross-region replication
+- Set retention policies
+- Automate lifecycle management
 
-#### When to Implement
-  - If your organization manages multiple AWS resources and you require centralized backup management.
-  - For cross-region or cross-account backup needs.
-  - To comply with governance and compliance policies that require backup automation and reporting.
+### 3. Amazon S3 Export
 
-#### Why to Implement
+Export table data for long-term archival and analysis.
 
-AWS Backup provides a unified backup management system, automating the backup creation, retention, and deletion processes for multiple AWS services. It ensures compliance, simplifies cross-region backups, and supports disaster recovery.
+**Best For:**
+- Extended archival needs
+- Compliance reporting
+- Data analysis requirements
+- Third-party integrations
+- Cost-effective storage
 
-#### How to Implement
+**Implementation:**
+- Use DynamoDB's Export to S3 feature
+- Schedule regular exports (e.g., monthly)
+- Configure S3 lifecycle policies
+- Enable integration with analytics tools
 
-  - Define backup plans using AWS Backup, specifying the DynamoDB tables to back up and the frequency of backups.
-  - Use AWS Backup for **cross-region** backups to ensure resilience against regional outages.
-  - Schedule backups and automate retention policies using AWS Backup’s lifecycle rules.
+## Recovery Procedures
 
-### Export to Amazon S3
+### Point-in-Time Recovery (PITR)
 
-Exporting DynamoDB table data to Amazon S3 allows for the extraction of table data for archival, analysis, and integration with other systems.
+**Use Case:** Recent data recovery (within 35 days)
 
-#### When to Implement
+**Steps:**
+1. Navigate to DynamoDB in AWS Console
+2. Select target table
+3. Choose Actions → Restore Table to Point in Time
+4. Specify restoration timestamp
+5. Confirm new table creation
 
-  - When you need an archive of data beyond the 35-day PITR window.
-  - When you need to perform long-term auditing or compliance reporting that requires storing data outside of DynamoDB.
-  - If integration with other analytics tools is necessary (e.g., Amazon Athena, Amazon Redshift).
+**Limitations:**
+- 35-day recovery window
+- Creates new table
 
-#### Why to Implement
+### On-Demand Backup Recovery
 
-Exporting to S3 provides flexibility for long-term data retention, offline analysis, and third-party integration. It offers cost-effective storage for data that is no longer needed in DynamoDB but must be retained.
+**Use Case:** Long-term recovery points
 
-#### How to Implement
+**Steps:**
+1. Access DynamoDB Backups
+2. Select backup snapshot
+3. Initialize restore operation
+4. Specify new table name
+5. Monitor restoration progress
 
-  - Use the **Export to S3** feature in DynamoDB to export data to Amazon S3 without affecting table performance.
-  - Schedule regular exports (e.g., monthly) to capture historical data snapshots.
-  - Implement lifecycle policies in Amazon S3 to manage the retention and archival of exported data.
+**Limitations:**
+- Fixed to backup timestamp
+- Creates new table
 
-## Restoring from Backups
+### AWS Backup Recovery
 
-### Restoring Using Point-in-Time Recovery (PITR)
+**Use Case:** Cross-region/account recovery
 
-#### When to Use
+**Steps:**
+1. Open AWS Backup console
+2. Locate DynamoDB resource
+3. Select backup plan/point
+4. Configure restoration settings
+5. Initiate recovery
 
-PITR should be used when you need to restore a table due to human errors such as accidental data deletion, corruption, or modification.
+**Limitations:**
+- Requires proper IAM permissions
+- May involve cross-region data transfer
 
-#### How to Restore
-* In the AWS Management Console, navigate to **DynamoDB**.
-* Select the table you wish to restore.
-* Choose **Actions** > **Restore Table to Point in Time**.
-* Specify the date and exact time (to the second) to restore the table to.
-* Confirm the restoration process. A new table will be created with the restored data.  
-  
-**Limitations**: PITR can restore data only within the last 35 days.
+### S3 Export Recovery
 
-### Restoring Using On-Demand Backups
+**Use Case:** Historical data access
 
-On-demand backups should be used for restoring a table after a major incident, such as a complete table loss or failure during a schema update, or when restoring from a long-term retention backup.
+**Steps:**
+1. Locate S3 export bucket
+2. Retrieve exported files
+3. Process data as needed:
+   - Direct analysis
+   - DynamoDB re-import
+   - Third-party tool integration
 
-#### How to Restore
+**Limitations:**
+- Requires ETL for DynamoDB re-import
+- Not a direct restoration method
 
-* In the AWS Management Console, go to **DynamoDB** and select **Backups**.
-* Find the backup you wish to restore from.
-* Select the **Restore** option and choose the appropriate backup snapshot.
-* Specify the table name for the restored data (it will create a new table).
-* Confirm the restoration process.
-  
-**Limitations**: Restores are limited by the time and date the backup was taken.
+## Best Practices
 
-### Restoring Using AWS Backup
+1. **Strategy Alignment**
+   - Match backup methods to business needs
+   - Consider compliance requirements
+   - Balance cost vs. recovery speed
 
-Use AWS Backup when performing cross-region or cross-account disaster recovery, or when centralizing recovery across multiple AWS services.
+2. **Regular Testing**
+   - Validate backup integrity
+   - Practice recovery procedures
+   - Document recovery times
 
-#### How to Restore
+3. **Monitoring**
+   - Track backup success/failure
+   - Monitor storage costs
+   - Review retention policies
 
-* Open the **AWS Backup** console.
-* Navigate to **Protected Resources** and select **DynamoDB**.
-* Select the backup plan and the specific backup to restore.
-* Click on **Restore** and specify the region and account where the restore should take place.
-* AWS Backup will initiate the restore, and a new table will be created with the restored data.
-
-**Limitations**: Ensure that the destination region/account has proper permissions for restoring resources.
-
-### Restoring Using Export to Amazon S3
-
-Use S3 exports when you need to restore data outside the normal DynamoDB operations, such as for historical analysis or long-term audit requirements.
-
-#### How to Restore
-* In the AWS Management Console, go to **Amazon S3** and find the bucket where the data was exported.
-* Retrieve the exported data files (they will be in a format such as **.csv** or **.json**).
-* Depending on the purpose, re-import the data back into DynamoDB (if needed) using scripts or AWS Glue ETL jobs, or analyze the data directly in Amazon S3 using tools like Amazon Athena.
-
-**Limitations**: Restoring data from S3 is not a direct DynamoDB recovery process; additional ETL workflows are needed for re-ingestion.
+4. **Documentation**
+   - Maintain recovery procedures
+   - Record configuration changes
+   - Document backup schedule
