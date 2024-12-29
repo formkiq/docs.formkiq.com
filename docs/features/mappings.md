@@ -118,4 +118,4 @@ The Mapping feature in FormKiQ provides a powerful system for automatically extr
 
 ## API Reference
 
-For complete API documentation, see [Mapping API Reference](/docs/api-reference/add-mapping).
+For complete API documentation, see [Mapping API Reference](/docs/api-reference/get-mappings).

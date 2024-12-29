@@ -23,91 +23,23 @@ System Requirements:
 
 ## Launching FormKiQ
 
-1. Create a new directory and save this `docker-compose.yml` file:
+FormKiQ can be launched using [Docker Compose](https://docs.docker.com/compose/install). 
 
-```yaml
-version: '3.8'
-services:
+Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/netty-server/docker-compose.yml) file you can launch FormKiQ local using
 
-  console:
-    image: formkiq/document-console:3.2.4-SNAPSHOT-20231107
-    ports:
-      - "80:80"
-    environment:
-      HTTP_API_URL: http://localhost:8080
-      COGNITO_API_URL: http://localhost:8080
-      COGNITO_ENDPOINT_OVERRIDE: http://localhost:8080
-  
-  typesense:
-    image: typesense/typesense:0.25.1
-    ports:
-      - "8108:8108"
-    volumes:
-      - ./typesense-data:/data
-    command: '--data-dir /data --api-key=xyz --enable-cors'
-    
-  formkiq:
-    image: formkiq/api-server:1.13.0-SNAPSHOT-20231125
-    depends_on:
-      - minio
-      - dynamodb
-    ports:
-      - "8080:8080"
-    environment:
-      PORT: 8080
-      DYNAMODB_URL: http://dynamodb:8000
-      S3_URL: http://minio:9000
-      S3_PRESIGNER_URL: http://localhost:9000
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
-      ADMIN_USERNAME: admin@me.com
-      ADMIN_PASSWORD: password
-      API_KEY: changeme
-      TYPESENSE_HOST: http://typesense:8108
-      TYPESENSE_API_KEY: xyz
-
-  minio:
-    image: minio/minio:RELEASE.2023-08-23T10-07-06Z
-    ports:
-      - "9000:9000"
-      - "9090:9090"
-    environment:
-      MINIO_DOMAIN: minio
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-      MINIO_NOTIFY_WEBHOOK_ENABLE_DOCUMENTS: on
-      MINIO_NOTIFY_WEBHOOK_ENDPOINT_DOCUMENTS: http://formkiq:8080/minio/s3/documents
-      MINIO_NOTIFY_WEBHOOK_ENABLE_STAGINGDOCUMENTS: on
-      MINIO_NOTIFY_WEBHOOK_ENDPOINT_STAGINGDOCUMENTS: http://formkiq:8080/minio/s3/stagingdocuments
-    networks:
-      default:
-        aliases:
-          - documents.minio
-          - stagingdocuments.minio
-    volumes:
-      - ./formkiq/minio:/data
-    command: server /data --address :9000 --console-address :9090
-
-  dynamodb:
-    image: amazon/dynamodb-local:1.24.0
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./formkiq/dynamodb:/data
 ```
-
-2. Login to Docker (if needed):
-```bash
-docker login
-```
-
-3. Launch FormKiQ:
-```bash
 docker-compose -f docker-compose.yml up -d
 ```
 
-Expected startup time: ~30 seconds
+**OR**
+
+use the following bash script.
+
+```bash
+curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/netty-server/docker-compose.yml && docker-compose up
+```
+
+Please note: You may need to run "docker login" to login with your Docker credentials beforehand, if you have not done so already.
 
 ## Authentication
 
@@ -115,6 +47,9 @@ The default API key is "changeme". Add it to your HTTP headers:
 ```bash
 -H "Authorization: changeme"
 ```
+:::note
+You will likely want to change this, even on your local installation.
+:::
 
 ## Document Operations
 

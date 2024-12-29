@@ -4,22 +4,75 @@ sidebar_position: 1
 
 # Document Versioning
 
-✅ Track Versions using S3 Versions and the FormKiQ Document API
+## Overview
 
-✅ Add Versioned Metadata for Document Control
+The Document Versioning module enables comprehensive version control for both document content and metadata. Built on [Amazon S3](https://aws.amazon.com/s3) versioning capabilities, this module provides robust tracking of all document changes for security, compliance, and audit requirements.
 
-Document Versioning is a FormKiQ Module that provides version tracking for document content and metadata, allowing document control for security, compliance, and audit requirements.
+## Key Features
 
-The module uses [Amazon S3](https://aws.amazon.com/s3) versions, which provides reliable tracking of all changes to your documents.
+- Track document content versions
+- Maintain versioned metadata
+- Support for reverting to previous versions
+- Audit trail of document changes
+- Integration with S3 versioning
 
-## Use Case
+## Capabilities
 
-* If documents need occasional updates, and it's important to track when those updates occurred or who made the modifications, this module can provide that information as part of your standard workflow.
+### Version Tracking
+- Automatic version creation on document updates
+- Metadata versioning for complete change history
+- Secure storage using S3 versioning
 
-## API
+### Version Management
+- Retrieve specific versions
+- View version history
+- Revert to previous versions
+- Track modification details
 
-The Document Versioning Module adds endpoints to get version info, as well as to request specific versions when requesting a document for display or download. In addition, there is an endpoint to set the current version, allowing a change to be reverted by promoting a previous version to become the most recent, i.e., current, version of the document.
+## API Features
 
-<!---
-**You can view the full list of Document Versioning Module endpoints in the link:../api/README.html#documentversions[API Reference].**
--->
+### Version Information
+- Get version details
+- List version history
+- Access version metadata
+
+### Version Control
+- Request specific versions
+- Set current version
+- Revert changes by promoting previous versions
+
+### Document Access
+- Display specific versions
+- Download version content
+- Compare versions
+
+## Use Cases
+
+### Document Control
+- Track document modifications
+- Monitor update history
+- Maintain change records
+
+### Compliance Requirements
+- Audit trail maintenance
+- Change documentation
+- Version history preservation
+
+### Content Management
+- Document evolution tracking
+- Revision history
+- Content recovery
+
+## Best Practices
+
+1. **Version Management**
+   - Document significant changes
+   - Maintain clear version descriptions
+   - Use meaningful metadata
+
+2. **Access Control**
+   - Define version access permissions
+   - Control version promotion
+   - Monitor version usage
+
+For complete API documentation, see [Version Control API Reference](/docs/api-reference/get-document-versions).

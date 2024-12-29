@@ -2,80 +2,113 @@
 sidebar_position: 1
 ---
 
-# Essentials, Advanced, and Enterprise
+# Installing FormKiQ
+# (Commercially-Licensed Offerings)
 
-**Deploying FormKiQ Essentials/Advanced/Enterprise in AWS.**
+## Overview
+
+As with FormKiQ Core, **FormKiQ Essentials**, **Advanced**, and **Enterprise** editions are deployed using AWS CloudFormation, which automates the creation and management of required AWS resources. This guide walks you through the installation process.
 
 ## Prerequisites
 
-Before installing FormKiQ Essentials, Advanced, or Enterprise, make sure to review the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
+Before beginning installation, ensure you have reviewed the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
 
-## Installation
+## Installation Steps
 
-The FormKiQ installation process uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation). AWS CloudFormation is a service that automates the process of creating and managing cloud resources. It allows you to easily install and update FormKiQ using a single url.
+### 1. Select AWS Region
 
-To install FormKiQ, select the AWS region you want to deploy FormKiQ into below:
+Choose your deployment region from the following options:
 
-| AWS Region    | Install Link |
-| -------- | ------- |
-| us-east-1 | https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new|
-| us-east-2 | https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new|
-| us-west-2 | https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new|
-| ca-central-1 | https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new|
-| eu-central-1 | https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new|
-| ap-south-1 | https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new|
-| ap-southeast-2 | https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new|
-| ap-northeast-2 | https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new|
-| sa-east-1 | https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new|
+| AWS Region | Location | Install Link |
+|------------|----------|--------------|
+| us-east-1 | N. Virginia | [Install](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new) |
+| us-east-2 | Ohio | [Install](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new) |
+| us-west-2 | Oregon | [Install](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new) |
+| ca-central-1 | Canada (Central) | [Install](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new) |
+| eu-central-1 | Frankfurt | [Install](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new) |
+| eu-west-1 | Ireland | [Install](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new) |
+| eu-west-3 | Paris | [Install](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new) |
+| ap-south-1 | Mumbai | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new) |
+| ap-southeast-1 | Singapore | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new) |
+| ap-southeast-2 | Sydney | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new) |
+| ap-northeast-2 | Seoul | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new) |
+| sa-east-1 | São Paulo | [Install](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new) |
 
+### 2. Create CloudFormation Stack
 
-## CloudFormation
-
-Clicking the installation link will bring you to the AWS Console Login (if you are not already logged in). Once you are logged in, you will be taken to the "CloudFormation Create Stack" page. 
-
-### Create Stack
+1. Click the installation link for your chosen region
+2. Log into AWS Console if prompted
+3. You'll be directed to "CloudFormation Create Stack"
 
 ![CloudFormation Create Stack](./img/cf-createstack.png)
 
-On the "Create stack" page, enter the FormKiQ installation S3 Url provided to you, or can be found on your Enterprise GitHub page.
+### 3. Configure Stack Settings
 
-Clicking the "Next" button will take you to the stack details page. On this page we can configure FormKiQ.
+#### Stack Name
+- Format: `formkiq-<edition>-<environment>`
+- Example: `formkiq-enterprise-prod`
+- Allowed characters: A-Z, a-z, 0-9, and hyphens (-)
 
-### Stack Name
-
-![CloudFormation Stack Name](./img/cf-create-stack-name.png)
-
-The first thing you will need to set is the CloudFormation Stack Name. The Stack name can include letters (A-Z and a-z), numbers (0-9), and dashes (-). We recommended to use the naming convention `formkiq-enterprise-<app_environment>`, ie: formkiq-enterprise-prod, formkiq-enterprise-dev, etc. The `<app_environment>` allows you to differentiate between multiple installations of FormKiQ. This will give context to each FormKiQ installation and prevent accidentally deleting the wrong FormKiQ installation stack.
-
-:::note
-For production installations, we recommend using [AWS Organizations](https://aws.amazon.com/organizations) to create a separate account to run your production version of FormKiQ. AWS makes it easy to switch between accounts within an organization, and best practice is to keep your production environment in a separate account from any non-production resources. This not only helps with security, but also to help organize your costs. Ideally, you would have a new AWS account within your AWS organization for each environment (e.g., dev, test/qa, staging/pre-prod, and production).
+:::tip Environment Separation
+For production deployments, we recommend:
+- Using [AWS Organizations](https://aws.amazon.com/organizations)
+- Creating separate AWS accounts for each environment (dev, test/qa, staging, production)
+- This approach improves security and cost tracking
 :::
 
-### Core Parameters
+#### Core Parameters
+Review and configure the standard FormKiQ parameters as described in the [Quick Start Guide](/docs/getting-started/quick-start#set-admin-email).
 
-Most installation parameters are the same between Core, Pro, and Enterprise. A description of the similar parameters can be found [here](/docs/getting-started/quick-start#set-admin-email).
+#### Additional Parameters
 
-### Essentials, Advanced, and Enterprise Parameters
+##### Certificate Integration
+```plaintext
+Parameter: CertificateStackName
+Description: Name of the deployed FormKiQ Certificate CloudFormation stack
+Required: When using SSL certificates
+```
 
-The following are specific parameters that are used by some customers, based on specific configuration and module choices:
+##### OpenSearch Integration
+```plaintext
+Parameter: OpenSearchStackName
+Description: Name of the deployed OpenSearch CloudFormation stack
+Required: When using OpenSearch
+Note: VpcStackName must also be specified with OpenSearch
+```
 
-#### CertificateStackName
+### 4. Complete Installation
 
-![Certificate Stack Name](./img/cf-certificate-stackname.png)
-
-After the deploying the FormKiQ Certificate stack, the name of the CloudFormation stack that was deployed can be entered here, to connect the SSL certificates with the FormKiQ installation.
-
-#### OpenSearchStackName
-
-![OpenSearch Stack Name](./img/cf-opensearch-stackname.png)
-
-After the Amazon OpenSearch Service is deployed following the [FormKiQ OpenSearch Installation guide](/docs/add-on-modules/installation/opensearch), the name of the CloudFormation stack that was deployed can be entered here, to connect the OpenSearch installation with the FormKiQ installation.
-
-:::note
-You will also need to specify a VpcStackName if OpenSearch is being deployed.
-
-### Complete Installation
-
-Keep selecting "Next" until you get to the last "Submit Create Stack" page. Once you've checked the checkboxes, you can click "Submit" to begin the stack creation.
+1. Review all configuration settings
+2. Navigate through remaining CloudFormation screens
+3. On the final page:
+   - Review the acknowledgments
+   - Check required boxes
+   - Click "Submit" to create the stack
 
 ![Create CloudFormation Stack](./img/cf-create-stack-submit.png)
+
+## Post-Installation
+
+After stack creation completes:
+1. Verify all resources are created successfully
+2. Check for any error messages in CloudFormation events
+3. Review the outputs tab for important endpoint information
+
+## Troubleshooting
+
+Common installation issues:
+- Insufficient IAM permissions
+- VPC configuration errors with OpenSearch
+- Certificate validation failures
+
+For detailed assistance, refer to our [troubleshooting guide](/docs/category/troubleshooting) or contact support.
+
+## Next Steps
+
+After successful installation:
+1. Configure authentication
+2. Set up initial users
+3. Review security settings
+4. Test basic functionality
+
+See our [API Walkthrough](/docs/getting-started/api-walkthrough/) to get started.

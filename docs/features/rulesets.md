@@ -4,53 +4,92 @@ sidebar_position: 20
 
 # Rulesets
 
-The Rulesets feature in FormKiQ allows for the creation and management of rules that define specific conditions and workflows for document processing. This feature is essential for automating tasks, ensuring compliance, and enforcing business logic within the system.
+## Overview
 
-Rulesets and rules work together to create a structured and prioritized system for managing document processing. By defining clear conditions and workflows, FormKiQ can automate complex processes and ensure that documents are handled according to predefined business rules.
+The Rulesets feature in FormKiQ serves as a decision-making engine for automated document processing. By defining sets of rules with specific conditions and priorities, organizations can automate workflows, enforce business logic, and ensure compliance standards.
 
-## Ruleset
+Each ruleset contains individual rules that define specific conditions and corresponding actions. The priority system allows fine-tuning of workflows, ensuring that critical conditions take precedence when multiple rules are applicable.
 
-A ruleset is a collection of rules, each with its own conditions and actions. Rulesets help organize and prioritize rules to ensure that the most critical conditions are checked and processed first.
+## Components
 
-  - **Parameters:**
-    - **description**: A string providing a brief description of the ruleset.
-    - **priority**: An integer representing the priority of the ruleset. Lower numbers indicate higher priority.
-    - **version**: An integer representing the version of the ruleset.
-    - **status**: The status of the ruleset. Possible values are `ACTIVE` and `INACTIVE`.
-
-
-## Rule
-
-Rules within a ruleset define specific conditions that must be met and the corresponding workflow to be executed if those conditions are satisfied.
-
-  - **Parameters:**
-    - **priority**: An integer representing the priority of the rule within the ruleset. Lower numbers indicate higher priority.
-    - **description**: A string providing a brief description of the rule.
-    - **workflowId**: A string representing the ID of the workflow to be executed when the rule conditions are met.
-    - **status**: The status of the rule. Possible values are `ACTIVE` and `INACTIVE`.
-    - **conditions**: An object defining the conditions that must be met for the rule to be executed.
-
-## Rule Conditions
-
-Conditions are defined by the criteria that must be met. Each condition includes the following properties:
-
-  - **Parameters:**
-    - **must**: An array of condition objects that must all be satisfied for the rule to trigger.
-      - **criterion**: The type of criterion to be checked. Possible values are `TEXT`, `CONTENT_TYPE`, `BARCODE`, `FIELD`.
-      - **fieldName**: A string representing the name of the field to be checked.
-      - **value**: A string representing the value to be checked against the field.
-      - **operation**: The operation to be used for comparison. Possible values are `EQ` (equal) and `CONTAINS`.
-
-## Examples
-
-Below are examples of Rulesets and Rules.
-
-### Example Ruleset JSON
+### Ruleset Structure
 
 ```json
 {
   "ruleset": {
-    "description": "Document Processing Ruleset",
+    "description": "string",
+    "priority": number,
+    "version": number,
+    "status": "ACTIVE" | "INACTIVE"
+  }
+}
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| description | string | No | Brief description of the ruleset's purpose |
+| priority | number | Yes | Processing priority (lower = higher priority) |
+| version | number | Yes | Ruleset version number |
+| status | string | Yes | ACTIVE or INACTIVE |
+
+### Rule Structure
+
+```json
+{
+  "rule": {
+    "priority": number,
+    "description": "string",
+    "workflowId": "string",
+    "status": "ACTIVE" | "INACTIVE",
+    "conditions": {
+      "must": [
+        {
+          "criterion": "string",
+          "fieldName": "string",
+          "value": "string",
+          "operation": "string"
+        }
+      ]
+    }
+  }
+}
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| priority | number | Yes | Rule priority within ruleset |
+| description | string | No | Brief description of the rule |
+| workflowId | string | Yes | Associated workflow identifier |
+| status | string | Yes | ACTIVE or INACTIVE |
+| conditions | object | Yes | Rule conditions object |
+
+## Supported Conditions
+
+| Criterion | Supported Files | Operations | Description |
+|-----------|----------------|------------|-------------|
+| CONTENT_TYPE | * | EQ, CONTAINS | Match file types |
+| TEXT | application/pdf, text/* | EQ, CONTAINS | Search document content |
+| BARCODE | application/pdf | EQ, CONTAINS | Process barcode data |
+| FIELD | application/pdf | EQ, CONTAINS, GT, GTE, LT, LTE | Extract form fields |
+
+### Operations
+
+| Operation | Description | Example |
+|-----------|-------------|---------|
+| EQ | Equal to | Match specific values |
+| GT | Greater than | Numeric comparisons |
+| GTE | Greater than or equal to | Minimum thresholds |
+| LT | Less than | Maximum limits |
+| LTE | Less than or equal to | Upper thresholds |
+| CONTAINS | Partial match | Find keywords in text |
+
+## Practical Examples
+
+### 1. PDF Processing Ruleset
+```json
+{
+  "ruleset": {
+    "description": "PDF Document Processing",
     "priority": 1,
     "version": 1,
     "status": "ACTIVE"
@@ -58,14 +97,12 @@ Below are examples of Rulesets and Rules.
 }
 ```
 
-### Example Rule JSON
-
 ```json
 {
   "rule": {
     "priority": 1,
-    "description": "Check for specific content type",
-    "workflowId": "workflow123",
+    "description": "Process incoming PDFs",
+    "workflowId": "pdf-workflow",
     "status": "ACTIVE",
     "conditions": {
       "must": [
@@ -79,3 +116,137 @@ Below are examples of Rulesets and Rules.
   }
 }
 ```
+
+### 2. Invoice Processing Ruleset
+```json
+{
+  "ruleset": {
+    "description": "Invoice Processing",
+    "priority": 2,
+    "version": 1,
+    "status": "ACTIVE"
+  }
+}
+```
+
+```json
+{
+  "rule": {
+    "priority": 1,
+    "description": "High-value invoice workflow",
+    "workflowId": "invoice-approval",
+    "status": "ACTIVE",
+    "conditions": {
+      "must": [
+        {
+          "criterion": "TEXT",
+          "value": "INVOICE",
+          "operation": "CONTAINS"
+        },
+        {
+          "criterion": "FIELD",
+          "fieldName": "amount",
+          "value": "10000",
+          "operation": "GTE"
+        }
+      ]
+    }
+  }
+}
+```
+
+### 3. Shipping Document Ruleset
+```json
+{
+  "ruleset": {
+    "description": "Shipping Document Processing",
+    "priority": 3,
+    "version": 1,
+    "status": "ACTIVE"
+  }
+}
+```
+
+```json
+{
+  "rule": {
+    "priority": 1,
+    "description": "Route international shipments",
+    "workflowId": "international-shipping",
+    "status": "ACTIVE",
+    "conditions": {
+      "must": [
+        {
+          "criterion": "BARCODE",
+          "value": "INT-",
+          "operation": "CONTAINS"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Common Use Cases
+
+### Document Classification
+- Categorize documents based on content
+- Apply metadata based on rules
+- Route to appropriate workflows
+- Implement content-based policies
+
+### Data Extraction
+- Extract key information from forms
+- Process invoice data
+- Capture barcode information
+- Parse structured documents
+
+### Validation and Verification
+- Validate document completeness
+- Check required fields
+- Verify calculations
+- Ensure data accuracy
+
+### Compliance
+- Flag sensitive information
+- Enforce document policies
+- Maintain audit trails
+- Handle regulatory requirements
+
+### Workflow Automation
+- Route based on content
+- Trigger approval processes
+- Automate document processing
+- Manage document lifecycle
+
+## Best Practices
+
+1. **Ruleset Organization**
+   - Use clear, descriptive names
+   - Maintain consistent priority schemes
+   - Document ruleset purposes
+   - Version control for changes
+
+2. **Rule Design**
+   - Start with specific rules
+   - Use appropriate priorities
+   - Keep conditions focused
+   - Test rule combinations
+
+3. **Performance**
+   - Minimize condition complexity
+   - Optimize priority ordering
+   - Monitor execution times
+   - Regular rule cleanup
+
+4. **Maintenance**
+   - Regular rule reviews
+   - Update documentation
+   - Archive unused rules
+   - Test rule changes
+
+## Next Steps
+
+For more information about implementing Rulesets:
+- [Ruleset Tutorial](/docs/tutorials/ruleset)
+- [Ruleset API Reference](/docs/api-reference/get-rulesets)

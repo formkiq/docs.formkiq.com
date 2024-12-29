@@ -6,7 +6,7 @@ export default function Redirect() {
   const location = useLocation();
   
   useEffect(() => {
-    history.replace('/docs/formkiq-modules/modules/enhanced-document-ocr' + location.hash);
+    history.replace('/docs/formkiq-modules/modules/enhanced-document-ocr-and-classification' + location.hash);
   }, []);
 
   return null;

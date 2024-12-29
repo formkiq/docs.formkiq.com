@@ -4,147 +4,125 @@ sidebar_position: 1
 
 # Single Sign-On and Custom JWT Authorizer
 
+## Overview
+
+The Single Sign-On (SSO) and Custom JWT Authorizer module enables flexible authentication configuration for FormKiQ console and API endpoints. While FormKiQ uses AWS Cognito by default, this Enterprise Add-On Module allows integration with various authentication providers.
+
 ![SAML Architecture](./img/saml-architecture.svg)
 
-Single Sign-On and Custom JWT Authorizer is a FormKiQ Enterprise Add-On Module (for the FormKiQ Core Headless Document Management System) that enables the ability to customize the authorizer used for FormKiQ console, and API endpoints.
+## Supported Authentication Methods
 
-FormKiQ by default uses https://aws.amazon.com/cognito as the JWT authorizer.
+- Custom JWT providers (e.g., [Auth0](https://auth0.com))
+- SAML 2.0 identity providers
+- Public providers:
+  - [Facebook](https://docs.aws.amazon.com/cognito/latest/developerguide/facebook.html)
+  - [Google](https://docs.aws.amazon.com/cognito/latest/developerguide/google.html)
+  - [Apple](https://docs.aws.amazon.com/cognito/latest/developerguide/apple.html)
+- OpenID Connect providers
+- Microsoft Active Directory Federation Services
 
-Using this module the authorizer can be changed to another authorizer such as:
+## Active Directory Integration Guide
 
-* Another JWT authorizer such as https://auth0.com
+### 1. Retrieve Cognito Information
 
-* SAML identity providers through Security Assertion Markup Language 2.0 (SAML 2.0)
-
-* Public providers: [FaceBook](https://docs.aws.amazon.com/cognito/latest/developerguide/facebook.html), [Google](https://docs.aws.amazon.com/cognito/latest/developerguide/google.html), or [Apple](https://docs.aws.amazon.com/cognito/latest/developerguide/apple.html)
-
-* OpenID Connect provider
-
-## Use Case
-* If you would like to maintain your ActiveDirectory or Google Apps login from your organization into the FormKiQ API or Console, this module allows that with minimal configuration
-
-## Integration Instructions - Microsoft Active Directory Federation Services
-
-### Retrieve Your Amazon Cognito Info
-
-In order to configure your Windows Server AD FS, you will need to retrieve your FormKiQ Pool ID and Amazon Cognito Domain.
-
-Go to Amazon Cognito in your AWS Management Console. Under "Settings", you can retrieve your User Pool ID:
+#### Access User Pool Settings
+1. Open Amazon Cognito in AWS Console
+2. Navigate to Settings
+3. Note the User Pool ID
 
 ![Cognito User Pool Settings](./img/cognito-user-pool-settings.png)
 
-You can then retrieve your Cognito Domain under "App Integration >> Domain Name":
+#### Get Cognito Domain
+1. Go to App Integration >> Domain Name
+2. Note the domain name
 
 ![Cognito User Pool Domain](./img/cognito-user-pool-domain.png)
 
-### Open AD FS Management in Windows Server Manager
+### 2. Configure AD FS
 
 :::note
-Ensure that
-- AD FS server(s) has https network access to `amazoncognito.com`
-
-- When using multiple AD FS servers, apply the following changes to all servers 
+Requirements:
+- AD FS servers need https access to amazoncognito.com
+- Apply changes to all servers in multi-server setups
 :::
 
-Go to "Server Manager" and select "AD FS":
+#### Access AD FS Management
+1. Open Server Manager
+2. Select AD FS
+3. Navigate to Tools > AD FS Management
 
 ![Windows Server Manager Dashboard](./img/windows-server-manager-dashboard.png)
 
-Choose the "Tools" menu, and select "AD FS Management":
+#### Configure Relying Party Trust
+1. Select "Relying Party Trusts"
+2. Choose "Add Relying Party Trust Wizard"
+3. Select "Claims aware" option
+4. Choose "Enter data about the relying party manually"
+5. Enter display name (e.g., "FormKiQ ADFS Login")
+6. Configure SAML 2.0 WebSSO protocol URL using your Cognito domain
+7. Set relying party trust identifier: `urn:amazon:cognito:sp:<yourUserPoolID>`
 
-![Windows Server Manager - AD FS Management](./img/windows-adfs-tools-ad-fs-management.png)
+#### Configure Claim Rules
+1. Select your Relying Party Trust
+2. Edit Claim Issuance Policy
+3. Add rules for:
+   - Windows account name
+   - Email address
 
-### Adding Relying Party Trust Management
+### 3. Test Integration
 
-Select "Relying Party Trusts" and choose the "Add Relying Party Trust Wizard". Choose the default "Claims aware" option:
-
-![Claims Aware Relying Party Trust](./img/ad-fs-trust-wizard-claims-aware.png)
-
-For "Select Data Source", choose the option "Enter data about the relying party manually":
-
-![Choosing the manual data source option](./img/ad-fs-trust-wizard-data-source.png)
-
-For "Specify Display Name", enter a descriptive name, such as "FormKiQ ADFS Login":
-
-![Choosing a descriptive name](./img/ad-fs-trust-wizard-display-name.png)
-
-For "Configure URL", choose "Enable support for the SAML 2.0 WebSSO protocol", and for the form field below, replace "yourDomainPrefix" with your Amazon Cognito User Pool's Domain Prefix (retrieved as the first step), and replace region with the User Pool's AWS Region (for example, "us-east-1"):
-
-![Configuring the URL](./img/ad-fs-trust-wizard-configure-url.png)
-
-For "Configure Identifiers", you need to supply the "Relying party trust identifier". Enter "urn:amazon:cognito:sp:*yourUserPoolID*" as the URN, but with your Cognito User Pool (e.g., "us-east-1_g2zxiEbac"), instead of "*yourUserPoolId*":
-
-![Configuring the Trust Identifier](./img/ad-fs-trust-wizard-configure-identifiers.png)
-
-You can now click through the default options for the remainder of the Wizard and click "Finish".
-
-### Editing the Relying Party Trust Claim Issuance Policy
-
-You should now see your new Relying Party Trust listed with the Display Name that you provided. You can select this trust:
-
-![Selecting Your Relying Party Trust](./img/ad-fs-relying-party-trust.png)
-
-Choose "Edit Claim Issuance Policy":
-
-![Editing Your Claim Issuance Policy](./img/ad-fs-edit-claim-issuance-policy.png)
-
-You can now add a new Claim Issuance Policy Rule for the Windows account name:
-
-![Adding a new Claim Issuance Policy Rule for Windows account name](./img/ad-fs-claim-issuance-add-name-rule.png)
-
-Next, create a rule for the email:
-
-![Adding a new Claim Issuance Policy Rule for Email](./img/ad-fs-claim-issuance-add-email-rule.png)
-
-### Signing in with AD FS
-
-You can test out your AD sign in with the FormKiQ Console:
+1. Access FormKiQ Console
+2. Select external provider login
+3. Choose Corporate ID
+4. Sign in with AD credentials
 
 ![FormKiQ Console External Provider Login](./img/formkiq-console-external-provider-login.png)
 
-You will then be redirected to an Active Directory server and prompted to choose your Corporate ID:
+## User Access Configuration
 
-![FormKiQ Console Corporate ID](./img/formkiq-console-sign-in.png)
+### Group Management
+- All user groups must be prefixed with `formkiq_`
+- Minimum requirement: `formkiq_default` group for default siteId access
+- Groups determine read/write permissions
 
-You can then securely sign in with your Active Directory credentials:
+## OpenSearch/Kibana SAML Authentication
 
-![Signing in Securely with AD](./img/formkiq-console-secure-sign-in.png)
+### Configuration Steps
 
-## User Group Access
-
-FormKiQ access is determined by the group(s) the user belongs to, see <a href="/docs/platform/multi-tenant-vs-multi-instance">Multi-Tenant</a>.
-
-The only difference is all user groups need to be prefixed with `formkiq_`.
-
-At a minimum you need to create a group called `formkiq_default` which will give users read / write access to the default siteId.
-
-## OpenSearch Dashboards/Kibana using SAML Authentication
-
-SAML authentication for OpenSearch Dashboards lets you use your existing identity provider to offer single sign-on (SSO) for Dashboards/Kibana on Amazon OpenSearch Service.
-
-Start by visiting the https://us-east-2.console.aws.amazon.com/opensearch/domains[AWS OpenSearch Console] and selecting the domain to change the authentication source.
-
-Select the `Security configuration` tab and then the `Edit` button.
+1. Access OpenSearch Console
+2. Select domain for authentication changes
+3. Navigate to Security Configuration
+4. Disable Cognito Authentication
+5. Enable SAML Authentication
 
 ![OpenSearch Security Configuration](./img/opensearch-security-configuration.png)
 
-First, Disable Cognito Authentication
+### SAML Setup
 
-![Cognito Authentication](./img/opensearch-cognito-authentication.png)
+After enabling SAML, note the following URLs:
+- Service provider entity ID
+- IdP-initiated SSO URL
+- SP-initiated SSO URL
 
-Next, Enable SAML authentication
+### Configuration Options
+- Use IdP-initiated SSO URL for IdP directory authentication
+- Use SP-initiated SSO URL for OpenSearch Dashboards authentication
 
-![SAML Authentication](./img/opensearch-saml-authentication.png)
+For detailed configuration instructions, see [OpenSearch SAML Documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/saml.html).
 
-After enabling SAML authentication, you are provided the following configuration urls:
+## Best Practices
 
-* Service provider entity ID
+1. **Security**
+   - Regularly review authentication settings
+   - Monitor access patterns
+   - Maintain updated IdP configurations
 
-* IdP-initiated SSO URL
+2. **User Management**
+   - Use descriptive group names
+   - Document access policies
+   - Regular access reviews
 
-* SP-initiated SSO URL
-
-Using the above urls to create a new application with SAML support in your IdP. To configure authentication through your IdP's application directory, use the IdP-initiated SSO URL. To configure authentication through the OpenSearch Dashboards/Kibana URL, use the SP-initiated SSO URL.
-
-The following link provides additional information on configuring [SAML authentication for OpenSearch Dashboards](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/saml.html).
-
+3. **Integration**
+   - Test authentication flows
+   - Monitor SSO sessions
+   - Configure timeouts appropriately

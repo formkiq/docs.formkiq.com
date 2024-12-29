@@ -2,130 +2,247 @@
 sidebar_position: 25
 ---
 
-# Site / Classification Schemas
+# Schemas
 
-The Site / Classification Schemas feature in FormKiQ defines the structure and rules for how documents are organized, ensuring consistency and adherence to specified requirements. This feature allows administrators to specify mandatory and optional attributes, enforce value constraints, and manage composite keys for unique document identification.
+## Overview
 
-The difference between Site and Classification schemas, is that a Site schema applies to ALL documents added at a site level and Classification is additional structures and rules that can be applied on a specific document.
+FormKiQ's Schema system provides a powerful way to define and enforce document organization rules. The platform supports two types of schemas:
 
-## Components
+- **Site Schemas**: Apply to ALL documents within a site
+- **Classification Schemas**: Apply additional rules to specific document types
 
-A site schema is defined by its name and a set of attributes. The attributes are categorized into composite keys, required attributes, optional attributes, and an option to allow additional attributes.
+## Schema Structure
 
-- **name**: A string representing the name of the schema.
-- **attributes**: An object that defines various attribute categories and rules.
+```json
+{
+  "name": "string",
+  "attributes": {
+    "compositeKeys": [],
+    "required": [],
+    "optional": [],
+    "allowAdditionalAttributes": boolean
+  }
+}
+```
+
+### Core Components
+
+| Component | Required | Description |
+|-----------|----------|-------------|
+| name | Yes | Schema identifier |
+| attributes | Yes | Configuration object |
+| compositeKeys | No | Unique identifier definitions |
+| required | No | Mandatory attribute rules |
+| optional | No | Optional attribute rules |
+| allowAdditionalAttributes | No | Allow undefined attributes |
+
+## Attribute Types
 
 ### Composite Keys
+Enable advanced search patterns using DynamoDB composite keys.
 
-Composite keys are used to create unique identifiers for documents based on multiple attributes. This allows for enhanced searching and data retrieval patterns using [Amazon Dynamodb](https://aws.amazon.com/dynamodb).
+```json
+{
+  "compositeKeys": [
+    {
+      "attributeKeys": ["department", "year"]
+    }
+  ]
+}
+```
 
-  - **Parameters:**
-    - **compositeKeys**: An array of composite key objects.
-      - **attributeKeys**: An array of strings representing the attribute keys that make up the composite key.
+#### Parameters
+- **attributeKeys**: Array of attribute keys that form the composite key
+- Must contain 2-3 attributes per composite key
+- Maximum of 5 composite keys per schema
+- Order matters for key formation
+
+:::note
+When using three-key composite keys, searches must specify all three keys. If you need to search with only two of the three keys, create a separate composite key for that combination. For more complex search patterns, consider using the Fulltext Search Module.
+:::
+
 
 ### Required Attributes
+Define mandatory document attributes with validation rules.
 
-Specifies mandatory attributes that must be present in each document. These attributes can have default values and allowed values to enforce constraints.
+```json
+{
+  "required": [
+    {
+      "attributeKey": "string",
+      "defaultValue": "string",
+      "defaultValues": ["string"],
+      "allowedValues": ["string"]
+    }
+  ]
+}
+```
 
-  - **Parameters:**
-    - **required**: An array of required attribute objects.
-      - **attributeKey**: A string representing the unique key for the attribute.
-      - **defaultValue**: A string representing the default value of the attribute if no other value is found.
-      - **defaultValues**: An array of default values for the attribute.
-      - **allowedValues**: An array of allowed values for the attribute, enforcing value constraints.
+#### Parameters
+- **attributeKey**: Unique attribute identifier
+- **defaultValue**: Single default value
+- **defaultValues**: Multiple default options
+- **allowedValues**: Valid value constraints
 
 ### Optional Attributes
-
-Specifies attributes that are not mandatory but can have allowed values defined.
-
-  - **Parameters:**
-    - **optional**: An array of optional attribute objects.
-      - **attributeKey**: A string representing the unique key for the attribute.
-      - **allowedValues**: An array of allowed values for the attribute.
-
-### Additional Attributes
-
-Indicates whether attributes not defined in the schema are permitted. This provides flexibility for extending the schema as needed.
-
-  - **Parameters:**
-    - **allowAdditionalAttributes**: A boolean value indicating whether additional attributes are allowed. Possible values: `true`, `false`.
-
-## Examples
-
-The following are examples for different site schema configuration.
-
-### Composite Key
-
-This Site Schema create 2 composite key. If a document is added to FormKiQ with attributes matching a composite key, a composite key is added.
+Define permitted but not mandatory attributes.
 
 ```json
 {
-  "name": "Additional Search Patterns",
-  "attributes": {
-    "compositeKeys": [
-      {
-        "attributeKeys": [
-          "category",
-          "date"
-        ]
-      },{
-        "attributeKeys": [
-          "companyId",
-          "departmentId"
-        ]
-      }
-    ]
-  }
+  "optional": [
+    {
+      "attributeKey": "string",
+      "allowedValues": ["string"]
+    }
+  ]
 }
 ```
 
-### Required Attributes
+#### Parameters
+- **attributeKey**: Unique attribute identifier
+- **allowedValues**: Valid value constraints
 
-This Site Schema ensure that the `security` attribute is added for each document. A document missing this attribute will be rejected.
+## Practical Examples
 
+### 1. Document Classification Schema
 ```json
 {
-  "name": "Required Attributes",
+  "name": "Legal Documents",
   "attributes": {
     "required": [
       {
-        "attributeKey": "security",
-        "allowedValues": [
-          "private",
-          "public"
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Limited Attributes
-
-This Site Schema have a limited number of attributes allowed for a document and does not allow any other attributes.
-
-```json
-{
-  "name": "Limited Attributes",
-  "attributes": {
-    "required": [
+        "attributeKey": "documentType",
+        "allowedValues": ["contract", "agreement", "policy"]
+      },
       {
-        "attributeKey": "security"
+        "attributeKey": "securityLevel",
+        "defaultValue": "confidential",
+        "allowedValues": ["public", "confidential", "restricted"]
       }
     ],
     "optional": [
       {
-        "attributeKey": "documentType"
-      },
-      {
-        "attributeKey": "category",
-        "allowedValues": [
-          "invoice",
-          "receipt"
-        ]
+        "attributeKey": "department",
+        "allowedValues": ["legal", "compliance", "operations"]
       }
     ],
     "allowAdditionalAttributes": false
   }
 }
 ```
+
+### 2. Financial Document Schema
+```json
+{
+  "name": "Financial Records",
+  "attributes": {
+    "compositeKeys": [
+      {
+        "attributeKeys": ["year", "quarter", "department"]
+      }
+    ],
+    "required": [
+      {
+        "attributeKey": "documentType",
+        "allowedValues": ["invoice", "receipt", "statement"]
+      },
+      {
+        "attributeKey": "fiscalYear",
+        "defaultValue": "2024"
+      }
+    ],
+    "allowAdditionalAttributes": true
+  }
+}
+```
+
+### 3. HR Document Schema
+```json
+{
+  "name": "Employee Records",
+  "attributes": {
+    "compositeKeys": [
+      {
+        "attributeKeys": ["employeeId", "documentType"]
+      }
+    ],
+    "required": [
+      {
+        "attributeKey": "documentType",
+        "allowedValues": ["contract", "review", "certification"]
+      },
+      {
+        "attributeKey": "employeeId"
+      },
+      {
+        "attributeKey": "department"
+      }
+    ],
+    "optional": [
+      {
+        "attributeKey": "year"
+      },
+      {
+        "attributeKey": "manager"
+      }
+    ],
+    "allowAdditionalAttributes": false
+  }
+}
+```
+
+## Best Practices
+
+1. **Schema Design**
+   - Keep schemas focused and specific
+   - Use clear naming conventions
+   - Document schema purposes
+   - Plan for scalability
+
+2. **Composite Keys**
+   - Choose attributes that create meaningful combinations
+   - Consider query patterns
+   - Keep key components minimal
+   - Order attributes by specificity
+
+3. **Attribute Management**
+   - Define clear validation rules
+   - Use appropriate default values
+   - Document allowed values
+   - Consider future needs
+
+4. **Maintenance**
+   - Regular schema reviews
+   - Monitor validation failures
+   - Update documentation
+   - Test schema changes
+
+## Common Use Cases
+
+1. **Input Consistency**
+   - Enforce consistent attribute requirements across multiple applications
+   - Standardize document metadata regardless of source
+   - Maintain data quality across systems
+   - Validate inputs automatically
+
+2. **Document Organization**
+   - Department-specific rules
+   - Project documentation
+   - Compliance requirements
+   - Customer records
+
+2. **Access Control**
+   - Security classifications
+   - Department permissions
+   - Role-based access
+   - Data privacy
+
+3. **Search Optimization**
+   - Custom indexes
+   - Filtered searches
+   - Categorized queries
+   - Related document lookup
+
+## API Integration
+
+For complete API documentation, see [Schema API Reference](/docs/api-reference/get-sites-schema).

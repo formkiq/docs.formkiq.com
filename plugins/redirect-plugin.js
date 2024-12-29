@@ -68,12 +68,17 @@ module.exports = function redirectPlugin(context, options) {
         
         addRoute({
           path: '/docs/add-on-modules/modules/enhanced-document-ocr',
-          component: '@site/src/components/redirects/enhanced-document-ocr',
+          component: '@site/src/components/redirects/enhanced-document-ocr-and-classification',
           exact: true
         });
         addRoute({
           path: '/docs/pro-and-enterprise/modules/enhanced-document-ocr',
-          component: '@site/src/components/redirects/enhanced-document-ocr',
+          component: '@site/src/components/redirects/enhanced-document-ocr-and-classification',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/formkiq-modules/modules/enhanced-document-ocr',
+          component: '@site/src/components/redirects/enhanced-document-ocr-and-classification',
           exact: true
         });
         
@@ -142,6 +147,11 @@ module.exports = function redirectPlugin(context, options) {
           component: '@site/src/components/redirects/rulesets',
           exact: true
         });
+        addRoute({
+          path: '/docs/formkiq-modules/modules/rulesets',
+          component: '@site/src/components/redirects/rulesets',
+          exact: true
+        });      
         
         addRoute({
           path: '/docs/add-on-modules/modules/single-sign-on-and-custom-jwt-authorizer',
@@ -164,6 +174,11 @@ module.exports = function redirectPlugin(context, options) {
           component: '@site/src/components/redirects/tag-schema',
           exact: true
         });
+        addRoute({
+          path: '/docs/formkiq-modules/modules/tag-schema',
+          component: '@site/src/components/redirects/tag-schema',
+          exact: true
+        });      
       },
     };
   };
