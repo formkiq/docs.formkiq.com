@@ -25,6 +25,13 @@ System Requirements:
 
 FormKiQ can be launched using [Docker Compose](https://docs.docker.com/compose/install). 
 
+This will create the following local services:
+- formkiq/api-server
+- minio
+- dynamodb
+- keycloak
+- typesense
+
 Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/netty-server/docker-compose.yml) file you can launch FormKiQ local using
 
 ```
