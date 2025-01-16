@@ -84,6 +84,19 @@ The Document Relationship feature enables users to create logical links between 
 
 FormKiQ supports various automated actions for document processing:
 
+| Action | Description | Edition |
+|--------|-------------|----------|
+| ANTIVIRUS | Malware scanning using ClamAV | Essentials/Advanced/Enterprise |
+| DOCUMENTTAGGING | AI-powered document categorization | Core |
+| EVENTBRIDGE | AWS EventBridge integration | Core |
+| FULLTEXT | Text extraction and indexing | Core + Add-On Options |
+| IDP | Intelligent Document Processing | Essentials/Advanced/Enterprise + Add-On Options |
+| NOTIFICATION | Email notifications | Core |
+| OCR | Text extraction from images/PDFs | Core + Add-On Options |
+| PUBLISH | Publication of approved documents | Essentials/Advanced/Enterprise |
+| QUEUE | Workflow management | Essentials/Advanced/Enterprise |
+| WEBHOOK | External system integration | Core |
+
 #### ANTIVIRUS
 Scans documents using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats.
 
