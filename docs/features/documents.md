@@ -144,8 +144,9 @@ Example Payload:
     "key":"string",
     "stringValue":"string",
     "stringValues":[],
-    "numberValue":"numeric",
-    "numberValues":[]
+    "numberValue": numeric,
+    "numberValues":[],
+    "booleanValue": boolean
   }],
   "url":"S3 Presigned Url"
 }
