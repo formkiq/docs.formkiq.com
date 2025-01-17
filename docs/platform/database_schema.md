@@ -167,7 +167,7 @@ Contains all information about any optical character recognition (OCR) data for 
 
 ### Document Actions
 
-Contains list of document actions.
+Schema for Document Actions.
 
 #### Entity Key Schema
 
@@ -198,6 +198,30 @@ Contains list of document actions.
 | workflowId | Workflow Id |
 | workflowStepId | Workflow Step Id |
 | workflowLastStep | Workflow Last Step |
+
+### Document Sync
+
+Schema for Document Sync Events.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "doc#" + documentId |
+| SK | "syncs#" + yyyy-MM-dd'T'HH:mm:ssZ |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| service | Service synced to |
+| syncDate | Sync Date |
+| userId | Create by user |
+| status | Status of Sync |
+| type | Type of data synced |
+| message | sync message |
+
 
 ### Document Tag
 
