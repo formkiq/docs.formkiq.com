@@ -286,6 +286,8 @@ Document Attribute entity.
 | SK | "attr#" + key + "#" + value |
 | GSI1PK | "doc#attr#" + key |
 | GSI1SK | value |
+| GSI2PK | "doc#" + documentId  |
+| GSI2SK | "attr#" + valueType + "#" + key |
 
 #### Entity Attributes
 
@@ -294,7 +296,7 @@ Document Attribute entity.
 | documentId | Document Identifier |
 | key | attribute key |
 | index | attribute index |
-| valueType | Type of Attribute (string, number, boolean, publication) |
+| valueType | Type of Attribute (string, number, boolean, watermark (GSI2), publication) |
 | stringValue | string value |
 | numberValue | number value |
 | booleanValue | boolean value |
@@ -437,6 +439,8 @@ The Attributes Entity consists of attributes that capture essential information 
 | SK | "attribute" |
 | GSI1PK | "attr#" |
 | GSI1SK | "attr#" + key |
+| GSI2PK | "attr#" |
+| GSI2SK | "attr#" + dataType |
 
 ### Entity Attributes
 
@@ -444,9 +448,10 @@ The Attributes Entity consists of attributes that capture essential information 
 |------------|-------------|
 | documentId | Attribute Key |
 | type | Attribute Type (IE: OPA) |
-| dataType | Data Type (string, number, boolean) |
+| dataType | Data Type (STRING, NUMBER, BOOLEAN, KEY_ONLY, WATERMARK, PUBLICATION ) |
 | key | Attribute key |
 | isInUse | Is Attribute in use |
+| watermarkText | Watermark Text |
 
 ## Schema
 
