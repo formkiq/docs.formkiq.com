@@ -233,6 +233,158 @@ The platform tracks and logs all document interactions:
 Available as an Add-On Module
 :::
 
+## Document Events Features
+
+The Document Event System is a robust mechanism designed to enable real-time, scalable, and decoupled processing of document-related operations, such as creation, metadata updates, and deletions. By leveraging [Amazon EventBridge](https://aws.amazon.com/eventbridge/) (and maintaining support for legacy [Amazon SNS](https://aws.amazon.com/sns/)-based notifications), FormKiQ can easily integrate with various downstream applications and services.
+
+This document outlines the design and implementation of the Document Event System in our Document Management System. The system captures events associated with document operations (such as creation, metadata updates, and deletions) and publishes them to Amazon EventBridge for downstream processing.
+
+### Amazon EventBridge
+
+![Document Eventbridge](./img/eventbridge.png)
+
+Each FormKiQ installation comes with it's own [Amazon EventBridge](https://aws.amazon.com/eventbridge/) setup to be connected to. FormKiQ publishes document events to Amazon EventBridge automatically. This allows easy integration for:
+
+* Real-time Processing:
+EventBridge routes events to subscribed targets for immediate handling.
+
+* Scalability:
+Leverages EventBridge’s ability to handle high volumes of events across distributed systems.
+
+* Decoupling:
+Separates the event production from consumption, allowing independent scaling and evolution of each component
+
+#### Supported Event Types
+ 
+Each document event uses the DetailType field in the EventBridge Message to distinguish between the different kinds of events. The supported DetailType event types are:
+
+- **CONTENT**  
+  - **DetailType:** `Document Create Event`  
+  - **Description:** Triggered when a document is created or updated with new content.
+
+- **METADATA**  
+  - **DetailType:** `Document Create Metadata`  
+  - **Description:** Triggered when metadata is added or updated for a document.
+
+- **DELETE_METADATA**  
+  - **DetailType:** `Document Delete Metadata`  
+  - **Description:** Triggered when metadata is removed from a document.
+
+- **SOFT_DELETE_METADATA**  
+  - **DetailType:** `Document Soft Delete Metadata`  
+  - **Description:** Triggered when metadata is soft-deleted (i.e., logically removed) for a document.
+
+#### Event Payload Schema
+
+Each event published to EventBridge follows a consistent JSON schema. The payload structure is as follows:
+
+```json
+{
+  "siteId": "string",
+  "path": "string",
+  "deepLinkPath": "string",
+  "insertedDate": "string",
+  "lastModifiedDate": "string",
+  "checksum": "string",
+  "checksumType": "SHA1",
+  "documentId": "string",
+  "contentType": "string",
+  "userId": "string",
+  "contentLength": 0,
+  "versionId": "string",
+  "metadata": [
+    {
+      "key": "string",
+      "value": "string",
+      "values": ["string"]
+    }
+  ],
+  "attributes": [
+    {
+      "key": "string",
+      "stringValue": "string",
+      "stringValues": [],
+      "numberValue": 0,
+      "numberValues": [],
+      "booleanValue": false
+    }
+  ],
+  "url": "S3 Presigned Url"
+}
+```
+
+### Amazon SNS (Legacy)
+
+![Document Eventbridge](./img/sns.png)
+
+In addition to the current EventBridge-based event system, FormKiQ supports a legacy event notification mechanism that utilizes Amazon SNS. This legacy system is maintained for backward compatibility with systems that have not yet migrated to the new EventBridge-based architecture.
+
+
+#### Supported Event Types
+
+The following event types are supported, each with a corresponding `DetailType` used in Amazon EventBridge:
+
+- **CONTENT**  
+  - **DetailType:** `Document Create Event`  
+  - **Description:** Triggered when a document is created or updated with new content.
+
+- **DELETE_METADATA**  
+  - **DetailType:** `Document Delete Metadata`  
+  - **Description:** Triggered when metadata is removed from a document.
+
+- **SOFT_DELETE_METADATA**  
+  - **DetailType:** `Document Soft Delete Metadata`  
+  - **Description:** Triggered when metadata is soft-deleted (i.e., logically removed) for a document.
+
+#### SNS Subscription Policy Filter
+
+For SNS-based legacy events, subscribers can use a subscription policy filter to receive only the event types they are interested in. The subscription filter inspects an attribute named type in the SNS message attributes. The supported values for this attribute are:
+  • create: For document creation or content update events.
+  • delete: For document metadata deletion events.
+  • softDelete: For document metadata soft deletion events.
+
+Example Policy Filter
+
+To subscribe only to create events, the subscription filter policy can be defined as follows:
+
+```
+{
+  "type": [
+    "create"
+  ]
+}
+```
+
+Subscribers can also adjust the filter to include multiple event types. For example, to receive both delete and softDelete events:
+
+```
+{
+  "type": [
+    "delete",
+    "softDelete"
+  ]
+}
+```
+
+#### Event Payload Schema
+
+Each event published to Amazon SNS follows a consistent JSON schema. The payload structure is as follows:
+
+```json
+{
+  "siteId": "string",
+  "path": "string",
+  "s3bucket": "string",
+  "s3key": "string",
+  "type": "string",
+  "documentId": "string",
+  "content": "string",
+  "contentType": "string",
+  "userId": "string",
+  "url": "S3 Presigned Url"
+}
+```
+
 ## Best Practices
 
 1. **Document Organization**
