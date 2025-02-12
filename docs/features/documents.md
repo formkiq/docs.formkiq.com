@@ -241,9 +241,9 @@ This document outlines the design and implementation of the Document Event Syste
 
 ### Amazon EventBridge
 
-![Document Eventbridge](./img/eventbridge.png)
+![Document EventBridge](./img/eventbridge.png)
 
-Each FormKiQ installation comes with it's own [Amazon EventBridge](https://aws.amazon.com/eventbridge/) setup to be connected to. FormKiQ publishes document events to Amazon EventBridge automatically. This allows easy integration for:
+As of version 1.17.0, each FormKiQ installation comes with its own [Amazon EventBridge](https://aws.amazon.com/eventbridge/) setup to be connected to. FormKiQ publishes document events to Amazon EventBridge automatically. This allows easy integration for:
 
 * Real-time Processing:
 EventBridge routes events to subscribed targets for immediate handling.
@@ -315,9 +315,9 @@ Each event published to EventBridge follows a consistent JSON schema. The payloa
 
 ### Amazon SNS (Legacy)
 
-![Document Eventbridge](./img/sns.png)
+![Document EventBridge](./img/sns.png)
 
-In addition to the current EventBridge-based event system, FormKiQ supports a legacy event notification mechanism that utilizes Amazon SNS. This legacy system is maintained for backward compatibility with systems that have not yet migrated to the new EventBridge-based architecture.
+In addition to the current EventBridge-based event system, FormKiQ supports an event notification mechanism that utilizes Amazon SNS. From verion 1.17.0 onward, this legacy system is maintained for backward compatibility with systems that have not yet migrated to the new EventBridge-based architecture.
 
 
 #### Supported Event Types
