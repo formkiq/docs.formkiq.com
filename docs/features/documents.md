@@ -266,13 +266,13 @@ Each document event uses the DetailType field in the EventBridge Message to dist
   - **DetailType:** `Document Create Metadata`  
   - **Description:** Triggered when metadata is added or updated for a document.
 
-- **DELETE_METADATA**  
-  - **DetailType:** `Document Delete Metadata`  
-  - **Description:** Triggered when metadata is removed from a document.
+- **DELETE**  
+  - **DetailType:** `Document Delete`  
+  - **Description:** Triggered when document is deleted.
 
-- **SOFT_DELETE_METADATA**  
-  - **DetailType:** `Document Soft Delete Metadata`  
-  - **Description:** Triggered when metadata is soft-deleted (i.e., logically removed) for a document.
+- **SOFT_DELETE**  
+  - **DetailType:** `Document Soft Delete`  
+  - **Description:** Triggered when document is soft-deleted (i.e., logically removed).
 
 #### Event Payload Schema
 
