@@ -966,13 +966,13 @@ The listing of all locale setup.
 | Attributes | Format |
 |------------|---------|
 | PK | "locale#" |
-| SK | locale + "#" + country |
+| SK | "locale# + locale |
 
 #### Entity Attributes
 
 | Attributes | Description |
 |------------|-------------|
-| country | Country Code |
+| locale | Locale |
 
 ### Locale Type
 
