@@ -38,7 +38,7 @@ All prices are in USD and do not include AWS Free Tier benefits or volume discou
 | S3 PUT requests | 2M requests | $10.00 |
 | S3 Standard Storage | 1 TB | $30.00/month |
 | S3 Glacier Instant Retrieval | 1 TB | $5.00/month |
-| **Total** | | **$57.25** or **$32.25** |
+| **Total** | | **$57.25** (or as low as **$32.25** with Instant Retrieval) |
 
 #### Viewing 1 Million Documents (1MB each)
 
