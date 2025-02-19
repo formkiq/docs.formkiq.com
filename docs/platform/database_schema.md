@@ -953,6 +953,60 @@ Api Key(s) allow access to API.
 | permissions | List of API Key permissions (read/write/delete) |
 | inserteddate | Inserted Date |
 
+## Locale
+
+The storing of Locale information.
+
+### Locale List
+
+The listing of all locale setup.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "locale#" |
+| SK | "locale# + locale |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| locale | Locale |
+
+### Locale Type
+
+Locale schema for the managing of Locale for Interface, Schema, Classification:
+
+Fetch patterns include:
+
+- Get ALL values for a specific locale
+- Get Locale using
+  - locale, interfaceKey
+  - locale, schema, attributeKey
+  - locale, classification, attributeKey
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "locale#type" |
+| SK | locale + "#" + type + "#" + interfaceKey |
+|  | locale + "#" + type + "#" + attributeKey + "#" + allowedValue |
+|  | locale + "#" + type + "#" + classificationId + "#" + attributeKey + "#" + allowedValue |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| itemType | Type of Locale Resource |
+| interfaceKey | Interface Key |
+| attributeKey | Attribute Key |
+| allowedValue | Allowed Value |
+| classificationId | Classification Id |
+| locale | Locale |
+| localizedValue | Localized Value | 
+
 ## Open Policy (OPA)
 
 Open Policy Agent configuration.
