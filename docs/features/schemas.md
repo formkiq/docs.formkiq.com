@@ -6,14 +6,61 @@ sidebar_position: 25
 
 ## Overview
 
-FormKiQ's Schema system provides a powerful way to define and enforce document organization rules. The platform supports two types of schemas:
+The Schema and Classification feature enables users to define a set of rules for document attributes. These rules help ensure data consistency and enforce required or optional attributes for each document. By utilizing this structure, you can create a robust framework for document categorization and validation.
 
-- **Site Schemas**: Apply to ALL documents within a site
-- **Classification Schemas**: Apply additional rules to specific document types
+### Site Schema
+
+Applies at the site level and establishes the foundational structure and rules for how documents should be organized and stored across a site. The site schema defines the required and optional attributes that all documents within a site must adhere to, ensuring consistency and integrity of the site’s document repository.
+
+
+### Site Classifications:
+
+Applies at the document level and is used to categorize or apply individual documents with additional metadata. This allows for more granular control and enables users to apply classifications that may influence how documents are searched, filtered, or managed without altering the underlying site schema. In other words, while the site schema governs the overall structure, site classifications provide a flexible way to add context or categorization to specific documents.
+
+Both features use the same JSON structure outlined below, but they serve distinct purposes within the document management platform.
+
+## Use Cases
+
+### Site Schema
+
+#### Global Data Integrity
+
+Enforce consistent data structures across all documents in a site, ensuring that critical information is always captured.
+
+#### Standardization
+
+Define uniform attribute rules for documents, so every document adheres to the same format and validation criteria.
+
+#### Indexing and Search Optimization
+
+Utilize composite keys and structured attributes to improve searchability and retrieval of documents across the entire site.
+
+#### Compliance and Auditing
+Ensure that documents meet regulatory or internal standards by requiring mandatory fields and controlled data formats.
+
+#### Efficient Data Management
+Simplify data ingestion, updates, and reporting processes by having a well-defined schema at the site level.
+
+### Site Classification
+
+#### Granular Document Tagging
+Categorize individual documents with specific metadata that can be used to filter or search for documents based on context.
+
+#### Enhanced Document Filtering
+Apply classifications to support dynamic grouping or segmentation of documents, such as by department, project, or content type.
+
+#### Contextual Metadata
+Provide additional context to documents without altering the core site schema, enabling richer document insights.
+
+#### Flexible Document Organization
+Allow users to classify documents in ways that meet evolving business needs, such as temporary projects or ad hoc categorization.
+
+#### Personalized Document Management
+Enable tailored views and workflows by tagging documents with classifications that align with user roles or departmental requirements.
 
 ## Schema Structure
 
-```json
+```JSON
 {
   "name": "string",
   "attributes": {
@@ -31,27 +78,32 @@ FormKiQ's Schema system provides a powerful way to define and enforce document o
 |-----------|----------|-------------|
 | name | Yes | Schema identifier |
 | attributes | Yes | Configuration object |
-| compositeKeys | No | Unique identifier definitions |
+| compositeKeys | No | Custom Attribute Key generated for searching |
 | required | No | Mandatory attribute rules |
 | optional | No | Optional attribute rules |
 | allowAdditionalAttributes | No | Allow undefined attributes |
 
-## Attribute Types
+### Attribute Types
 
-### Composite Keys
-Enable advanced search patterns using DynamoDB composite keys.
+Below are detailed description of the different components of the schema.
+
+#### Composite Keys
+
+When using DynamoDB endpoints for search, IE: /search. There is a limitation of only being able to search 1 attribute at a time. To search for multiple attributes you can either use a fulltext solution like Opensearch or Typesense, or you can setup composite keys which will automatically setup the indexes required for multiple attribute search.
+
+For example: Below shows how to setup a composite key for attributes "department" and "date". When a document is added with both those attribute and composite index will be create that will allow for the searching of both attributes.
 
 ```json
 {
   "compositeKeys": [
     {
-      "attributeKeys": ["department", "year"]
+      "attributeKeys": ["department", "date"]
     }
   ]
 }
 ```
 
-#### Parameters
+##### Parameters
 - **attributeKeys**: Array of attribute keys that form the composite key
 - Must contain 2-3 attributes per composite key
 - Maximum of 5 composite keys per schema
@@ -62,7 +114,7 @@ When using three-key composite keys, searches must specify all three keys. If yo
 :::
 
 
-### Required Attributes
+#### Required Attributes
 Define mandatory document attributes with validation rules.
 
 ```json
@@ -72,19 +124,23 @@ Define mandatory document attributes with validation rules.
       "attributeKey": "string",
       "defaultValue": "string",
       "defaultValues": ["string"],
-      "allowedValues": ["string"]
+      "allowedValues": ["string"],
+      "minNumberOfValues": number,
+      "maxNumberOfValues": number
     }
   ]
 }
 ```
 
-#### Parameters
+##### Parameters
 - **attributeKey**: Unique attribute identifier
 - **defaultValue**: Single default value
 - **defaultValues**: Multiple default options
 - **allowedValues**: Valid value constraints
+- **minNumberOfValues**: The minimum number of attribute values
+- **maxNumberOfValues**: The maximum number of attribute values
 
-### Optional Attributes
+#### Optional Attributes
 Define permitted but not mandatory attributes.
 
 ```json
@@ -92,19 +148,23 @@ Define permitted but not mandatory attributes.
   "optional": [
     {
       "attributeKey": "string",
-      "allowedValues": ["string"]
+      "allowedValues": ["string"],
+      "minNumberOfValues": number,
+      "maxNumberOfValues": numbe
     }
   ]
 }
 ```
 
-#### Parameters
+##### Parameters
 - **attributeKey**: Unique attribute identifier
 - **allowedValues**: Valid value constraints
+- **minNumberOfValues**: The minimum number of attribute values
+- **maxNumberOfValues**: The maximum number of attribute values
 
 ## Practical Examples
 
-### 1. Document Classification Schema
+### Document Classification Schema
 ```json
 {
   "name": "Legal Documents",
@@ -131,7 +191,7 @@ Define permitted but not mandatory attributes.
 }
 ```
 
-### 2. Financial Document Schema
+### Financial Document Schema
 ```json
 {
   "name": "Financial Records",
@@ -156,7 +216,7 @@ Define permitted but not mandatory attributes.
 }
 ```
 
-### 3. HR Document Schema
+### HR Document Schema
 ```json
 {
   "name": "Employee Records",
@@ -193,25 +253,25 @@ Define permitted but not mandatory attributes.
 
 ## Best Practices
 
-1. **Schema Design**
+### Schema Design
    - Keep schemas focused and specific
    - Use clear naming conventions
    - Document schema purposes
    - Plan for scalability
 
-2. **Composite Keys**
+### Composite Keys
    - Choose attributes that create meaningful combinations
    - Consider query patterns
    - Keep key components minimal
    - Order attributes by specificity
 
-3. **Attribute Management**
+### Attribute Management
    - Define clear validation rules
    - Use appropriate default values
    - Document allowed values
    - Consider future needs
 
-4. **Maintenance**
+### Maintenance
    - Regular schema reviews
    - Monitor validation failures
    - Update documentation
@@ -219,25 +279,25 @@ Define permitted but not mandatory attributes.
 
 ## Common Use Cases
 
-1. **Input Consistency**
+### Input Consistency
    - Enforce consistent attribute requirements across multiple applications
    - Standardize document metadata regardless of source
    - Maintain data quality across systems
    - Validate inputs automatically
 
-2. **Document Organization**
+### Document Organization
    - Department-specific rules
    - Project documentation
    - Compliance requirements
    - Customer records
 
-2. **Access Control**
+### Access Control
    - Security classifications
    - Department permissions
    - Role-based access
    - Data privacy
 
-3. **Search Optimization**
+### Search Optimization
    - Custom indexes
    - Filtered searches
    - Categorized queries
