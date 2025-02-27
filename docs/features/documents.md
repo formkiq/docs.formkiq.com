@@ -82,142 +82,70 @@ The Document Relationship feature enables users to create logical links between 
 
 ### Document Actions
 
+The primary purpose of Document Actions is to enhance the document management workflow by automating tasks such as content extraction, metadata tagging, notifications, integrations with other systems, and security checks. 
+
+By leveraging these actions, you can improve efficiency, ensure data consistency, and integrate your document processes with broader business systems.
+
+#### Use Cases
+
+##### Optical Character Recognition (OCR):
+
+Automatically extract text from scanned images or PDFs. This is useful for converting non-searchable documents into searchable ones, enabling better indexing and retrieval.
+
+##### Full-Text Extraction:
+Extract all textual content from a document for indexing or analysis purposes. This action helps in creating a searchable text corpus that can be used for quick lookups or further natural language processing.
+  
+##### Document Tagging:
+Utilize machine learning or external engines (like ChatGPT) to analyze the document and generate relevant metadata or tags. This can standardize how documents are categorized, making it easier to filter and search documents later.
+
+##### Webhook Integration:
+Trigger an external system by sending a callback URL when a document is processed. For instance, after a document is updated, a webhook can notify your CRM system or a third-party application to take further action.
+
+##### Notification:
+Send out email notifications (or other types of alerts) automatically when certain events occur—such as when a new document is added or when an important document status changes. This helps keep teams informed and facilitates rapid response.
+
+##### Intelligent Document Processing (IDP)
+
+Apply advanced machine learning models to classify, extract, and validate data from documents. For instance, an IDP action might analyze invoices to extract key fields (like dates, amounts, and vendor information) and validate them against internal systems, improving data accuracy and speeding up document workflows.
+
+##### EventBridge Integration
+
+Publish document events to AWS EventBridge so that various parts of your ecosystem can react to document changes in real time.
+
+##### Antivirus Scanning
+
+Automatically scan documents for viruses or malware as soon as they are added, enhancing the security of your document repository.
+
+#### Supported Actions
+
 FormKiQ supports various automated actions for document processing:
 
 | Action | Description | Edition |
 |--------|-------------|----------|
-| ANTIVIRUS | Malware scanning using ClamAV | Essentials/Advanced/Enterprise |
-| DOCUMENTTAGGING | AI-powered document categorization | Core |
-| EVENTBRIDGE | AWS EventBridge integration | Core |
-| FULLTEXT | Text extraction and indexing | Core + Add-On Options |
-| IDP | Intelligent Document Processing | Essentials/Advanced/Enterprise + Add-On Options |
+| ANTIVIRUS | Scans documents using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats | Essentials/Advanced/Enterprise |
+| DOCUMENTTAGGING | Intelligent document tagging using artificial intelligence | Core |
+| EVENTBRIDGE | Enables AWS EventBridge integration for event-driven architectures. Sends document data and metadata as events for further processing. [Full EventBridge documentation](/docs/features/documents#amazon-eventbridge) | Core |
+| FULLTEXT | Extracts and indexes text content for search capabilities using [Typesense](https://typesense.org/) or [Opensearch](https://aws.amazon.com/opensearch-service) | Core + Add-On Options |
+| IDP | Extracts and processes document data using Document Attributes | Essentials/Advanced/Enterprise + Add-On Options |
 | NOTIFICATION | Email notifications | Core |
 | OCR | Text extraction from images/PDFs | Core + Add-On Options |
 | PUBLISH | Publication of approved documents | Essentials/Advanced/Enterprise |
-| QUEUE | Workflow management | Essentials/Advanced/Enterprise |
 | WEBHOOK | External system integration | Core |
 
-#### ANTIVIRUS
-Scans documents using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats.
-
-:::note
-Available as an Add-On Module
-:::
-
-#### DOCUMENTTAGGING
-Intelligent document tagging using artificial intelligence.
-
-- **Parameters:**
-  - **engine**: The tagging engine to use. Supported value: `chatgpt`
-  - **tags**: Comma-delimited list of keywords for tagging
-
-:::note
-Available as an Add-On Module
-:::
-
-#### EVENTBRIDGE
-Enables AWS EventBridge integration for event-driven architectures. Sends document data and metadata as events for further processing.
-
-Example Payload:
-```json
-{
-  "siteId": "string",
-  "path": "string",
-  "deepLinkPath": "string",
-  "insertedDate": "string",
-  "lastModifiedDate": "string",
-  "checksum": "string",
-  "checksumType": "SHA1",
-  "documentId": "string",
-  "contentType": "string",
-  "userId": "string",
-  "contentLength": 0,
-  "versionId": "string",
-  "metadata": [
-    {
-      "key": "string",
-      "value": "string",
-      "values": ["string"]
-    }
-  ],
-  "attributes":[{
-    "key":"string",
-    "stringValue":"string",
-    "stringValues":[],
-    "numberValue": numeric,
-    "numberValues":[],
-    "booleanValue": boolean
-  }],
-  "url":"S3 Presigned Url"
-}
-```
-
-#### FULLTEXT
-Extracts and indexes text content for search capabilities.
-
-- **Parameters:**
-  - **characterMax**: Maximum characters to index (-1 for no limit)
-
-:::note
-[Typesense](https://typesense.org) is Supported in FormKiQ Core
-[OpenSearch](https://aws.amazon.com/opensearch-service/) is available as an Add-On Module
-:::
-
-#### NOTIFICATION
-Sends email notifications about document events.
-
-- **Parameters:**
-  - **notificationType**: Type of notification (email)
-  - **notificationToCc**: CC recipients
-  - **notificationToBcc**: BCC recipients
-  - **notificationSubject**: Email subject
-  - **notificationText**: Plain text content
-  - **notificationHtml**: HTML content
-
-#### OCR (Optical Character Recognition)
-Converts images and PDFs to searchable text.
-
-- **Parameters:**
-  - **ocrParseTypes**: TEXT, FORMS, TABLES
-  - **ocrEngine**: tesseract, textract
-  - **ocrExportToCsv**: Convert tables to CSV
-  - **ocrNumberOfPages**: Pages to process
-  - **addPdfDetectedCharactersAsText**: Convert PDF image text
-
-[See OCR Feature documentation](/docs/features/ocr)
-
-:::note
-[Tesseract](https://github.com/tesseract-ocr/tesseract) is Supported in FormKiQ Core
-[Amazon Textract](https://aws.amazon.com/textract/) is Available as an Add-On Module
-:::
-
-#### QUEUE
-Manages document workflows and approval processes.
-
-- **Parameters:**
-  - **queueId**: Queue identifier
-
-#### WEBHOOK
-Enables integration with external systems.
-
-- **Parameters:**
-  - **url**: Callback endpoint
-
-#### IDP (Intelligent Document Processing)
-Extracts and processes document data using Document Attributes.
-
-- **Parameters:**
-  - **mappingId**: Identity Provider mapping ID
 
 ### Document Versions
 
-FormKiQ's versioning system (available as an Add-On Module) provides:
+FormKiQ's versioning system provides:
 - Complete change history
 - Version comparison
 - Rollback capabilities
 - Comprehensive audit trails
 
 [See API documentation](/docs/api-reference/get-document-versions)
+
+:::note
+Available as an Add-On Module
+:::
 
 ### Document User Activities
 
@@ -410,3 +338,584 @@ Each event published to Amazon SNS follows a consistent JSON schema. The payload
    - Use appropriate storage classes
    - Implement caching strategies
    - Monitor system metrics
+
+## API Document Endpoints
+
+[See full Documents API documentation here](/docs/category/formkiq-api)
+
+### POST /documents 
+
+Creates a new document; body may include document content if less than 5 MB. Returns a unique **documentId** used in subsequent operations.
+
+#### Sample Request
+
+```bash
+curl -X POST "https://<FORMKIQ_API>/documents?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "path": "invoice123.pdf",
+        "contentType": "application/pdf",
+        "isBase64": true,
+        "content": "Base64EncodedDocumentContent=="
+      }'
+```
+
+#### Sample Response (HTTP 201)
+
+```JSON
+{
+  "documentId": "string"
+}
+```
+
+### GET /documents 
+
+Retrieves a list of recently added documents. You can filter the list by parameters such as siteId, date, or actionStatus.
+
+#### Sample Request
+
+```bash
+curl -X GET "https://<FORMKIQ_API>/documents?siteId=yourSiteId&limit=10" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Response (HTTP 200)
+
+```
+{
+  "next": "string",
+  "previous": "string",
+  "documents": [
+    {
+      "siteId": "string",
+      "path": "string",
+      "width": "string",
+      "height": "string",
+      "deepLinkPath": "string",
+      "insertedDate": "string",
+      "lastModifiedDate": "string",
+      "checksum": "string",
+      "checksumType": "SHA1",
+      "documentId": "string",
+      "contentType": "string",
+      "userId": "string",
+      "contentLength": 0,
+      "version": "string",
+      "versionKey": "string",
+      "s3version": "string",
+      "belongsToDocumentId": "string",
+      "metadata": [
+        {
+          "key": "string",
+          "value": "string",
+          "values": [
+            "string"
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### GET /documents/&lt;documentId&gt;
+
+Retrieves detailed metadata for a specific document.
+
+#### Sample Request
+
+```BASH
+curl -X GET "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Response (HTTP 200)
+
+```JSON
+{
+  "siteId": "string",
+  "path": "string",
+  "width": "string",
+  "height": "string",
+  "deepLinkPath": "string",
+  "insertedDate": "string",
+  "lastModifiedDate": "string",
+  "checksum": "string",
+  "checksumType": "SHA1",
+  "documentId": "string",
+  "contentType": "string",
+  "userId": "string",
+  "contentLength": 0,
+  "versionId": "string",
+  "metadata": [
+    {
+      "key": "string",
+      "value": "string",
+      "values": [
+        "string"
+      ]
+    }
+  ]
+}
+```
+
+### PATCH /documents/&lt;documentId&gt;
+
+Used to update document metadata (and optionally content). If you omit the content, the API may return a pre-signed URL for uploading large files.
+
+#### Sample Request
+
+```BASH
+curl -X PATCH "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "path": "invoice123_updated.pdf",
+        "contentType": "application/pdf",
+        "isBase64": true,
+        "content": "UpdatedBase64EncodedContent=="
+      }'
+```
+
+#### Sample Response (HTTP 200)
+
+```JSON
+{
+  "documentId": "string",
+  "uploadUrl": "string"
+}
+```
+
+### DELETE /documents/&lt;documentId&gt;
+
+Remove a document. You can choose to soft-delete the document (temporary removal) or permanently delete it by adjusting the softDelete query parameter.
+
+The SoftDelete parameter allows for the temporary removal of a document's metadata, attributes, etc from being retrieved from all API requests.
+
+The document can be permanently deleted by calling the DELETE /documents/&lt;documentId&gt; with softDelete=false or restored using the PUT /documents/&lt;documentId&gt;/restore.
+
+Only the GET /documents?deleted=true will return all the soft deleted documents.
+
+#### Sample Request Soft Delete
+
+```BASH
+curl -X DELETE "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId&softDelete=true" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Request Hard Delete
+
+```BASH
+curl -X DELETE "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### GET /documents/&lt;documentId&gt;/url
+
+Returns a URL for the document's contents; this URL will expire (the default is 48 hours).
+
+#### Sample Request
+
+```BASH
+curl -X GET "https://<FORMKIQ_API>/{documentId}/url?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Response (HTTP 200)
+
+```JSON
+{
+  "documentId": "string",
+  "url": "string"
+}
+```
+
+### GET /documents/&lt;documentId&gt;/content
+
+Retrieves the content of the document with the specified **documentId**.
+- If the content is plain text and under 6 MB, the content will be returned directly.
+- If the content is plain text but exceeds 6 MB, an error will be returned.
+- For documents not in plain text format, pre-signed S3 URLs will be returned to download the content from S3.
+It is recommended to use the **/documents/&lt;documentId&gt;/url** endpoint to retrieve pre-signed S3 URLs for downloading the content.
+
+
+#### Sample Request
+
+```BASH
+curl -X GET "https://<FORMKIQ_API>/{documentId}/content?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Response (HTTP 200)
+
+If the document has a Content-Type of **text/**, **application/json**, **application/x-www-form-urlencoded** the **content** field will be returned. All other Content-Type, the **contentUrl** field will be returned, which is a S3 Presigned url.
+
+```JSON
+{
+  "content": "string",
+  "contentUrl": "string",
+  "contentType": "string"
+}
+```
+
+### POST /documents/upload
+
+Returns a URL that can be used to upload document content and create a new document, while allowing metadata to also be sent; this endpoint (whether GET or POST) is required in order to add content that is larger than 5 MB. 
+
+The POST endpoint allow the adding of document metadata at the same time as the document is created.
+
+#### Sample Request
+
+```bash
+curl -X POST "https://<FORMKIQ_API>/documents?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "path": "invoice123.pdf",
+        "contentType": "application/pdf",
+        "isBase64": true,
+        "content": "Base64EncodedDocumentContent=="
+      }'
+```
+
+#### Sample Response (HTTP 201)
+
+```JSON
+{
+  "documentId": "string",
+  "url": "string"
+}
+```
+
+## API Document Attribute Endpoints
+
+[See full Document Attributes API documentation here](/docs/category/formkiq-api)
+
+### POST /documents/&lt;documentId&gt;/attributes 
+
+Add multiple attributes to a document.
+
+#### Sample Request - Standard Attribute
+
+Adds invoiceDate (String), invoiceNo (Number) and invoicePay indicator (boolean) to a document.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/attributes?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "attributes": [
+    {
+      "key": "invoiceDate",
+      "stringValue": "2025-01-25"
+    },
+    {
+      "key": "invoiceNo",
+      "numberValue": 12345
+    },
+    {
+      "key": "invoicePay",
+      "booleanValue": true
+    }
+  ]}'
+```
+
+#### Sample Request - Classification Attribute
+
+Adds a [Classification Schema](/docs/features/schemas) to a document. This classification requires the attribute **invoiceDate** to be added to all documents.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/attributes?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "attributes": [
+    {
+      "classificationId": "28d49090-6555-4049-b93a-b92a39e29843"
+    },
+    {
+      "key": "invoiceDate",
+      "stringValue": "2025-01-25"
+    }
+  ]
+}'
+```
+
+#### Sample Request - Relationship Attribute
+
+Creates a **ASSOCIATED** relationship between original document and document **5c245b25-dc93-46df-9ac4-0e1e251a8eb0** and an inverse relationship (optional) of **PRIMARY** between **5c245b25-dc93-46df-9ac4-0e1e251a8eb0** and the original document.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/attributes?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "attributes": [
+    {
+      "documentId": "5c245b25-dc93-46df-9ac4-0e1e251a8eb0",
+      "relationship": "ASSOCIATED",
+      "inverseRelationship": "PRIMARY"
+    }
+  ]
+}'
+```
+
+### GET /documents/&lt;documentId&gt;/attributes 
+
+Retrieves a listing of a document's attributes.
+
+#### Sample Request
+
+```BASH
+curl -X GET "http://localhost/documents/{documentId}/url?siteId=yourSiteId&duration=48" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Response (HTTP 200)
+
+```JSON
+{
+  "attributes": [
+    {
+      "key": "invoiceDate",
+      "stringValue": "2025-01-25"
+    },
+    {
+      "key": "invoiceNo",
+      "numberValue": 12345
+    },
+    {
+      "key": "invoicePay",
+      "booleanValue": true
+    }
+  ]}
+}
+```
+
+## API Document Action Endpoints
+
+[See full Document Actions API documentation here](/docs/category/formkiq-api)
+
+### GET /documents/&lt;documentId&gt;/actions 
+
+Retrieves a document's actions and their status.
+
+#### Sample Request
+
+```BASH
+curl -X GET "http://localhost/documents/{documentId}/actions?siteId=yourSiteId&duration=48" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### Sample Response (HTTP 200)
+
+```JSON
+{
+  "actions": [
+    {
+      "type": "OCR",
+      "parameters": {
+        "ocrParseTypes": "TEXT,FORMS,TABLES",
+        "ocrEngine": "tesseract",
+        "ocrOutputType": true,
+        "ocrNumberOfPages": "-1",
+        "addPdfDetectedCharactersAsText": true
+      },
+      "insertedDate": "2024-10-29T12:34:56Z",
+      "startDate": "2024-10-29T12:35:00Z",
+      "completedDate": "2024-10-29T12:36:00Z"
+    }
+  ]
+}
+```
+
+### POST /documents/&lt;documentId&gt;/actions 
+
+Below is an example payload for the POST /documents/&lt;documentId&gt;/actions endpoint that demonstrates every all ACTION type.
+
+For **OCR** action type, the /documents/&lt;documentId&gt;/ocr endpoints can be used to fetch the OCR data after the OCR action has completed.
+
+For **FULLTEXT** action type, the /documents/&lt;documentId&gt;/fulltext, /searchFulltext, /queryFulltext endpoints can be used to fetch data after the FULLTEXT action has completed.
+
+#### OCR Action
+
+##### Tesseract OCR Sample Request
+
+Basic OCR using Tesseract and extracting text for all pages.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "OCR",
+      "parameters": {
+        "ocrEngine": "tesseract"
+      }
+    }'
+```
+
+##### Tesseract OCR Sample Request
+
+Basic OCR using Tesseract and extracting text for the first 2 pages.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "OCR",
+      "parameters": {
+        "ocrEngine": "tesseract",
+        "ocrNumberOfPages: "2"
+      }
+    }'
+```
+
+##### AWS Textract OCR Sample Request
+
+OCR request that uses AWS Textract to extract all the TEXT, Key-Value pairs and Table data from all pages in the document.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "OCR",
+      "parameters": {
+        "ocrEngine": "textract",
+        "ocrParseTypes: "TEXT,FORMS,TABLES"
+      }
+    }'
+```
+
+#### Fulltext Action
+
+##### Full Text extract all text
+
+Extract all text and send it to either Typesense / Opensearch.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "FULLTEXT"
+    }'
+```
+
+##### Full Text extract Max Characters text
+
+Extract up to a maximum number of characters to either Typesense / Opensearch.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "FULLTEXT",
+      "parameters": {
+        "characterMax": "2000"
+      }
+    }'
+```
+
+#### DocumentTagging Action
+
+Sends document content to ChatGPT and asks ChatGPT to extract the "author", "title", "description" from the document and then adds them as document tags.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "DOCUMENTTAGGING",
+      "parameters": {
+        "engine": "chatgpt",
+        "tags": "author,title,description"
+      }
+    }'
+```
+
+#### WEBHOOK Action
+
+Sends webhook request to external system.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "WEBHOOK",
+      "parameters": {
+        "url": "https://yourdomain.com/webhook-endpoint"
+      }
+    }'
+```
+
+#### Notification Action
+
+Send email notification action.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "NOTIFICATION",
+      "parameters": {
+        "notificationType": "email",
+        "notificationToCc": "email@yourdomain.com",
+        "notificationToBcc": "email@yourdomain.com",
+        "notificationSubject": "Email Subject",
+        "notificationText": "Email Text",
+        "notificationHtml": "<p>Email HTML Text</p>"
+      }
+    }'
+```
+
+#### Intelligent Document Processing
+
+Runs a Intelligent Document Processing mapping process against a document.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "IDP",
+      "parameters": {
+        "mappingId": "a1009cbc-53f4-447a-baee-1adb6518c30f"
+      }
+    }'
+```
+
+#### EventBridge Notification
+
+Sends an EventBridge notification. [See full EventBridge documentation here](/docs/features/documents#amazon-eventbridge)
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "EVENTBRIDGE",
+      "parameters": {
+        "eventBusName": "event-bus-name or event-bus-arn"
+      }
+    }'
+```
+
+#### ANTIVIRUS
+
+Requests AntiVirus scan on a document. Document and S3 object will be tagged with the results.
+
+```BASH
+curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+      "type": "ANTIVIRUS"
+    }'
+```
