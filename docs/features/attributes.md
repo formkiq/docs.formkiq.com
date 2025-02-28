@@ -79,27 +79,7 @@ The following keys are reserved for FormKiQ system use:
 - **EsignatureDocusignEnvelopeId**: Tracks DocuSign envelope IDs
 - **EsignatureDocusignStatus**: Monitors DocuSign signature status
 
-## Best Practices
-
-1. **Attribute Naming**
-   - Use clear, descriptive keys
-   - Follow a consistent naming convention
-   - Avoid special characters
-   - Consider future scalability
-
-2. **Data Type Selection**
-   - Choose appropriate data types for validation
-   - Consider reporting requirements
-   - Plan for data aggregation needs
-   - Account for search functionality
-
-3. **Attribute Organization**
-   - Group related attributes logically
-   - Plan attribute hierarchies
-   - Document attribute relationships
-   - Consider workflow implications
-
-## Data Types
+## Data Types with Additional Properties
 
 ### Watermark
 
@@ -139,6 +119,59 @@ curl -X POST "https://<FORMKIQ_API>/attributes?siteId=site123" \
       }'
 ```
 
+## Best Practices Examples
+
+### 1. Attribute Naming
+
+**Use clear, descriptive keys:**
+- Good: `invoiceNumber`, `clientName`, `projectDeadline`
+- Poor: `invNum`, `cName`, `pDL`
+
+**Follow a consistent naming convention:**
+- camelCase: `documentOwner`, `approvalStatus`, `lastModifiedDate`
+- snake_case: `document_owner`, `approval_status`, `last_modified_date`
+- (Choose one style and apply it consistently)
+
+**Avoid special characters:**
+- Good: `taxPercentage`, `clientAddress`
+- Poor: `tax%`, `client@address`
+
+**Consider future scalability:**
+- Instead of: `2023Budget`
+- Better: `budgetYear2023` (allows for `budgetYear2024`, etc.)
+
+### 2. Data Type Selection
+
+**Choose appropriate data types for validation:**
+- For dates: Use `STRING` with a standardized format (ISO 8601: YYYY-MM-DD)
+- For monetary values: Use `NUMBER` to enable calculations
+- For yes/no flags: Use `BOOLEAN` instead of strings like "yes"/"no"
+
+**Consider reporting requirements:**
+- If you need to generate reports on approval rates: Use `BOOLEAN` for `isApproved` rather than text values
+- If you need to analyze processing times: Use `NUMBER` for time values to enable averaging
+
+**Plan for data aggregation needs:**
+- For department budgets that need summing: Use `NUMBER` instead of `STRING`
+- For categorizing documents by region: Use `STRING` with consistent values like "APAC", "EMEA", etc.
+
+**Account for search functionality:**
+- For searchable fields like project names: Use `STRING`
+- For range-based searches like date ranges: Use `NUMBER` for timestamp values
+
+### 3. Attribute Organization
+
+**Group related attributes logically:**
+- Contract attributes: `contractValue`, `contractStartDate`, `contractEndDate`
+- Author attributes: `authorName`, `authorDepartment`, `authorContact`
+
+**Plan attribute hierarchies, as needed:**
+- For complex properties, instead of flat attributes like `marketingCampaignName`, `marketingCampaignBudget`, `marketingCampaignStart`
+- Consider creating a hierarchy: `campaign.name`, `campaign.budget`, `campaign.startDate`
+
+**Document attribute relationships:**
+- Consdier creating a data dictionary that shows how attributes relate to one another
+- Example: `projectManager` is linked to `projectId` which is linked to `clientId`
 
 ## API Endpoints
 
@@ -160,11 +193,12 @@ curl -X GET "https://<FORMKIQ_API>/attributes?siteId=site123&limit=20" \
   "attributes": [
     {
       "key": "department",
-      "type": "STANDARD"
+      "type": "STANDARD",
       "dataType": "STRING",
     },
     {
       "key": "priority",
+      "type": "STANDARD",
       "dataType": "NUMBER"
     }
   ],
@@ -217,6 +251,7 @@ curl -X GET "https://<FORMKIQ_API>/attributes/priority?siteId=site123" \
 {
   "attribute": {
     "key": "priority",
+    "type": "STANDARD",
     "dataType": "NUMBER"
   }
 }
