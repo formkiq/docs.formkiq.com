@@ -30,53 +30,10 @@ Available Collections:
 FormKiQ's API uses OpenAPI specification, available in the [FormKiQ Core GitHub repository](https://github.com/formkiq/formkiq-core/tree/master/docs/openapi).
 :::
 
-## Authentication Methods
+## Aquire Access Token
 
-### JWT Token
+Depending on which Postman collection you want to use. Aquire either a [JWT](/docs/platform/security#jwt-token), [AWS IAM](/docs/platform/security#aws-iam), or [API Key](/docs/platform/security#api-key) [API Security Tokens](/docs/platform/security#api-security).
 
-Access your JWT token using browser developer tools:
-
-#### **Google Chrome**
-1. Log in to FormKiQ Web Console
-2. Open Developer Tools (`F12` or `Ctrl+Shift+I` / `Cmd+Option+I`)
-3. Select **Network** tab
-4. Refresh page
-5. Find request with token in **Authorization** header
-6. Copy token using **Copy as cURL**
-
-#### **Safari**
-1. Log in to FormKiQ Web Console
-2. Enable Develop menu:
-   - **Safari > Preferences > Advanced**
-   - Check **Show Develop menu**
-3. Open Web Inspector (`Cmd+Option+I`)
-4. Select **Network** tab
-5. Refresh page
-6. Locate and copy token from request headers
-
-#### **Mozilla Firefox**
-1. Log in to FormKiQ Web Console
-2. Open Developer Tools (`Ctrl+Shift+I` or `Cmd+Option+I`)
-3. Select **Network** tab
-4. Refresh page
-5. Find request with token
-6. Copy using **Copy Request Headers**
-
-### AWS IAM
-
-1. Create IAM user in [AWS IAM Console](https://console.aws.amazon.com/iam/home)
-2. Attach **AmazonAPIGatewayInvokeFullAccess** policy
-3. Generate AccessKey/SecretKey
-
-### API Key
-
-1. Log in to FormKiQ Console
-2. Navigate to **Administration > API Keys**
-3. Click **Create new**
-4. Set name and permissions
-5. Copy generated key immediately
-
-![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
 
 ## Configure Postman
 
