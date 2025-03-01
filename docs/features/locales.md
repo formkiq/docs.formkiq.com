@@ -2,11 +2,22 @@
 sidebar_position: 7
 ---
 
-# Locale
+# Locales
 
 ## Overview
 
-The Locale feature enables the management and retrieval of localized content for individual websites. It provides endpoints for handling different language settings and their associated resource items, making it easier to support multi-language sites and internationalization (i18n).
+The Locales feature enables the management and retrieval of localized content for individual websites. It provides endpoints for handling different language settings and their associated resource items, making it easier to support multi-language sites and internationalization (i18n).
+
+FormKiQ recommends using a `Language Tag` that combines an ISO 639 Language code with a an ISO 3166 Country code, but that some other settings such as "en-001" and "en" are also accepted.
+
+### Examples
+- en-US
+- fr-CA
+- de-DE
+
+:::note
+NOTE: using a language code on its own (e.g., `ar`) for Arabic is accepted, but future versions of FormKiQ may provide more automatic localization using `Accept-Language`, which would then likely choose a country code, such as `ar-SA`. Using `en-001` (World English) or `es-419` (Latin American and Carribean Spanish) is also accepted, but would also choose a default country code chosen automatically for future enhancements.
+:::
 
 ## Use Cases
 
@@ -26,19 +37,19 @@ Allow site administrators to manage locale settings and resource items, enabling
 
 ### INTERFACE
 
-The locale interface resource is a generic resource that has a **interfaceKey** and an associated **localizedValue**.
+The locale interface resource is a generic resource that has a **interfaceKey** and an associated **localizedValue**. This can be used to store localized strings for display on a user interface.
 
 ### SCHEMA
 
 Allow the association of a Schema attribute's allowed value to be associated **localizedValue**.
 
-Localized values can be retrieved using the **GET /sites/&lt;siteId&gt;/schema/document** and the locale query parameter.
+Localized values can be retrieved using the **GET /sites/&lt;siteId&gt;/schema/document** and the locale query parameter, e.g., `?locale=pt-PT`.
 
 ### CLASSIFICATION
 
 Allow the association of a Schema classification attribute's allowed value to be associated **localizedValue**.
 
-Localized values can be retrieved using the **GET /sites/&lt;siteId&gt;/classifications/&lt;classificationId&gt;** and the locale query parameter.
+Localized values can be retrieved using the **GET /sites/&lt;siteId&gt;/classifications/&lt;classificationId&gt;** and the locale query parameter, e.g., `?locale=pt-PT`.
 
 
 ## API Locale Endpoints
@@ -53,7 +64,7 @@ Adds a new locale to the specified site.
 
 ```bash
 curl -X POST "https://<FORMKIQ_API>/locale?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "locale": "en-US"
@@ -68,7 +79,7 @@ Returns a list of locale(s) in a specified site
 
 ```bash
 curl -X GET "https://<FORMKIQ_API>/locale?siteId=yourSiteId&limit=10" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -91,7 +102,7 @@ Adds a new localized resource item for a given locale.
 
 ```bash
 curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItems?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "resourceItem": {
@@ -106,7 +117,7 @@ curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItem
 
 ```bash
 curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItems?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "resourceItem": {
@@ -122,7 +133,7 @@ curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItem
 
 ```bash
 curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItems?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "resourceItem": {
@@ -150,7 +161,7 @@ Returns an attribute's allowed values from the site schema.
 
 ```bash
 curl -X GET "https://<FORMKIQ_API>/sites/{siteId}/schema/document/attributes/{key}/allowedValues?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -174,7 +185,7 @@ Returns an attribute's allowed values from the site classification schema.
 
 ```bash
 curl -X GET "https://<FORMKIQ_API>/sites/{siteId}/classifications/{classificationId}/attributes/{key}/allowedValues?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)

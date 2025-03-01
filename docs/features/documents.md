@@ -122,15 +122,15 @@ FormKiQ supports various automated actions for document processing:
 
 | Action | Description | Edition |
 |--------|-------------|----------|
-| ANTIVIRUS | Scans documents using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats | Essentials/Advanced/Enterprise |
-| DOCUMENTTAGGING | Intelligent document tagging using artificial intelligence | Core |
-| EVENTBRIDGE | Enables AWS EventBridge integration for event-driven architectures. Sends document data and metadata as events for further processing. [Full EventBridge documentation](/docs/features/documents#amazon-eventbridge) | Core |
-| FULLTEXT | Extracts and indexes text content for search capabilities using [Typesense](https://typesense.org/) or [Opensearch](https://aws.amazon.com/opensearch-service) | Core + Add-On Options |
-| IDP | Extracts and processes document data using Document Attributes | Essentials/Advanced/Enterprise + Add-On Options |
-| NOTIFICATION | Email notifications | Core |
-| OCR | Text extraction from images/PDFs | Core + Add-On Options |
-| PUBLISH | Publication of approved documents | Essentials/Advanced/Enterprise |
-| WEBHOOK | External system integration | Core |
+| **ANTIVIRUS** | Scans documents using [ClamAv](https://www.clamav.net) for detecting trojans, viruses, malware & other malicious threats | **Explore** and Commercial Deployments (**Essentials**, **Advanced**, **Enterprise**) |
+| **DOCUMENTTAGGING** | Intelligent document tagging using artificial intelligence | **Core** |
+| **EVENTBRIDGE** | Enables AWS EventBridge integration for event-driven architectures. Sends document data and metadata as events for further processing. [Full EventBridge documentation](/docs/features/documents#amazon-eventbridge) | **Core** |
+| **FULLTEXT** | Extracts and indexes text content for search capabilities using [Typesense](https://typesense.org/) or [Opensearch](https://aws.amazon.com/opensearch-service) | **Core** (TypeSense), OpenSearch is an Add-On for **Advanced** and **Enterprise** Deployments |
+| **IDP** | Extracts and processes document data using Document Attributes | **Explore** and Commercial Deployments (**Essentials**, **Advanced**, **Enterprise**), as well as optional Add-Ons |
+| **NOTIFICATION** | Email notifications | **Core** |
+| **OCR** | Text extraction from images/PDFs | **Core** (Tesseract), with Amazon Textract available with **Explore** and Commercial Deployments (**Essentials**, **Advanced**, **Enterprise**), as well as optional Add-Ons  |
+| **PUBLISH** | Publication of approved documents | **Explore** and Commercial Deployments (**Essentials**, **Advanced**, **Enterprise**) |
+| **WEBHOOK** | External system integration | **Core** |
 
 
 ### Document Versions
@@ -144,7 +144,7 @@ FormKiQ's versioning system provides:
 [See API documentation](/docs/api-reference/get-document-versions)
 
 :::note
-Available as an Add-On Module
+Not available with FormKiQ Core; available as part of FormKiQ Explore and FormKiQ's Commercial Deployments (Essentials, Advanced, and Enterprise)
 :::
 
 ### Document User Activities
@@ -158,7 +158,7 @@ The platform tracks and logs all document interactions:
 [See API documentation](/docs/api-reference/get-user-activities)
 
 :::note
-Available as an Add-On Module
+Not available with FormKiQ Core; available as part of FormKiQ Explore and FormKiQ's Commercial Deployments (Essentials, Advanced, and Enterprise)
 :::
 
 ## Document Events Features
@@ -315,29 +315,116 @@ Each event published to Amazon SNS follows a consistent JSON schema. The payload
 
 ## Best Practices
 
-1. **Document Organization**
-   - Implement consistent naming conventions
-   - Use attributes for classification
-   - Establish clear relationship hierarchies
-   - Leverage metadata for searchability
+### 1. Document Organization
 
-2. **Version Control**
-   - Enable versioning for critical documents
-   - Document version changes
-   - Implement approval workflows
-   - Regular backup procedures
+**Implement consistent naming conventions:**
+- Standardize file naming: `[ProjectCode]-[DocumentType]-[YYYY-MM-DD]-[Version]`
+  - Example: `PRJ001-Contract-2024-02-15-v2.pdf`
+- Use consistent casing for paths: `/Clients/ClientName/Projects/ProjectName/`
+  - Example: `/Clients/Acme/Projects/WebsiteRedesign/Contracts/`
 
-3. **Security**
-   - Configure appropriate access controls
-   - Regular security audits
-   - Monitor user activities
-   - Implement encryption where needed
+**Use attributes for classification:**
+- Tag documents with department ownership:
+  ```json
+  {
+    "key": "department",
+    "stringValue": "Legal"
+  }
+  ```
+- Add priority levels:
+  ```json
+  {
+    "key": "priority",
+    "numberValue": 1
+  }
+  ```
+- Mark document status:
+  ```json
+  {
+    "key": "status",
+    "stringValue": "In Review"
+  }
+  ```
 
-4. **Performance**
-   - Optimize file sizes
-   - Use appropriate storage classes
-   - Implement caching strategies
-   - Monitor system metrics
+**Establish clear relationship hierarchies:**
+- Link related documents properly:
+  - Main contract (PRIMARY) → Addendum (ATTACHMENT)
+  - Meeting minutes (PRIMARY) → Supporting materials (SUPPLEMENT)
+  - Original document (PRIMARY) → Translations (RENDITION)
+
+**Leverage metadata for searchability:**
+- Include author information:
+  ```json
+  {
+    "key": "author",
+    "stringValue": "Jane Smith"
+  }
+  ```
+- Add project identifiers:
+  ```json
+  {
+    "key": "projectId",
+    "stringValue": "PRJ-2024-0123"
+  }
+  ```
+- Tag with relevant keywords:
+  ```json
+  {
+    "key": "keywords",
+    "stringValues": ["contract", "renewal", "client-facing"]
+  }
+  ```
+
+### 2. Version Control
+
+**Leverage versioning and consider specific attributes for critical documents:**
+- Legal contracts
+- Financial reports
+- Compliance documents
+- Policy documents
+
+**Document version changes:**
+- Consider adding change notes to each version of a critical document:
+  ```json
+  {
+    "key": "changeNotes",
+    "stringValue": "Updated section 3.2 with revised payment terms"
+  }
+  ```
+- Consider track approvers for each version of a critical document:
+  ```json
+  {
+    "key": "approvedBy",
+    "stringValue": "Thomas Johnson"
+  }
+  `` `
+
+**Regular backup procedures:**
+- Leverage AWS Backups
+- Consider cross-region replication for disaster recovery
+- Document the restoration process for emergency situations
+
+### 3. Security
+
+**Configure appropriate access controls:**
+- Implement role-based permissions:
+  - Viewers (READ): Can only download and view documents
+  - Contributors (READ/WRITE/DELETE): Can upload and edit documents and set attributes
+  - Data Governance (GOVERN): Can add access attributes for use by Open Policy Agent
+  - Administrators: Can manage users, access policiess, and API key access
+- Use attribute-based access for document-level granularity:
+  ```json
+  {
+    "key": "confidentialityLevel",
+    "stringValue": "Restricted"
+  }
+  ```
+
+**Regular security audits:**
+- Review user access logs monthly
+- Verify document permission settings quarterly
+- Conduct penetration testing annually
+- Use the `/documents/{documentId}/userActivities` endpoint to audit document access
 
 ## API Document Endpoints
 
@@ -347,11 +434,15 @@ Each event published to Amazon SNS follows a consistent JSON schema. The payload
 
 Creates a new document; body may include document content if less than 5 MB. Returns a unique **documentId** used in subsequent operations.
 
+:::note
+This endpoint works well for smaller-sized documents, such as most Markdown (.md) files or JSON data that fits well within the 5 MB limit and is a text content-type. For most other types of documents, we recommend using **[POST /documents/upload](#post-documentsupload)**
+:::
+
 #### Sample Request
 
 ```bash
 curl -X POST "https://<FORMKIQ_API>/documents?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
         "path": "invoice123.pdf",
@@ -377,7 +468,7 @@ Retrieves a list of recently added documents. You can filter the list by paramet
 
 ```bash
 curl -X GET "https://<FORMKIQ_API>/documents?siteId=yourSiteId&limit=10" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -427,7 +518,7 @@ Retrieves detailed metadata for a specific document.
 
 ```BASH
 curl -X GET "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -468,7 +559,7 @@ Used to update document metadata (and optionally content). If you omit the conte
 
 ```BASH
 curl -X PATCH "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
         "path": "invoice123_updated.pdf",
@@ -501,14 +592,14 @@ Only the GET /documents?deleted=true will return all the soft deleted documents.
 
 ```BASH
 curl -X DELETE "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId&softDelete=true" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Request Hard Delete
 
 ```BASH
 curl -X DELETE "https://<FORMKIQ_API>/documents/{documentId}?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 ### GET /documents/&lt;documentId&gt;/url
@@ -519,7 +610,7 @@ Returns a URL for the document's contents; this URL will expire (the default is 
 
 ```BASH
 curl -X GET "https://<FORMKIQ_API>/{documentId}/url?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -544,7 +635,7 @@ It is recommended to use the **/documents/&lt;documentId&gt;/url** endpoint to r
 
 ```BASH
 curl -X GET "https://<FORMKIQ_API>/{documentId}/content?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -569,7 +660,7 @@ The POST endpoint allow the adding of document metadata at the same time as the 
 
 ```bash
 curl -X POST "https://<FORMKIQ_API>/documents?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
         "path": "invoice123.pdf",
@@ -602,7 +693,7 @@ Adds invoiceDate (String), invoiceNo (Number) and invoicePay indicator (boolean)
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/attributes?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "attributes": [
@@ -627,7 +718,7 @@ Adds a [Classification Schema](/docs/features/schemas) to a document. This class
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/attributes?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "attributes": [
@@ -648,7 +739,7 @@ Creates a **ASSOCIATED** relationship between original document and document **5
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/attributes?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
   "attributes": [
@@ -669,7 +760,7 @@ Retrieves a listing of a document's attributes.
 
 ```BASH
 curl -X GET "http://localhost/documents/{documentId}/url?siteId=yourSiteId&duration=48" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -705,7 +796,7 @@ Retrieves a document's actions and their status.
 
 ```BASH
 curl -X GET "http://localhost/documents/{documentId}/actions?siteId=yourSiteId&duration=48" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: YOUR_JWT_TOKEN"
 ```
 
 #### Sample Response (HTTP 200)
@@ -746,7 +837,7 @@ Basic OCR using Tesseract and extracting text for all pages.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "OCR",
@@ -762,7 +853,7 @@ Basic OCR using Tesseract and extracting text for the first 2 pages.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "OCR",
@@ -779,7 +870,7 @@ OCR request that uses AWS Textract to extract all the TEXT, Key-Value pairs and 
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "OCR",
@@ -798,7 +889,7 @@ Extract all text and send it to either Typesense / Opensearch.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "FULLTEXT"
@@ -811,7 +902,7 @@ Extract up to a maximum number of characters to either Typesense / Opensearch.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "FULLTEXT",
@@ -827,7 +918,7 @@ Sends document content to ChatGPT and asks ChatGPT to extract the "author", "tit
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "DOCUMENTTAGGING",
@@ -844,7 +935,7 @@ Sends webhook request to external system.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "WEBHOOK",
@@ -860,7 +951,7 @@ Send email notification action.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "NOTIFICATION",
@@ -881,7 +972,7 @@ Runs a Intelligent Document Processing mapping process against a document.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "IDP",
@@ -897,7 +988,7 @@ Sends an EventBridge notification. [See full EventBridge documentation here](/do
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "EVENTBRIDGE",
@@ -907,13 +998,13 @@ curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSi
     }'
 ```
 
-#### ANTIVIRUS
+#### Antivirus Action (Anti-Malware Scan)
 
-Requests AntiVirus scan on a document. Document and S3 object will be tagged with the results.
+Requests Antivirus / anti-malware scan on a document. Document and S3 object will be tagged with the results.
 
 ```BASH
 curl -X POST "https://<FORMKIQ_API>/documents/{documentId}/actions?siteId=yourSiteId" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "type": "ANTIVIRUS"

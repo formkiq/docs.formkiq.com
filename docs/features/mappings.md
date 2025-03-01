@@ -6,7 +6,7 @@ sidebar_position: 10
 
 ## Overview
 
-The Mapping feature in FormKiQ provides a powerful system for automatically extracting and organizing document information through custom attribute mappings. This feature enables intelligent document processing by defining how content and metadata should be interpreted and stored as document attributes.
+The Mapping feature in FormKiQ provides a powerful system for automatically extracting and organizing document information through custom attribute mappings. This feature enables intelligent document processing by defining how content and metadata should be interpreted and stored as document attributes, i.e., metadata extraction.
 
 ## Mapping Configuration
 
@@ -139,29 +139,64 @@ This mapping can be used in a workflow to set attributes to a specific value.
     }]
   }
 }
-```
 
 ## Best Practices
 
-1. **Label Design**
-   - Use multiple label variations for better matching
-   - Consider common misspellings and formats
-   - Test patterns with sample documents
+### Label Design
+- **Use multiple label variations:**
+  ```json
+  "labelTexts": [
+    "invoice date",
+    "date of invoice",
+    "invoice dt",
+    "billing date"
+  ]
+  ```
 
-2. **Validation**
-   - Use specific regex patterns for structured data
-   - Include format validation for critical fields
-   - Set appropriate default values
+- **Consider regional variations:**
+  ```json
+  "labelTexts": [
+    "zip code",
+    "postal code",
+    "zip",
+    "post code"
+  ]
+  ```
 
-3. **Performance**
-   - Limit the number of label texts per attribute
-   - Use exact matching when possible
-   - Balance flexibility with processing speed
+### Validation
+- **Format validation for dates:**
+  ```json
+  "validationRegex": "(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\\d{4}"
+  ```
 
-4. **Maintenance**
-   - Document mapping configurations
-   - Review and update patterns regularly
-   - Monitor matching success rates
+- **Validation for email addresses:**
+  ```json
+  "validationRegex": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+  ```
+
+- **Default value handling for missing information:**
+  ```json
+  "defaultValue": "Not Specified",
+  "validationRegex": "\\d{3}-\\d{2}-\\d{4}"
+  ```
+
+### Performance Optimization
+- **Use exact matching for standardized fields:**
+  ```json
+  "labelTexts": ["Customer ID"],
+  "labelMatchingType": "EXACT"
+  ```
+
+- **Balance between precision and recall:**
+  - For critical information (e.g., invoice numbers): Use EXACT matching
+  - For descriptive fields (e.g., product descriptions): Use CONTAINS matching
+
+### Implementation Strategy
+- Create a tiered approach to mappings:
+  1. Core document attributes (always extracted)
+  2. Document-type specific attributes (based on classification)
+  3. Optional enrichment attributes (for additional context)
+
 
 ## API Reference
 

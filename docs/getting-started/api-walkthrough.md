@@ -30,9 +30,11 @@ Available Collections:
 FormKiQ's API uses OpenAPI specification, available in the [FormKiQ Core GitHub repository](https://github.com/formkiq/formkiq-core/tree/master/docs/openapi).
 :::
 
-## Aquire Access Token
+## Acquire Access Token
 
-Depending on which Postman collection you want to use. Aquire either a [JWT](/docs/platform/security#jwt-token), [AWS IAM](/docs/platform/security#aws-iam), or [API Key](/docs/platform/security#api-key) [API Security Tokens](/docs/platform/security#api-security).
+Depending on which Postman collection you want to use, authentication requires either acquiring a [JWT token](/docs/platform/security#jwt-token), setting up [AWS IAM Authentication](/docs/platform/security#aws-iam), or creating and providing an [API Key](/docs/platform/security#api-key)
+
+More info: [API Security Tokens](/docs/platform/security#api-security).
 
 
 ## Configure Postman
