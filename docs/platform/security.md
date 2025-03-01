@@ -29,6 +29,128 @@ FormKiQ Essentials, Advanced, and Enterprise offerings use AWS-managed encryptio
 - Metadata Storage (DynamoDB)
 - Search Index (OpenSearch, part of the Enhanced Full-Text Search Add-On Module)
 
+## API Security
+
+There are 3 APIs deployed with FormKiQ providing authorization using:
+
+* [JWT Tokens](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html)
+* [AWS IAM Authorization](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control-iam.html)
+* API Key Authorization
+
+### JWT Token
+
+A JWT Token can be obtained via a few different methods:
+
+* [FormKiQ Console](/docs/platform/security#formkiq-console)
+* [Curl CLI](/docs/platform/security#curl-cli)
+* [FormKiQ Console](/docs/platform/security#formkiq-console)
+
+#### FormKiQ Console 
+
+Access your JWT token using your browser developer tools:
+
+![Developer Tools](./img/firefox-jwt-token.png)
+
+##### **Google Chrome**
+1. Log in to FormKiQ Web Console
+2. Open Developer Tools (`F12` or `Ctrl+Shift+I` / `Cmd+Option+I`)
+3. Select **Network** tab
+4. Refresh page
+5. Find request with token in **Authorization** header
+6. Copy token using **Copy as cURL**
+
+##### **Safari**
+1. Log in to FormKiQ Web Console
+2. Enable Develop menu:
+   - **Safari > Preferences > Advanced**
+   - Check **Show Develop menu**
+3. Open Web Inspector (`Cmd+Option+I`)
+4. Select **Network** tab
+5. Refresh page
+6. Locate and copy token from request headers
+
+##### **Mozilla Firefox**
+1. Log in to FormKiQ Web Console
+2. Open Developer Tools (`Ctrl+Shift+I` or `Cmd+Option+I`)
+3. Select **Network** tab
+4. Refresh page
+5. Find request with token
+6. Copy using **Copy Request Headers**
+
+#### Curl CLI
+
+The Cognito API Endpoint can be found in the FormKiQ CloudFormation Outputs.
+
+![Cognito CloudFormation Outputs](./img/cf-output-cognito.png)
+
+Using the API Endpoint you can obtain a JWT Token via:
+
+```bash
+curl -X POST https://COGNITO_API_ENDPOINT_URL/login \
+   -H "Content-Type: application/json" \
+   -d '{"username": "USERNAME", "password": "PASSWORD"}'
+```
+
+#### AWS CLI
+
+The Cognito **CognitoClientId** can be found in the FormKiQ CloudFormation Outputs.
+
+![Cognito CloudFormation Outputs](./img/cf-output-cognito.png)
+
+Using the **CognitoClientId**, you can obtain a JWT Token via:
+
+```bash
+aws cognito-idp initiate-auth \
+  --client-id YOUR_COGNITO_APP_CLIENT_ID \
+  --auth-flow USER_PASSWORD_AUTH \
+  --auth-parameters USERNAME=your_username,PASSWORD=your_password
+```
+
+The results from the command should be as follows.
+
+```JSON
+{
+    "ChallengeParameters": {},
+    "AuthenticationResult": {
+        "AccessToken": "eyJraWQiOiJ0W...",
+        "ExpiresIn": 86400,
+        "TokenType": "Bearer",
+        "RefreshToken": "eyJjdHkiO...",
+        "IdToken": "eyJraWQiOiI5YUpvb..."
+    }
+}
+```
+
+### AWS IAM
+
+Endpoints secured with IAM require that your API requests be signed using AWS Signature Version 4. This method leverages using AWS credentials.
+
+#### Setting Up IAM Authorization
+
+From AWS IAM Console, create a new user.
+
+![FormKiQ Console Add API Key](./img/aws-console-createuser.png)
+
+Attach **AmazonAPIGatewayInvokeFullAccess** policy to user.
+
+![FormKiQ Console Add API Key](./img/aws-console-add-apigateway-permission.png)
+
+Create user Access Key and generate AccessKey/SecretKey.
+
+![FormKiQ Console Add API Key](./img/aws-console-access-key.png)
+
+You an now use the AccessKey / SecretKey to call the FormKiQ API. 
+
+### API Key
+
+1. Log in to FormKiQ Console
+2. Navigate to **Administration > API Keys**
+3. Click **Create new**
+4. Set name and permissions
+5. Copy generated key immediately
+
+![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
+
 ## Role-Based Access Control (RBAC)
 
 FormKiQ supports multi-tenancy environments by defining user group(s) and then linking these groups to the different FormKiQ site(s). Each user can be associated with one or more groups, reflecting their role or responsibilities within the platform. These groups, in turn, determine the user's access privileges across different sites within the platform.

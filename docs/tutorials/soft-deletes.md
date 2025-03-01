@@ -66,7 +66,7 @@ This will permanently remove the document and its associated data from the syste
 await fetch(`/documents/${documentId}?softDelete=true`, {
   method: 'DELETE',
   headers: {
-    'Authorization': 'Bearer YOUR_TOKEN'
+    'Authorization': 'YOUR_TOKEN'
   }
 });
 ```
@@ -76,7 +76,7 @@ await fetch(`/documents/${documentId}?softDelete=true`, {
 // List soft-deleted documents
 const response = await fetch('/documents?deleted=true', {
   headers: {
-    'Authorization': 'Bearer YOUR_TOKEN'
+    'Authorization': 'YOUR_TOKEN'
   }
 });
 const deletedDocs = await response.json();
@@ -88,7 +88,7 @@ const deletedDocs = await response.json();
 await fetch(`/documents/${documentId}/restore`, {
   method: 'PUT',
   headers: {
-    'Authorization': 'Bearer YOUR_TOKEN'
+    'Authorization': 'YOUR_TOKEN'
   }
 });
 ```
