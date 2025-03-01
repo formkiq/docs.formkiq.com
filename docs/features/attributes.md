@@ -130,7 +130,7 @@ curl -X POST "https://<FORMKIQ_API>/attributes?siteId=site123" \
 **Follow a consistent naming convention:**
 - camelCase: `documentOwner`, `approvalStatus`, `lastModifiedDate`
 - snake_case: `document_owner`, `approval_status`, `last_modified_date`
-- (Choose one style and apply it consistently)
+- FormKiQ's reserved attributes us `PascalCase`, having the first character of each word capitalized, e.g., `Classification`
 
 **Avoid special characters:**
 - Good: `taxPercentage`, `clientAddress`
