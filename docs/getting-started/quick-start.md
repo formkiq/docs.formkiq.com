@@ -9,10 +9,6 @@ toc_max_heading_level: 2
 
 Deploy and configure FormKiQ in your AWS account in approximately 15 minutes using AWS CloudFormation. The automated setup process provisions and connects all required resources through a streamlined installation workflow.
 
-<lite-youtube videoid="G5R6ldbHYKs" posterquality="maxresdefault" videotitle="Deploying FormKiQ Core's Document Management Platform into Your AWS Account" posterloading="lazy" nocookie="true">
-  <a class="lite-youtube-fallback" href="https://www.youtube.com/watch?v=G5R6ldbHYKs">Watch on YouTube: "Deploying FormKiQ Core's Document Management Platform into Your AWS Account"</a>
-</lite-youtube>
-
 ## Prerequisites
 
 For this quickstart you will need access to an AWS account with administrator access to ensure proper permissions for creating required AWS services.
