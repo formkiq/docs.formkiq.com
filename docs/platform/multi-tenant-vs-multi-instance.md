@@ -19,6 +19,7 @@ FormKiQ Essentials, Advanced, and Enterprise editions offer enhanced Role-Based 
 - Create sites independently of Cognito groups
 - Define groups with flexible permissions across sites
 - Available permission levels: READ, WRITE, DELETE, GOVERN, and ADMIN
+- **NOTE: Using Defined Sites access control requires an upgrade of the Cognito User Pool from "Lite" to "Essentials"**
 
 ## API Usage
 
