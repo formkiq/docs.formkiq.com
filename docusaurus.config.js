@@ -19,6 +19,9 @@ const config = {
     locales: ['en'],
   },
 
+  clientModules: [require.resolve('./src/clientModules/liteYoutube.js')],
+
+
   presets: [
     [
       'classic',
