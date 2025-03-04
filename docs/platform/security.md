@@ -125,6 +125,8 @@ The results from the command should be as follows.
 
 Endpoints secured with IAM require that your API requests be signed using AWS Signature Version 4. This method leverages using AWS credentials.
 
+[More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
+
 #### Setting Up IAM Authorization
 
 From AWS IAM Console, create a new user.
@@ -332,6 +334,8 @@ The API that uses the JWT authentication can be found in the CloudFormation Outp
 
 IAM Authentication is typically used for machine-to-machine authorization as there is no user information inside of the token.
 
+[More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
+
 The API that uses the IAM authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `IamApiUrl` key.
 
 ![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
@@ -355,3 +359,91 @@ The API that uses the Key authentication can be found in the CloudFormation Outp
 :::note
 Each API key is only valid for a particular SiteId.
 :::
+
+## Cloud Security
+
+**In addition to FormKiQ's Well-Architected Framework, other security and compliance considerations should be reviewed:**
+
+### DynamoDB Point-in-Time Recovery
+
+FormKiQ automatically configures Point-in-Time Recovery for all DynamoDB tables (except cache tables) with a 35-day recovery window. This automated backup feature ensures that your document data is protected against accidental deletions, application errors, or service disruptions.
+
+**Why DynamoDB Backups Matter in Production**
+
+Automated backups for your DynamoDB tables provide essential data protection for your FormKiQ deployment:
+
+- **Data Recovery**: Quickly restore to any point within the last 35 days in case of accidental deletion or corruption
+- **Business Continuity**: Minimize downtime and data loss in the event of application errors or service disruptions
+- **Compliance Requirements**: Meet regulatory requirements for data retention and disaster recovery capabilities
+- **Operational Peace of Mind**: Operate with confidence knowing that your document database is continuously backed up
+
+FormKiQ's implementation of Point-in-Time Recovery requires no additional configuration from customers while providing enterprise-grade data protection for your document management system.
+
+### IAM Authentication Option
+
+FormKiQ supports IAM Authentication for API access, providing an enhanced security option for environments where additional access controls are required.
+
+**Why IAM Authentication Matters in Production**
+
+Using IAM Authentication for your FormKiQ API access establishes strong identity-based security:
+
+- **Fine-grained Access Control**: Leverage AWS IAM policies to define precise permissions for API operations
+- **Credential Management**: Eliminate the need to manage separate API keys by using your existing AWS identity system
+- **Audit Trail**: Benefit from detailed CloudTrail logs of all authenticated API requests
+- **Conditional Access**: Apply additional security conditions such as source IP restrictions or MFA requirements
+- **Integration with Identity Federation**: Seamlessly connect with your organization's identity provider
+
+By enabling IAM Authentication for your FormKiQ deployment, you can implement defense-in-depth security strategies while maintaining compatibility with your existing AWS security practices.
+
+
+### AWS DNS Firewall
+
+AWS DNS Firewall can be implemented by FormKiQ customers to filter and control outbound DNS traffic from their VPC. Once configured, these DNS firewall settings will not be modified by any FormKiQ updates.
+
+**Why AWS DNS Firewall Matters in Production**
+
+AWS DNS Firewall provides an essential layer of protection for your FormKiQ deployment by controlling DNS resolution and preventing DNS-based threats. In production environments, this service offers several important security benefits:
+
+- **Malware Prevention**: Block DNS queries to known malicious domains, helping prevent malware downloads and command-and-control communications
+- **Data Exfiltration Protection**: Prevent unauthorized data transfers that use DNS tunneling techniques to bypass standard security controls
+- **Domain Filtering**: Implement allow/deny lists to ensure your FormKiQ resources only communicate with approved domains
+- **Compliance Assurance**: Meet regulatory requirements for network security controls and demonstrate proactive threat prevention
+- **Security Monitoring**: Generate logs of DNS activity for security analysis and threat detection
+
+By implementing AWS DNS Firewall with your FormKiQ deployment, you establish preventative controls against DNS-based threats while maintaining visibility into DNS query patterns that might indicate security issues.
+
+FormKiQ respects your DNS security configurations and operates within the boundaries established by your DNS Firewall rules, providing an additional layer of security for your document management system.
+
+### Password Policy
+
+FormKiQ allows customization of the password policy for each FormKiQ instance using the CloudFormation template. 
+
+#### Why Strong Passwords Matter in Production
+
+In production environments, strong passwords are your first line of defense against unauthorized access. Production systems typically contain sensitive data, customer information, and business-critical functionality that must be protected.
+A robust password policy helps safeguard against various attack vectors:
+
+- Brute force attacks where attackers systematically attempt every possible password combination
+- Dictionary attacks that try common words and phrases
+- Credential stuffing attacks using passwords leaked from other breaches
+
+By implementing strong password requirements (length, complexity, rotation periods), you significantly reduce the risk of security breaches that could lead to data loss, service disruption, or compliance violations. For regulated industries, strong password policies are often a compliance requirement.
+
+Your FormKiQ password policy should align with your organization's security posture and industry best practices while balancing security with usability.
+
+### VPC Flow Logs
+
+VPC Flow Logs can be set up by FormKiQ customers to monitor network traffic within their Virtual Private Cloud environment. Once associated with the VPC, these logs will not be modified by any FormKiQ updates.
+
+**Why VPC Flow Logs Matter in Production**
+
+VPC Flow Logs provide valuable network traffic visibility for your FormKiQ deployment, capturing information about IP traffic going to and from network interfaces in your VPC. In production environments, these logs serve multiple critical functions:
+
+- **Security Monitoring**: Detect suspicious traffic patterns or potential network intrusions by analyzing traffic flows to and from your FormKiQ resources
+- **Troubleshooting**: Diagnose connectivity issues between components or with external services by identifying blocked or failed connection attempts
+- **Compliance Requirements**: Meet regulatory requirements for network traffic monitoring and data access auditing
+- **Operational Insights**: Gain visibility into traffic patterns to optimize network configurations and resource allocation
+
+By implementing VPC Flow Logs for your FormKiQ deployment, you create a continuous audit trail of network activity that can be integrated with security information and event management (SIEM) systems or analyzed directly for security and operational insights.
+
+FormKiQ operates within your configured VPC environment, respecting your network security controls and logging configurations without interference.
