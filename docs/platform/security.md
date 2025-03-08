@@ -43,7 +43,7 @@ A JWT Token can be obtained via a few different methods:
 
 * [FormKiQ Console](/docs/platform/security#formkiq-console)
 * [Curl CLI](/docs/platform/security#curl-cli)
-* [FormKiQ Console](/docs/platform/security#formkiq-console)
+* [AWS CLI](/docs/platform/security#aws-cli)
 
 #### FormKiQ Console 
 
