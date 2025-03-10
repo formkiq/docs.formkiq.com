@@ -2,12 +2,68 @@
 sidebar_position: 2
 toc_max_heading_level: 2
 ---
-
 # Quick Start (AWS)
 
 **Deploying FormKiQ into your AWS account with CloudFormation.**
 
 Deploy and configure FormKiQ in your AWS account in approximately 15 minutes using AWS CloudFormation. The automated setup process provisions and connects all required resources through a streamlined installation workflow.
+
+import Head from '@docusaurus/Head';
+
+<Head>
+
+  {/* VideoObject Schema for the embedded YouTube video */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Deploying FormKiQ Core's Document Management Platform into Your AWS Account",
+      "description": "Learn how to deploy and configure FormKiQ in your AWS account in approximately 15 minutes using AWS CloudFormation.",
+      "thumbnailUrl": "https://i.ytimg.com/vi/G5R6ldbHYKs/hqdefault.jpg",
+      "uploadDate": "2023-01-01T08:00:00+08:00",
+      "contentUrl": "https://www.youtube.com/watch?v=G5R6ldbHYKs",
+      "embedUrl": "https://www.youtube.com/embed/G5R6ldbHYKs"
+    })}
+  </script>
+
+  {/* HowTo Schema for the installation process */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Deploy FormKiQ in Your AWS Account",
+      "description": "Step-by-step guide to deploy FormKiQ document management platform in your AWS account using CloudFormation.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Check Prerequisites",
+          "text": "Ensure you have an AWS account with administrator access, AWS Lambda Concurrent Executions, and AWS Service Role for ECS enabled."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select Installation Link",
+          "text": "Choose the installation link for your AWS region to launch the CloudFormation template."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Configure Stack",
+          "text": "Set stack name and configure installation parameters including admin email and app environment."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Create Stack",
+          "text": "Review configuration and create the CloudFormation stack."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Configure Admin Password",
+          "text": "Check admin email for verification link and set admin password."
+        }
+      ]
+    })}
+  </script>
+
+</Head>
 
 <div
   style={{
