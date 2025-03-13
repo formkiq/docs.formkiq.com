@@ -1,0 +1,320 @@
+---
+id: get-locale-resource-item
+title: "Get Resource Item by Locale"
+description: "Returns the resource item"
+sidebar_label: "Get Resource Item by Locale"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Resource Item by Locale"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sites/{siteId}/locales/{locale}/resourceItems/{itemKey}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the resource item
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"path","description":"Site Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"locale","in":"path","description":"Site Locale (ISO 639 / ISO 3166)","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"itemKey","in":"path","description":"Item Key (MUST be URL‑encoded)","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                resourceItem
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 ResourceItem
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <SchemaItem
+                              collapsible={false}
+                              name={"itemType"}
+                              required={false}
+                              schemaName={"LocaleResourceType (string)"}
+                              qualifierMessage={"**Possible values:** [`INTERFACE`, `SCHEMA`, `CLASSIFICATION`]"}
+                              schema={{"type":"string","description":"Type of Locale Resource","enum":["INTERFACE","SCHEMA","CLASSIFICATION"],"title":"LocaleResourceType"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"localizedValue"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Localized Value"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"interfaceKey"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Interface Key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"itemKey"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Item Key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"attributeKey"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Attribute Key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"allowedValue"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Resource value"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"classificationId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Classification Id"}}
+                            >
+                              
+                            </SchemaItem>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"resourceItem\": {\n    \"itemType\": \"INTERFACE\",\n    \"localizedValue\": \"string\",\n    \"interfaceKey\": \"string\",\n    \"itemKey\": \"string\",\n    \"attributeKey\": \"string\",\n    \"allowedValue\": \"string\",\n    \"classificationId\": \"string\"\n  }\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

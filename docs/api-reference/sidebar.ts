@@ -106,6 +106,54 @@ const sidebar: SidebarsConfig = {
           label: "Delete API Key",
           className: "api-method delete",
         },
+        {
+          type: "doc",
+          id: "api-reference/get-locales",
+          label: "Get Locales",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-locale",
+          label: "Add Locale",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/delete-locale",
+          label: "Delete Locale",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-locale-resource-items",
+          label: "Get Resource Items by Locale",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-locale-resource-item",
+          label: "Add Locale Resource Item",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-locale-resource-item",
+          label: "Get Resource Item by Locale",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/set-locale-resource-item",
+          label: "Set Locale Resource Item",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "api-reference/delete-locale-resource-item",
+          label: "Delete Local Resource Item",
+          className: "api-method delete",
+        },
       ],
     },
     {
@@ -236,6 +284,12 @@ const sidebar: SidebarsConfig = {
           type: "doc",
           id: "api-reference/delete-document",
           label: "Delete document",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "api-reference/purge-document",
+          label: "Purge document",
           className: "api-method delete",
         },
         {
@@ -848,30 +902,6 @@ const sidebar: SidebarsConfig = {
           type: "doc",
           id: "api-reference/add-webhook-tag",
           label: "Add webhook tag",
-          className: "api-method post",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Onlyoffice",
-      items: [
-        {
-          type: "doc",
-          id: "api-reference/only-office-document-edit",
-          label: "Edit onlyoffice document",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api-reference/only-office-document-new",
-          label: "Create onlyoffice document",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api-reference/only-office-document-save",
-          label: "Save onlyoffice document",
           className: "api-method post",
         },
       ],
