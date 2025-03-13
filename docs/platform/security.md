@@ -39,6 +39,8 @@ There are 3 APIs deployed with FormKiQ providing authorization using:
 
 ### JWT Token
 
+![JWT Authorization Architecture](./img/formkiq_jwt_authorization.png)
+
 A JWT Token can be obtained via a few different methods:
 
 * [FormKiQ Console](/docs/platform/security#formkiq-console)
@@ -123,6 +125,8 @@ The results from the command should be as follows.
 
 ### AWS IAM
 
+![IAM Authorization Architecture](./img/formkiq_iam_authorization.png)
+
 Endpoints secured with IAM require that your API requests be signed using AWS Signature Version 4. This method leverages using AWS credentials.
 
 [More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
@@ -144,6 +148,8 @@ Create user Access Key and generate AccessKey/SecretKey.
 You an now use the AccessKey / SecretKey to call the FormKiQ API. 
 
 ### API Key
+
+![API Key Authorization Architecture](./img/formkiq_api_key_authorization.png)
 
 1. Log in to FormKiQ Console
 2. Navigate to **Administration > API Keys**
