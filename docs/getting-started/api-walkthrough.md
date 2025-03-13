@@ -15,6 +15,30 @@ Learn the fundamentals of using the FormKiQ Document API:
 * API access credentials (JWT token, API key, or AWS IAM credentials)
 * API client (Postman recommended)
 
+<div
+  style={{
+    position: "relative",
+    paddingBottom: "56.25%", // 16:9 aspect ratio
+    height: 0,
+    overflow: "hidden"
+  }}
+>
+  <iframe
+    src="https://www.youtube.com/embed/kJMr1U9pZHA"
+    title="How to Set Up Authentication for FormKiQ: Complete Guide to JWT, IAM, and API Key Methods"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%"
+    }}
+  />
+</div>
+
 ## Postman Public API Network
 
 Access the [FormKiQ API on the Postman Public API network](https://www.postman.com/formkiq/formkiq-api/overview) for immediate testing and integration.
