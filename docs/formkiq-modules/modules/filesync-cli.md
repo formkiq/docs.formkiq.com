@@ -34,7 +34,7 @@ FileSync CLI supports multiple FormKiQ installations
 1. Create a new CloudFormation stack for FileSync CLI
 2. Configure stack parameters:
    - Stack Name
-   - Comma-delimited list of FormKiQ DocumentsTableName(s)
+   - Comma-delimited list of FormKiQ DocumentsTable ARN(s)
 
 ![FileSync CLI Stack Details](./img/cf-filesync-cli-stack-details.png)
 
