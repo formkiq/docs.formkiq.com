@@ -12,6 +12,25 @@ module.exports = function redirectPlugin(context, options) {
         });
 
         addRoute({
+          path: '/docs/platform/backup/',
+          component: '@site/src/components/redirects/backup-and-recovery',
+          exact: true
+        });
+
+
+        addRoute({
+          path: '/docs/platform/backup/dynamodb',
+          component: '@site/src/components/redirects/backup-and-recovery',
+          exact: true
+        });
+
+        addRoute({
+          path: '/docs/platform/backup/s3',
+          component: '@site/src/components/redirects/backup-and-recovery',
+          exact: true
+        });
+
+        addRoute({
           path: '/docs/pro-and-enterprise/modules/custom-domains',
           component: '@site/src/components/redirects/custom-domains',
           exact: true
