@@ -365,5 +365,5 @@ FormKiQ's flexible architecture allows for continuous evolution of reporting cap
 
 - [Amazon QuickSight Documentation](https://docs.aws.amazon.com/quicksight/)
 - [AWS CloudWatch Logs Insights Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html)
-- [FormKiQ API Documentation](/api)
+- [FormKiQ API Documentation](/docs/category/formkiq-api)
 - [DynamoDB Analytics Best Practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-analytics.html)
