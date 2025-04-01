@@ -54,6 +54,30 @@ Available Collections:
 FormKiQ's API uses OpenAPI specification, available in the [FormKiQ Core GitHub repository](https://github.com/formkiq/formkiq-core/tree/master/docs/openapi).
 :::
 
+<div
+  style={{
+    position: "relative",
+    paddingBottom: "56.25%", // 16:9 aspect ratio
+    height: 0,
+    overflow: "hidden"
+  }}
+>
+  <iframe
+    src="https://www.youtube.com/embed/_qM6CDJfFII"
+    title="Document Management Made Easy: A FormKiQ API Walkthrough using Postman"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%"
+    }}
+  />
+</div>
+
 ## Acquire Access Token
 
 Depending on which Postman collection you want to use, authentication requires either acquiring a [JWT token](/docs/platform/security#jwt-token), setting up [AWS IAM Authentication](/docs/platform/security#aws-iam), or creating and providing an [API Key](/docs/platform/security#api-key)
