@@ -955,6 +955,82 @@ Api Key(s) allow access to API.
 | permissions | List of API Key permissions (read/write/delete) |
 | inserteddate | Inserted Date |
 
+## Entity Event Sourcing
+
+Storage of entity events
+
+### Entity Event Sourcing Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "entityevent#" + entityType + "#" entityId |
+| SK | "ev#" + Timestamp  |
+| GSI1PK | "entityevent#" + entityType + "#" entityId |
+| GSI1SK | "ev#" + Type + "#" + Timestamp  |
+| GSI2PK | "entityevent#userId" + userId |
+| GSI2SK | "ev# + Timestamp  |
+
+### Entity Event Sourcing Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| entityType | Type of Entity |
+| entityId | Entity Identifier |
+| type | Event Type (HTTP_GET, HTTP_PUT, HTTP_PATCH, HTTP_POST, HTTP_DELETE) |
+| payload | Request Payload |
+| metadata | Request Metadata |
+| inserteddate | Inserted Date |
+| userId | Requested User |
+| TimeToLive | Record Time to Live |
+
+## Entities Types
+
+Storage of entity types
+
+### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "entityType#" + documentId |
+| SK | "entityType"  |
+| GSI1PK | "entityType#" |
+| GSI1SK | "entityType#" + namespace + "#" + name + "#"  |
+
+### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Entity Type Identifier |
+| namespace | Entity Type Namespace |
+| name | Entity Type Name |
+| inserteddate | Inserted Date |
+
+## Entity
+
+Storage of entity
+
+### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "entity#" + entityTypeId + "#" documentId |
+| SK | "entity"  |
+| GSI1PK | "entity#" + entityTypeId |
+| GSI1SK | "entity#" + name + "#" + documentId  |
+
+### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Entity Identifier |
+| entityTypeId | Entity Type Identifier |
+| name | Entity Name |
+| inserteddate | Inserted Date |
+
+:::note
+Entity attributes metadata are stored with the prefix of attr#
+:::
+
 ## Locale
 
 The storing of Locale information.
