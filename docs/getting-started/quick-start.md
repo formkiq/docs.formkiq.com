@@ -149,7 +149,9 @@ Request through the Service Quotas Dashboard:
 | ap-south-1 | Mumbai | [Request Increase](https://ap-sout-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ap-southeast-1 | Singapore | [Request Increase](https://ap-southeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ap-southeast-2 | Sydney | [Request Increase](https://ap-southeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ap-northeast-1 | Tokyo | [Request Increase](https://ap-northeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ap-northeast-2 | Seoul | [Request Increase](https://ap-northeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| af-south-1 | Cape Town | [Request Increase](https://af-south-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | sa-east-1 | São Paulo | [Request Increase](https://sa-east-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 
 For more information, see the [AWS Tutorial on Requesting a Quota Increase](https://aws.amazon.com/getting-started/hands-on/request-service-quota-increase/).
@@ -197,7 +199,9 @@ Select your AWS region from the installation links below:
 | ap-south-1 | Mumbai | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.17.0/template.yaml) |
 | ap-southeast-1 | Singapore | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.17.0/template.yaml) |
 | ap-southeast-2 | Sydney | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.17.0/template.yaml) |
+| ap-northeast-1 | Tokyo | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-northeast-1.s3.amazonaws.com/1.17.0/template.yaml) |
 | ap-northeast-2 | Seoul | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.17.0/template.yaml) |
+| af-south-1 | Cape Town | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=af-south-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-af-south-1.s3.amazonaws.com/1.17.0/template.yaml) |
 | sa-east-1 | São Paulo | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.17.0/template.yaml) |
 
 :::note
@@ -303,7 +307,9 @@ Select your region's VPC template:
 | ap-south-1 | Mumbai | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.17.0/vpc.yaml) |
 | ap-southeast-1 | Singapore | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.17.0/vpc.yaml) |
 | ap-southeast-2 | Sydney | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.17.0/vpc.yaml) |
+| ap-northeast-1 | Tokyo | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-northeast-1.s3.amazonaws.com/1.17.0/vpc.yaml) |
 | ap-northeast-2 | Seoul | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.17.0/vpc.yaml) |
+| af-south-1 | Cape Town | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=af-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-af-south-1.s3.amazonaws.com/1.17.0/vpc.yaml) |
 | sa-east-1 | São Paulo | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.17.0/vpc.yaml) |
 
 ### Create CloudFormation Stack
