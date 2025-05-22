@@ -135,7 +135,6 @@ FormKiQ's migration capabilities continue to evolve. For the latest migration to
 ## Additional Resources
 
 - [FormKiQ API Documentation](/docs/category/formkiq-api)
-- [FormKiQ CLI Documentation](/docs/platform/cli)
 - [Document Storage Architecture](/docs/platform/document_storage)
 - [FKB64 File Specification](/docs/platform/document_storage#fkb64-file-specification)
 - [DynamoDB Schema Documentation](/docs/platform/database_schema)
