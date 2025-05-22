@@ -112,6 +112,8 @@ The FKB64 (FormKiQ Base64) format combines document content and metadata into a 
 
 The FKB64 format encodes both document content and metadata in a single Base64-encoded JSON structure. The format includes sections for document content (Base64-encoded), content type, filename, and comprehensive metadata including path, attributes, and tags.
 
+More information on the file structure can be found here: [FKB64 File Specification](/docs/platform/document_storage#fkb64-file-specification)
+
 ### Creating FKB64 Files
 
 FKB64 files can be created programmatically by reading document content, encoding it as Base64, combining it with structured metadata, and then encoding the entire JSON structure as Base64. This process involves careful handling of file types, metadata mapping, and proper encoding to ensure compatibility with FormKiQ's processing pipeline.
