@@ -209,6 +209,8 @@ Schema for Document Sync Events.
 |------------|---------|
 | PK | "doc#" + documentId |
 | SK | "syncs#" + yyyy-MM-dd'T'HH:mm:ssZ |
+| GSI1PK | "doc#syncs#" + service + "#" + status + "#" |
+| GSI1SK | "sync#" + type + "#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId |
 
 #### Entity Attributes
 
