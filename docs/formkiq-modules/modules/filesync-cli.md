@@ -238,3 +238,114 @@ Response Example:
   ]
 }
 ```
+
+### Import CSV
+
+The CLI includes a built-in CSV importer for quickly bulk-loading:
+
+- **Attributes**  
+- **Documents**  
+- **Document Content**  
+- **Document Attributes**  
+
+#### Import Attributes
+
+Bulk define or update the metadata fields (attributes) that can later be applied to your documents.
+
+* AttributeKey: the unique key for the attribute
+
+* DataType: data type of the attribute (e.g. STRING, NUMBER, BOOLEAN, KEY_ONLY)
+
+* Type: classification of the attribute (STANDARD, GOVERNANCE, OPA)
+
+##### CSV Format
+
+```csv
+AttributeKey,DataType,Type
+status,STRING,STANDARD
+priority,NUMBER,STANDARD
+...
+```
+
+##### Command
+
+```bash
+fk --import-csv --attributes <attributes-file.csv>
+```
+
+#### Import Documents
+
+Bulk register documents (by UUID, path, content type, and optional deep-link) into FormKiQ.
+
+* DocumentId: unique UUID identifier for the document
+
+* Path: virtual path within FormKiQ (must start with /)
+
+* ContentType: MIME type of the document
+
+* DeepLink: (optional) URL to access the document directly
+
+##### CSV Format
+
+```csv
+DocumentId,Path,ContentType,DeepLink
+550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,
+123e4567-e89b-12d3-a456-426614174000,/reports/2025/Q1.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+...
+```
+
+##### Command
+
+```bash
+fk --import-csv --documents <documents-file.csv>
+```
+
+#### Import Document Contents
+
+Bulk upload or link the actual binary content of your documents into FormKiQ from your local filesystem or an S3 bucket.
+
+* DocumentId: must match an existing document’s UUID
+
+* Location: local filesystem path or S3 URI to the document file
+
+##### CSV Format
+
+```csv
+DocumentId,Location
+550e8400-e29b-41d4-a716-446655440000,/path/to/file.pdf
+123e4567-e89b-12d3-a456-426614174000,s3://my-bucket/documents/report.xlsx
+...
+```
+
+##### Command
+
+```bash
+fk --import-csv --document-contents <document-contents-file.csv>
+```
+
+#### Import Document Attributes
+
+Bulk assign attribute values to existing documents.
+
+* DocumentId: must match an existing document’s UUID
+
+* AttributeKey: must match a defined attribute
+
+* StringValue / NumberValue / BooleanValue: supply exactly one value type per row; leave the others blank
+
+##### CSV Format
+
+```csv
+DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue
+550e8400-e29b-41d4-a716-446655440000,status,approved,,
+550e8400-e29b-41d4-a716-446655440000,priority,,5,
+123e4567-e89b-12d3-a456-426614174000,reviewed,,,
+123e4567-e89b-12d3-a456-426614174000,isPublished,,,true
+...
+```
+
+##### Command
+
+```bash
+fk --import-csv --document-attributes <doc-attrs-file.csv>
+```
