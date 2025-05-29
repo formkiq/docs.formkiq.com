@@ -108,6 +108,27 @@ fk --configure --access-key ACCESS_KEY \
                --profile dev
 ```
 
+:::note
+As of 1.6.0
+--app-environment, --aws-profile have been added
+:::
+
+Specify FormKiQ App Environment:
+```bash
+fk --configure --access-key ACCESS_KEY \
+               --secret-key ACCESS_SECRET \
+               --region AWS_REGION \
+               --app-environment FORMKIQ_APP_ENVIRONMENT
+```
+
+Specify FormKiQ App Environment and using AWS Profile:
+```bash
+fk --configure --aws-profile AWS_PROFILE \
+               --region AWS_REGION \
+               --app-environment FORMKIQ_APP_ENVIRONMENT
+```
+
+
 List configurations:
 ```bash
 fk --show
