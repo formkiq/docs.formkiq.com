@@ -319,6 +319,12 @@ Bulk register documents (by UUID, path, content type, and optional deep-link) in
 
 * DocumentId: unique UUID identifier for the document
 
+:::note
+For DocumentId, you can create any UUID v4 for use in this column (UUID v4 is supported by all major programming languages). That ID will be imported into FormKiQ as FormKiQ's `documentId` property; this is how you can prevent duplicate uploads when re-processing the CSV)
+
+You can also generate a list of UUIDs in advance using a tool such as https://www.uuidgenerator.net/
+:::
+
 * Path: virtual path within FormKiQ (must start with /)
 
 * ContentType: MIME type of the document
