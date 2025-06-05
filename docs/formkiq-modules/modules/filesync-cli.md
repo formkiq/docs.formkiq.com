@@ -31,6 +31,25 @@ FileSync CLI supports multiple FormKiQ installations
 
 ### CloudFormation Setup
 
+:::note
+You can setup the CloudFormation and use your own access keys if you have the following IAM permissions:
+- execute-api:Invoke
+- kms:Encrypt
+- kms:Decrypt
+- kms:GenerateDataKey
+- cloudformation:ListStacks
+- cloudformation:DescribeStacks
+
+The following IAM permissions to the FormKiQ DynamoDb tables
+- dynamodb:BatchGetItem
+- dynamodb:DeleteItem
+- dynamodb:GetItem
+- dynamodb:Query
+- dynamodb:Scan
+- dynamodb:UpdateItem
+- dynamodb:BatchWriteItem
+:::
+
 1. Create a new CloudFormation stack for FileSync CLI
 2. Configure stack parameters:
    - Stack Name
