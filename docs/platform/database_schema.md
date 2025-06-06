@@ -74,7 +74,7 @@ The Document Entity consists of attributes that capture essential information ab
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "document" |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
@@ -104,7 +104,7 @@ A Child Document Entity includes attributes that capture details specific to the
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "document#" + childDocumentId |
 
 #### Entity Attributes
@@ -122,7 +122,7 @@ A "soft delete" Document is moved into a different PK namespace than all other d
 
 | Attributes | Format |
 |------------|---------|
-| PK | "softdelete#doc#" |
+| PK | "softdelete#docs#" |
 | SK | "softdelete#document" + documentId |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
@@ -149,7 +149,7 @@ Contains all information about any optical character recognition (OCR) data for 
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "ocr#" |
 
 #### Entity Attributes
@@ -173,7 +173,7 @@ Schema for Document Actions.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "action#" + idx + "#" + type |
 | GSI1PK | "action#" + type + "#" + queueId |
 | GSI1SK | "action#" + documentId + "#" + yyyy-MM-dd'T'HH:mm:ssZ |
@@ -207,7 +207,7 @@ Schema for Document Sync Events.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "syncs#" + yyyy-MM-dd'T'HH:mm:ssZ |
 | GSI1PK | "doc#syncs#" + service + "#" + status + "#" |
 | GSI1SK | "sync#" + type + "#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId |
@@ -233,7 +233,7 @@ Document Tag(s) entity.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "tags#" + tagKey |
 | GSI1PK | "tag#" + tagKey + "#" + tagValue |
 | GSI1SK | "yyyy-MM-dd'T'HH:mm:ssZ" + "#" + documentId |
@@ -258,7 +258,7 @@ Document Tag(s) entity with multiple values.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "tags#" + tagKey + "#idx" + index |
 | GSI1PK | "tag#" + tagKey + "#" + tagValue |
 | GSI1SK | "yyyy-MM-dd'T'HH:mm:ssZ" + "#" + documentId |
@@ -284,11 +284,11 @@ Document Attribute entity.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "attr#" + key + "#" + value |
 | GSI1PK | "doc#attr#" + key |
 | GSI1SK | value |
-| GSI2PK | "doc#" + documentId  |
+| GSI2PK | "docs#" + documentId  |
 | GSI2SK | "attr#" + valueType + "#" + key |
 
 #### Entity Attributes
@@ -311,7 +311,7 @@ Document Publication entity.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "publication" |
 
 #### Entity Attributes
@@ -344,7 +344,7 @@ The main document user activity tracking record. Depending on the type of docume
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ |
 | GSI1PK | "activity#user#" + username |
 | GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
@@ -370,7 +370,7 @@ Document Metadata refers to the metadata information attached to the document.
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "doc#" + yyyy-MM-dd'T'HH:mm:ss |
 
 #### Entity Attributes
@@ -392,7 +392,7 @@ Document Version Tracking refers to the process of recording and managing change
 
 | Attributes | Format |
 |------------|---------|
-| PK | "doc#" + documentId |
+| PK | "docs#" + documentId |
 | SK | "document#" + yyyy-MM-dd'T'HH:mm:ss |
 
 #### Entity Attributes
