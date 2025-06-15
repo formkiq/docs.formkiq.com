@@ -468,3 +468,7 @@ Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront avai
 ## API Walkthrough and Reference
 
 To try out the API, try our [API Walkthrough](/docs/getting-started/api-walkthrough/). You can also check out the [FormKiQ API Reference](/docs/category/api-reference) for more endpoints you can try out.
+
+## CloudFormation Troubleshooting
+
+If your stack fails to complete, follow our [CloudFormation Troubleshooting](/docs/getting-started/cloudformation-troubleshooting/) guide.
