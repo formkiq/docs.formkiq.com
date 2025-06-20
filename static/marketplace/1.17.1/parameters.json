@@ -1,0 +1,163 @@
+{
+  "parameters":
+  [
+    {
+      "id": "ConsoleWafACLId",
+      "type": "string",
+      "tabGroup": "Security",
+      "label": "Console WAF ACL ARN"
+    },
+    {
+      "id": "AdminEmail",
+      "type": "email",
+      "required": true,
+      "label": "Administrator Email",
+      "tabGroup": "General"
+    },
+    {
+      "id": "AppEnvironment",
+      "type": "string",
+      "required": true,
+      "tabGroup": "General",
+      "label": "App Environment (dev/staging/prod)"
+    },
+    {
+      "id": "EnablePublicUrls",
+      "type": "select",
+      "values":
+      [
+        "false",
+        "true"
+      ],
+      "value": "false",
+      "tabGroup": "Other",
+      "label": "Enable Public URLs"
+    },
+    {
+      "id": "PasswordMinimumLength",
+      "type": "number",
+      "value": "8",
+      "tabGroup": "Password Policy",
+      "label": "Min Password Length"
+    },
+    {
+      "id": "PasswordRequireLowercase",
+      "type": "select",
+      "values":
+      [
+        "false",
+        "true"
+      ],
+      "value": "false",
+      "tabGroup": "Password Policy",
+      "label": "Require Lowercase"
+    },
+    {
+      "id": "PasswordRequireNumbers",
+      "type": "select",
+      "values":
+      [
+        "false",
+        "true"
+      ],
+      "value": "false",
+      "tabGroup": "Password Policy",
+      "label": "Require Numbers"
+    },
+    {
+      "id": "PasswordRequireSymbols",
+      "type": "select",
+      "values":
+      [
+        "false",
+        "true"
+      ],
+      "value": "false",
+      "tabGroup": "Password Policy",
+      "label": "Require Symbols"
+    },
+    {
+      "id": "PasswordRequireUppercase",
+      "type": "select",
+      "values":
+      [
+        "false",
+        "true"
+      ],
+      "value": "false",
+      "tabGroup": "Password Policy",
+      "label": "Require Uppercase"
+    },
+    {
+      "id": "LogRetentionInDays",
+      "type": "select",
+      "values":
+      [
+        "1",
+        "3",
+        "5",
+        "7",
+        "14",
+        "30",
+        "60",
+        "90",
+        "120",
+        "150",
+        "180",
+        "365",
+        "400",
+        "545",
+        "731",
+        "1096",
+        "1827",
+        "2192",
+        "2557",
+        "2922",
+        "3288",
+        "3653"
+      ],
+      "value": "90",
+      "tabGroup": "Logging",
+      "label": "Log Retention (days)"
+    },
+    {
+      "id": "LogFormat",
+      "type": "select",
+      "values":
+      [
+        "Text",
+        "JSON"
+      ],
+      "value": "Text",
+      "tabGroup": "Logging",
+      "label": "Log Format"
+    },
+    {
+      "id": "LogLevelApplication",
+      "type": "select",
+      "values":
+      [
+        "TRACE",
+        "DEBUG",
+        "INFO",
+        "ERROR"
+      ],
+      "value": "INFO",
+      "tabGroup": "Logging",
+      "label": "Application Log Level"
+    },
+    {
+      "id": "LogLevelSystem",
+      "type": "select",
+      "values":
+      [
+        "DEBUG",
+        "INFO",
+        "WARN"
+      ],
+      "value": "INFO",
+      "tabGroup": "Logging",
+      "label": "System Log Level"
+    }
+  ]
+}
