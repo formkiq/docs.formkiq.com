@@ -5,4 +5,5 @@ default :
 
 deploy : default
 	aws s3 sync build s3://${S3_BUCKET}/docs
+	./redirect-upload.sh ${S3_BUCKET}
 	aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --path "/*"
