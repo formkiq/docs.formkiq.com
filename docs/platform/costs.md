@@ -72,7 +72,7 @@ FormKiQ automatically determines the optimal OCR method based on document type:
 [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service) provides enhanced search capabilities. Costs vary based on configuration and instance commitment (On-Demand vs Reserved).
 
 :::note
-See [Sizing Cluster](/docs/add-on-modules/modules/enhanced-fulltext-document-search#amazon-opensearch-service) for detailed requirements
+See [Sizing Cluster](/docs/formkiq-modules/modules/enhanced-fulltext-document-search#opensearch-configuration) for detailed requirements
 :::
 
 ### High Availability Configurations

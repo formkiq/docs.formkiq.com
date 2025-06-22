@@ -57,7 +57,7 @@ For production deployments, we recommend:
 :::
 
 #### Core Parameters
-Review and configure the standard FormKiQ parameters as described in the [Quick Start Guide](/docs/getting-started/quick-start#set-admin-email).
+Review and configure the standard FormKiQ parameters as described in the [Quick Start Guide](/docs/getting-started/quick-start#required-parameters).
 
 #### Additional Parameters
 

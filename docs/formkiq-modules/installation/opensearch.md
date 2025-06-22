@@ -9,7 +9,7 @@ title: OpenSearch
 
 1. **Required Installations**
    - FormKiQ Advanced/Enterprise
-   - [VPC Configuration](/docs/getting-started/quick-start#create-vpc)
+   - [VPC Configuration](/docs/getting-started/quick-start#install-vpc)
 
 2. **Service Role Setup**
    Run the following AWS CLI command to enable OpenSearch service role:
