@@ -344,7 +344,7 @@ The main document user activity tracking record. Depending on the type of docume
 
 | Attributes | Format |
 |------------|---------|
-| PK | "docs#" + documentId |
+| PK | "doc#" + documentId |
 | SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ |
 | GSI1PK | "activity#user#" + username |
 | GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
