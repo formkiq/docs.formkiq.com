@@ -287,7 +287,7 @@ Review your configuration and click **Submit**.
 ![FormKiQ Console Home](./img/fk-console-home.png)
 
 :::note
-AWS GovCloud (US) requires [manual admin user creation](/docs/platform/document_console#creating-the-initial-console-user).
+AWS GovCloud (US) requires [manual admin user creation](/docs/platform/document_console#initial-setup).
 :::
 
 ## Install VPC
@@ -463,7 +463,7 @@ Once the FormKiQ Core stack has been deployed, you will be able to find your API
 
 ### FormKiQ Console for AWS GovCloud (US)
 
-Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-image).
+Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-deployment).
 
 ## API Walkthrough and Reference
 

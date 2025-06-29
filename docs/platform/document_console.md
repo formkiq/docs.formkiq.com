@@ -112,7 +112,7 @@ In environments like AWS GovCloud (US) West where automatic setup isn't availabl
 
 ### Creating Initial Admin User
 
-1. Follow the instructions in the [API Security section](/docs/platform/api_security#add-user-to-site) to create your first user
+1. Follow the instructions in the [API Security section](/docs/platform/security#add-user-to-site) to create your first user
 2. The user will receive a welcome email with a password setup link
 3. After setting the password, this user can access the console and create additional users
 
