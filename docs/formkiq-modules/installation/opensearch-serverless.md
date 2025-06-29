@@ -8,8 +8,8 @@ title: OpenSearch Serverless
 ## Prerequisites
 
 **Required Installations**
-   - [FormKiQ Advanced/Enterprise](https://formkiq.com/pricing)
-   - [VPC Configuration](/docs/getting-started/quick-start#install-vpc)
+* [FormKiQ Advanced/Enterprise](https://formkiq.com/pricing)
+* [VPC Configuration](/docs/getting-started/quick-start#install-vpc)
 
 ## Create Stack
 
@@ -20,7 +20,7 @@ title: OpenSearch Serverless
 
 ## Stack Parameters
 
-![CloudFormation Stack Parameters](./img/cf-opensearch-serverless-parameters.png)
+![CloudFormation Opensearch Serverless Stack Parameters](./img/cf-opensearch-serverless-parameters.png)
 
 ### Stack Name
 
@@ -70,6 +70,9 @@ Determines whether redundant active replicas are enabled for high availability.
 * ENABLED – Recommended for production (better availability, higher cost)
 * DISABLED – Cost-optimized for dev/test (less availability)
 
+### VpcStackName
+
+The name of your FormKiQ CloudFormation VPC template stack that created your VPC.
 
 ## Post-Installation Steps
 
