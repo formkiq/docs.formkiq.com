@@ -1,6 +1,6 @@
 ---
-sidebar_position: 5
-title: OpenSearch
+sidebar_position: 7
+title: OpenSearch (Legacy)
 ---
 
 # OpenSearch (Amazon OpenSearch Service)
