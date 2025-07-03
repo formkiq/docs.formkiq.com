@@ -9,6 +9,7 @@
     },
     {
       "id": "AdminEmail",
+      "disableOnUpdate": true,
       "type": "email",
       "required": true,
       "label": "Administrator Email",
@@ -17,6 +18,7 @@
     {
       "id": "AppEnvironment",
       "type": "string",
+      "disableOnUpdate": true,
       "required": true,
       "tabGroup": "General",
       "label": "App Environment (dev/staging/prod)"

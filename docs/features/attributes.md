@@ -33,6 +33,7 @@ FormKiQ supports the following data types for attributes:
 FormKiQ offers two types of attributes:
 
 - **STANDARD**: General-purpose attributes for common metadata needs
+- **GOVERNANCE**: Same as Standard except can only be added, edited, and deleted through GOVERN or ADMIN permissions
 - **OPA (Open Policy Agent)**: Specialized attributes for implementing policy-based access control
 
 ## Common Use Cases
