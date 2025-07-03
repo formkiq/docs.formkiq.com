@@ -78,6 +78,14 @@ The Document Relationship feature enables users to create logical links between 
 7. **TEMPLATE**: Templates, such as those used in document generation
 8. **DATASOURCE**: Datasources, such as those used in document generation
 
+## Deep Links / External Documents
+
+In addition to documents that are added directly into FormKiQ's object storage (S3), you can also add deep-linked / external documents as well. This can include any document accessible by URL, including S3 objects (using the S3:// protocol).
+
+You can add organize these deep-linked documents with their own FormKiQ path, and can create attributes as well.
+
+Some limitations exist, as FormKiQ does not have access to process those documents. You can use one of [FormKiQ's Document Gateways Add-On Modules](/docs/formkiq-modules/modules/document-gateways) for stronger integration with documents in Microsoft 365, MS SharePoint, and Google Workspace.
+
 ## Document Management Features
 
 ### Document Actions
