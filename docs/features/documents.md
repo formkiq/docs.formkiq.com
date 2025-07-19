@@ -321,9 +321,55 @@ Each event published to Amazon SNS follows a consistent JSON schema. The payload
 }
 ```
 
+## Document Checksum
+
+FormKiQ supports Amazon S3’s checksum feature which provides a way to ensure data integrity during uploading of documents. When you upload an object to S3, you can specify a checksum using one of supported SHA-1, or SHA-256. S3 will validate the checksum upon receipt. If the checksum does not match the file, S3 will return a **400** status code.
+
+### SHA-256 Example
+
+Using the *POST /documents/upload* API
+
+Generates an S3 Presigned URL with SHA-256 checksum validation to ensure data integrity.
+
+#### Request Body
+
+```json
+{
+  "path": "mydoc.txt",
+  "checksum": "6719766fe1a874fcf79c636a1be3ae37d0bf84ca08032c26fbd63f3fd837cda3",
+  "checksumType": "SHA256"
+}
+```
+
+#### Response
+
+The API response will return checksum headers that need to be sent along with the uploaded file.
+
+```json
+{
+    "headers": {
+        "x-amz-checksum-sha256": "Zxl2b+GodPz3nGNqG+OuN9C/hMoIAywm+9Y/P9g3zaM=",
+        "x-amz-sdk-checksum-algorithm": "SHA256"
+    },
+    "documentId": "09c10219..",
+    "url": "https:// ..."
+}
+```
+
+#### Upload File to S3 using PUT
+
+Use the url and headers from the response to upload your file directly to Amazon S3 using a PUT request.
+
+```bash
+curl -X PUT "<url from response>" \
+  -H "x-amz-checksum-sha256: Zxl2b+GodPz3nGNqG+OuN9C/hMoIAywm+9Y/P9g3zaM=" \
+  -H "x-amz-sdk-checksum-algorithm: SHA256" \
+  --upload-file ./mydoc.txt
+```
+
 ## Best Practices
 
-### 1. Document Organization
+### Document Organization
 
 **Implement consistent naming conventions:**
 - Standardize file naming: `[ProjectCode]-[DocumentType]-[YYYY-MM-DD]-[Version]`
@@ -383,7 +429,7 @@ Each event published to Amazon SNS follows a consistent JSON schema. The payload
   }
   ```
 
-### 2. Version Control
+### Version Control
 
 **Leverage versioning and consider specific attributes for critical documents:**
 - Legal contracts
@@ -412,7 +458,7 @@ Each event published to Amazon SNS follows a consistent JSON schema. The payload
 - Consider cross-region replication for disaster recovery
 - Document the restoration process for emergency situations
 
-### 3. Security
+### Security
 
 **Configure appropriate access controls:**
 - Implement role-based permissions:

@@ -324,6 +324,69 @@ Document Publication entity.
 | documentId | Document Identifier |
 | userId | Create by user |
 
+## Resource User Activity
+
+User Activities refers to the tracking and logging of actions performed on document/entities within a system.
+
+These activities typically include operations such as CREATE, VIEW, DELETE, and MODIFY, allowing administrators or users to monitor the lifecycle and interactions with documents. 
+
+This tracking provides visibility into who accessed or altered a document, when the action occurred, and what changes were made. Document Activities are crucial for auditing, security, compliance, and overall document management, ensuring accountability and transparency in document usage.
+
+:::note
+These attributes are stored in the "audit" DynamoDB table.
+:::
+
+### EntityType Activity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "entityType#" + entityTypeId |
+| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityTypeId |
+| GSI1PK | "activity#user#" + username |
+| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityTypeId |
+| GSI2PK | "activity#" + yyyy-MM-dd |
+| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityTypeId |
+
+### Entities Activity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "entity#" + entityTypeId + "#" documentId |
+| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityId |
+| GSI1PK | "activity#user#" + username |
+| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityId |
+| GSI2PK | "activity#" + yyyy-MM-dd |
+| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityId |
+
+### Document Activity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "doc#" + documentId |
+| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
+| GSI1PK | "activity#user#" + username |
+| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
+| GSI2PK | "activity#" + yyyy-MM-dd |
+| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
+
+### Activity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| siteId | Site Identifier |
+| resource | Activity Resource (document, entity, entityType, etc) |
+| type | Type of User Activity (view, add, change, delete) |
+| status | Activity Status (COMPLETE, FAILED, UNAUTHORIZED) |
+| sourceIpAddress | Source Ip Address for activity request |
+| s3Key | S3 Log Key for Activity |
+| source | Source of activity request |
+| userId | Create by user |
+| documentId | Document Identifier |
+| entityTypeId | EntityType Identifier |
+| entityId | Entity Identifier |
+| changeSet | Map of new / old value by key |
+| inserteddate | Inserted Date |
+
 ## Document User Activity
 
 Document User Activities refers to the tracking and logging of actions performed on documents within a system.
@@ -662,6 +725,7 @@ Document folder / file listing index.
 | inserteddate | Inserted Date |
 | lastModifiedDate | Last Modified Date |
 | userId | Create by user |
+| "role#" + roleName | Permissions of Role |
 
 ### Queue
 
@@ -955,7 +1019,7 @@ Api Key(s) allow access to API.
 | permissions | List of API Key permissions (read/write/delete) |
 | inserteddate | Inserted Date |
 
-## Entity Event Sourcing
+## Entity Event Sourcing (TODO REMOVE)
 
 Storage of entity events
 
