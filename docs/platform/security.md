@@ -161,29 +161,58 @@ You an now use the AccessKey / SecretKey to call the FormKiQ API.
 
 ## Role-Based Access Control (RBAC)
 
-FormKiQ supports multi-tenancy environments by defining user group(s) and then linking these groups to the different FormKiQ site(s). Each user can be associated with one or more groups, reflecting their role or responsibilities within the platform. These groups, in turn, determine the user's access privileges across different sites within the platform.
+FormKiQ supports true multi-tenant environments by grouping users according to their roles and mapping those groups to one or more sites.
 
-The user's groups link to the FormKiQ's sites that the user will be granted access to; users can be in one or more groups, granting access to specific sites with specified roles.
+Each user can be associated with one or more groups, reflecting their role or responsibilities within the platform. These groups, in turn, determine the user's access privileges across different sites within the platform.
 
-| Group | Description
-| -------- | ------- |
-| Admins | Administrator group access |
-| authentication_only | Authentication only group access |
-| **site name** | Read/Write/Delete access to **site_name** |
-| **site name**_read | Read access to site **site_name** |
+You can choose between:
 
+- **Automatic Site Permissions** — sites and permissions are inferred from group names.
 
-FormKiQ comes with 4 groups by default. 
+- **Defined Site Permissions** — sites are created explicitly, and permissions are granted via API (only supported in FormKiQ Essentials / Enterprise).
 
-* **Admins** - Users in this group have full administrative privileges to all sites
+### Automatic Site Permissions
 
-* **authentication_only** - Users in this group can authenticate and receive a access token, but do not have access to any sites. Used mainly with the Document Sharing API to share specific folders / documents with a user
+When you use Automatic mode, any group whose name matches the pattern above will automatically create (or link to) a site of the same name, granting the corresponding permissions.
 
-* **default** - The "default" FormKiQ site that is created on installation. Users in this group will have read/write/delete access to the "default" site.
+:::note
+FormKiQ sites are created automatically when a user interact with the API.
+:::
 
-* **default_read** - The "default" FormKiQ site that is created on installation. Users in this group will have read access to the "default" site.
+| Group                   | Access Level                           |
+|-------------------------|----------------------------------------|
+| `Admins`                | Full Administrator rights on **all** sites |
+| `authentication_only`   | Can log in, but **no** site access     |
+| `<site>`                | Read/Write/Delete on `<site>`                       |
+| `<site>_read`           | Read only on `<site>`                  |
+| `<site>_govern`         | Read/Write/Delete + Govern on `<site>`              |
 
-Here is what the groups in [Amazon Cognito](https://aws.amazon.com/cognito) looks like by default.
+> **Example:**  
+> - `Finance` ⇒ Read/Write/Delete on **finance**  
+> - `Finance_read` ⇒ Read only on **finance**  
+> - `Finance_govern` ⇒ Read/Write/Delete + Govern on **finance**
+
+If a user belongs to multiple groups, their permissions combine.  
+**Example user**: member of `Managers` and `Finance_read`  
+1. `Managers` ⇒ Read/Write/Delete on **managers**  
+2. `Finance_read` ⇒ Read on **finance**  
+3. **Result**: Read/Write/Delete on **managers**, Read on **finance**
+
+:::note
+Govern access provides additional permissions to allow data governance or document control role access
+:::
+
+#### Default Cognito Groups
+
+By default FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito/) for user authentication and comes with the following default groups.
+
+| Default Group           | Permissions                                        |
+|-------------------------|----------------------------------------------------|
+| `Admins`                | Full admin privileges across **all** sites         |
+| `authentication_only`   | Can authenticate, but **no** site access           |
+| `default`               | Read/Write/Delete on the **default** site                       |
+| `default_read`          | Read only on the **default** site                  |
+
 
 ![Security Roles Example](./img/security-roles-examples.png)
 
@@ -193,7 +222,7 @@ The Cognito User pool can be found by visiting the [Cognito Console](https://con
 ![Cognito Home](./img/cognito-home.png)
 :::
 
-### Add Multi-Tenant Site
+##### Add Multi-Tenant Site
 
 Creating a new Multi-Tenant Site is as easy as creating a new group and adding users to the group.
 
@@ -207,7 +236,7 @@ To add a new group:
 
 The site has now been created and you can add users to this group to give them access to the finance site.
 
-### Add User to Site
+##### Add User to Site
 
 To add a new user:
 
@@ -217,7 +246,7 @@ To add a new user:
 
 ![Console Add User](./img/fk-console-add-user.png)
 
-### Add User to Group
+##### Add User to Group
 
 To add a user to a group:
 
@@ -230,6 +259,46 @@ To add a user to a group:
 You can search for the user and add it to the group.
 
 ![Console Add User](./img/fk-console-add-group-add-member.png)
+
+### Defined Site Permissions
+
+Defined site permission requires the explicit creation of FormKiQ Sites and then user groups can be links to a site with specific permissions.
+
+#### Add Site
+
+A defined site can **ONLY** be created by a user with administrator access.
+
+The example below will create a FormKiQ Site called **projects**.
+
+##### POST /sites
+
+```json
+{
+  "site": {
+    "id": "projects",
+    "title": "A site that contains system projects",
+    "status": "ACTIVE"
+  }
+}
+```
+
+#### Add Group Permissions
+
+The **PUT /sites/:siteId/groups/:groupName/permissions** API can be used to give a group particular permission for a site.
+
+For example:
+
+If you have a group called **employees** and you want to give members of that group READ / WRITE access to the **projects** FormKiQ site, use the API
+
+**PUT /sites/projects/groups/employees/permissions**
+
+```json
+{
+  "permissions": [
+    "READ", "WRITE"
+  ]
+}
+```
 
 ## Attribute-Based Access Control (ABAC)
 
