@@ -381,6 +381,8 @@ When setting folder ACLs, you may assign any combination of:
 
 #### API Endpoint
 
+Sets a folders role permissions.
+
 ```http
 PUT /folders/permissions
 ```
@@ -413,11 +415,13 @@ PUT /folders/permissions
 
 ## Attribute-Based Access Control (ABAC)
 
+![Open Policy Agent](./img/open-policy-agent.png)
+
 Attribute-Based Access Control (ABAC) is a dynamic and flexible method of managing access permissions based on the evaluation of attributes related to the user, the resource, and the environment. Unlike Role-Based Access Control (RBAC), which assigns permissions based on predefined roles, ABAC uses policies that evaluate various attributes to determine access rights.
 
 FormKiQ's ABAC is implemented using [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). OPA is an open-source, general-purpose policy engine that allows for fine-grained access control based on user attributes and other contextual information. ABAC enables dynamic and context-aware access control policies.
 
-### Evaluation Policies
+### OPA Evaluation Policies
 
 [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) evaluates the policies and returns decisions based on the evaluation. The evaluation outcomes in OPA are `allow`, `deny`, and `partial`.
 
@@ -480,6 +484,97 @@ When using searching for documents using POST `/search`, if you are using multip
 Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Advanced/Enterprise](https://www.formkiq.com/products/formkiq-advanced).
 :::
 
+### Document Attributes
+
+![Document OPA Attributes](./img/document-abac.png)
+
+FormKiQ enables Attribute-Based Access Control (ABAC) by attaching metadata — called **Document Attributes** — to individual documents. These attributes can then be evaluated by [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) policies to determine whether a user is allowed to access, modify, or delete a document.
+
+Each document in FormKiQ may have one or more attributes associated with it, such as:
+
+- `department`
+- `confidentiality`
+- `owner`
+- `project`
+- `documentType`
+- `classification`
+
+These attributes form the **resource context** used in OPA's decision-making process. When a user makes a request, the OPA policy can evaluate both the **user attributes** (such as roles, department, or clearance level) and the **document attributes** to make a dynamic access decision.
+
+#### API Endpoint
+
+This endpoint allows administrators to define or update **OPA access policies** for a specific site. These policies use **attribute-based access control (ABAC)** logic to determine document access based on user roles and document attributes.
+
+```http
+PUT /sites/:siteId/opa/accessPolicy/policyItems
+```
+
+**Request Body Parameters**
+
+| Field   | Type | Description |
+|---------|------|-------------|
+| type | string | Type of policy logic. Only "ALLOW" is currently supported. |
+| allRoles | string[] | The user must belong to all listed roles to match the policy. |
+| anyRoles | string[] | The user must belong to at least one listed role to match the policy.
+| attributes | array | A list of attribute matchers used to evaluate access. |
+
+Each attribute object supports multiple conditional operators:
+
+| Operator | Description |
+|---------|-------------|
+| eq | Equal to (string, number, boolean, or username match) |
+| neq | Not equal to |
+| gt | Greater than (number only) |
+| gte | Greater than or equal to |
+| lt | Less than |
+| lte | Less than or equal to |
+
+::note
+Special value for eq.input.matchUsername:
+    •   When true, the document attribute must equal the authenticated user’s username.
+:::
+
+#### Example Use Cases
+
+##### Restrict Access to Reports Only
+
+Allow users with the finance and auditor roles to access documents where documentType = report.
+
+```json
+{
+  "type": "ALLOW",
+  "allRoles": ["finance", "auditor"],
+  "attributes": [
+    {
+      "key": "documentType",
+      "eq": {
+        "stringValue": "report"
+      }
+    }
+  ]
+}
+```
+
+##### Owner-Only Access
+
+Allow users to access documents only if they are the owner (based on the username in the access token).
+
+```json
+{
+  "type": "ALLOW",
+  "anyRoles": ["user"],
+  "attributes": [
+    {
+      "key": "owner",
+      "eq": {
+        "input": {
+          "matchUsername": true
+        }
+      }
+    }
+  ]
+}
+```
 
 ## Cloud Security
 
