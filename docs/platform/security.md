@@ -159,6 +159,72 @@ You an now use the AccessKey / SecretKey to call the FormKiQ API.
 
 ![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
 
+## API Endpoints 
+
+The FormKiQ API is built on top of [AWS API Gateway](https://aws.amazon.com/api-gateway/). API Gateway offers the flexibility to empowers customers to choose the most suitable authentication and authorization methods based on their specific application requirements. 
+
+By default FormKiQ API supports 3 different types of authorization:
+
+* JSON Web Token(JWT) Authorizers
+
+* Amazon Identity and Access Management (IAM) authorization
+
+* API Key authorization
+
+![Authentication](./img/formkiq_authentication.png)
+
+FormKiQ supports these different authorization mechanisms by deplying multiple copies of the API. This allows you to use the authentication mechanism that suits your needs.
+
+The FormKiQ API URL(s) can be found in the CloudFormation outputs of your FormKiQ stack.
+
+![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
+
+:::note
+[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) users have additional authentication options like Security Assertion Markup Language (SAML) or custom authentication mechanisms
+:::
+
+### JSON Web Token(JWT) Authorizers
+
+JWT authentication, also known as [JSON Web Token](https://jwt.io/introduction) authentication, is a method used to verify the identity of users or systems accessing web applications or APIs. It is based on the use of digitally signed tokens containing encoded claims about the user's identity and permissions. 
+
+By default, FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito) as the JWT Issuer and authorization is handled through role-based access control assigned to each user.
+
+The API that uses the JWT authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `HttpApiUrl` key.
+
+![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
+
+### Amazon Identity and Access Management (IAM) authorization
+
+[IAM Authentication](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control-iam.html) allows customers to call the FormKiQ API by signing requests using [Signature Version 4](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html) with AWS credentials. 
+
+IAM Authentication is typically used for machine-to-machine authorization as there is no user information inside of the token.
+
+[More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
+
+The API that uses the IAM authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `IamApiUrl` key.
+
+![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
+
+:::note
+You need the IAM execute-api permission to be able to use IAM Authentication and all requests will be run with administration privileges.
+
+**For more information on creating this IAM User, please [see the instructions in our API Walkthrough](/docs/getting-started/api-walkthrough/#iam-authentication).**
+:::
+
+### API Key
+
+FormKiQ allows for the generating of an API key that can be used to access the FormKiQ API for a particular `SiteId`.
+
+The API key can be generated using the `POST /configuration/apiKeys` API endpoint using credentials with `administrator` privileges.
+
+The API that uses the Key authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `KeyApiUrl` key.
+
+![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
+
+:::note
+Each API key is only valid for a particular SiteId.
+:::
+
 ## Role-Based Access Control (RBAC)
 
 FormKiQ supports true multi-tenant environments by grouping users according to their roles and mapping those groups to one or more sites.
@@ -300,6 +366,51 @@ If you have a group called **employees** and you want to give members of that gr
 }
 ```
 
+### Folders Permissions
+
+Beyond site-wide roles, you can lock down or share specific folders by assigning folder-scoped RBAC directly via the API. Folder permissions work **in addition** to site-level RBAC: a user must have both the site-level permission _and_ the folder-level permission to perform an action.
+
+#### Permission Types
+
+When setting folder ACLs, you may assign any combination of:
+
+- **READ** — List or download documents in this folder  
+- **WRITE** — Create or update documents in this folder  
+- **DELETE** — Remove documents from this folder  
+- **GOVERN** — Perform governance actions (audit logs, retention holds)
+
+#### API Endpoint
+
+```http
+PUT /folders/permissions
+```
+
+**Request Body Parameters**
+
+| Field   | Type | Description |
+|---------|------|-------------|
+| path | string | Folder path within the site |
+| roles | array | List of role/permission mappings to apply |
+| roleName | string | string Cognito group or custom role to grant folder permissions |
+| permissions | string[] | One or more of ["READ","WRITE","DELETE","GOVERN"] |
+
+**Example Request Body**
+```json
+{
+  "path": "invoices/2025/Q2",
+  "roles": [
+    {
+      "roleName": "Finance",
+      "permissions": ["READ", "WRITE", "DELETE"]
+    },
+    {
+      "roleName": "Managers",
+      "permissions": ["READ"]
+    }
+  ]
+}
+```
+
 ## Attribute-Based Access Control (ABAC)
 
 Attribute-Based Access Control (ABAC) is a dynamic and flexible method of managing access permissions based on the evaluation of attributes related to the user, the resource, and the environment. Unlike Role-Based Access Control (RBAC), which assigns permissions based on predefined roles, ABAC uses policies that evaluate various attributes to determine access rights.
@@ -369,71 +480,6 @@ When using searching for documents using POST `/search`, if you are using multip
 Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Advanced/Enterprise](https://www.formkiq.com/products/formkiq-advanced).
 :::
 
-## API Endpoints 
-
-The FormKiQ API is built on top of [AWS API Gateway](https://aws.amazon.com/api-gateway/). API Gateway offers the flexibility to empowers customers to choose the most suitable authentication and authorization methods based on their specific application requirements. 
-
-By default FormKiQ API supports 3 different types of authorization:
-
-* JSON Web Token(JWT) Authorizers
-
-* Amazon Identity and Access Management (IAM) authorization
-
-* API Key authorization
-
-![Authentication](./img/formkiq_authentication.png)
-
-FormKiQ supports these different authorization mechanisms by deplying multiple copies of the API. This allows you to use the authentication mechanism that suits your needs.
-
-The FormKiQ API URL(s) can be found in the CloudFormation outputs of your FormKiQ stack.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-:::note
-[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) users have additional authentication options like Security Assertion Markup Language (SAML) or custom authentication mechanisms
-:::
-
-### JSON Web Token(JWT) Authorizers
-
-JWT authentication, also known as [JSON Web Token](https://jwt.io/introduction) authentication, is a method used to verify the identity of users or systems accessing web applications or APIs. It is based on the use of digitally signed tokens containing encoded claims about the user's identity and permissions. 
-
-By default, FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito) as the JWT Issuer and authorization is handled through role-based access control assigned to each user.
-
-The API that uses the JWT authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `HttpApiUrl` key.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-### Amazon Identity and Access Management (IAM) authorization
-
-[IAM Authentication](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control-iam.html) allows customers to call the FormKiQ API by signing requests using [Signature Version 4](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html) with AWS credentials. 
-
-IAM Authentication is typically used for machine-to-machine authorization as there is no user information inside of the token.
-
-[More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
-
-The API that uses the IAM authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `IamApiUrl` key.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-:::note
-You need the IAM execute-api permission to be able to use IAM Authentication and all requests will be run with administration privileges.
-
-**For more information on creating this IAM User, please [see the instructions in our API Walkthrough](/docs/getting-started/api-walkthrough/#iam-authentication).**
-:::
-
-### API Key
-
-FormKiQ allows for the generating of an API key that can be used to access the FormKiQ API for a particular `SiteId`.
-
-The API key can be generated using the `POST /configuration/apiKeys` API endpoint using credentials with `administrator` privileges.
-
-The API that uses the Key authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `KeyApiUrl` key.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-:::note
-Each API key is only valid for a particular SiteId.
-:::
 
 ## Cloud Security
 
