@@ -22,7 +22,7 @@ The Enhanced Full-text Search module integrates OpenSearch to provide advanced s
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/brvHNrICnXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### 1. VPC Setup (Recommended)
+### VPC Setup (Recommended)
 
 For enhanced security, it's recommended to deploy OpenSearch within a VPC. If you're not using a VPC, you can skip this step.
 
@@ -36,7 +36,7 @@ For enhanced security, it's recommended to deploy OpenSearch within a VPC. If yo
 Note the VPC Stack Name for use in OpenSearch configuration
 :::
 
-### 2. OpenSearch Installation
+### OpenSearch Installation
 
 1. Access the CloudFormation console
 2. Create a new stack for OpenSearch
@@ -49,7 +49,7 @@ Note the VPC Stack Name for use in OpenSearch configuration
 Note the OpenSearch Stack Name for FormKiQ configuration
 :::
 
-### 3. FormKiQ Integration
+### FormKiQ Integration
 
 1. Select your FormKiQ stack in CloudFormation
 2. Click "Update Stack"
@@ -137,17 +137,37 @@ Access requires VPN or SSH tunnel. See:
 - [SSH Tunnel Configuration](https://repost.aws/knowledge-center/opensearch-outside-vpc-ssh)
 :::
 
-## API Integration
+## OpenSearch Repository Snapshots
 
-### Available Endpoints
+An OpenSearch snapshot repository is a named location where snapshots are stored and restored. FormKiQ configures all snapshots to use a single S3 bucket, with the siteId as the S3 prefix/folder.
 
-```http
-PUT /documents/{documentId}/fulltext
-```
-Updates document's full-text metadata in OpenSearch
+### List all Repositories
+
+Using the **GET /sites/global/opensearch/snapshotRepositories** API will returns every registered snapshot repository.
+
+Using the **GET /sites/:siteId/opensearch/snapshotRepository** will return the snapshot repository for a specific SiteId.
+
+### Creating a Snapshot
+
+Using the **POST /sites/:siteId/opensearch/snapshots/:snapshotName** API, while specifying a name of the snapshot will tell OpenSearch to create a snapshot of the :siteId's index.
+
+The **GET /sites/:siteId/opensearch/snapshots/:snapshotName** API will return the current status of the snapshot.
+
+The **GET /sites/:siteId/opensearch/snapshots** API will return ALL the snapshots for a particular siteId.
+
+### Restoring a Snapshot
+
+To restore a previously taken snapshot, the **POST /sites/:siteId/opensearch/snapshots/:snapshotName/restore** API to a **NEW** index that appends "&lt;snapshot_name&gt;_restored" to the index name.
 
 :::note
-All FormKiQ API endpoints are case-sensitive
+The restored index will NOT be used unless you set the SiteId's Index using the PUT /sites/:siteId/opensearch/indices
 :::
+
+### Setting SiteId Index
+
+You can override a SiteId's default index using the **PUT /sites/:siteId/opensearch/indices with body &lbrace; "indexName": "&lt;name&gt;" &rbrace;**
+
+Getting a SiteId's current index configuration can be retrieved using the **GET /sites/:siteId/opensearch/indices**
+
 
 For detailed pricing information and configuration examples, see our [Cost Analysis Guide](/docs/platform/costs#opensearch-service-costs).
