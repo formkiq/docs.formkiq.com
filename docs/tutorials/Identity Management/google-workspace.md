@@ -1,8 +1,10 @@
 ---
-sidebar_position: 2
+sidebar_position: 10
 ---
 
 # Google Workspace
+
+![Amazon Cognito to Google Workspace](./img/cognito-saml-google.png)
 
 This tutorial show you how to integrate [Google Workspace](https://workspace.google.com) as the identity management provider for your FormKiQ installation.
 
@@ -30,11 +32,11 @@ You will need these specific configuration values:
 
 The CognitoUserPoolId and Console URL can be found in the `Outputs` tab of your FormKiQ [CloudFormation](https://console.aws.amazon.com/cloudformation) installation
 
-![Cognito User Pool Id and Console Url](./img/entra-id-cf-outputs.png)
+![Cognito User Pool Id and Console Url](./img/formkiq-cf-outputs.png)
 
 The Cognito domain can be found by clicking on the Cognito User Pool found on the [Cognito Console](https://console.aws.amazon.com/cognito/v2/idp/user-pools).
 
-![Cognito Domain](./img/entra-id-cognito-domain.png)
+![Cognito Domain](./img/cognito-domain.png)
 
 ## Google Workspace
 
@@ -44,11 +46,11 @@ The next step is to create an Web and mobile apps in Google Workspace. This appl
 
 To configure the Web and mobile apps:
 
-* Login into the Google Workspace and select the `Web and Mobile Apps` service
+* Login into the Google Workspace and select the **Web and Mobile Apps** service
 
 ![Web and Mobile Apps](./img/google-workspace-web-and-mobile-apps.png)
 
-* Select "Add App" from the menu and click `Add custom SAML app`
+* Select "Add App" from the menu and click **Add custom SAML app**
 
 ![Add Saml App](./img/google-workspace-add-saml-app.png)
 
@@ -58,9 +60,9 @@ Now configure the SAML application by entering an Application name, description 
 
 ![App Details](./img/google-workspace-app-details.png)
 
-Once the single sign-on is created, you will need to fill in the `ACS URL` and the `Entity ID`.
+Once the single sign-on is created, you will need to fill in the **ACS URL** and the **Entity ID**.
 
-The ACS URL is: `Your Cognito Domain`/saml2/idpresponse, for example:
+The ACS URL is: **&lt;Your Cognito Domain&gt;**/saml2/idpresponse, for example:
 ```
 https://formkiq-enterprise-dev-1111111111111.auth.us-east-2.amazoncognito.com/saml2/idpresponse
 ```
@@ -89,7 +91,7 @@ http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 
 ![SAML Service Attributes](./img/google-workspace-service-attributes.png)
 
-The app is created but `User access` is OFF for everyone. Click the `User access` to enable. Once the `User access` is enabled, make sure to `Download Metadata`, this file will be needed when setting up the Identity Provider in Cognito.
+The app is created but **User access** is OFF for everyone. Click the **User access** to enable. Once the **User access** is enabled, make sure to **Download Metadata**, this file will be needed when setting up the Identity Provider in Cognito.
 
 ![App created](./img/google-workspace-app-disabled.png)
 
@@ -115,13 +117,10 @@ aws cognito-idp add-custom-attributes \
 --custom-attributes Name=groups,AttributeDataType="String"
 ```
 
-* Visit the Amazon Cognito console 
-* Select the User Pool, and then the `Cognito Sign In Experience` tab
-* Click the `Add identity provider`
-
-![Cognito Sign In Experience](./img/cognito-sign-in-experience.png)
-
-Select the `SAML` Identity provider.
+* Visit the [Amazon Cognito console](https://console.aws.amazon.com/cognito)
+* Select the User Pool, and then the **Social and external providers** link
+* Click the **Add identity provider**
+* Select the **SAML** Identity provider
 
 ![Cognito Add Provider](./img/cognito-add-provider.png)
 
@@ -149,69 +148,11 @@ http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 
 ![Cognito SAML Attributes](./img/cognito-saml-attributes.png)
 
-### Pre token generation
+### Cognito Managed login
 
-After a successful login, we need to modify the access token and add the user's Microsoft Entra Id groups into the token. FormKiQ comes with an function that does this automatically; we just need to configure it in the Amazon Cognito.
+You now need to configure Amazon Managed login. Amazon Cognito Managed login provides a URL connection between Amazon Cognito and Microsoft Entra ID.
 
-* Visit the Amazon Cognito console 
-* Select the User Pool, and then the `User pool properties` tab
-* Click `Add Lambda trigger`
-
-![Cognito Lambda Trigger](./img/entra-id-cognito-pretoken.png)
-
-Select `Authentication` and `Pre token generation trigger`
-
-![Cognito Add Lambda Trigger](./img/entra-id-cognito-add-lambda-trigger.png)
-
-FormKiQ deploys with a Lambda Trigger, if you search for "google".
-
-![Cognito Lambda Trigger](./img/google-workspace-cognito-lambda-trigger.png)
-
-Select the "GoogleWorkspace" trigger and click `Add Lambda trigger`.
-
-![Cognito Lambda Trigger](./img/google-workspace-cognito-lambda-triggers.png)
-
-### Cognito Hosted UI
-
-Amazon Cognito Hosted UI provides a URL connection between Amazon Cognito and Microsoft Entra ID.
-
-To configure Cognito Hosted UI, select the `App Integration` tab on the Cognito console.
-
-![Cognito App Integration](./img/entra-id-cognito-app-integration.png)
-
-Under the `Hosted UI` heading, select the `Edit` button to configure.
-
-![Cognito Hosted UI](./img/entra-id-cognito-hosted-ui.png)
-
-Set the `Console Url` as an allowed callback. This will allow the user to be redirected to the FormKiQ console after a successful login.
-
-![Cognito Allowed Callbacks](./img/entra-id-cognito-hosted-ui-allowed-callback.png)
-
-For the other properties:
-
-* Choose Google as the `Identity provider`
-
-* Set the OAuth grant type to `Authorization code grant`
-
-* Set the OpenID Connect scopes to: OpenID, Email, Profile
-
-![Cognito Hosted UI Config](./img/google-workspace-cognito-hosted-ui-config.png)
-
-Once you save the configuration, you'll see the `View Hosted UI` button is now enabled. This is the link to login to FormKiQ. Make note of the url and you will need to add it to the FormKiQ CloudFormation stack.
-
-![Cognito Hosted UI URL](./img/entra-id-cognito-hosted-ui-url.png)
-
-Once you have the Cognito Hosted UI Url. Visit the CloudFormation console and select to **Update** your FormKiQ installation stack.
-
-![CloudFormation Update Stack](./img/entra-id-cloudformation-update.png)
-
-Set the Cognito Single Sign On Url to the value of the Cognito Hosted UI.
-
-![CloudFormation Cognito Single Sign On Url](./img/entra-id-cognito-single-sign-on-url.png)
-
-Once the stack is updated you will see the **Single Sign-On** login button that will allow you to login through your SSO provider.
-
-![Console Single Cognito Single Sign On](./img/entra-id-console-single-sign-on.png)
+To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
 
 ## Summary
 
