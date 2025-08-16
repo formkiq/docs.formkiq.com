@@ -203,11 +203,11 @@ Once you save the configuration, you'll see the `View Hosted UI` button is now e
 
 Once you have the Cognito Hosted UI Url. Visit the CloudFormation console and select to **Update** your FormKiQ installation stack.
 
-![CloudFormation Update Stack](./img/entra-id-cloudformation-update.png)
+![CloudFormation Update Stack](./img/formkiq-cloudformation-saml-update.png)
 
 Set the Cognito Single Sign On Url to the value of the Cognito Hosted UI.
 
-![CloudFormation Cognito Single Sign On Url](./img/entra-id-cognito-single-sign-on-url.png)
+![CloudFormation Cognito Single Sign On Url](./img/formkiq-cf-update-saml.png)
 
 Once the stack is updated you will see the **Single Sign-On** login button that will allow you to login through your SSO provider.
 
