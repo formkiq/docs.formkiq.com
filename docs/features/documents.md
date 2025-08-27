@@ -86,6 +86,79 @@ You can add organize these deep-linked documents with their own FormKiQ path, an
 
 Some limitations exist, as FormKiQ does not have access to process those documents. You can use one of [FormKiQ's Document Gateways Add-On Modules](/docs/formkiq-modules/modules/document-gateways) for stronger integration with documents in Microsoft 365, MS SharePoint, and Google Workspace.
 
+### AWS S3 Deep Link
+
+**S3 Deep Links** in FormKiQ let you reference documents that already live in your own or another AWS S3 bucket without having to copy or migrate them into FormKiQ’s managed storage. 
+
+Instead of duplicating files, you simply add a deep link pointing to the S3 object, and FormKiQ can organize it with paths and attributes just like any other document. 
+
+This is especially valuable if you already have large volumes of content in S3, since you can immediately bring them under FormKiQ’s document management framework while avoiding unnecessary storage costs and migration overhead.
+
+#### Cross-Account S3 Access
+
+If your S3 Deep Link points to a bucket in **another AWS account**, the source bucket must be configured to allow FormKiQ to read the object. This is done by attaching a **bucket policy** that grants cross-account access. The policy ensures that only FormKiQ’s execution role, properly tagged with environment and application metadata, can fetch objects. It also enforces secure transport (HTTPS/TLS) to prevent accidental insecure access.
+
+A typical bucket policy for cross-account S3 Deep Links looks like this:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "FormKiQ_Cross_Account_Access",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::FORMKIQ_SOURCE_AWS_ACCOUNT_ID:root" },
+      "Action": ["s3:GetObject*"],
+      "Resource": "arn:aws:s3:::BUCKET_NAME/*",
+      "Condition": {
+        "Bool": { "aws:SecureTransport": "true" },
+        "StringEquals": {
+          "aws:PrincipalType": "AssumedRole",
+          "aws:PrincipalTag/AppEnvironment": "FORMKIQ_APP_ENVIRONMENT",
+          "aws:PrincipalTag/Application": "FormKiQ"
+        }
+      }
+    }
+  ]
+}
+```
+
+This configuration ensures:
+* Cross-account access is limited to FormKiQ’s AWS account (FORMKIQ_SOURCE_AWS_ACCOUNT_ID).
+* Only assumed roles with the correct tags (AppEnvironment, Application) can access objects.
+* All access is forced over secure transport (TLS).
+
+##### Buckets Encrypted with a Customer Managed KMS Key
+
+If the source S3 bucket uses server-side encryption with a customer managed KMS key (SSE-KMS), then the KMS key must also allow FormKiQ’s AWS account to decrypt objects. Without this, FormKiQ will be able to reference the file but fail to open or download it.
+
+Add the following statement to the KMS key policy in the source account:
+
+```
+{
+  "Sid": "AllowAcctAToDecryptViaS3",
+  "Effect": "Allow",
+  "Principal": { "AWS": "arn:aws:iam::ACCOUNT_A_ID:root" },
+  "Action": ["kms:Decrypt", "kms:DescribeKey"],
+  "Resource": "*",
+  "Condition": {
+    "StringEquals": {
+      "kms:ViaService": "s3.REGION.amazonaws.com",
+      "aws:PrincipalAccount": "ACCOUNT_A_ID"
+    }
+  }
+}
+```
+
+Where:
+* ACCOUNT_A_ID = The AWS account ID where FormKiQ is running.
+* REGION = The region of the source S3 bucket.
+
+This configuration ensures that:
+* Decryption is only allowed when the request originates via S3.
+* Only the specified AWS account (where FormKiQ runs) can decrypt.
+* Access is limited to the exact KMS key used by the source bucket.
+
 ## Document Management Features
 
 ### Document Actions
