@@ -378,10 +378,10 @@ These attributes are stored in the "audit" DynamoDB table.
 | type | Type of User Activity (view, add, change, delete) |
 | status | Activity Status (COMPLETE, FAILED, UNAUTHORIZED) |
 | sourceIpAddress | Source Ip Address for activity request |
-| s3Key | S3 Log Key for Activity |
 | source | Source of activity request |
 | userId | Create by user |
 | documentId | Document Identifier |
+| attributeKey | Document Attribute Key |
 | entityTypeId | EntityType Identifier |
 | entityId | Entity Identifier |
 | changeSet | Map of new / old value by key |
@@ -1019,32 +1019,29 @@ Api Key(s) allow access to API.
 | permissions | List of API Key permissions (read/write/delete) |
 | inserteddate | Inserted Date |
 
-## Entity Event Sourcing (TODO REMOVE)
+## Activities Events
 
-Storage of entity events
+Storage of activity Entity Events.
 
-### Entity Event Sourcing Key Schema
+### Document Activities Events
+
+Document Activities Events.
+
+#### Entity Event Sourcing Key Schema
 
 | Attributes | Format |
 |------------|---------|
-| PK | "entityevent#" + entityType + "#" entityId |
-| SK | "ev#" + Timestamp  |
-| GSI1PK | "entityevent#" + entityType + "#" entityId |
-| GSI1SK | "ev#" + Type + "#" + Timestamp  |
-| GSI2PK | "entityevent#userId" + userId |
-| GSI2SK | "ev# + Timestamp  |
+| PK | "documentEvent" |
+| SK | "event#docs#activities#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId + "#" + UUID |
 
-### Entity Event Sourcing Attributes
+#### Entity Event Sourcing Attributes
 
 | Attributes | Description |
 |------------|-------------|
-| entityType | Type of Entity |
-| entityId | Entity Identifier |
-| type | Event Type (HTTP_GET, HTTP_PUT, HTTP_PATCH, HTTP_POST, HTTP_DELETE) |
-| payload | Request Payload |
-| metadata | Request Metadata |
+| documentId | Document Identifier |
+| siteId | Site Identifier |
+| activityKeys | List of Activities Key |
 | inserteddate | Inserted Date |
-| userId | Requested User |
 | TimeToLive | Record Time to Live |
 
 ## Entities Types
