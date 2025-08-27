@@ -267,21 +267,18 @@ Separates the event production from consumption, allowing independent scaling an
  
 Each document event uses the DetailType field in the EventBridge Message to distinguish between the different kinds of events. The supported DetailType event types are:
 
-- **CONTENT**  
-  - **DetailType:** `Document Create Event`  
-  - **Description:** Triggered when a document is created or updated with new content.
 
-- **METADATA**  
-  - **DetailType:** `Document Create Metadata`  
-  - **Description:** Triggered when metadata is added or updated for a document.
-
-- **DELETE**  
-  - **DetailType:** `Document Delete`  
-  - **Description:** Triggered when document is deleted.
-
-- **SOFT_DELETE**  
-  - **DetailType:** `Document Soft Delete`  
-  - **Description:** Triggered when document is soft-deleted (i.e., logically removed).
+| DetailType  |Description |
+|----------|-------------|
+| New Document Create Metadata | Triggered when a new document is created |
+| New Document Create Content | Triggered when a document is created or updated with new content |
+| Document Delete | Triggered when a document is deleted |
+| Document Soft Delete | Triggered when a document is soft deleted |
+| Document Restore | Triggered when a document restored from a soft delete |
+| New Document Create Metadata | Triggered when a new document is created |
+| Document Create Metadata | Triggered when an existing document attributes are created |
+| Document Update Metadata | Triggered when a document or document attributes are changed |
+| Document Delete Metadata | Triggered when a document metadata is deleted |
 
 #### Event Payload Schema
 
@@ -318,7 +315,14 @@ Each event published to EventBridge follows a consistent JSON schema. The payloa
       "booleanValue": false
     }
   ],
-  "url": "S3 Presigned Url"
+  "url": "S3 Presigned Url",
+  "changedAttributes":
+    {
+        "myKey":
+        {
+            "stringValue": "1234"
+        }
+    }
 }
 ```
 
