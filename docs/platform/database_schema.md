@@ -303,6 +303,28 @@ Document Attribute entity.
 | numberValue | number value |
 | booleanValue | boolean value |
 
+### Document Data Classification Result
+
+Contains all information about Data Classification Result for the document.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "llmresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| llmPromptEntityName | LLM Prompt Entity Name |
+| content | Result from the LLM Prompt |
+| attributes | List of Attributes found in the LLM prompt result |
+| inserteddate | Inserted Date |
+| userId | Create by user |
+
 ### Document Publication
 
 Document Publication entity.
