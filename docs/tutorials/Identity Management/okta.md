@@ -10,17 +10,16 @@ This tutorial show you how to integrate [Okta](https://okta.com) as the identity
 
 We will be:
 
-* Configuring a Enterprise application in Microsoft Entra ID
+* Configuring an application in Okta
 
 * Adding an Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
 
-* Mapping Microsoft Entra ID groups to Amazon Cognito groups
 
 ## What you’ll need
 
 * Access to a FormKiQ Essentials, Advanced, or Enterprise installation, including administrative access
 
-* Administrative access to a Microsoft Entra ID service
+* Administrative access to Okta
 
 ## Pre-requisite
 

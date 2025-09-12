@@ -87,6 +87,12 @@ Example for 100GB with 25GB shard size:
 
 ### Instance Types
 
+[instances.vantage.sh](https://instances.vantage.sh/opensearch) is a free, interactive tool that makes it simple to explore and compare Amazon OpenSearch Service instance types. 
+
+Since performance and cost optimization in OpenSearch depends heavily on instance choice, the site provides side-by-side details such as memory, vCPU count, storage type (EBS, SSD, NVMe), and network throughput. 
+
+Its powerful filtering and search syntax let users quickly narrow down instance families to those best suited for their cluster workloads—for example, compute-optimized vs. storage-optimized nodes, or high-memory options for large query loads.
+
 #### Data Nodes
 
 | Memory Optimized | vCPU | Memory (GiB) | Price Per hour |
