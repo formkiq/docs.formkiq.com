@@ -723,11 +723,11 @@ A list of shares for a particular user role.
 | permissionType | Type of permission |
 | permissions | List of permissions |
 
-### Document Folder
+## Document Folder
 
 Document folder / file listing index.
 
-#### Entity Key Schema
+### Entity Key Schema
 
 | Attributes | Format |
 |------------|---------|
@@ -736,7 +736,7 @@ Document folder / file listing index.
 | GSI1PK (folder only) | "folder#" + documentId |
 | GSI1SK (folder only) | "folder" |
 
-#### Entity Attributes
+### Entity Attributes
 
 | Attributes | Description |
 |------------|-------------|
@@ -747,13 +747,33 @@ Document folder / file listing index.
 | inserteddate | Inserted Date |
 | lastModifiedDate | Last Modified Date |
 | userId | Create by user |
+
+## Document Folder Permission
+
+Document folder permission.
+
+### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "global#folders#permissions" |
+| SK | "ff#" + path |
+
+### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| path | Folder path |
+| type | Type of Share (File or Directory) |
+| inserteddate | Inserted Date |
+| userId | Create by user |
 | "role#" + roleName | Permissions of Role |
 
-### Queue
+## Queue
 
 Queue entity object.
 
-#### Entity Key Schema
+### Entity Key Schema
 
 | Attributes | Format |
 |------------|---------|
@@ -762,7 +782,7 @@ Queue entity object.
 | GSI1PK | "queues#" |
 | GSI1SK | "queue#" + name + "#" + documentId |
 
-#### Entity Attributes
+### Entity Attributes
 
 | Attributes | Description |
 |------------|-------------|
