@@ -14,6 +14,33 @@ Because FormKiQ uses CloudFormation for deployments, the stack should rollback a
 Before initiating any upgrade, always review the release notes for the target version to understand new features, breaking changes, and specific upgrade considerations. FormKiQ versions remain backwards-compatible with all previous versions with a major version, i.e., endpoints may be deprecated but will not be removed from FormKiQ 1.\*, but removals will likely occur once FormKiQ 2.\* becomes available.
 :::
 
+## Release Notifications
+
+Stay informed about FormKiQ updates and security patches through these notification channels:
+
+### GitHub Notifications
+
+**Watch Repository for Releases** (Recommended)
+
+1. Visit the [FormKiQ Core repository](https://github.com/formkiq/formkiq-core)
+2. Click **"Watch"** → **"Custom"** → **"Releases"** 
+3. Choose email or web notifications
+
+**RSS Feed**
+```
+https://github.com/formkiq/formkiq-core/releases.atom
+```
+
+### Community Channels
+
+**Slack Community**: [Join the FormKiQ Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g) for real-time release discussions and support.
+
+**Mailing List**: A low-volume mailing list for release and security notifications only. [Join here](https://formkiq.com/updates#mailing_list).
+
+:::tip
+For production environments, we recommend subscribing to GitHub notifications to ensure you don't miss critical security updates.
+:::
+
 ## Pre-Upgrade Planning
 
 ### Version Assessment
