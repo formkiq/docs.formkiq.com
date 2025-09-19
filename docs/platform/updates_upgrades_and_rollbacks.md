@@ -35,7 +35,7 @@ https://github.com/formkiq/formkiq-core/releases.atom
 
 **Slack Community**: [Join the FormKiQ Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g) for real-time release discussions and support.
 
-**Mailing List**: A low-volume mailing list for release and security notifications only. [Join here](https://formkiq.com/updates#mailing_list).
+**Mailing List**: A low-volume mailing list for release and security notifications only. [Join here](https://formkiq.com/updates#mailing-list).
 
 :::tip
 For production environments, we recommend subscribing to GitHub notifications to ensure you don't miss critical security updates.
