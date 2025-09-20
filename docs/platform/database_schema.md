@@ -1192,13 +1192,26 @@ Fetch patterns include:
 
 Open Policy Agent configuration.
 
-### Entity Key Schema
+### Entity Key Schema (Full)
 
 | Attributes | Format |
 |------------|---------|
 | PK | "controlpolicy#opa" |
-| SK (FULL) | "opa#full#" + siteId + "#policy" |
-| SK (POLICY_ITEM) | "opa#item#" + siteId + "#policy#" + index |
+| SK | "opa#full#" + siteId + "#policy" |
+
+### Entity Key Schema (Policy)
+
+| Attributes | Format |
+|------------|---------|
+| PK | "controlpolicy#opa" |
+| SK | "opa#policy#" + siteId + "#policy" |
+
+### Entity Key Schema (Policy Item)
+
+| Attributes | Format |
+|------------|---------|
+| PK | "controlpolicy#opa" |
+| SK | "opa#item#" + siteId + "#policy#" + index |
 
 ### Entity Attributes
 
@@ -1206,5 +1219,5 @@ Open Policy Agent configuration.
 |------------|-------------|
 | siteId | Site Identifier |
 | policy | OPA Policy |
-| type | OPA Policy Type |
+| type | OPA Policy Type (FULL, POLICY, POLICY_ITEM) |
 | index | Index |
