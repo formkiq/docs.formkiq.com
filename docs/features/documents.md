@@ -330,7 +330,7 @@ Each event published to EventBridge follows a consistent JSON schema. The payloa
 
 ![Document EventBridge](./img/sns.png)
 
-In addition to the current EventBridge-based event system, FormKiQ supports an event notification mechanism that utilizes Amazon SNS. From verion 1.17.0 onward, this legacy system is maintained for backward compatibility with systems that have not yet migrated to the new EventBridge-based architecture.
+In addition to the current EventBridge-based event system, FormKiQ supports an event notification mechanism that utilizes Amazon SNS. From version 1.17.0 onward, this legacy system is maintained for backward compatibility with systems that have not yet migrated to the new EventBridge-based architecture.
 
 
 #### Supported Event Types
