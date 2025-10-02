@@ -325,6 +325,27 @@ Contains all information about Data Classification Result for the document.
 | inserteddate | Inserted Date |
 | userId | Create by user |
 
+### Document MalwareScan Result
+
+Contains all information about Malware Scan Result for the document.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "malware#result#" + TIMESTAMP + "#" + ID |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| scanStatus | MALICIOUS, ERROR, CLEAN |
+| engine | Malware Scan Engine |
+| s3version | S3 version id |
+| inserteddate | Inserted Date |
+
 ### Document Publication
 
 Document Publication entity.
