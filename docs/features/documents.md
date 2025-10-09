@@ -316,11 +316,19 @@ Each event published to EventBridge follows a consistent JSON schema. The payloa
     }
   ],
   "url": "S3 Presigned Url",
+  "addedAttributes": [ "myKey" ],
+  "deletedAttributes":
+    {
+        "myKey":
+        {
+            "stringValue": "2"
+        }
+    },
   "changedAttributes":
     {
         "myKey":
         {
-            "stringValue": "1234"
+            "stringValue": "3"
         }
     }
 }
