@@ -529,9 +529,9 @@ Each attribute object supports multiple conditional operators:
 | lt | Less than |
 | lte | Less than or equal to |
 
-::note
+:::note
 Special value for eq.input.matchUsername:
-    •   When true, the document attribute must equal the authenticated user’s username.
+- When true, the document attribute must equal the authenticated user’s username.
 :::
 
 #### Example Use Cases

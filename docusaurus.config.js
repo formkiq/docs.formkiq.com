@@ -13,12 +13,17 @@ const config = {
   organizationName: 'FormKiQ',
   projectName: 'formkiq',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownImages: 'throw',
+    }
+  },
   presets: [
     [
       'classic',
