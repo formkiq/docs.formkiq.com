@@ -305,6 +305,9 @@ Each event published to EventBridge follows a consistent JSON schema. The payloa
       "values": ["string"]
     }
   ],
+  "changed": {
+    // original document metadata
+  }
   "attributes": {
       "myKey":
       {
