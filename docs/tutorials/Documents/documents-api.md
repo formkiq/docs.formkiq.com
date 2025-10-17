@@ -470,4 +470,4 @@ curl -X DELETE "$BASE_URL/documents/$DOC_ID/purge?siteId=$SITE_ID" \
 
 ## Next Steps
 
-- Explore Document Tags, [Attributes](/docs/tutorials/Documents/document-attributes-api), and Document Actions APIs.
+- Explore [Document Tags, Attributes](/docs/tutorials/Documents/document-attributes-api)

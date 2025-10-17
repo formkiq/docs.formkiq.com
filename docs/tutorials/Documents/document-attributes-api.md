@@ -393,4 +393,4 @@ curl -X POST "$BASE_URL/queryFulltext?siteId=$SITE_ID" \
 
 ## Next Steps
 
-- Explore Document Tags, [Attributes](/docs/tutorials/Documents/document-attributes-api), and Document Actions APIs.
+- Explore [Document Tags, Attributes](/docs/tutorials/Documents/document-attributes-api)
