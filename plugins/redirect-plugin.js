@@ -197,7 +197,17 @@ module.exports = function redirectPlugin(context, options) {
           path: '/docs/formkiq-modules/modules/tag-schema',
           component: '@site/src/components/redirects/tag-schema',
           exact: true
-        });      
+        });
+        addRoute({
+          path: '/docs/tutorials/soft-deletes',
+          component: '@site/src/components/redirects/soft-deletes',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/site-classification-schemas',
+          component: '@site/src/components/redirects/site-classification-schemas',
+          exact: true
+        });
       },
     };
   };

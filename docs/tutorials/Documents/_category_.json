@@ -1,0 +1,10 @@
+{
+  "label": "Documents",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "FormKiQ Tutorials - These tutorials provide a deeper exploration of the FormKiQ Documents API"
+  }
+}

@@ -10,7 +10,10 @@ At the heart of the FormKiQ document management platform lies a sophisticated fr
 
 Documents can be organized in a way that mirrors their workflow, projects, or departments. This intuitive hierarchy ensures efficient navigation, as documents are logically grouped for swift access. Users can effortlessly retrieve specific files by browsing through familiar folder paths or by utilizing powerful search functionalities. This combination of advanced storage solutions and user-centric organization not only streamlines document management but also enhances collaboration and knowledge sharing across teams.
 
-[See full API documentation here](/docs/api-reference/add-document)
+- [Full API documentation](/docs/api-reference/add-document)
+- [FormKiQ Tutorials](/docs/category/tutorials)
+- [Documents API Tutorial](/docs/tutorials/Documents/documents-api)
+- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
 
 ## Core Components
 
@@ -305,6 +308,9 @@ Each event published to EventBridge follows a consistent JSON schema. The payloa
       "values": ["string"]
     }
   ],
+  "changed": {
+    // original document metadata
+  }
   "attributes": {
       "myKey":
       {

@@ -225,6 +225,10 @@ Text search (requires Typesense):
 
 ## Next Steps
 
-- Explore [FormKiQ Tutorials](/docs/category/tutorials)
+- Explore 
+  - [FormKiQ Tutorials](/docs/category/tutorials)
+  - [Documents API Tutorial](/docs/tutorials/Documents/documents-api)
+  - [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+
 - Review [API Reference](/docs/category/api-reference)
 - Join our [Slack Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g)
