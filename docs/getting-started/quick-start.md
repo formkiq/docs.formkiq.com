@@ -140,6 +140,7 @@ Request through the Service Quotas Dashboard:
 | us-east-2 | Ohio | [Request Increase](https://us-east-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | us-west-2 | Oregon | [Request Increase](https://us-west-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ca-central-1 | Canada (Central) | [Request Increase](https://ca-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ca-west-1 | Canada (West) | [Request Increase](https://ca-west-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | eu-central-1 | Frankfurt | [Request Increase](https://eu-central-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | eu-west-1 | Ireland | [Request Increase](https://eu-west-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | eu-west-2 | London | [Request Increase](https://eu-west-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
@@ -192,6 +193,7 @@ Select your AWS region from the installation links below:
 | us-east-2 | Ohio | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.18.0/template.yaml) |
 | us-west-2 | Oregon | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.18.0/template.yaml) |
 | ca-central-1 | Canada (Central) | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.18.0/template.yaml) |
+| ca-west-1 | Canada (West) | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ca-west-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ca-west-1.s3.amazonaws.com/1.18.0/template.yaml) |
 | eu-central-1 | Frankfurt | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.18.0/template.yaml) |
 | eu-west-1 | Ireland | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.18.0/template.yaml) |
 | eu-west-2 | London | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-west-2.s3.amazonaws.com/1.18.0/template.yaml) |
@@ -302,6 +304,7 @@ Select your region's VPC template:
 | us-east-2 | Ohio | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.18.0/vpc.yaml) |
 | us-west-2 | Oregon | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.18.0/vpc.yaml) |
 | ca-central-1 | Canada (Central) | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.18.0/vpc.yaml) |
+| ca-west-1 | Canada (West) | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ca-west-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-west-1.s3.amazonaws.com/1.18.0/vpc.yaml) |
 | eu-central-1 | Frankfurt | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.18.0/vpc.yaml) |
 | eu-west-1 | Ireland | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.18.0/vpc.yaml) |
 | eu-west-2 | London | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-2.s3.amazonaws.com/1.18.0/vpc.yaml) |
