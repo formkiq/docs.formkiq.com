@@ -195,6 +195,8 @@ Schema for Document Actions.
 | completedDate | Completed Date |
 | message | Action message |
 | queueId | Queue Id |
+| retryCount | action retry count |
+| maxRetries | Maximum number of retries |
 | workflowId | Workflow Id |
 | workflowStepId | Workflow Step Id |
 | workflowLastStep | Workflow Last Step |
@@ -384,33 +386,33 @@ These attributes are stored in the "audit" DynamoDB table.
 | Attributes | Format |
 |------------|---------|
 | PK | "entityType#" + entityTypeId |
-| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityTypeId |
+| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + entityTypeId + "#" + ulid |
 | GSI1PK | "activity#user#" + username |
-| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityTypeId |
+| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + entityTypeId + "#" + ulid |
 | GSI2PK | "activity#" + yyyy-MM-dd |
-| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityTypeId |
+| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + entityTypeId + "#" + ulid |
 
 ### Entities Activity Key Schema
 
 | Attributes | Format |
 |------------|---------|
 | PK | "entity#" + entityTypeId + "#" documentId |
-| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityId |
+| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + entityId + "#" + ulid |
 | GSI1PK | "activity#user#" + username |
-| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityId |
+| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + entityId + "#" + ulid |
 | GSI2PK | "activity#" + yyyy-MM-dd |
-| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + entityId |
+| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + entityId + "#" + ulid |
 
 ### Document Activity Key Schema
 
 | Attributes | Format |
 |------------|---------|
 | PK | "doc#" + documentId |
-| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
+| SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
 | GSI1PK | "activity#user#" + username |
-| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
+| GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
 | GSI2PK | "activity#" + yyyy-MM-dd |
-| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss.ffffffZ + "#" + documentId |
+| GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
 
 ### Activity Attributes
 
