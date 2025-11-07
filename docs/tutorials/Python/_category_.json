@@ -1,0 +1,10 @@
+{
+  "label": "Python",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "FormKiQ Tutorials - Using the Python SDK"
+  }
+}
