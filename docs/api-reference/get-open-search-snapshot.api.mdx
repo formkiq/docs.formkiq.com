@@ -1,0 +1,507 @@
+---
+id: get-open-search-snapshot
+title: "Get site(s) OpenSearch snapshot"
+description: "Returns the OpenSearch Snapshot"
+sidebar_label: "Get site(s) OpenSearch snapshot"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get site(s) OpenSearch snapshot"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sites/{siteId}/opensearch/snapshots/{snapshotName}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the OpenSearch Snapshot
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"path","description":"Site Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"snapshotName","in":"path","description":"Snapshot Name","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                snapshots
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"snapshot"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Snapshot name"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"uuid"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Snapshot’s universally unique identifier (UUID)"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"version"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Open Search version that created the snapshot"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"indices"}
+                              required={false}
+                              schemaName={"string[]"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"array","description":"Indices in the snapshot","items":{"type":"string"}}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      shards
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"total"}
+                                    required={false}
+                                    schemaName={"number"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"number","description":"Total number of shards"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"failed"}
+                                    required={false}
+                                    schemaName={"number"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"number","description":"Failed number of shards"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"successful"}
+                                    required={false}
+                                    schemaName={"number"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"number","description":"Successful number of shards"}}
+                                  >
+                                    
+                                  </SchemaItem>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      failures
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"index"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"The index name."}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"index_uuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"UUID of the index."}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"shard_id"}
+                                    required={false}
+                                    schemaName={"int32"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"integer","format":"int32","description":"Shard identifier."}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"reason"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Full exception/message explaining why the failure occurred."}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"node_id"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"ID of the node handling that shard."}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Status of the failure (e.g., INTERNAL_SERVER_ERROR)."}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"state"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Snapshot status. Possible values: IN_PROGRESS, SUCCESS, FAILED, PARTIAL"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"start_time"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Date/time when the snapshot creation process began"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"start_time_in_millis"}
+                              required={false}
+                              schemaName={"number"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"number","description":"Time (in milliseconds) when the snapshot creation process began"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"end_time"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Date/time when the snapshot creation process ended"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"end_time_in_millis"}
+                              required={false}
+                              schemaName={"number"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"number","description":"Time (in milliseconds) when the snapshot creation process ended"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"duration_in_millis"}
+                              required={false}
+                              schemaName={"number"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"number","description":"Total time (in milliseconds) that the snapshot creation process lasted"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"snapshots\": [\n    {\n      \"snapshot\": \"string\",\n      \"uuid\": \"string\",\n      \"version\": \"string\",\n      \"indices\": [\n        \"string\"\n      ],\n      \"shards\": {\n        \"total\": 0,\n        \"failed\": 0,\n        \"successful\": 0\n      },\n      \"failures\": [\n        {\n          \"index\": \"string\",\n          \"index_uuid\": \"string\",\n          \"shard_id\": 0,\n          \"reason\": \"string\",\n          \"node_id\": \"string\",\n          \"status\": \"string\"\n        }\n      ],\n      \"state\": \"string\",\n      \"start_time\": \"string\",\n      \"start_time_in_millis\": 0,\n      \"end_time\": \"string\",\n      \"end_time_in_millis\": 0,\n      \"duration_in_millis\": 0\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

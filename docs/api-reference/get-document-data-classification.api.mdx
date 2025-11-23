@@ -1,0 +1,414 @@
+---
+id: get-document-data-classification
+title: "Get document's data classification"
+description: "Retrieve an document's data classification; available as an Add-On Module"
+sidebar_label: "Get document's data classification"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document's data classification"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}/dataClassification"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieve an document's data classification; available as an Add-On Module
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                dataClassifications
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of Data Classifications
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"llmPromptEntityName"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Name of the LLM Prompt Entity"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"insertedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Inserted Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"content"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Result content"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"UserId that created Result"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      attributes
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <div
+                                    style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                                  >
+                                    
+                                    
+                                    Attributes extracted from result content
+                                    
+                                    
+                                  </div><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"key"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Data Classification Attribute Key"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"value"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Data Classification Attribute Value"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"dataClassifications\": [\n    {\n      \"llmPromptEntityName\": \"string\",\n      \"insertedDate\": \"string\",\n      \"content\": \"string\",\n      \"userId\": \"string\",\n      \"attributes\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      
