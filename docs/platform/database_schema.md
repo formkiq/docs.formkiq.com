@@ -1082,6 +1082,7 @@ Api Key(s) allow access to API.
 | userId | Create by user |
 | siteId | Site Identifier |
 | permissions | List of API Key permissions (read/write/delete) |
+| groups | List Groups to add to the API JWT custom claims |
 | inserteddate | Inserted Date |
 
 ## Activities Events
