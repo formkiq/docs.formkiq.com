@@ -75,7 +75,7 @@ For installations with the Enhanced Full-Text Search Add-On Module:
 
 ## Additional Backup Options
 
-### 1. On-Demand Backups
+### On-Demand Backups
 
 Create complete DynamoDB table snapshots that persist until explicitly deleted.
 
@@ -93,7 +93,7 @@ aws dynamodb create-backup \
   --backup-name "Pre-Migration-Backup-$(date +%Y%m%d)"
 ```
 
-### 2. Document Metadata Export (DynamoDB to S3)
+### Document Metadata Export (DynamoDB to S3)
 
 Export table data for long-term archival, analysis, and compliance reporting:
 
