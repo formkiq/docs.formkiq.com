@@ -1,147 +1,171 @@
+---
+id: using-typescript-client-sdk
+title: Using the TypeScript Client SDK
+sidebar_label: TypeScript Client SDK
+slug: /tutorials/using-typescript-client-sdk
+description: Learn how to use the FormKiQ TypeScript Client SDK to create, upload, and retrieve documents using the FormKiQ API.
+tags:
+  - tutorial
+  - formkiq
+  - api
+---
+
 # Using TypeScript Client SDK
 
 ![Upload Flow Diagram](./img/upload_flow.svg)
 
 ## Overview
-This tutorial demonstrates how to use the [**FormKiQ TypeScript Client SDK**](https://github.com/formkiq/formkiq-client-sdk-typescript) to:
 
-1. Create a document inline (`POST /documents`)
-2. Retrieve document metadata (`GET /documents/{documentId}`)
-3. Request a presigned S3 upload URL (`POST /documents/upload`)
-4. Upload file bytes directly to S3 (HTTP `PUT`)
-5. Verify document metadata after upload
+This tutorial explains how to use the [**FormKiQ TypeScript Client SDK**](https://github.com/formkiq/formkiq-client-sdk-typescript) to interact with the FormKiQ Documents API. It walks through creating a document, retrieving its metadata, requesting a presigned S3 upload URL, uploading file contents directly to S3, and verifying the document after upload.
 
-You will run a single Python script that performs the entire workflow end-to-end. The full example can be found [here](https://github.com/formkiq/formkiq-client-sdk-typescript/blob/main/example.ts).
+Using the TypeScript SDK simplifies API integration by providing strongly typed clients generated from the FormKiQ OpenAPI specification. This approach reduces boilerplate code and ensures consistent request and response handling.
+
+The full TypeScript example can be found [here](https://github.com/formkiq/formkiq-client-sdk-typescript/blob/main/example.ts).
 
 ---
 
 ## Prerequisites
 
+- Node.js 18 or later
+- npm or yarn
+- Access to a FormKiQ deployment
 - A valid **JWT access token** for your FormKiQ API
 - A **siteId** (use `"default"` if not using multi-site)
 - Network access to your FormKiQ API and AWS S3
 
 ---
 
-## Install the SDK
+## Setup
+
+Install dependencies
+
+Install the FormKiQ TypeScript Client SDK and Axios:
 
 ```bash
 npm install axios @formkiq/client-sdk-typescript
 ```
 
 ## Set Environment Variables
+
+Configure the API endpoint and authentication token:
+
 ```bash
 export FORMKIQ_API_URL="https://your-formkiq-api.example.com"
 export JWT="REPLACE_WITH_ACCESS_TOKEN"
 export SITE_ID="default"
 ```
 
-## Example Script (save as [example.py](https://github.com/formkiq/formkiq-client-sdk-typescript/blob/main/example.ts))
+:::warning
+The JWT must be an access token, not an ID token.
+:::
 
-This example uses the FormKiQ TypeScript library to show both **inline upload** and **S3 presigned upload**, which is the recommended workflow for files larger than a few MB.
+## Step-by-step walkthrough
+
+### Create the API client configuration
+
+Create a configuration object that defines the FormKiQ API endpoint and automatically injects the Authorization header into every request.
 
 ```typescript
-// example.ts (TypeScript)
-import axios from "axios";
 import { Configuration, DocumentsApi } from "@formkiq/client-sdk-typescript";
-import fs from "node:fs";
 
-const FORMKIQ_API_URL = process.env.FORMKIQ_API_URL || "https://your-formkiq-api.example.com";
-const JWT = process.env.JWT || "YOUR_JWT_ACCESS_TOKEN";
-const SITE_ID = "default";
-
-/**
- * Demonstrates how to:
- *  1. Configure the FormKiQ Typescript Axios client
- *  2. Add a document to a FormKiQ site
- *  3. Retrieve that same document’s metadata
- *
- * Requirements:
- *  - FORMKIQ_API_URL must point to your FormKiQ API endpoint
- *  - JWT must be a valid OAuth access token (not ID token)
- *  - SITE_ID must be a site you have permission to access
- *
- * The client is generated using: openapi-generator-cli -g typescript-axios
- */
-async function main() {
-  // Create a configuration object that will be used by the API client.
-  // `basePath` sets the FormKiQ API endpoint to call.
-  // `baseOptions.headers` automatically adds the Authorization header
-  // to every outgoing request.
-  const cfg = new Configuration({
-    basePath: FORMKIQ_API_URL,
-    baseOptions: {
-      headers: { Authorization: `Bearer ${JWT}` }, // Send JWT for all requests
+const cfg = new Configuration({
+  basePath: process.env.FORMKIQ_API_URL,
+  baseOptions: {
+    headers: {
+      Authorization: `Bearer ${process.env.JWT}`,
     },
-  });
-
-  // Initialize the Documents API using our configuration.
-  const api = new DocumentsApi(cfg);
-
-  // Add a document to FormKiQ.
-  // - First argument is the document body (path, contentType, content)
-  // - Second argument is the siteId (FormKiQ supports multiple sites)
-  const addResp = await api.addDocument(
-    {
-      path: "inbox/hello.txt",      // Virtual path inside FormKiQ
-      contentType: "text/plain",    // MIME type of the content
-      content: "Hello World",       // Content of the file (string or base64)
-    },
-    SITE_ID
-  );
-
-  // The response may be wrapped in AxiosResponse, so access `.data`
-  const documentId = addResp.data.documentId;
-  console.log("✅ Added documentId:", documentId);
-
-  // Retrieve document metadata
-  // - First argument: the documentId returned when adding the document
-  // - Second argument: the siteId again
-  const getResp = await api.getDocument(documentId, SITE_ID);
-
-  // Log the returned metadata (does not include full file content)
-  console.log("✅ Metadata:", getResp.data);
-
-  // Upload a file upto 5GB in size
-  const filePath = "hello.txt";
-  const contentType = "text/plain";
-  const fileBytes = fs.readFileSync("example.ts"); // Buffer
-  const contentLength = fileBytes.length;
-
-  // 2) Ask FormKiQ for a pre-signed S3 upload URL
-  //    Body typically needs: path, contentType, contentLength (bytes)
-  const uploadResp = await api.addDocumentUpload(
-    {
-      path: "example.ts",
-      contentType,
-      contentLength,
-    },
-    SITE_ID
-  );
-
-  console.log("✅ Upload S3 Presigned Url:", uploadResp.data.url);
-
-  const presignedUrl: string = uploadResp.data.url;
-  if (!presignedUrl) {
-    throw new Error("Missing upload URL in addDocumentUpload response");
-  }
-
-  await axios.put(presignedUrl, fileBytes, {
-    // headers: s3Headers,
-    maxBodyLength: Infinity, // for large uploads
-  });
-
-  console.log("✅ Upload complete");
-}
-
-// Execute main() and exit cleanly; if an error occurs, print and exit with failure code.
-main().catch((e) => {
-  console.error("❌ Error:", e);
-  process.exit(1);
+  },
 });
 ```
 
-## Run the Example
-```bash
-npx ts-node --transpile-only --compiler-options '{"module":"CommonJS"}' example.ts
+### Initialize the Documents API
+
+Use the configuration to create a DocumentsApi client.
+
 ```
+const api = new DocumentsApi(cfg);
+const siteId = process.env.SITE_ID || "default";
+```
+
+### Create a document inline
+
+Create a small document directly using the POST /documents endpoint.
+
+```typescript
+const addResp = await api.addDocument(
+  {
+    path: "inbox/hello.txt",
+    contentType: "text/plain",
+    content: "Hello World",
+  },
+  siteId
+);
+
+const documentId = addResp.data.documentId;
+console.log("Added documentId:", documentId);
+```
+
+### Retrieve document metadata
+
+Fetch the document metadata to verify that the document was created successfully.
+
+```
+const getResp = await api.getDocument(documentId, siteId);
+console.log("Document metadata:", getResp.data);
+```
+
+### Request a presigned S3 upload URL
+
+For larger files, request a presigned S3 URL using POST /documents/upload.
+
+```
+import fs from "node:fs";
+
+const fileBytes = fs.readFileSync("example.ts");
+const uploadResp = await api.addDocumentUpload(
+  {
+    path: "example.ts",
+    contentType: "text/plain",
+    contentLength: fileBytes.length,
+  },
+  siteId
+);
+
+const presignedUrl = uploadResp.data.url;
+```
+
+:::tip
+Presigned uploads are recommended for files larger than a few megabytes.
+:::
+
+### Upload file bytes directly to S3
+
+Upload the file contents directly to Amazon S3 using the presigned URL.
+
+```typescript
+import axios from "axios";
+
+await axios.put(presignedUrl, fileBytes, {
+  maxBodyLength: Infinity,
+});
+
+console.log("Upload complete");
+```
+
+## Common errors and troubleshooting
+
+### 401 Unauthorized
+Ensure the JWT is valid and included as a Bearer token in the Authorization header.
+
+### 403 Forbidden
+Verify that the token has access to the specified siteId.
+
+### Large file upload failures
+Ensure maxBodyLength is set to Infinity when uploading large files with Axios
+
+## Next steps
+
+- Add document attributes and metadata during upload
+- Use document search and query APIs
+- Integrate document workflows and rulesets
+- Explore additional FormKiQ SDKs for Java and Python
