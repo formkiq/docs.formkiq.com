@@ -70,16 +70,20 @@ FileSync CLI supports multiple FormKiQ installations
 
 ```
 usage: fk
-    --configure          configure AWS credentials
-    --delete-documents   Delete documents
-    --delete-site        Delete Site
-    --import            Import csv file
-    --list              list document ids
-    --show              show sync profiles
-    --sync              sync files with FormKiQ
-    --sync-dynamodb     sync documents between dynamodb tables
-    --sync-opensearch   sync documents with Opensearch
-    --watch             watch directories for file changes
+    --configure                configure AWS credentials
+    --delete-documents         Delete documents
+    --delete-site              Delete Site
+    --import-comprehend        Import comprehend
+    --import-csv               Import csv file
+    --list-documents           list document ids
+    --show                     show sync profiles
+    --sync                     sync files with FormKiQ
+    --sync-dynamodb            sync documents from one dynamodb table to
+                               another
+    --sync-opensearch          sync documents with Opensearch
+    --sync-opensearch-verify   verify documents with Opensearch
+    --watch                    watch directorie(s) for file changes and
+                               automatically syncs
 ```
 
 The FileSync CLI requires to be run with the following IAM permissions:
@@ -375,6 +379,9 @@ Response Example:
 ```
 
 ## --sync-dynamodb
+
+Allows the syncing FormKiQ dynamodb table to another existing table.
+
 ```bash
 fk --sync-dynamodb \
     --source formkiq-enterprise-dev1-documents \
@@ -382,6 +389,8 @@ fk --sync-dynamodb \
 ```
 
 ## --sync-opensearch
+
+Allows the sync or resyncing documents with Opensearch.
 
 ```bash
 # Sync specific documents
@@ -396,15 +405,20 @@ fk --sync-opensearch --document-ids all --content -v
 
 ## Document Management
 
+Creates a list of DocumentIds in FormKiQ.
+
 ### List Documents
 ```bash
-fk --list --limit 100
+fk --list-documents --limit 100
 ```
 
 ### Delete Documents
+
+Given a file of document id's, mass delete them from FormKiQ.
+
 ```bash
 # Generate list
-fk --list > documents.txt
+fk --list-documents > documents.txt
 
 # Delete documents
 fk --delete-documents --file documents.txt
