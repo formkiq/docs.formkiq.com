@@ -181,6 +181,10 @@ The CLI includes a built-in CSV importer for quickly bulk-loading:
 - **Document Content**  
 - **Document Attributes**  
 
+:::note
+When importing large number of documents, you may want to review **[Scaling Components](/docs/platform/overview#scaling-formkiq-components)** to help reduce time to import documents.
+:::
+
 ### Import Attributes
 
 Bulk define or update the metadata fields (attributes) that can later be applied to your documents.
