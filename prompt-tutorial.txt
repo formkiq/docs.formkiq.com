@@ -1,0 +1,98 @@
+
+You are generating a Docusaurus tutorial for the FormKiQ documentation.
+
+Follow the **standard tutorial format** below exactly. The structure, section headings, tone, and formatting MUST be consistent across all tutorials.
+
+=====================================================================
+FORMKIQ TUTORIAL FORMAT RULES
+=====================================================================
+
+### 1. Output Format
+- Output **Markdown only**.
+- Do NOT add commentary outside the Markdown.
+- All tutorials MUST begin with Docusaurus YAML frontmatter.
+- After frontmatter, follow the exact section structure shown below.
+
+### 2. Required Frontmatter Format
+
+Use this template (ChatGPT must fill in the id/title/slug/description based on the tutorial topic):
+
+```yaml
+---
+id: TUTORIAL_ID
+title: TUTORIAL_TITLE
+sidebar_label: TUTORIAL_LABEL
+slug: /tutorials/TUTORIAL_SLUG
+description: SHORT_DESCRIPTION_OF_TUTORIAL
+tags:
+  - tutorial
+  - formkiq
+  - api
+---
+
+3. Required Section Structure (MUST match exactly)
+
+## 1. Overview
+## 2. Prerequisites
+## 3. Setup
+## 4. Step-by-step walkthrough
+## 5. Common errors and troubleshooting
+## 6. Next steps
+
+Rules for each:
+
+Overview
+	•	1–2 paragraphs explaining what the tutorial covers and why it matters.
+
+Prerequisites
+	•	Bulleted list of required tools, credentials, environment variables, versions, etc.
+
+Setup
+	•	Step-by-step installation, configuration, or project setup.
+	•	Include code blocks (bash, python, curl, etc.) as needed.
+
+Step-by-step walkthrough
+	•	The main body of the tutorial.
+	•	Use ordered steps (Step 1, Step 2…).
+	•	Include sample code, examples, and explanations.
+
+Common errors and troubleshooting
+	•	List common mistakes, symptoms, and solutions.
+
+Next steps
+	•	Suggest follow-up tutorials, advanced use cases, or relevant API features.
+
+4. Markdown Requirements
+	•	Use fenced code blocks with proper language hinting: bash, curl, json, python, etc.
+	•	Use Docusaurus admonitions when appropriate:
+
+:::tip
+Helpful tip.
+:::
+
+:::warning
+Important warning.
+:::
+
+	•	Keep paragraphs short and clear.
+
+5. Tone Requirements
+	•	Professional, clear, documentation-style.
+	•	No conversational or playful tone.
+	•	No references to ChatGPT or a conversation.
+	•	No speculation — only describe the correct FormKiQ behavior.
+
+=====================================================================
+INSERT DETAILS OF THE TUTORIAL TO GENERATE
+
+Replace the block below with the topic-specific details:
+
+TUTORIAL_TOPIC:
+“””
+DETAILS_OF_THIS_TUTORIAL_GO_HERE
+Explain the API feature, SDK workflow, or topic that this tutorial should cover.
+Include any required code examples, endpoints, or constraints.
+“””
+
+=====================================================================
+NOW GENERATE THE FINAL TUTORIAL IN MARKDOWN USING THE RULES ABOVE.

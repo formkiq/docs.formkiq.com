@@ -1,9 +1,9 @@
-# Using the FormKiQ Python Client SDK
+# Using Python Client SDK
 
 ![Upload Flow Diagram](./img/upload_flow.svg)
 
 ## Overview
-This tutorial demonstrates how to use the **FormKiQ Python Client SDK** to:
+This tutorial demonstrates how to use the [**FormKiQ Python Client SDK**](https://github.com/formkiq/formkiq-client-sdk-python) to:
 
 1. Create a document inline (`POST /documents`)
 2. Retrieve document metadata (`GET /documents/{documentId}`)
@@ -11,7 +11,7 @@ This tutorial demonstrates how to use the **FormKiQ Python Client SDK** to:
 4. Upload file bytes directly to S3 (HTTP `PUT`)
 5. Verify document metadata after upload
 
-You will run a single Python script that performs the entire workflow end-to-end.
+You will run a single Python script that performs the entire workflow end-to-end. The full example can be found [here](https://github.com/formkiq/formkiq-client-sdk-python/blob/main/example.py).
 
 ---
 
