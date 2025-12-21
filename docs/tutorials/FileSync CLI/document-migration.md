@@ -19,7 +19,7 @@ This tutorial show you how to use the "--sync-dynamodb" option in the [FileSync 
 Using the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDb](https://aws.amazon.com/dynamodb) using the command:
 
 ```
-fk --sync-dynamodb --source &lt;source_dynamodb_tablename&gt; --destintation &lt;destination_dynamodb_tablename&gt;
+fk --sync-dynamodb --source <source_dynamodb_tablename> --destination <destination_dynamodb_tablename>
 ```
 
 :::note
@@ -29,7 +29,7 @@ The --dry-run and --verbose can be used with this command to see the output from
 ### Example
 
 ```
-fk --sync-dynamodb --source formkiq-enterprise-dev1-documents --destintation formkiq-enterprise-dev2-documents
+fk --sync-dynamodb --source formkiq-enterprise-dev1-documents --destination formkiq-enterprise-dev2-documents
 ```
 
 ## Step 2: Sync Document Content
@@ -39,7 +39,7 @@ fk --sync-dynamodb --source formkiq-enterprise-dev1-documents --destintation for
 Using the [AWS CLI](https://aws.amazon.com/cli/), you can sync the document contents from one S3 bucket to another.
 
 ```
-aws s3 sync s3://&lt;source-bucket&gt; s3://&lt;destination-bucket&gt;
+aws s3 sync s3://<source-bucket> s3://<destination-bucket>
 ```
 
 :::note
@@ -49,7 +49,7 @@ The --dry-run can be used with this command to see the output from the CLI
 ### Example
 
 ```
-aws s3 sync s3://&lt;formkiq-enterprise-dev1-documents-1111111111&gt; s3://&lt;formkiq-enterprise-dev2-documents-1111111111&gt;
+aws s3 sync s3://formkiq-enterprise-dev1-documents-1111111111 s3://formkiq-enterprise-dev2-documents-1111111111
 ```
 
 ## Summary
