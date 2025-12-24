@@ -108,6 +108,10 @@ The following IAM permissions to the FormKiQ DynamoDb tables
 
 Below the CLI can be used, it needs to be connected to your FormKiQ installation.
 
+:::note
+Use the fk --status command to confirm your connection with FormKiQ
+:::
+
 ### CloudShell
 
 When running the CLI using CloudShell you can use the command
@@ -164,9 +168,17 @@ fk --configure --access-key ACCESS_KEY \
                --profile dev
 ```
 
-### --show
+## --status
 
-The --show command will list the CLI configurations.
+The --status command will confirm FormKiQ configurations is valid.
+
+```bash
+fk --status
+```
+
+## --show
+
+The --show command will list the FormKiQ configurations.
 
 ```bash
 fk --show
