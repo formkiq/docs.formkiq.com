@@ -1,5 +1,15 @@
 ---
-sidebar_position: 2
+id: dynamodb-data-migration
+title: DynamoDb data Migration
+sidebar_position: 3
+sidebar_label: DynamoDb Data migration
+slug: /tutorials/dynamodb-data-migration
+description: Step-by-step guide to migrating DynamoDb to another FormKiQ instance.
+tags:
+  - tutorial
+  - formkiq
+  - cli
+  - migration
 ---
 
 # Data Migration
