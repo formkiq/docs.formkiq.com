@@ -782,6 +782,8 @@ Document folder / file listing index.
 | SK | "ff#" + path OR "fi#" + path |
 | GSI1PK (folder only) | "folder#" + documentId |
 | GSI1SK (folder only) | "folder" |
+| GSI2PK  | "global#filename#" + &lt;first 2 characters of filename&gt; + "#s" + shardId|
+| GSI2SK  | "fi#" + filename + "#" + documentId or "ff#" + folder + "#" + documentId |
 
 ### Entity Attributes
 
