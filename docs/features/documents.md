@@ -278,7 +278,6 @@ Each document event uses the DetailType field in the EventBridge Message to dist
 | Document Delete | Triggered when a document is deleted |
 | Document Soft Delete | Triggered when a document is soft deleted |
 | Document Restore | Triggered when a document restored from a soft delete |
-| New Document Create Metadata | Triggered when a new document is created |
 | Document Create Metadata | Triggered when an existing document attributes are created |
 | Document Update Metadata | Triggered when a document or document attributes are changed |
 | Document Delete Metadata | Triggered when a document metadata is deleted |
