@@ -78,8 +78,7 @@ usage: fk
     --list-documents           list document ids
     --show                     show sync profiles
     --sync                     sync files with FormKiQ
-    --sync-dynamodb            sync documents from one dynamodb table to
-                               another
+    --restore-dynamodb         restore dynamodb from restored table
     --sync-opensearch          sync documents with Opensearch
     --sync-opensearch-verify   verify documents with Opensearch
     --watch                    watch directorie(s) for file changes and
@@ -394,14 +393,37 @@ Response Example:
 }
 ```
 
-## --sync-dynamodb
+## --restore-dynamodb
 
-Allows the syncing FormKiQ dynamodb table to another existing table.
+Restore a FormKiQ DynamoDB table from a restored source table.
 
 ```bash
-fk --sync-dynamodb \
-    --source formkiq-enterprise-dev1-documents \
-    --destination formkiq-enterprise-dev2-documents
+fk --restore-dynamodb
+    --dry-run              show what would have been transferred
+    --from-table <arg>     dynamodb source table (required)
+ -h,--help                 Show help
+ -p,--profile <arg>        FormKiQ Profile to use
+    --pk <arg>             pk key to restore
+    --thread-count <arg>   Number of Threads
+    --to-table <arg>       dynamodb destination table (required)
+ -v,--verbose              increase verbosity
+```
+
+### Examples
+
+Restore all items from one table to another:
+
+```bash
+fk --restore-dynamodb --from-table BackupTable --to-table ProductionTable
+```
+
+Restore specific PK values:
+
+```bash
+fk --restore-dynamodb --from-table BackupTable --to-table ProductionTable \
+  --pk "site#abc#doc#1" \
+  --pk "site#abc#doc#2" \
+  --pk "site#abc#doc#3"
 ```
 
 ## --sync-opensearch

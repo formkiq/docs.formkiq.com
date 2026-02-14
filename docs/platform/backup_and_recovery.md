@@ -1,5 +1,7 @@
 ---
 sidebar_position: 8
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 
 # Backup and Recovery
@@ -27,9 +29,9 @@ FormKiQ's architecture consists of several core components, each requiring speci
 | Document Content | Amazon S3 | S3 Versioning, Cross-Region Replication | Versioning enabled |
 | Document Metadata | Amazon DynamoDB | Point-in-Time Recovery | Enabled with 35-day window |
 | User Authentication | Amazon Cognito | Cognito User Pool Export | Manual export |
+| Search Indexes | Amazon OpenSearch (if used) | Automated Snapshots | Configurable |
 | API Configuration | API Gateway | CloudFormation or CDK | Infrastructure as Code |
 | Custom Functions | AWS Lambda | Infrastructure as Code | CloudFormation/CDK |
-| Search Indexes | Amazon OpenSearch (if used) | Automated Snapshots | Configurable |
 
 ## Automated Backup Capabilities
 
@@ -72,6 +74,49 @@ For installations with the Enhanced Full-Text Search Add-On Module:
 - **Daily Snapshots**: Automated daily snapshots of the search index
 - **S3 Storage**: Snapshots stored in a dedicated S3 bucket
 - **Retention Period**: Configurable retention period (default: 14 days)
+
+## AWS Backup
+
+AWS Backup provides centralized, policy-driven backup management across
+AWS services used by FormKiQ. While FormKiQ enables native service-level
+protections such as DynamoDB PITR and S3 Versioning, AWS Backup allows
+consolidation of backup policies, automation of retention, and
+enforcement of compliance requirements.
+
+### Why Use AWS Backup with FormKiQ
+
+-   Centralized backup governance
+-   Automated backup plans
+-   Backup vault encryption with KMS
+-   Cross-region and cross-account copies
+-   Compliance and audit reporting
+-   Immutable backups via Backup Vault Lock
+
+### Supported Resources
+
+  FormKiQ Component   AWS Service      AWS Backup Support
+  ------------------- ---------------- ----------------------
+  Document Metadata   DynamoDB         Supported
+  Document Content    S3               Supported
+  Search Index        OpenSearch       Supported - Snapshots are stored in S3
+
+:::note
+AWS Backup does not replace DynamoDB PITR. PITR should remain enabled for operational recovery.
+:::
+
+:::tip
+FormKiQ CLI can be used to restore DynamoDb table, see [FormKiQ CLI](/docs/formkiq-modules/modules/filesync-cli)
+:::
+
+### Recommended Enterprise Strategy
+
+-   Daily DynamoDB backups
+-   Daily/weekly S3 backups
+-   35+ day retention
+-   Cold storage transition after 30--60 days
+-   Cross-region copy
+-   Backup Vault Lock enabled
+
 
 ## Additional Backup Options
 
