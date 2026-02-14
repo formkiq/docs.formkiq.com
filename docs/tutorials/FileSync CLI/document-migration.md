@@ -14,7 +14,7 @@ tags:
 
 # Data Migration
 
-This tutorial show you how to use the "--sync-dynamodb" option in the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) and the "sync" option in the [AWS CLI](https://aws.amazon.com/cli/) to sync documents from one FormKiQ installation to another.
+This tutorial show you how to use the "--restore-dynamodb" option in the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) and the "sync" option in the [AWS CLI](https://aws.amazon.com/cli/) to sync documents from one FormKiQ installation to another.
 
 ## What you’ll need
 
@@ -29,7 +29,7 @@ This tutorial show you how to use the "--sync-dynamodb" option in the [FileSync 
 Using the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDb](https://aws.amazon.com/dynamodb) using the command:
 
 ```
-fk --sync-dynamodb --source <source_dynamodb_tablename> --destination <destination_dynamodb_tablename>
+fk --restore-dynamodb --from-table <source_dynamodb_tablename> --to-table <destination_dynamodb_tablename>
 ```
 
 :::note
@@ -39,7 +39,7 @@ The --dry-run and --verbose can be used with this command to see the output from
 ### Example
 
 ```
-fk --sync-dynamodb --source formkiq-enterprise-dev1-documents --destination formkiq-enterprise-dev2-documents
+fk --restore-dynamodb --from-table formkiq-enterprise-dev1-documents --to-table formkiq-enterprise-dev2-documents
 ```
 
 ## Step 2: Sync Document Content
