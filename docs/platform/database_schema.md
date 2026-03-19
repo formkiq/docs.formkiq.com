@@ -782,6 +782,8 @@ Document folder / file listing index.
 | SK | "ff#" + path OR "fi#" + path |
 | GSI1PK (folder only) | "folder#" + documentId |
 | GSI1SK (folder only) | "folder" |
+| GSI1PK (file only - as of 1.19) | "file#" + documentId |
+| GSI1SK (file only) | "file" |
 | GSI2PK  | "global#filename#" + &lt;first 2 characters of filename&gt; + "#s" + shardId|
 | GSI2SK  | "fi#" + filename + "#" + documentId or "ff#" + folder + "#" + documentId |
 
@@ -878,6 +880,7 @@ The document workflow entity consists of attributes that capture essential infor
 | Attributes | Format |
 |------------|---------|
 | PK | "wfdoc#" + documentId |
+| PK - as of 1.19 | "docs#" + documentId |
 | SK | "wf#" + workflowId |
 | GSI1PK | "wfdoc#" + documentId |
 | GSI1SK | "wf#" + workflowName + "#" + workflowId |
