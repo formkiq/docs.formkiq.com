@@ -97,7 +97,7 @@ If you do not have a AWS account, you can sign up for one at https://aws.amazon.
 
 ### AWS Lambda Concurrent Executions
 
-Concurrent executions refer to the number of function invocations being handled simultaneously. [AWS Lambda](https://aws.amazon.com/pm/lambda) defaults to **10** concurrent executions per region. Request an increase to **1000** before installation.
+Concurrent executions refer to the number of function invocations being handled simultaneously. [AWS Lambda](https://aws.amazon.com/pm/lambda) generally defaults to **10** concurrent executions per region, but this limit may be higher for some customers and accounts. It's best to request an increase to **1000** before installation.
 
 #### Check Concurrent Executions
 
