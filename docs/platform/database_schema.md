@@ -80,6 +80,7 @@ The Document entity is the primary metadata record for a stored document. It con
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "document" |
+| SK (artifact) | "document#art#" + ULID |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
 
@@ -161,6 +162,7 @@ The Document OCR entity stores OCR processing metadata for a document. It tracks
 | Attributes | Description |
 |------------|-------------|
 | documentId | Document Identifier |
+| artifactId | Artifact Identifier |
 | inserteddate | Inserted Date |
 | userId | Create by user |
 | contentType | Mime Content Type |
@@ -179,10 +181,13 @@ Document Actions store queued or completed processing requests for a document. A
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "action#" + idx + "#" + type |
+| SK (artifact) | "action_art#" + artifactId + "#" + idx + "#" + type |
 | GSI1PK | "action#" + type + "#" + queueId |
 | GSI1SK | "action#" + documentId + "#" + yyyy-MM-dd'T'HH:mm:ssZ |
-| GSI2PK | "actions#" + status |
+| GSI1SK (artifact) | "action_art#" + documentId + "#" + artifactId + "#" + yyyy-MM-dd'T'HH:mm:ssZ |
+| GSI2PK | "actions#" + status + "#" |
 | GSI2SK | "action#" + documentId |
+| GSI2SK (artifact) | "action_art#" + documentId + "#" + artifactId |
 
 #### Entity Attributes
 
@@ -241,10 +246,11 @@ Document Tag records support legacy key-value metadata for documents. They are i
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "tags#" + tagKey |
+| SK (artifact) | "tags_art#" + ULID + "#" + tagKey |
 | GSI1PK | "tag#" + tagKey + "#" + tagValue |
 | GSI1SK | "yyyy-MM-dd'T'HH:mm:ssZ" + "#" + documentId |
 | GSI2PK | "tag#" + tagKey |
-| GSI2SK | tagValue + "#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId |
+| GSI2SK | tagValue|
 
 #### Entity Attributes
 
@@ -266,10 +272,11 @@ Document Tag (Multi-Value) records support tags where a single key can have more
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "tags#" + tagKey + "#idx" + index |
+| SK (artifact) | "tags_art#" + tagKey + "#idx" + index |
 | GSI1PK | "tag#" + tagKey + "#" + tagValue |
 | GSI1SK | "yyyy-MM-dd'T'HH:mm:ssZ" + "#" + documentId |
 | GSI2PK | "tag#" + tagKey |
-| GSI2SK | tagValue + "#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId |
+| GSI2SK | tagValue |
 
 #### Entity Attributes
 
@@ -292,6 +299,7 @@ Document Attribute records store structured metadata values attached to document
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "attr#" + key + "#" + value |
+| SK (artifact) | "attr_art#" + ULID + "#" + key + "#" + value |
 | GSI1PK | "doc#attr#" + key |
 | GSI1SK | value |
 | GSI2PK | "docs#" + documentId  |
