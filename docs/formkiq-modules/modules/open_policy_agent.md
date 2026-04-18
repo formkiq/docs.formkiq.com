@@ -55,6 +55,7 @@ FormKiQ provides the following structure to OPA's decision engine:
     "user": {
         "username": "<user name>",
         "roles": "<string list of roles>"
+        "claims": "<map of user claim>"
     }
 }
 ```
@@ -72,7 +73,10 @@ Example input for document access:
     }, 
     "user":{
         "username": "<email>@yourcompany.com",
-        "roles": ["Admins"]
+        "roles": ["Admins"],
+        "claims": {
+            "employeeNumber": "123"
+        }
     }
 }
 ```
