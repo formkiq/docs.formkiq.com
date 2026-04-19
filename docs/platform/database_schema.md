@@ -80,7 +80,7 @@ The Document entity is the primary metadata record for a stored document. It con
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "document" |
-| SK (artifact) | "document#art#" + ULID |
+| SK (artifact) | "document_art#" + ULID |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
 
@@ -156,6 +156,7 @@ The Document OCR entity stores OCR processing metadata for a document. It tracks
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "ocr#" |
+| SK (artifact) | "ocr_art#" + artifactId + "#" |
 
 #### Entity Attributes
 
@@ -452,6 +453,7 @@ Document activity keys store audit records for document actions. They support do
 | Attributes | Format |
 |------------|---------|
 | PK | "doc#" + documentId |
+| PK (artifact) | "doc#" + documentId + "#art#" + artifactId |
 | SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
 | GSI1PK | "activity#user#" + username |
 | GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
@@ -930,10 +932,12 @@ The Document Workflow entity tracks a specific document's progress through a wor
 | PK | "wfdoc#" + documentId |
 | PK - as of 1.19 | "docs#" + documentId |
 | SK | "wf#" + workflowId |
+| SK (artifact) | "wf#" + workflowId + "#art#" + artifactId |
 | GSI1PK | "wfdoc#" + documentId |
+| GSI1PK (artifact) | "wfdoc#" + documentId + "#art#" + artifactId |
 | GSI1SK | "wf#" + workflowName + "#" + workflowId |
 | GSI2PK | "wf#" + workflowId |
-| GSI2SK | "wfdoc#" + documentId |
+| GSI2SK (artifact) | "wfdoc#" + documentId + "_art#" + artifactId |
 
 #### Entity Attributes
 
@@ -1176,6 +1180,7 @@ Document Activities Events store event records related to document activity. The
 |------------|---------|
 | PK | "documentEvent" |
 | SK | "event#docs#activities#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId + "#" + UUID |
+| SK (artifact) | "event#docs#activities#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId + "_art#" + ULID |
 
 #### Entity Event Sourcing Attributes
 
