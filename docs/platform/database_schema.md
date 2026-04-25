@@ -324,6 +324,7 @@ Contains all information about Data Classification Result for the document.
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "llmresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| SK (artifact) | "llmresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
@@ -346,8 +347,10 @@ Contains all information about Metadata Extraction Result for the document.
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "mdextractionresult#" + llmPromptEntityName + "#" + TIMESTAMP |
+| SK (artifact) | "mdextractionresult_art#" + artifactId + "#" + llmPromptEntityName + "#" + TIMESTAMP |
 | GSI1PK | "docs#" + documentId |
 | GSI1SK | "mdextractionresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| GSI1SK (artifact) | "mdextractionresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
@@ -370,6 +373,7 @@ Contains all information about Malware Scan Result for the document.
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "malware#result#" + TIMESTAMP + "#" + ID |
+| SK (artifact) | "malware#result_art#" + artifactId "#" + TIMESTAMP + "#" + ID |
 
 #### Entity Attributes
 
