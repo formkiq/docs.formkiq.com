@@ -328,6 +328,7 @@ Document Data Classification Result records store the output of classification o
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "llmresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| SK (artifact) | "llmresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
@@ -350,8 +351,10 @@ Document Metadata Extraction Result records store extracted metadata produced fr
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "mdextractionresult#" + llmPromptEntityName + "#" + TIMESTAMP |
+| SK (artifact) | "mdextractionresult_art#" + artifactId + "#" + llmPromptEntityName + "#" + TIMESTAMP |
 | GSI1PK | "docs#" + documentId |
 | GSI1SK | "mdextractionresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| GSI1SK (artifact) | "mdextractionresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
@@ -374,6 +377,7 @@ Document MalwareScan Result records store the outcome of malware or antivirus sc
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "malware#result#" + TIMESTAMP + "#" + ID |
+| SK (artifact) | "malware#result_art#" + artifactId "#" + TIMESTAMP + "#" + ID |
 
 #### Entity Attributes
 
