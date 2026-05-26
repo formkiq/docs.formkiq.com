@@ -131,6 +131,8 @@ A soft-deleted document is moved into a separate key namespace so it no longer a
 | SK | "softdelete#document" + documentId |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
+| GSI2PK | "softdelete#docs#" |
+| GSI2SK | "date#" + "yyyy-MM-dd'T'HH:mm:ssZ" |
 
 #### Entity Attributes
 
@@ -329,6 +331,32 @@ Document Data Classification Result records store the output of classification o
 | PK | "docs#" + documentId |
 | SK | "llmresult#" + TIMESTAMP + "#" + llmPromptEntityName |
 | SK (artifact) | "llmresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| llmPromptEntityName | LLM Prompt Entity Name |
+| content | Result from the LLM Prompt |
+| attributes | List of Attributes found in the LLM prompt result |
+| inserteddate | Inserted Date |
+| userId | Create by user |
+
+### Document Llm AI Prompt Result
+
+Contains all information about Llm Result for the document.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "llmaipromptresult#" + llmPromptEntityName + "#" + TIMESTAMP |
+| SK (artifact) | "llmaipromptresult#" + artifactId + "#" + llmPromptEntityName + "#" + TIMESTAMP |
+| GSI1PK | "docs#" + documentId |
+| GSI1SK | "llmaipromptresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| GSI1SK (artifact) | "llmaipromptresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
