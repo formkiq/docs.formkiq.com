@@ -4,17 +4,15 @@ sidebar_position: 10
 
 # Site / Classification Schemas
 
-This guide demonstrates how to organized documents through using **Site Schemas** and **Classification Schemas**. 
+This tutorial demonstrates how to organize documents using **Site Schemas** and **Classification Schemas**.
 
-We will be:
+## What You Will Build
 
-* Creating a Site Schema which will require certain attributes added to each document
-
-* Creating a Classification Schema which will categorize documents
+You will create attribute definitions, configure a site schema that requires an attribute on every document, configure a classification schema with a composite key, add valid and invalid documents, and search documents by classification attributes.
 
 The code for the tutorial can be found on the [FormKiQ Github Tutorials](https://github.com/formkiq/tutorials/tree/master/java/schemas)
 
-## What you’ll need
+## Before You Begin
 
 * A text editor or IDE - for example [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
 
@@ -24,7 +22,16 @@ The code for the tutorial can be found on the [FormKiQ Github Tutorials](https:/
 
 * A [JWT Authentication Token](/docs/how-tos/jwt-authentication-token)
 
-## FormKiQ Client Library
+## Workflow Overview
+
+1. Configure the Java API client.
+2. Create attributes used by schemas.
+3. Create a site schema.
+4. Create a classification schema.
+5. Add documents that pass or fail schema validation.
+6. Search using classification attributes.
+
+## Step 1: Configure the FormKiQ Client Library
 
 FormKiQ has a client library available in [java](https://github.com/formkiq/formkiq-client-sdk-java/) and [python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
@@ -32,7 +39,7 @@ FormKiQ has a client library available in [java](https://github.com/formkiq/form
 This tutorial will be using the Java API and required the client 1.15.0 or greater, but will reference the REST API endpoints used.
 :::
 
-## Setup API
+### Setup API
 
 The Java API requires the creation of a `ApiClient` which requires a JWT `AccessToken` and the `FormKiQ url` of the FormKiQ instances to use.
 
@@ -63,7 +70,7 @@ public void setUpApi() {
 }
 ```
 
-## Create Attributes
+## Step 2: Create Attributes
 
 Create the attributes that will be used in the Site / Classification Schema.
 
@@ -81,7 +88,7 @@ AddAttributeRequest req2 = new AddAttributeRequest().attribute(new AddAttribute(
 attributesApi.addAttribute(req2, siteId);
 ```
 
-## Create Site Schema
+## Step 3: Create a Site Schema
 
 Create a Site Schema that requires an attribute "securityLevel" added to each document.
 
@@ -92,7 +99,7 @@ SetSitesSchemaRequest req = new SetSitesSchemaRequest().name("Site Schema").attr
 schemasApi.setSitesSchema(siteId, req);
 ```
 
-## Create Classification Schema
+## Step 4: Create a Classification Schema
 
 A Classification Schema overrides the Site Schema and allow for multiple kinds of document classifications.
 
@@ -108,7 +115,7 @@ AddClassificationRequest req = new AddClassificationRequest().classification(new
 String classificationId = schemasApi.addClassification(siteId, req).getClassificationId();
 ```
 
-## Add Document with Site Schema
+## Step 5: Add a Document with the Site Schema
 
 Once the Site Schema is set, any document added must follow the schema. In this case, the "securityLevel" attribute is required. Adding a document without this attribute will not be added.
 
@@ -129,7 +136,7 @@ String docId0 = app.addDocument(siteId, "valid Site Schema", "text/plain", List.
 System.out.println("Added document: " + docId0 + " with valid Site Schema");
 ```
 
-## Add Document with Classification Schema
+## Step 6: Add a Document with the Classification Schema
 
 Adding a document with a Classification attribute allows to override the Site Schema and apply custom classification to a document. In the code below, a classification is used to require the "documentType" and "documentNo" attributes.
 
@@ -157,10 +164,24 @@ DocumentSearchRequest searchReq = new DocumentSearchRequest().query(new Document
 List<SearchResultDocument> documents = searchApi.documentSearch(searchReq, siteId, null, null, null).getDocuments();
 ```
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to add Site and Classification Schemas to allow for the automatic classifications of documents.
+Confirm that a document without the required `securityLevel` attribute is rejected, a document with the required site schema attribute is accepted, and a document with classification attributes can be found using the composite-key search.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Delete the test schema, classification, attributes, and documents if they are not needed after the tutorial.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Document creation fails | A required schema attribute is missing. | Confirm required site or classification attributes are included. |
+| Composite-key search returns no results | Composite keys were created after documents were added. | Reindex or update existing documents after schema changes. |
+| Classification does not apply | Wrong classification ID or missing classification attribute. | Confirm the classification ID returned from `addClassification`. |
+
+## Next Steps
+
+- [Schemas](/docs/features/schemas)
+- [Attributes](/docs/features/attributes)
+- [Search](/docs/features/search)

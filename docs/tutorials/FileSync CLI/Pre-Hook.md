@@ -4,30 +4,32 @@ sidebar_position: 10
 
 # Pre-Hook Option
 
-This tutorial show you how to use the "--pre-hook" option in the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) to add document metadata at the same time as syncing documents to FormKiQ.
+This tutorial shows how to use the `--pre-hook` option in the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) to add document tags and actions while syncing documents to FormKiQ.
 
-We will be:
+## What You Will Build
 
-* Using the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) to sync documents to FormKiQ and add document metadata at the same time
+You will build a small Node.js web service that receives FileSync pre-hook requests and returns document-specific tags. You will then sync two sample files and have the CLI apply different tags based on the file path.
 
-## What you’ll need
+## Before You Begin
 
-* Access to a FormKiQ Essentials, Advanced, or Enterprise installation
+- Access to a FormKiQ Essentials, Advanced, or Enterprise installation.
+- The [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) installed and configured.
+- [Node.js](https://nodejs.org/en) installed.
+- A terminal with access to run `fk` and `node`.
 
-* Installed and configured the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli)
+## Workflow Overview
 
+1. Create a Node.js pre-hook web service.
+2. Test the pre-hook endpoint directly.
+3. Create two sample files.
+4. Run FileSync with `--pre-hook`.
+5. Verify the files and tags in FormKiQ.
 
-## Pre-requisite
-
-The tutorial uses [Node.js](https://nodejs.org/en) to create the webservice. 
-
-* Download and install [Node.js](https://nodejs.org/en)
-
-## Pre-Hook Webservice
+## Step 1: Create the Pre-Hook Web Service
 
 To create a Node.js web service that processes the given request and returns the specified payloads based on the filename, follow these steps:
 
-### Step 1: Initialize a Node.js Project
+### Initialize a Node.js Project
 
 First, set up your Node.js project. In your terminal, run:
 
@@ -37,7 +39,7 @@ cd webservice
 npm init -y
 ```
 
-### Step 2: Install Required Packages
+### Install Required Packages
 
 You will need Express, a popular web framework for Node.js. Install it by running:
 
@@ -45,7 +47,7 @@ You will need Express, a popular web framework for Node.js. Install it by runnin
 npm install express
 ```
 
-### Step 3: Create the Web Service
+### Create the Web Service
 
 Create a new file named `index.js` and add the following code:
 
@@ -70,10 +72,9 @@ const payloads = {
         "values": ["100", "101"]
       }
     ],
-    "metadata": [
+    "actions": [
       {
-        "key": "property",
-        "value": "value1"
+        "type": "FULLTEXT"
       }
     ]
   },
@@ -88,10 +89,9 @@ const payloads = {
         "values": ["200", "201"]
       }
     ],
-    "metadata": [
+    "actions": [
       {
-        "key": "property",
-        "value": "value2"
+        "type": "OCR"
       }
     ]
   }
@@ -115,7 +115,7 @@ app.listen(port, () => {
 });
 ```
 
-### Step 4: Run the Web Service
+## Step 2: Run the Web Service
 
 In your terminal, run the following command to start the server:
 
@@ -125,7 +125,7 @@ node index.js
 
 You should see the message `Server is running on http://localhost:3000`.
 
-### Step 5: Test the Web Service
+## Step 3: Test the Web Service
 
 You can use tools like `curl` or Postman to test your web service.
 
@@ -151,10 +151,9 @@ Expected response:
       "values": ["100", "101"]
     }
   ],
-  "metadata": [
+  "actions": [
     {
-      "key": "property",
-      "value": "value1"
+      "type": "FULLTEXT"
     }
   ]
 }
@@ -180,10 +179,9 @@ Expected response:
       "values": ["200", "201"]
     }
   ],
-  "metadata": [
+  "actions": [
     {
-      "key": "property",
-      "value": "value2"
+      "type": "OCR"
     }
   ]
 }
@@ -203,42 +201,34 @@ Expected response:
 }
 ```
 
-## FileSync CLI
+## Step 4: Create Sample Files
 
-Now, we will:
+Now create the sample files that FileSync will upload.
 
-* Create 2 sample example documents
-
-* Configure the FileSync CLI
-
-* Run the FileSync to sync the two documents and add metadata
-
-### Create Sample Files
-
-Create a directory **example** in the directory, create the following two files example1.txt and example2.txt.
+Create a directory named `examples`, then create `example1.txt` and `example2.txt`.
 
 Create a new directory:
 ```
-mkdir example
+mkdir examples
 ```
 
-Create 2 files in the `example` directory
+Create two files in the `examples` directory.
 
-**example/example1.txt**
+**examples/example1.txt**
 
 ```
 This is example1.txt
 ```
 
-**example/example2.txt**
+**examples/example2.txt**
 
 ```
 This is example2.txt
 ```
 
-### Configure FileSync CLI
+## Step 5: Configure FileSync CLI
 
-Using the information from the  CloudFormation **Outputs** of the FileSync CLI and FormKiQ installation configure the CLI using the following command:
+If the CLI is not already configured, configure it using the FormKiQ CloudFormation outputs:
 
 ```
 fk --configure --access-key ACCESS_KEY \
@@ -248,7 +238,7 @@ fk --configure --access-key ACCESS_KEY \
                --documents-dynamodb-tablename DOCUMENTS_TABLE_NAME
 ```
 
-### Run FileSync CLI
+## Step 6: Run FileSync CLI
 
 We will now run the FileSync CLI to sync 2 sample files from the examples directory to FormKiQ.
 
@@ -256,10 +246,24 @@ We will now run the FileSync CLI to sync 2 sample files from the examples direct
 fk --sync -d ./examples --pre-hook http://localhost:3000/get-payload -v
 ```
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to use FileSync CLI with --pre-hook option to sync documents to FormKiQ with custom document metadata.
+Open the FormKiQ console and confirm that `example1.txt` and `example2.txt` were uploaded. Check each document's tags and queued actions to confirm the pre-hook response was applied.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Stop the Node.js service with `Ctrl+C`. Delete the sample documents from FormKiQ if you do not want to keep them.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| FileSync receives a 404 from the pre-hook | The file path in the request does not match the `payloads` map. | Log `req.body.path` and update the sample keys. |
+| Documents upload without tags | The pre-hook URL is wrong or the service is not running. | Confirm `node index.js` is running and `--pre-hook` points to the correct URL. |
+| Actions are not created | The returned action type or payload is invalid. | Use supported action types such as `FULLTEXT`, `OCR`, or `WEBHOOK`. |
+
+## Next Steps
+
+- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [Add Document Actions](/docs/how-tos/api-document-actions)
+- [Add Document Tags](/docs/how-tos/api-add-document-tags)

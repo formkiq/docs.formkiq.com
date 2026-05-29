@@ -6,22 +6,30 @@ sidebar_position: 5
 
 ![Amazon Cognito to Okta SAML](./img/cognito-saml-okta.png)
 
-This tutorial show you how to integrate [Okta](https://okta.com) as the identity management provider for your FormKiQ installation.
+This tutorial shows how to integrate [Okta](https://okta.com) as the identity management provider for your FormKiQ installation.
 
-We will be:
+## What You Will Build
 
-* Configuring an application in Okta
+You will create an Okta SAML application, configure Amazon Cognito as the service provider, map email and group attributes, and connect Okta to FormKiQ through Cognito.
 
-* Adding an Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
+## Before You Begin
 
+- Access to a FormKiQ Essentials, Advanced, or Enterprise installation, including administrative access.
+- Administrative access to Okta.
+- Access to the AWS account that hosts the FormKiQ Cognito User Pool.
+- The FormKiQ `CognitoUserPoolId`, console URL, and Cognito domain.
 
-## What you’ll need
+## Workflow Overview
 
-* Access to a FormKiQ Essentials, Advanced, or Enterprise installation, including administrative access
+1. Collect FormKiQ Cognito values.
+2. Create an Okta SAML app integration.
+3. Configure SAML URLs and group attributes.
+4. Assign users or groups to the Okta app.
+5. Add Okta as a Cognito SAML identity provider.
+6. Configure Cognito managed login.
+7. Verify login from the FormKiQ console.
 
-* Administrative access to Okta
-
-## Pre-requisite
+## Step 1: Collect FormKiQ Cognito Values
 
 You will need these specific configuration values:
 
@@ -39,7 +47,7 @@ The Cognito domain can be found by clicking on the Cognito User Pool found on th
 
 ![Cognito Domain](./img/cognito-domain.png)
 
-## Add Application
+## Step 2: Add an Okta Application
 
 The next step is to create an application in Okta. This application will be connected to Amazon Cognito and will provide authentication for the users.
 
@@ -98,19 +106,19 @@ eg: urn:amazon:cognito:sp:us-east-2_MEhz4EzAZ
 
 ![SAML Attributes](./img/okta-saml-group-attribute.png)
 
-## Metadata URL
+## Step 3: Copy the Metadata URL
 
 Under the **Sign On** tab of the application, you can get the **Metadata URL**. It will be needed to connect Okta to Cognito in the steps below.
 
 ![SAML Metadata details](./img/okta-saml-metadata-url.png)
 
-## Users / Groups
+## Step 4: Assign Users or Groups
 
 When you create an Okta Application integration, one of the essential steps is assigning users or groups to the application. By default, new integrations are not accessible to anyone until assignments are explicitly made. To assign users use the **Assign Users To App** button.
 
 ![SAML Metadata details](./img/okta-users.png)
 
-## Amazon Cognito
+## Step 5: Add the Identity Provider in Amazon Cognito
 
 Now, we will need to configure [Amazon Cognito](https://aws.amazon.com/pm/cognito) to connect to Okta.
 
@@ -148,10 +156,23 @@ You now need to configure Amazon Managed login. Amazon Cognito Managed login pro
 To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
 
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to use Okta as your authentication provider.
+Open the FormKiQ console and use the Single Sign-On login option. Confirm the user can authenticate through Okta and receives the expected FormKiQ access based on group membership.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Remove test users, test app assignments, or temporary SAML applications that are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Cognito redirects fail | Single sign-on URL or Audience URI is incorrect. | Confirm the URL uses `/saml2/idpresponse` and the Audience URI uses the Cognito User Pool ID. |
+| User signs in but has wrong access | Okta groups are missing from the SAML assertion. | Confirm group attribute statement `groups` and app assignments. |
+| Cognito provider creation fails | Metadata URL or user pool ID is incorrect. | Recheck the Okta Metadata URL and `CognitoUserPoolId`. |
+
+## Next Steps
+
+- [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider)
+- [Security](/docs/platform/security)

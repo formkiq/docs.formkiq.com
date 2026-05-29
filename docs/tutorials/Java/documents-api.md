@@ -14,7 +14,7 @@ tags:
 
 ![Upload Flow Diagram](./img/upload_flow.svg)
 
-## Overview
+## What You Will Build
 
 This quickstart shows how to use the [FormKiQ Java Client SDK](https://github.com/formkiq/formkiq-client-sdk-java/) with the FormKiQ Documents API.
 
@@ -29,7 +29,7 @@ You will:
 
 This walkthrough uses JWT authentication. If you need a token, see [JWT Authentication Token](/docs/how-tos/jwt-authentication-token).
 
-## Prerequisites
+## Before You Begin
 
 - Java 8 or later
 - Maven 3.8.3 or later, or Gradle 7.2 or later
@@ -38,7 +38,17 @@ This walkthrough uses JWT authentication. If you need a token, see [JWT Authenti
 - A `siteId`, or `default` if your deployment does not use multiple sites
 - Network access to the FormKiQ API and Amazon S3
 
-## Install the SDK
+## Workflow Overview
+
+1. Install the Java SDK.
+2. Configure the SDK client with your API URL and JWT access token.
+3. Create a small inline document.
+4. Retrieve document metadata.
+5. Request a presigned S3 upload URL.
+6. Upload file bytes to S3.
+7. Verify the uploaded document metadata.
+
+## Step 1: Install the SDK
 
 For Maven projects, add the SDK dependency:
 
@@ -74,7 +84,7 @@ export SITE_ID="default"
 Use a JWT access token. An ID token will not authorize FormKiQ API calls.
 :::
 
-## Configure the Client
+## Step 2: Configure the Client
 
 Import the SDK and create a configured `DocumentsApi` client.
 
@@ -120,7 +130,7 @@ public class FormKiQJavaSdkExample {
 
 If you are using Java 8, replace `value.isBlank()` with `value.trim().isEmpty()`.
 
-## Create an Inline Document
+## Step 3: Create an Inline Document
 
 Use `addDocument` for small documents where sending content through the API is appropriate.
 
@@ -142,7 +152,7 @@ Use `addDocument` for small documents where sending content through the API is a
   }
 ```
 
-## Retrieve Document Metadata
+## Step 4: Retrieve Document Metadata
 
 Use `getDocument` to retrieve the document record.
 
@@ -156,7 +166,7 @@ Use `getDocument` to retrieve the document record.
   }
 ```
 
-## Upload a Larger File
+## Step 5: Upload a Larger File
 
 For larger files, request a presigned S3 upload URL. This sends file bytes directly to S3 instead of sending them through the FormKiQ API.
 
@@ -227,7 +237,7 @@ Upload the file bytes with HTTP `PUT`:
   }
 ```
 
-## Run the Example
+## Step 6: Run the Example
 
 This example creates one inline document, uploads one local file through S3, and retrieves metadata for both documents.
 
@@ -269,6 +279,14 @@ This example creates one inline document, uploads one local file through S3, and
 ```
 
 For Java 8, replace `Path.of("example.txt")` with `Paths.get("example.txt")` and add `import java.nio.file.Paths;`.
+
+## Verify the Result
+
+Confirm that the program prints two document IDs and metadata for both documents. In the FormKiQ console, the uploaded document should appear at `examples/example.txt` in the selected site.
+
+## Clean Up
+
+Delete the test documents from the FormKiQ console or API if you do not want to keep them in your environment.
 
 ## Troubleshooting
 

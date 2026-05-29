@@ -6,23 +6,30 @@ sidebar_position: 1
 
 ![Amazon Cognito to Microsoft Entra SAML](./img/cognito-saml-entra.png)
 
-This tutorial show you how to integrate [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id) (formerly known as "Microsoft Azure Active Directory") as the identity management provider for your FormKiQ installation.
+This tutorial shows how to integrate [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id) as the identity management provider for your FormKiQ installation.
 
-We will be:
+## What You Will Build
 
-* Configuring a Enterprise application in Microsoft Entra ID
+You will create a Microsoft Entra Enterprise application, configure SAML single sign-on, connect it to Amazon Cognito, and map group claims so FormKiQ can authorize users based on their identity provider groups.
 
-* Adding an Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
+## Before You Begin
 
-* Mapping Microsoft Entra ID groups to Amazon Cognito groups
+- Access to a FormKiQ Essentials, Advanced, or Enterprise installation, including administrative access.
+- Administrative access to Microsoft Entra ID.
+- Access to the AWS account that hosts the FormKiQ Cognito User Pool.
+- The FormKiQ `CognitoUserPoolId`, console URL, and Cognito domain.
 
-## What you’ll need
+## Workflow Overview
 
-* Access to a FormKiQ Essentials, Advanced, or Enterprise installation, including administrative access
+1. Collect FormKiQ Cognito values.
+2. Create an Entra Enterprise application.
+3. Configure SAML URLs and group claims.
+4. Add the SAML identity provider in Amazon Cognito.
+5. Configure Cognito managed login.
+6. Optionally map Entra group IDs to FormKiQ group names.
+7. Verify login from the FormKiQ console.
 
-* Administrative access to a Microsoft Entra ID service
-
-## Pre-requisite
+## Step 1: Collect FormKiQ Cognito Values
 
 You will need these specific configuration values:
 
@@ -40,7 +47,7 @@ The Cognito domain can be found by clicking on the Cognito User Pool found on th
 
 ![Cognito Domain](./img/cognito-domain.png)
 
-## Microsoft Entra ID
+## Step 2: Configure Microsoft Entra ID
 
 The next step is to create an Enterprise application in Microsoft Entra ID. This application will be connected to Amazon Cognito and will provide authentication for the users.
 
@@ -98,12 +105,12 @@ Here you can configure which groups will be returned with the SAML response.
 * Change the Source attribute to **Cloud-only group display names**
 
 :::note
-Depending on your Azure subscription level, **Cloud-only group display names** may not be available. If this is the case, see the section [Setup Group ID mapping](/docs/tutorials/Identity%20Management/microsoft-entra-id#manual-group-claims-mapping-optional)
+Depending on your Azure subscription level, **Cloud-only group display names** may not be available. If this is the case, see [Step 4: Optional: Map Manual Group Claims](#step-4-optional-map-manual-group-claims).
 :::
 
 Under the SAML Certificates, make note of the **App Federation Metadata Url**, as that will be needed in the next step.
 
-## Amazon Cognito
+## Step 3: Add the Identity Provider in Amazon Cognito
 
 Now, we will need to configure [Amazon Cognito](https://aws.amazon.com/pm/cognito) to connect to [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id).
 
@@ -142,7 +149,7 @@ You now need to configure Amazon Managed login. Amazon Cognito Managed login pro
 To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
 
 
-## Manual Group Claims Mapping (optional)
+## Step 4: Optional: Map Manual Group Claims
 
 When configuring Group Claims in Entra, if you are unable to select the **Cloud-only group display names** because of your configuration or your account settings, Azure will send the Group ID instead of the Group Name. The FormKiQ Pre token generation trigger can be configured to map the Group ID to the correct Group Name.
 
@@ -175,10 +182,23 @@ To create the role mapping, add an environment variable named **ROLE_MAPPING**. 
 ![Lambda Environment Role Mapping](./img/entra-id-lambda-environment-variables-role-mapping.png)
 
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to use Microsoft Entra ID as your authentication provider.
+Open the FormKiQ console and use the Single Sign-On login option. Confirm the user can authenticate through Microsoft Entra ID and receives the expected FormKiQ access based on group membership.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Remove test users, test group assignments, or temporary role mappings that are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Cognito redirects fail | Reply URL or Cognito domain is incorrect. | Confirm the Entra Reply URL uses `/saml2/idpresponse`. |
+| User signs in but has wrong access | Group claims are missing or mapped incorrectly. | Confirm Entra group claims and Cognito `custom:groups` mapping. |
+| Cognito provider creation fails | Metadata URL or user pool ID is incorrect. | Recheck the App Federation Metadata URL and `CognitoUserPoolId`. |
+
+## Next Steps
+
+- [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider)
+- [Security](/docs/platform/security)

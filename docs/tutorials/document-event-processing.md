@@ -6,7 +6,9 @@ sidebar_position: 12
 
 FormKiQ's [document events](/docs/platform/overview#document-events) allow you to easily extend the document processing functionality in FormKiQ and to automatically perform tasks when documents are created, updated or deleted.
 
-This example will show how to create a serverless application that will listen for when a document is created and add custom tags to it.
+## What You Will Build
+
+You will create a serverless application that listens for FormKiQ document-created events, processes those events from SQS, and calls the FormKiQ API to add a custom tag to each new document.
 
 ![Serverless Application Flow](./img/document-event-processing.png)
 
@@ -14,12 +16,23 @@ We are going to build an application using the [AWS Serverless Application Model
 
 All code can be found in tutorials [GitHub repository](https://github.com/formkiq/tutorials/tree/master/java/document-events).
 
-## Prerequisite
+## Before You Begin
 
 - Download and install [AWS CLI](https://aws.amazon.com/cli)
 - Download and install [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+- Access to a FormKiQ deployment with document events enabled.
+- Permission to deploy AWS SAM applications in the same account and Region.
 
-## Sam init
+## Workflow Overview
+
+1. Initialize an AWS SAM project.
+2. Update the Java Lambda handler to process FormKiQ document events.
+3. Add an SQS queue and SNS subscription to the SAM template.
+4. Build and deploy the SAM application.
+5. Upload a document to FormKiQ.
+6. Verify the Lambda function adds a tag to the document.
+
+## Step 1: Initialize the SAM Project
 
 Creating a SAM project is easy using the SAM CLI. In any directory, run the sam project initialization.
 ```
@@ -76,7 +89,7 @@ Project name [sam-app]: document-events
 
 The `document-events` project has now been created. It is a basic project as it only contains a single [AWS Lambda](https://aws.amazon.com/lambda/) based on the **Quick Start:** template.
 
-## Java Update
+## Step 2: Update the Java Lambda Function
 
 We will now update the Java Lambda code to process FormKiQ's document events that come through [Amazon SNS](https://aws.amazon.com/sns/).
 
@@ -185,7 +198,7 @@ Finally, since we've rewrote the Lambda function the `AppTest.java` is no longer
 rm HelloWorldFunction/src/test/java/helloworld/AppTest.java
 ```
 
-## CloudFormation Update
+## Step 3: Update the SAM Template
 
 Next, we will update the [CloudFormation](https://aws.amazon.com/cloudformation/) contained in the `template.yaml` to setup the AWS infrastructure.  
 
@@ -300,7 +313,7 @@ Next, replace the `HelloWorldFunction:` element with the block below. We need to
 
 Finally remove the `HelloWorldApi:` block under the `Outputs:` as it is no longer needed with our changes.
 
-## Sam Build
+## Step 4: Build the SAM Application
 
 Now that the SAM project has been updated, let's try deploy it to AWS. This step assumes you have configured your AWS CLI with an `Access key ID` and `Secret access key`. Instructions for configuring can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html). We are also assuming you have access to deploy SAM projects as well, which is expected unless you are working within an organization that has various roles within AWS.
 
@@ -325,7 +338,7 @@ Commands you can use next
 [*] Deploy: sam deploy --guided
 ```
 
-## Sam Deploy
+## Step 5: Deploy the SAM Application
 
 Now that the project has been built successfully, the project can be deployed using the following command:
 ```
@@ -373,7 +386,7 @@ CREATE_COMPLETE              AWS::CloudFormation::Stack   sam-app               
 Successfully created/updated stack - document-events in us-east-1
 ```
 
-## Test Integration
+## Verify the Result
 
 To test the integration of the Lambda function with FormKiQ document events. Log into the FormKiQ console.
 
@@ -391,10 +404,25 @@ When viewing the document's metadata, you should see the `somekey` tag.
 
 ![FormKiQ Console Document Upload](./img/document-events-console-view-metadata.png)
 
-## Summary
+## Clean Up
 
-And there you have it! We have shown how easy it is to add custom document processing using FormKiQ's Document Events.
+Delete the SAM stack if this was only a test deployment:
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+```bash
+sam delete
+```
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Delete any test documents uploaded during verification.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Lambda is not invoked | SNS subscription or SQS event source is not configured correctly. | Check the deployed stack resources and SQS queue messages. |
+| Lambda cannot call FormKiQ API | IAM permissions or `IAM_API_URL` are incorrect. | Confirm the environment variable and API Gateway invoke permissions. |
+| Tag does not appear | Event filter, Lambda code, or document tags API call failed. | Check Lambda logs in CloudWatch. |
+
+## Next Steps
+
+- [Platform Architecture](/docs/platform/overview)
+- [Add Document Tags](/docs/how-tos/api-add-document-tags)

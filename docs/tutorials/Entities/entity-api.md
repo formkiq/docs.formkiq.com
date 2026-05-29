@@ -5,15 +5,33 @@ toc_max_heading_level: 2
 ---
 # Entity Types, Entities, and Documents
 
-## Overview
+## What You Will Build
 
-The Documents API is the core of the FormKiQ platform. It enables developers to create, manage, and retrieve documents and their associated metadata through RESTful endpoints.
+You will create an entity type, create an entity instance, and link that entity to a document through document attributes.
 
-## Prerequisites
+## Before You Begin
 
 - A valid FormKiQ account or API environment
 - [Access credentials and FormKiQ API Endpoint URL](/docs/getting-started/api-walkthrough#acquire-access-token)
 - Familiarity with REST APIs and JSON payloads
+
+Set the variables used by the examples:
+
+```bash
+export BASE_URL="https://your-formkiq-api.example.com"
+export TOKEN="your-jwt-access-token"
+export SITE_ID="default"
+export DOC_ID="replace-with-a-document-id"
+export ENTITY_TYPE_ID="replace-after-creating-an-entity-type"
+export ENTITY_ID="replace-after-creating-an-entity"
+```
+
+## Workflow Overview
+
+1. Create or list entity types.
+2. Create an entity under an entity type.
+3. Link the entity to a document.
+4. Verify the document contains the entity relationship attribute.
 
 ## Create Entity Types (CUSTOM vs PRESET)
 
@@ -110,6 +128,22 @@ curl -X POST "$BASE_URL/documents/$DOC_ID/attributes?siteId=$SITE_ID" \
     ]
   }'
 ```
+
+## Verify the Result
+
+Retrieve the document attributes and confirm the `customer` attribute contains the expected `entityTypeId`, `entityId`, and namespace.
+
+## Clean Up
+
+Remove the test document attribute or delete the test entity if it is no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Entity creation fails | Entity type ID or name is incorrect. | List entity types and confirm the value used in the URL. |
+| Document link is missing | Attribute payload did not include the entity IDs. | Retrieve document attributes and confirm the request body. |
+| User cannot see entity data | Wrong site ID or insufficient access. | Confirm `SITE_ID` and user permissions. |
 
 ## Next Steps
 

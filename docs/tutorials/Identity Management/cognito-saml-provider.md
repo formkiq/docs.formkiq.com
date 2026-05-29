@@ -4,24 +4,34 @@ sidebar_position: 20
 
 # Amazon Managed Login
 
-This tutorial show you how to connect [Amazon Cognito](https://aws.amazon.com/pm/cognito) to a SAML provider, IE: Microsoft Entra, Okta, etc.
+This tutorial shows how to connect [Amazon Cognito](https://aws.amazon.com/pm/cognito) managed login to a SAML provider such as Microsoft Entra ID, Okta, or Google Workspace.
 
-We will be:
+## What You Will Build
 
-* Adding an Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
+You will configure an Amazon Cognito managed login page, assign it to a Cognito app client, enable your SAML identity provider, and update the FormKiQ CloudFormation stack so users can sign in through SSO.
 
-* Configuring a Cognito Managed login page
+## Before You Begin
 
-## What you’ll need
+- A SAML provider already configured for your Amazon Cognito User Pool.
+- Administrative access to the AWS account that hosts the FormKiQ stack.
+- The FormKiQ console URL.
 
-* A SAML provider (Cognito Identity Provider) already configured for your Amazon Cognito User Pool. 
+Related identity provider tutorials:
 
-See tutorials:
+- [Microsoft Entra ID](/docs/tutorials/Identity%20Management/microsoft-entra-id)
+- [Okta](/docs/tutorials/Identity%20Management/okta)
+- [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace)
 
-* [Microsoft Entra](/docs/tutorials/Identity%20Management/microsoft-entra-id)
-* [Okta](/docs/tutorials/Identity%20Management/microsoft-entra-id)
+## Workflow Overview
 
-## Pre-requisite
+1. Collect the FormKiQ console URL.
+2. Create a Cognito managed login style.
+3. Assign the managed login page to the app client.
+4. Enable the SAML identity provider and OAuth settings.
+5. Update the FormKiQ CloudFormation stack.
+6. Verify the FormKiQ SSO button.
+
+## Step 1: Collect FormKiQ Values
 
 You will need these specific configuration values:
 
@@ -32,7 +42,7 @@ The CognitoUserPoolId and Console URL can be found in the **Outputs** tab of you
 ![Cognito User Pool Id and Console Url](./img/formkiq-cf-outputs.png)
 
 
-## Cognito Managed login
+## Step 2: Configure Cognito Managed Login
 
 Amazon Cognito Managed login provides a URL connection between Amazon Cognito and SAML provider.
 
@@ -76,7 +86,7 @@ Once you save the configuration, you'll see the **View login page** button is no
 
 ![Cognito View Login page](./img/cognito-view-login-page.png)
 
-## FormKiQ Stack Configuration
+## Step 3: Update the FormKiQ Stack Configuration
 
 Once you have the Cognito login page Url, you will need to update your FormKiQ installation to complete the setup.
 
@@ -104,10 +114,24 @@ Continue through the stack update process. After it completes, you will see the 
 
 ![Console Single Cognito Single Sign On](./img/entra-id-console-single-sign-on.png)
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to connect Cognito Managed login to your SAML provider.
+Open the FormKiQ console login page and confirm the Single Sign-On button appears. Click it and verify that Cognito redirects to your SAML provider and then back to the FormKiQ console.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Remove test app clients, test styles, or temporary SAML providers that are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| SSO button does not appear | FormKiQ stack was not updated with the Cognito login URL. | Check the `Cognito Single Sign On Url` CloudFormation parameter. |
+| Login redirects fail | Callback URL or app client login settings are incomplete. | Confirm allowed callback URLs, identity providers, grant type, and scopes. |
+| Cognito says provider is unavailable | SAML provider is not assigned to the app client. | Edit the app client login page configuration and enable the provider. |
+
+## Next Steps
+
+- [Microsoft Entra ID](/docs/tutorials/Identity%20Management/microsoft-entra-id)
+- [Okta](/docs/tutorials/Identity%20Management/okta)
+- [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace)

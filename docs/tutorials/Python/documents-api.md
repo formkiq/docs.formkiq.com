@@ -14,7 +14,7 @@ tags:
 
 ![Upload Flow Diagram](./img/upload_flow.svg)
 
-## Overview
+## What You Will Build
 
 This quickstart shows how to use the [FormKiQ Python Client SDK](https://github.com/formkiq/formkiq-client-sdk-python) with the FormKiQ Documents API.
 
@@ -29,7 +29,7 @@ You will:
 
 This walkthrough uses JWT authentication. If you need a token, see [JWT Authentication Token](/docs/how-tos/jwt-authentication-token).
 
-## Prerequisites
+## Before You Begin
 
 - Python 3.9 or later
 - A FormKiQ API base URL
@@ -37,7 +37,17 @@ This walkthrough uses JWT authentication. If you need a token, see [JWT Authenti
 - A `siteId`, or `default` if your deployment does not use multiple sites
 - Network access to the FormKiQ API and Amazon S3
 
-## Install the SDK
+## Workflow Overview
+
+1. Install the Python SDK and supporting packages.
+2. Configure the SDK client with your API URL and JWT access token.
+3. Create a small inline document.
+4. Retrieve document metadata.
+5. Request a presigned S3 upload URL.
+6. Upload file bytes to S3.
+7. Verify the uploaded document metadata.
+
+## Step 1: Install the SDK
 
 Create and activate a virtual environment:
 
@@ -69,7 +79,7 @@ export SITE_ID="default"
 Use a JWT access token. An ID token will not authorize FormKiQ API calls.
 :::
 
-## Configure the Client
+## Step 2: Configure the Client
 
 Import the SDK and create a configured `DocumentsApi` client.
 
@@ -99,7 +109,7 @@ def build_documents_api() -> DocumentsApi:
     return DocumentsApi(api_client)
 ```
 
-## Create an Inline Document
+## Step 3: Create an Inline Document
 
 Use `add_document` for small documents where sending content through the API is appropriate.
 
@@ -126,7 +136,7 @@ def add_document_inline(api: DocumentsApi, site_id: str) -> str:
 
 The helper supports generated-client response naming differences. Use the naming style returned by your installed SDK version when writing production code.
 
-## Retrieve Document Metadata
+## Step 4: Retrieve Document Metadata
 
 Use `get_document` to retrieve the document record.
 
@@ -142,7 +152,7 @@ def get_document_metadata(api: DocumentsApi, site_id: str, document_id: str) -> 
     return to_dict_safe(response)
 ```
 
-## Upload a Larger File
+## Step 5: Upload a Larger File
 
 For larger files, request a presigned S3 upload URL. This sends file bytes directly to S3 instead of sending them through the FormKiQ API.
 
@@ -206,7 +216,7 @@ def s3_put_bytes(
         )
 ```
 
-## Run the Example
+## Step 6: Run the Example
 
 This example creates one inline document, uploads one local file through S3, and retrieves metadata for both documents.
 
@@ -261,6 +271,14 @@ if __name__ == "__main__":
 ```
 
 The full Python example is available in the [FormKiQ Python SDK repository](https://github.com/formkiq/formkiq-client-sdk-python/blob/main/example.py).
+
+## Verify the Result
+
+Confirm that the script prints two document IDs and metadata for both documents. In the FormKiQ console, the uploaded document should appear at `examples/example.py` in the selected site.
+
+## Clean Up
+
+Delete the test documents from the FormKiQ console or API if you do not want to keep them in your environment.
 
 ## Troubleshooting
 

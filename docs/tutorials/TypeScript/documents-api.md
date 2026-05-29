@@ -14,7 +14,7 @@ tags:
 
 ![Upload Flow Diagram](./img/upload_flow.svg)
 
-## Overview
+## What You Will Build
 
 This quickstart shows how to use the [FormKiQ TypeScript Client SDK](https://github.com/formkiq/formkiq-client-sdk-typescript) with the FormKiQ Documents API.
 
@@ -29,7 +29,7 @@ You will:
 
 This walkthrough uses JWT authentication. If you need a token, see [JWT Authentication Token](/docs/how-tos/jwt-authentication-token).
 
-## Prerequisites
+## Before You Begin
 
 - Node.js 18 or later
 - npm or yarn
@@ -38,7 +38,17 @@ This walkthrough uses JWT authentication. If you need a token, see [JWT Authenti
 - A `siteId`, or `default` if your deployment does not use multiple sites
 - Network access to the FormKiQ API and Amazon S3
 
-## Install the SDK
+## Workflow Overview
+
+1. Install the TypeScript SDK and runtime tooling.
+2. Configure the SDK client with your API URL and JWT access token.
+3. Create a small inline document.
+4. Retrieve document metadata.
+5. Request a presigned S3 upload URL.
+6. Upload file bytes to S3.
+7. Verify the uploaded document metadata.
+
+## Step 1: Install the SDK
 
 Create a project if you do not already have one:
 
@@ -67,7 +77,7 @@ export SITE_ID="default"
 Use a JWT access token. An ID token will not authorize FormKiQ API calls.
 :::
 
-## Configure the Client
+## Step 2: Configure the Client
 
 Import the SDK and create a configured `DocumentsApi` client.
 
@@ -100,7 +110,7 @@ const configuration = new Configuration({
 const documentsApi = new DocumentsApi(configuration);
 ```
 
-## Create an Inline Document
+## Step 3: Create an Inline Document
 
 Use `addDocument` for small documents where sending content through the API is appropriate.
 
@@ -125,7 +135,7 @@ async function addInlineDocument(api: DocumentsApi, currentSiteId: string): Prom
 }
 ```
 
-## Retrieve Document Metadata
+## Step 4: Retrieve Document Metadata
 
 Use `getDocument` to retrieve the document record.
 
@@ -140,7 +150,7 @@ async function getDocumentMetadata(
 }
 ```
 
-## Upload a Larger File
+## Step 5: Upload a Larger File
 
 For larger files, request a presigned S3 upload URL. This sends file bytes directly to S3 instead of sending them through the FormKiQ API.
 
@@ -206,7 +216,7 @@ async function s3PutBytes(
 }
 ```
 
-## Run the Example
+## Step 6: Run the Example
 
 This example creates one inline document, uploads one local file through S3, and retrieves metadata for both documents.
 
@@ -257,6 +267,14 @@ npx tsx example.ts
 ```
 
 The full TypeScript example is available in the [FormKiQ TypeScript SDK repository](https://github.com/formkiq/formkiq-client-sdk-typescript/blob/main/example.ts).
+
+## Verify the Result
+
+Confirm that the script prints two document IDs and metadata for both documents. In the FormKiQ console, the uploaded document should appear at `examples/example.ts` in the selected site.
+
+## Clean Up
+
+Delete the test documents from the FormKiQ console or API if you do not want to keep them in your environment.
 
 ## Troubleshooting
 

@@ -4,20 +4,30 @@ sidebar_position: 30
 
 # Zapier Integration
 
-This tutorial will take you through how to use the FormKiQ Webhook API with https://zapier.com.
+## What You Will Build
 
-## Prerequisite
+You will create a Zapier webhook that receives FormKiQ document webhook events and writes new document IDs into a Google Sheet.
+
+## Before You Begin
 
 * You have installed FormKiQ; see the <a href="/docs/getting-started/quick-start">Quick Start</a>
 * You have a Zapier account - [it's free to sign up](https://zapier.com/sign-up)
 * You have a [Google Sheet](https://docs.google.com/spreadsheets) account
 * Install either: cURL or your favorite API Client, like https://www.postman.com.
 
-## Overview
+## Workflow Overview
+
+1. Create a Google Sheet to receive webhook data.
+2. Create a Zapier Catch Hook trigger.
+3. Add a Google Sheets action.
+4. Create a FormKiQ document with a webhook action.
+5. Verify the Google Sheet receives the document event.
+
+## Step 1: Review the Webhook Flow
 
 When adding a document using the FormKiQ API, you can specify one or more actions to be perform after the document has been saved. One of the supported actions is calling a Webhook. In this tutorial we will build a Zapier Zap which will use the Webhook trigger and insert rows into a Google Sheet for documents added to FormKiQ.
 
-## Create Google Sheet
+## Step 2: Create Google Sheet
 
 The first thing we need to do is create the Google Sheet that will store the list of created documents.
 
@@ -32,7 +42,7 @@ The Webhook contains the SiteId the document was created in, as well as the docu
 
 Now that our Google Sheet is created, it's time to setup Zapier.
 
-## Create Zap
+## Step 3: Create Zap
 
 . To create a new Zap in Zapier,
 
@@ -73,7 +83,7 @@ Zapier will now display the Webhook URL that was created for your Zap. This is t
 }
 ```
 
-## Google Sheet Action
+## Step 4: Add the Google Sheet Action
 
 * Next, click on the `Action` and select `Google Sheets`.
 
@@ -91,7 +101,7 @@ Zapier will now display the Webhook URL that was created for your Zap. This is t
 
 The last step is to click the `Publish Zap` button. Once your Zap is published your Webhook is ready.
 
-## FormKiQ Actions API
+## Step 5: Create a FormKiQ Document with a Webhook Action
 
 * Following the https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument[FormKiQ Add Document API], we can create a request to create a new document and send it to the FormKiQ API endpoint. For the request, we will use the `actions` section in the request to specify the Zapier Webhook URL we want to be called after the document is created.
 
@@ -116,10 +126,23 @@ The last step is to click the `Publish Zap` button. Once your Zap is published y
 
 ![Zapier Webhook Successful](./img/zapier-webhook-success.png)
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to connect the FormKiQ API to a Zapier Webhook.
+After sending the FormKiQ request, check the Google Sheet. A new row should appear with the `SiteId` and `DocumentId` values from the webhook payload.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Turn off or delete the Zap if it was only created for testing. Delete the test spreadsheet rows and test document if they are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Zapier does not receive sample data | The webhook URL was copied incorrectly or the request body is invalid. | Send the sample payload directly to the Zapier hook URL. |
+| Google Sheet row is blank | Zap field mapping is incomplete. | Confirm `SiteId` and `DocumentId` are mapped from the webhook payload. |
+| FormKiQ does not call Zapier | Webhook action URL or action type is incorrect. | Confirm the FormKiQ document request includes a valid `WEBHOOK` action URL. |
+
+## Next Steps
+
+- [Add Document Actions](/docs/how-tos/api-document-actions)
+- [Documents API](/docs/tutorials/Documents/documents-api)

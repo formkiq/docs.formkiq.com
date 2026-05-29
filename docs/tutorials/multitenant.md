@@ -4,9 +4,28 @@ sidebar_position: 40
 
 # Multi-Tenant Users
 
+## What You Will Build
+
 FormKiQ supports multi-tenant environments where you can set up multiple groups of users and provide each group of users access to their specific documents. This is done through a `siteId`. In this tutorial we are going to create two different siteIds, and then add both users and documents to each siteId.
 
-## Cognito Groups
+You will create a new tenant site ID using Cognito groups, create a user, assign that user to the tenant, and verify that the user can add documents to that tenant.
+
+## Before You Begin
+
+- Access to a FormKiQ installation that uses Amazon Cognito.
+- Administrative access to the Cognito User Pool.
+- An email address for a test user.
+
+## Workflow Overview
+
+1. Create tenant Cognito groups.
+2. Create a tenant user.
+3. Add the user to the tenant group.
+4. Have the user complete setup and sign in.
+5. Upload a document as the tenant user.
+6. Verify the document appears only in that tenant context.
+
+## Step 1: Create Cognito Groups
 
 To create a `SiteId`, start by visiting the [Amazon Cognito Console](https://console.aws.amazon.com/cognito) and select the `User pool name` matching your naming of your FormKiQ installation.
 
@@ -38,7 +57,7 @@ Now you'll see the `site1` and `site1_read` Cognito groups listed in the Cognito
 
 ![Cognito User Pools Site1](./img/cognito-user-pools-site1.png)
 
-## Cognito Users
+## Step 2: Create Cognito Users
 
 The administrator created during the FormKiQ installation was placed in the `default` siteId. Now that the `site1` Cognito group has been created, we are now going to create a new user and add that user to the `site1` Cognito group. This means we will end up with two users, each in their own `siteId` group.
 
@@ -81,7 +100,7 @@ Welcome to FormKiQ
 Your account has been created. *Click this link to finalize your account*.
 `````
 
-## Adding a New Document as the Site User
+## Step 3: Add a New Document as the Site User
 
 Once logged into the FormKiQ Console, the user can click `Add Documents` from the menu on the left side of the screen. They can drag and drop a file into the `Upload New` box. Once the document has been uploaded, it will be displayed in the *Documents Added* table.
 
@@ -91,6 +110,25 @@ Clicking on `Recent Documents` from the left menu will display the newly-added d
 
 ![Site 1 Documents](./img/site1-documents.png)
 
-## Summary
+## Verify the Result
 
 Throughout this tutorial, you have successfully created a new FormKiQ user in Cognito. The newly created user was attached to a new siteId and was able to successfully add a document to this newly created siteId.
+
+Confirm that the document uploaded by the `site1` user appears in `site1` and does not appear in the default site for users who do not belong to `site1`.
+
+## Clean Up
+
+Remove the test user and tenant groups if they were only created for this tutorial.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| User cannot see tenant documents | User is not in the correct Cognito group. | Confirm membership in the `site1` group. |
+| User has read-only access | User is only in the `_read` group. | Add the user to the write group for that site ID. |
+| User invitation does not arrive | Email delivery or user pool settings issue. | Check Cognito user status and resend invitation if needed. |
+
+## Next Steps
+
+- [Multi-Tenant and Multi-Instance Deployments](/docs/platform/multi-tenant-vs-multi-instance)
+- [Security](/docs/platform/security)

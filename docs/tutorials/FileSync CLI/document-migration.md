@@ -12,28 +12,40 @@ tags:
   - migration
 ---
 
-# Data Migration
+# DynamoDB Data Migration
 
-This tutorial show you how to use the "--restore-dynamodb" option in the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) and the "sync" option in the [AWS CLI](https://aws.amazon.com/cli/) to sync documents from one FormKiQ installation to another.
+This tutorial shows how to use the `--restore-dynamodb` option in the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) and the `aws s3 sync` command in the [AWS CLI](https://aws.amazon.com/cli/) to copy documents from one FormKiQ installation to another.
 
-## What you’ll need
+## What You Will Build
 
-* Access to a FormKiQ Advanced or Enterprise installation
+You will copy document metadata from one FormKiQ DynamoDB table to another, then copy the corresponding document content between S3 buckets.
 
-* An installed and configured latest version of the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli)
+## Before You Begin
+
+- Access to a FormKiQ Advanced or Enterprise installation.
+- The latest [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) installed and configured.
+- AWS CLI access to the source and destination S3 buckets.
+- Source and destination FormKiQ DynamoDB document table names.
+- Source and destination document S3 bucket names.
+
+## Workflow Overview
+
+1. Copy document metadata with `fk --restore-dynamodb`.
+2. Copy document content with `aws s3 sync`.
+3. Verify document metadata and content in the destination environment.
 
 ## Step 1: Sync DynamoDb
 
 **The first step is to sync the document metadata.**
 
-Using the [FileSync CLI](/docs/add-on-modules/modules/filesync-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDb](https://aws.amazon.com/dynamodb) using the command:
+Using the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDB](https://aws.amazon.com/dynamodb) using the command:
 
 ```
 fk --restore-dynamodb --from-table <source_dynamodb_tablename> --to-table <destination_dynamodb_tablename>
 ```
 
-:::note
-The --dry-run and --verbose can be used with this command to see the output from the CLI
+:::caution
+`--restore-dynamodb` writes directly to the destination table. Use compatible FormKiQ versions and restore into an empty or controlled target table.
 :::
 
 ### Example
@@ -62,10 +74,26 @@ The --dry-run can be used with this command to see the output from the CLI
 aws s3 sync s3://formkiq-enterprise-dev1-documents-1111111111 s3://formkiq-enterprise-dev2-documents-1111111111
 ```
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to use [FileSync CLI](/docs/add-on-modules/modules/filesync-cli) and [AWS CLI](https://aws.amazon.com/cli/) to sync documents from one FormKiQ installation to another.
+- Compare source and destination DynamoDB document counts.
+- Compare S3 object counts and total size.
+- Open the destination FormKiQ console and confirm migrated documents are visible.
+- Download several documents to confirm metadata and content are in sync.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Remove any temporary document ID lists or migration logs created during testing.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| DynamoDB restore fails | Incorrect table name or missing permissions. | Confirm table names, Region, and `dynamodb:Scan` / `dynamodb:BatchWriteItem`. |
+| Documents appear but cannot download | S3 objects were not copied or object keys do not match metadata. | Rerun `aws s3 sync` and compare bucket object counts. |
+| Search does not return migrated documents | Search index was not rebuilt. | Use FileSync CLI OpenSearch sync or see the Core-to-Enterprise migration guide. |
+
+## Next Steps
+
+- [Migrate Documents from Core to Enterprise](/docs/how-tos/migration-core-to-enterprise)
+- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)

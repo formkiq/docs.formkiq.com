@@ -5,15 +5,34 @@ toc_max_heading_level: 2
 ---
 # Documents API
 
-## Overview
+## What You Will Build
 
-The Documents API is the core of the FormKiQ platform. It enables developers to create, manage, and retrieve documents and their associated metadata through RESTful endpoints.
+You will use the Documents API to create documents, upload larger files through presigned S3 URLs, retrieve metadata, list active and deleted documents, update document metadata and content, soft delete, restore, and purge documents.
 
-## Prerequisites
+## Before You Begin
 
 - A valid FormKiQ account or API environment
 - [Access credentials and FormKiQ API Endpoint URL](/docs/getting-started/api-walkthrough#acquire-access-token)
 - Familiarity with REST APIs and JSON payloads
+
+Set the variables used by the examples:
+
+```bash
+export BASE_URL="https://your-formkiq-api.example.com"
+export TOKEN="your-jwt-access-token"
+export SITE_ID="default"
+export DOC_ID="replace-after-creating-a-document"
+```
+
+## Workflow Overview
+
+1. Create a small inline document.
+2. Request a presigned upload URL for a larger document.
+3. Upload file content directly to S3.
+4. Retrieve and list document metadata.
+5. Update document metadata or content.
+6. Soft delete and restore a document.
+7. Purge a document when permanent removal is required.
 
 ## Create a Document
 
@@ -151,7 +170,7 @@ curl -X PUT "https://s3.amazonaws.com/formkiq-uploads/...signature..." \
   --data-binary @contract-123.pdf
 ```
 
-## Get a Document
+## Retrieve a Document
 
 Retrieves a document’s metadata, not its actual file content. This includes properties such as the document’s path, creation details, size, checksum, and associated metadata fields like tags, attributes, and classifications.
 
@@ -353,7 +372,7 @@ curl -X PUT "https://s3.amazonaws.com/formkiq-uploads/...signature..." \
   --data-binary @invoice-updated.pdf
 ```
 
-## Delete a Document
+## Delete and Restore a Document
 
 The DELETE /documents/:documentId endpoint deletes a document’s metadata, attributes, and contents.
 This operation supports two deletion modes:
@@ -467,6 +486,29 @@ curl -X DELETE "$BASE_URL/documents/$DOC_ID/purge?siteId=$SITE_ID" \
   "message": "Document purged"
 }
 ```
+
+## Verify the Result
+
+After completing the tutorial, confirm that:
+
+- Created documents return a `documentId`.
+- `GET /documents/{documentId}` returns the expected path, content type, and dates.
+- Large uploads can be downloaded or opened from the FormKiQ console.
+- Soft-deleted documents appear when listing with `deleted=true`.
+- Restored documents appear again in normal document listings.
+
+## Clean Up
+
+Delete or purge the test documents created during this tutorial if they are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| `401 Unauthorized` | Token is missing, expired, or not an access token. | Confirm the `Authorization` header and token type. |
+| Upload to S3 fails | Required presigned URL headers were omitted or changed. | Send the exact headers returned by `/documents/upload`. |
+| Document does not appear in list results | Wrong `siteId`, pagination, or document was soft deleted. | Confirm `SITE_ID`, `next`, and `deleted=true` when needed. |
+| Restore fails | The document was hard deleted or purged. | Restore only works for soft-deleted documents. |
 
 ## Next Steps
 

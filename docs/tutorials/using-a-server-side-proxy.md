@@ -3,22 +3,30 @@ sidebar_position: 13
 ---
 
 # Using a Server-Side Proxy
-## Use Case: submitting documents for review
 
-While most of these tutorials access FormKiQ's API directly from a client application, many use cases for FormKiQ involve a server that proxies client calls to FormKiQ.
+## What You Will Build
 
-Sometimes this is because you have your own API that will have other functionality, and you'd prefer to have one API for your client to consume.
+In this tutorial, you will build a Node.js Express proxy that accepts document uploads from a client application, uploads the files to FormKiQ with review metadata, and exposes a second endpoint for reviewers to find documents that require approval.
 
-But that's not the only reason you'd want a server between your client and FormKiQ's API; FormKiQ Core is powerful and flexible, but there will always be room for extending the functionality available.
+Most FormKiQ tutorials call the FormKiQ API directly from a client application. A server-side proxy is useful when you already have your own API, want one API surface for your client to consume, or need custom authorization logic before allowing a user to upload or retrieve documents.
 
-In this tutorial, we look at how you can implement more granular permissions using a server-side proxy, allowing your end users to submit documents to be reviewed and approved by users who have been granted additional permissions.
+This example uses a document review workflow: regular users submit documents, and reviewers use a separate endpoint to find documents marked as requiring approval.
 
-## Prerequisite
+## Before You Begin
 
 * You have installed FormKiQ; see the <a href="/docs/getting-started/quick-start#install-formkiq">FormKiQ One-Click Installation Links</a> for more information
 * Install [npm](https://www.npmjs.com/), as we will be using Node.js with Express
 * Install either: cURL or your favorite API Client, like https://www.postman.com.
 * All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
+
+## Workflow Overview
+
+1. Create a local Node.js Express application.
+2. Create a FormKiQ API key for the proxy to use.
+3. Find the FormKiQ Key Authentication API URL from your CloudFormation outputs.
+4. Add an upload endpoint that stores review metadata with each document.
+5. Add a reviewer endpoint that searches for documents requiring approval.
+6. Test the upload and review endpoints from cURL or an API client.
 
 ## Step 1: Create a Node.js app
 
@@ -26,7 +34,7 @@ We will be using Node.js with Express for our proxy application. You can run thi
 
 **NOTE:** the full source code is available as part of our FormKiQ Tutorials repository: https://github.com/formkiq/tutorials/tree/master/nodejs/server-side-proxy
 
-```
+```js
 // importing the dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -68,19 +76,19 @@ app.listen(3001, () => {
 
 To run this app, you should first ensure you have the dependencies needed by running `npm install` in your application's root directory.
 Once the installation has completed, you can serve the application:
-```
+```bash
 node src/app.js
 ```
 
 You should then see the message `listening on port 3001`.
 
 You can test if the app is working by running the following cURL command:
-```
+```bash
 curl localhost:3001
 ```
 
 You should receive the following response:
-```
+```json
 [{"title":"Hello, world!"}]
 ```
 
@@ -103,7 +111,7 @@ Be sure to copy the key, as you will not be able to view it in its entirety agai
 
 In your application code, immediately below importing the dependencies (i.e., after "const axios..."), add the following:
 
-```
+```js
 const apiKey = "<API_KEY>";
 const keyApiUrl = "<KEY_API_URL>";
 ```
@@ -115,7 +123,7 @@ Of course, instead of `<API_KEY>` and `<KEY_API_URL>`, use the values from your 
 This application requires a place to store the file before uploading to FormKiQ. This differs from the client-side, where the upload is stored by the browser automatically before uploading to FormKiQ.
 
 Run the following code from your root project directory:
-```
+```bash
 mkdir uploads
 ```
 
@@ -123,7 +131,7 @@ mkdir uploads
 
 Below the endpoint for '/' with "Hello, World!", add the following code:
 
-```
+```js
 
 const axiosConfig = {
   headers: {
@@ -208,14 +216,14 @@ For simplicity, we assume you are handling authentication either client- or serv
 
 Once you have added this code, stop and restart your application and try to upload a file:
 
-```
+```bash
 curl -F "document=@<DOCUMENT_PATH>" http://localhost:3001/upload
 ```
 
 `<DOCUMENT_PATH>` should be a relative path from your root project directory, e.g., `document=@./test.pdf`, assuming a path of "/server-side-proxy/test.pdf"
 
 On a successful request, you should see something like the following response:
-```
+```json
 {"message":"File uploaded successfully!","documentId":"60325617-8988-4344-bccf-ef73b7472b1d"}
 ```
 
@@ -229,7 +237,7 @@ We could have a power user who reviews all documents, or power users who review 
 
 Assuming that you have authenticated your power user, you can add this endpoint to search for all documents that require approval:
 
-```
+```js
 app.get('/documents', (req, res) => {
   const searchData = {
     query:
@@ -253,21 +261,21 @@ app.get('/documents', (req, res) => {
 ```
 You can test this new endpoint:
 
-```
+```bash
 curl "http://localhost:3001/documents"
 ```
 
 If you have installed jq, you should consider using it for this request:
 
-```
+```bash
 curl "http://localhost:3001/documents" | jq
 ```
 
 A successful response should include all of the documents you've uploaded so far:
 
-```
+```json
 {
-  [
+  "documents": [
     {
       "path": "10fbd9d5-dc6a-4673-b5e7-24430c71905d",
       "insertedDate": "2023-09-28T00:50:53+0000",
@@ -287,9 +295,32 @@ A successful response should include all of the documents you've uploaded so far
 }
 ```
 
+## Verify the Result
+
+Confirm that the proxy flow works end to end:
+
+* `GET /` returns the hello-world response from the Express application.
+* `POST /upload` returns a `documentId`.
+* `GET /documents` returns the uploaded document with the `approvalRequired` tag.
+* The uploaded document appears in the FormKiQ Console with the expected review metadata.
+
+## Clean Up
+
+When you are done testing, remove any uploaded test documents from FormKiQ and stop the local Express application with `Ctrl+C`.
+
+If you created an API key only for this tutorial, delete or disable it from the FormKiQ Console so it cannot be reused.
+
+## Troubleshooting
+
+| Problem | What to check |
+| --- | --- |
+| `POST /upload` returns no document ID | Confirm `apiKey` and `keyApiUrl` are set correctly and that the API key has write permission. |
+| Upload fails after receiving a presigned URL | Confirm the local file exists and that the `Content-Type` sent to the presigned URL matches the file upload request. |
+| `GET /documents` returns no results | Upload a document first and confirm the `approvalRequired=true` tag was included. |
+| API requests return `403` | Confirm the API key has the required read/write permissions and has not been deleted or rotated. |
+
 ## Next Steps
 
 From here, you can add an endpoint to retrieve the content URL for downloading the file to your client, and a further endpoint to approve or reject the document by adding additional metadata and possibly updating or removing existing metadata.
 
-You can learn more about the various endpoints available in the [FormKiQ API Reference](/docs/category/formkiq-api) for more endpoints you can try out.).
-
+You can learn more about the available endpoints in the [FormKiQ API Reference](/docs/category/formkiq-api).
