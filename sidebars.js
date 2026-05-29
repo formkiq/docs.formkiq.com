@@ -45,7 +45,6 @@ const sidebars = {
         "getting-started/quick-start",
         "getting-started/api-walkthrough",
         "getting-started/quick-start-local",
-        "getting-started/cloudformation-troubleshooting",
       ],
     },
     {
@@ -173,9 +172,11 @@ const sidebars = {
           id: "tutorials/TypeScript/using-typescript-client-sdk",
           label: "TypeScript SDK",
         },
-        "how-tos/jwt-authentication-token",
-        "tutorials/using-a-server-side-proxy",
-        "tutorials/formkiq-document-api-with-zapier",
+        {
+          type: "doc",
+          id: "tutorials/Java/using-java-client-sdk",
+          label: "Java SDK",
+        },
       ],
     },
     {
@@ -252,6 +253,8 @@ const sidebars = {
           ],
         },
         "tutorials/document-event-processing",
+        "tutorials/using-a-server-side-proxy",
+        "tutorials/formkiq-document-api-with-zapier",
         "tutorials/open-policy-agent",
         "tutorials/ruleset",
         "tutorials/multitenant",
@@ -269,6 +272,7 @@ const sidebars = {
         "how-tos/api-add-document-tags",
         "how-tos/api-document-search",
         "how-tos/api-document-actions",
+        "how-tos/jwt-authentication-token",
         "how-tos/migration-core-to-enterprise",
       ],
     },
@@ -284,16 +288,7 @@ const sidebars = {
         "platform/backup_and_recovery",
         "platform/migration-and-data-import",
         "how-tos/set-up-status-monitoring-and-alerting",
-        {
-          type: "category",
-          label: "Error Handling",
-          link: categoryIndex(
-            "Error Handling",
-            "Overview of FormKiQ platform error handling.",
-            "/category/error-handling"
-          ),
-          items: ["platform/error_handling/dlq"],
-        },
+        "platform/error_handling/dlq",
       ],
     },
     {
@@ -303,7 +298,30 @@ const sidebars = {
         type: "doc",
         id: "category-pages/troubleshooting",
       },
-      items: ["troubleshooting/internal-server-error"],
+      items: [
+        "getting-started/cloudformation-troubleshooting",
+        "troubleshooting/internal-server-error",
+        {
+          type: "link",
+          label: "Authentication or API Calls Fail",
+          href: "/docs/getting-started/api-walkthrough#troubleshooting-api-calls",
+        },
+        {
+          type: "link",
+          label: "DLQ Has Messages",
+          href: "/docs/platform/error_handling/dlq",
+        },
+        {
+          type: "link",
+          label: "Search Results Are Missing",
+          href: "/docs/features/search#troubleshooting-search-results",
+        },
+        {
+          type: "link",
+          label: "Document Console Issues",
+          href: "/docs/platform/document_console#troubleshooting",
+        },
+      ],
     },
     {
       type: "category",

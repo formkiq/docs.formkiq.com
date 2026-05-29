@@ -9,18 +9,38 @@ import styles from './category-page.module.css';
 # Troubleshooting
 
 <div className={styles.introPanel}>
-  <p>Start here when diagnosing deployment, API, or runtime issues in a FormKiQ environment.</p>
+  <p>Start here when something is failing and you need to identify the likely cause. These guides are organized by symptom and point to the operational pages that help with deeper investigation.</p>
 </div>
 
 <div className={styles.cardGrid}>
+  <a className={styles.card} href="/docs/getting-started/cloudformation-troubleshooting">
+    <p className={styles.eyebrow}>Deployment</p>
+    <h2>CloudFormation Stack Failed</h2>
+    <p>Inspect root and nested stack events to find the first failed resource and error message.</p>
+  </a>
   <a className={styles.card} href="/docs/troubleshooting/internal-server-error">
     <p className={styles.eyebrow}>API errors</p>
     <h2>Internal Server Error</h2>
-    <p>Diagnose internal server errors after installation or during API usage.</p>
+    <p>Diagnose API Gateway 500 responses after installation or during API usage.</p>
   </a>
-  <a className={styles.card} href="/docs/getting-started/cloudformation-troubleshooting">
-    <p className={styles.eyebrow}>Deployment</p>
-    <h2>CloudFormation Troubleshooting</h2>
-    <p>Inspect stack events and nested resources when CloudFormation deployment fails.</p>
+  <a className={styles.card} href="/docs/getting-started/api-walkthrough#troubleshooting-api-calls">
+    <p className={styles.eyebrow}>API calls</p>
+    <h2>Authentication or API Calls Fail</h2>
+    <p>Check API URL, authentication method, credentials, and request headers.</p>
+  </a>
+  <a className={styles.card} href="/docs/platform/error_handling/dlq">
+    <p className={styles.eyebrow}>Processing</p>
+    <h2>DLQ Has Messages</h2>
+    <p>Investigate failed asynchronous processing before redriving messages.</p>
+  </a>
+  <a className={styles.card} href="/docs/features/search#troubleshooting-search-results">
+    <p className={styles.eyebrow}>Search</p>
+    <h2>Search Results Are Missing</h2>
+    <p>Check search indexing, metadata filters, OpenSearch behavior, and reindexing options.</p>
+  </a>
+  <a className={styles.card} href="/docs/platform/document_console#troubleshooting">
+    <p className={styles.eyebrow}>Console</p>
+    <h2>Document Console Issues</h2>
+    <p>Check console configuration, API URL, site access, browser errors, and backend logs.</p>
   </a>
 </div>

@@ -291,3 +291,4 @@ If the SDK response shape differs from the examples, inspect the response object
 - Search uploaded documents with [Search](/docs/features/search)
 - Route documents with [Rulesets](/docs/features/rulesets) and [Workflows](/docs/features/workflows)
 - Compare the [TypeScript SDK](/docs/tutorials/using-typescript-client-sdk)
+- Compare the [Java SDK](/docs/tutorials/using-java-client-sdk)

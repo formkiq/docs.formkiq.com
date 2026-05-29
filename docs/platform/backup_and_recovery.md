@@ -8,512 +8,158 @@ toc_max_heading_level: 2
 
 ## Overview
 
-FormKiQ provides robust backup and recovery capabilities to protect your document management system against data loss, accidental deletion, or service disruptions. This documentation outlines the backup strategies, recovery procedures, and best practices for maintaining business continuity in your FormKiQ environment.
+Backup and recovery planning for FormKiQ should cover document content, document metadata, configuration, identity, search indexes, logs, and any external systems connected to your workflows.
 
-Your specific backup implementation should align with your organization's:
-- Recovery Time Objective (RTO)
-- Recovery Point Objective (RPO)
-- Regulatory requirements
-- Data retention policies
+FormKiQ includes important AWS-native recovery controls, such as DynamoDB Point-in-Time Recovery and S3 bucket versioning, but customers remain responsible for defining recovery objectives, retention policies, backup monitoring, restore testing, and disaster recovery architecture.
 
-:::note
-FormKiQ automatically configures Point-in-Time Recovery for all DynamoDB tables (except cache tables) with a 35-day recovery window, providing built-in protection for your document metadata.
+Your plan should define:
+
+- Recovery Time Objective (RTO): how quickly service must be restored
+- Recovery Point Objective (RPO): how much data loss is acceptable
+- Retention requirements for documents, metadata, logs, and backups
+- Region, account, and data residency requirements
+- Recovery ownership and approval process
+- Testing cadence for restore procedures
+
+:::warning
+Backups are only useful if restore procedures are known and tested. Validate recovery in a non-production environment before relying on a process for production.
 :::
 
 ## Core System Components
 
-FormKiQ's architecture consists of several core components, each requiring specific backup considerations:
+| Component | AWS service | Default or common protection | Customer planning required |
+| --- | --- | --- | --- |
+| Document content | Amazon S3 | S3 versioning in standard FormKiQ document buckets. | Lifecycle rules, retention, replication, object lock, purge policy, recovery testing. |
+| Document metadata | Amazon DynamoDB | Point-in-Time Recovery for critical tables, except cache tables. | Restore process, table cutover or data repair plan, long-term exports if needed. |
+| Site and application configuration | DynamoDB, CloudFormation, parameters | Some configuration stored in FormKiQ tables and stack configuration. | Stack template, parameters, outputs, module configuration, and change history exports. |
+| User authentication | Amazon Cognito or external IdP | Cognito and IdP configuration managed outside document storage. | User pool/app client/group export, SSO metadata backup, IdP recovery process. |
+| Search indexes | Typesense or Amazon OpenSearch when enabled | Backend-specific index durability; OpenSearch snapshots where configured. | Snapshot, restore, or reindex plan. |
+| Document processing state | DynamoDB, queues, Lambda, logs | Operational records in FormKiQ tables and CloudWatch logs. | Recovery expectations for in-flight workflows and failed actions. |
+| Observability and audit | CloudWatch, CloudTrail, FormKiQ activity records | Logs and events depend on customer retention settings. | Log retention, export, audit review, and incident evidence requirements. |
 
-| Component | AWS Service | Backup Method | Default Configuration |
-|-----------|------------|---------------|----------------------|
-| Document Content | Amazon S3 | S3 Versioning, Cross-Region Replication | Versioning enabled |
-| Document Metadata | Amazon DynamoDB | Point-in-Time Recovery | Enabled with 35-day window |
-| User Authentication | Amazon Cognito | Cognito User Pool Export | Manual export |
-| Search Indexes | Amazon OpenSearch (if used) | Automated Snapshots | Configurable |
-| API Configuration | API Gateway | CloudFormation or CDK | Infrastructure as Code |
-| Custom Functions | AWS Lambda | Infrastructure as Code | CloudFormation/CDK |
+## Shared Responsibility
+
+FormKiQ deploys into your AWS account. That gives you control over data residency, backup retention, encryption, monitoring, and recovery procedures, but it also means your operations team should validate those controls.
+
+FormKiQ provides or configures:
+
+- DynamoDB Point-in-Time Recovery for critical tables, excluding cache tables
+- S3 versioning for document storage buckets in standard deployments
+- CloudFormation-managed infrastructure
+- API operations for document restore, document versions, OpenSearch snapshots, and reindexing where supported
+
+Customers should define:
+
+- Backup retention and legal hold requirements
+- AWS Backup usage, if required
+- Cross-region or cross-account backup copies
+- OpenSearch snapshot retention
+- Restore testing cadence
+- Incident response and recovery ownership
+- Procedures for external identity providers and downstream integrations
 
 ## Automated Backup Capabilities
 
 ### DynamoDB Point-in-Time Recovery
 
-FormKiQ automatically enables Point-in-Time Recovery (PITR) for all critical DynamoDB tables:
+FormKiQ configures Point-in-Time Recovery (PITR) for critical DynamoDB tables, excluding cache tables. PITR allows a table to be restored to a new table at a selected point within the recovery window.
 
-- **Continuous Backups**: Automatically maintains continuous backups of all data changes
-- **Recovery Window**: Allows restoration to any point within the past 35 days
-- **Granularity**: Recovery to any second within the backup window
-- **No Performance Impact**: Zero impact on table performance or availability
+PITR is useful for:
 
-To verify PITR status for your FormKiQ tables:
+- Accidental metadata deletion
+- Bad application writes
+- Failed imports or migrations
+- Operational recovery within the 35-day PITR window
 
-1. Open the AWS DynamoDB Console
-2. Select each FormKiQ table (Documents, Sites, etc.)
-3. Navigate to the "Backups" tab
-4. Confirm "Point-in-time recovery" shows as "Enabled"
+Important limitations:
+
+- PITR restores to a new DynamoDB table. It does not overwrite the live table automatically.
+- Restoring a FormKiQ table requires a controlled data repair, replacement, or cutover plan.
+- Related data across multiple tables may need to be restored to the same recovery point.
+- PITR does not restore S3 object content, OpenSearch indexes, Cognito users, or external systems.
+
+Verify PITR:
+
+```bash
+aws dynamodb describe-continuous-backups \
+  --table-name formkiq-documents-table-name
+```
 
 ### S3 Object Versioning
 
-FormKiQ configures versioning on document storage buckets, leveraging S3's native reliability of 99.999999999% (11 9's) durability and 99.99% availability across multiple Availability Zones:
+FormKiQ document content is stored in Amazon S3. S3 versioning helps protect against accidental overwrite or deletion by retaining previous object versions and delete markers.
 
-- **Multiple Versions**: Maintains previous versions of all documents
-- **Deletion Protection**: Preserves objects even when deleted (as delete markers)
-- **Complete History**: Maintains a full history of document changes
-- **Near Real-time Protection**: Provides immediate protection against accidental or malicious deletions
+S3 versioning is useful for:
 
-To verify S3 versioning:
+- Recovering previous document content
+- Recovering objects hidden by delete markers
+- Investigating accidental overwrite events
+- Supporting rollback and audit scenarios
 
-1. Open the AWS S3 Console
-2. Navigate to your FormKiQ document bucket
-3. Select the "Properties" tab
-4. Confirm "Bucket Versioning" is set to "Enabled"
+Important limitations:
+
+- S3 versioning does not replace retention policy, legal hold, or object lock requirements.
+- Lifecycle rules can expire old versions if configured to do so.
+- Permanent purge operations and retention policies may affect recoverability.
+- Metadata in DynamoDB and content in S3 may need to be reconciled together.
+
+Verify bucket versioning:
+
+```bash
+aws s3api get-bucket-versioning \
+  --bucket your-formkiq-document-bucket
+```
 
 ### OpenSearch Automated Snapshots
 
-For installations with the Enhanced Full-Text Search Add-On Module:
+Enhanced full-text search deployments may use Amazon OpenSearch Service. OpenSearch recovery should be planned separately from DynamoDB and S3.
 
-- **Daily Snapshots**: Automated daily snapshots of the search index
-- **S3 Storage**: Snapshots stored in a dedicated S3 bucket
-- **Retention Period**: Configurable retention period (default: 14 days)
+OpenSearch snapshots are useful for:
+
+- Restoring search indexes after index corruption
+- Recovering from accidental index deletion
+- Preserving search state before major search configuration changes
+
+Important limitations:
+
+- Search indexes are derived data. In some cases, reindexing from source documents is safer than restoring an old index.
+- Snapshot availability and retention depend on the OpenSearch configuration.
+- Restoring search does not restore source document metadata or content.
+
+Related operations:
+
+- [Add OpenSearch Snapshot](/docs/api-reference/add-open-search-snapshot)
+- [Get OpenSearch Snapshots](/docs/api-reference/get-open-search-snapshots)
+- [Restore OpenSearch Snapshot](/docs/api-reference/add-open-search-restore-snapshot)
+- [Reindex Document](/docs/api-reference/add-reindex-document)
 
 ## AWS Backup
 
-AWS Backup provides centralized, policy-driven backup management across
-AWS services used by FormKiQ. While FormKiQ enables native service-level
-protections such as DynamoDB PITR and S3 Versioning, AWS Backup allows
-consolidation of backup policies, automation of retention, and
-enforcement of compliance requirements.
+AWS Backup can centralize backup policy management across AWS services used by FormKiQ. It can be useful for enterprise governance, cross-account backup copies, retention enforcement, audit reporting, and Backup Vault Lock.
 
-### Why Use AWS Backup with FormKiQ
+AWS Backup does not replace DynamoDB PITR for operational point-in-time recovery. Keep PITR enabled where FormKiQ configures it.
 
--   Centralized backup governance
--   Automated backup plans
--   Backup vault encryption with KMS
--   Cross-region and cross-account copies
--   Compliance and audit reporting
--   Immutable backups via Backup Vault Lock
+### AWS Backup Integration
 
-### Supported Resources
+Use AWS Backup when you need:
 
-  FormKiQ Component   AWS Service      AWS Backup Support
-  ------------------- ---------------- ----------------------
-  Document Metadata   DynamoDB         Supported
-  Document Content    S3               Supported
-  Search Index        OpenSearch       Supported - Snapshots are stored in S3
+- Centralized backup plans
+- Cross-region or cross-account backup copies
+- Backup vault encryption and access policy controls
+- Backup Vault Lock for immutability
+- Compliance reporting across AWS accounts
 
-:::note
-AWS Backup does not replace DynamoDB PITR. PITR should remain enabled for operational recovery.
-:::
+Plan AWS Backup around resources such as:
 
-:::tip
-FormKiQ CLI can be used to restore DynamoDb table, see [FormKiQ CLI](/docs/formkiq-modules/modules/filesync-cli)
-:::
+| FormKiQ area | AWS Backup consideration |
+| --- | --- |
+| DynamoDB tables | Use backup plans for scheduled recovery points beyond PITR needs. |
+| S3 buckets | Use AWS Backup for policy-based S3 backups if your compliance model requires it. |
+| OpenSearch indexes | Manage OpenSearch snapshots separately. Do not assume AWS Backup replaces OpenSearch snapshot planning. |
+| CloudFormation configuration | Export templates, parameters, and outputs separately. |
+| Cognito and IdP configuration | Export or document separately; AWS Backup does not provide a full identity recovery story. |
 
-### Recommended Enterprise Strategy
-
--   Daily DynamoDB backups
--   Daily/weekly S3 backups
--   35+ day retention
--   Cold storage transition after 30--60 days
--   Cross-region copy
--   Backup Vault Lock enabled
-
-
-## Additional Backup Options
-
-### On-Demand Backups
-
-Create complete DynamoDB table snapshots that persist until explicitly deleted.
-
-**Best For**:
-- Pre-deployment safeguards
-- Schema migration protection
-- Long-term retention (beyond 35 days)
-- Compliance requirements
-- Stable recovery points
-
-```bash
-# Using AWS CLI to create an on-demand backup
-aws dynamodb create-backup \
-  --table-name formkiq_documents \
-  --backup-name "Pre-Migration-Backup-$(date +%Y%m%d)"
-```
-
-### Document Metadata Export (DynamoDB to S3)
-
-Export table data for long-term archival, analysis, and compliance reporting:
-
-```bash
-# Using the AWS CLI to export a DynamoDB table to S3
-aws dynamodb export-table-to-point-in-time \
-  --table-arn arn:aws:dynamodb:us-east-1:123456789012:table/formkiq_documents \
-  --s3-bucket your-backup-bucket \
-  --s3-prefix document-metadata-backup \
-  --export-format DYNAMODB_JSON \
-  --export-time "2023-05-20T12:00:00Z"
-
-**Best For**:
-- Extended archival needs
-- Compliance reporting
-- Data analysis requirements
-- Third-party integrations
-- Cost-effective storage
-```
-
-### Cognito User Export
-
-To back up user information:
-
-1. Open the AWS Cognito Console
-2. Select your FormKiQ User Pool
-3. Navigate to "Users"
-4. Use the "Export to CSV" option
-5. Store the CSV in a secure location
-
-Alternatively, use the AWS CLI:
-
-```bash
-# Get the user pool ID from your FormKiQ CloudFormation stack outputs
-USER_POOL_ID=$(aws cloudformation describe-stacks \
-  --stack-name your-formkiq-stack \
-  --query "Stacks[0].Outputs[?OutputKey=='CognitoUserPoolId'].OutputValue" \
-  --output text)
-
-# List users and export to a file
-aws cognito-idp list-users \
-  --user-pool-id $USER_POOL_ID \
-  --attributes-to-get "email" "name" "given_name" "family_name" "custom:role" \
-  --output json > cognito_users_backup_$(date +%Y%m%d).json
-
-# For larger user pools, use pagination
-aws cognito-idp list-users \
-  --user-pool-id $USER_POOL_ID \
-  --pagination-token "EXAMPLE-TOKEN" \
-  --limit 60 \
-  --output json >> cognito_users_backup_$(date +%Y%m%d).json
-```
-
-### CloudFormation Stack Backup
-
-It's good practice to periodically save your CloudFormation template:
-
-```bash
-# Export the FormKiQ CloudFormation template
-aws cloudformation get-template \
-  --stack-name your-formkiq-stack \
-  --query "TemplateBody" \
-  --output json > formkiq_template_backup_$(date +%Y%m%d).json
-```
-
-## Recovery Procedures
-
-### DynamoDB Point-in-Time Recovery
-
-To restore a DynamoDB table to a previous state:
-
-1. Open the AWS DynamoDB Console
-2. Select the table to restore
-3. Choose "Backups" tab
-4. Select "Restore to point in time"
-5. Specify the exact date and time for restoration
-6. Provide a name for the restored table
-7. Click "Restore"
-
-**Performance**:
-- **RTO**: 1-4 hours (depending on table size)
-- Creates a new table with restored data
-- Original table remains unaffected
-- Restoration limited to 35-day window
-
-```bash
-# Using AWS CLI to restore a table to a point in time
-aws dynamodb restore-table-to-point-in-time \
-  --source-table-name formkiq_documents \
-  --target-table-name formkiq_documents_restored \
-  --use-latest-restorable-time
-```
-
-After restoration, update your FormKiQ configuration to point to the restored table or migrate data back to the original table.
-
-### S3 Document Recovery
-
-To recover deleted documents or previous versions:
-
-1. Open the AWS S3 Console
-2. Navigate to your FormKiQ document bucket
-3. Toggle "Show versions" option to ON
-4. Locate the document version to restore
-5. Select the version and choose "Download" or "Copy"
-
-**Performance**:
-- **RTO**: Immediate to minutes (depending on object size)
-- No data transfer fees between versions within same region
-- Instant accessibility after restoration
-- No impact on production systems
-
-### OpenSearch Index Recovery
-
-To restore a search index:
-
-1. Identify the snapshot to restore from
-2. Restore the snapshot to a new domain
-3. Verify the index data
-4. Update your FormKiQ configuration to point to the restored index
-
-```bash
-# Using the OpenSearch APIs to restore a snapshot
-curl -X POST \
-  -H 'Content-Type: application/json' \
-  https://your-opensearch-endpoint/_snapshot/cs-automated/snapshot_name/_restore \
-  -d '{"indices": "formkiq-index", "rename_pattern": "(.+)", "rename_replacement": "restored_$1"}'
-```
-
-### Complete System Recovery
-
-For a full system recovery:
-
-1. **Redeploy the FormKiQ CloudFormation stack** using your backup template
-2. **Restore DynamoDB tables** using Point-in-Time Recovery
-3. **Confirm S3 bucket contents** are accessible
-4. **Rebuild OpenSearch indexes** if necessary
-5. **Validate system functionality** through the API and console
-
-## Disaster Recovery Strategies
-
-### Cross-Region Replication
-
-For enhanced business continuity, consider implementing cross-region replication:
-
-#### S3 Cross-Region Replication
-
-**Best For**:
-- Regional disaster recovery
-- Geographic redundancy
-- Compliance requirements
-- Multi-region availability
-- Low-latency access across regions
-
-```yaml
-# Example CloudFormation snippet for S3 CRR configuration
-ReplicationConfiguration:
-  Role: !GetAtt ReplicationRole.Arn
-  Rules:
-    - Status: Enabled
-      Priority: 1
-      DeleteMarkerReplication:
-        Status: Enabled
-      Destination:
-        Bucket: !Sub arn:aws:s3:::${SecondaryBucket}
-        EncryptionConfiguration:
-          ReplicaKmsKeyID: !GetAtt ReplicaKeyId.Arn
-```
-
-**Monitoring Metrics**:
-Monitor these key replication metrics:
-- Replication latency (average time for object replication)
-- Bytes pending replication
-- Operations pending replication
-- Replication failure rates
-
-#### DynamoDB Global Tables
-
-For multi-region redundancy, consider upgrading to DynamoDB Global Tables:
-
-1. Open the AWS DynamoDB Console
-2. Select your FormKiQ table
-3. Choose "Global Tables" tab
-4. Select "Create replica"
-5. Choose the secondary region
-6. Click "Create replica"
-
-### Backup Strategy Tiers
-
-| Tier | Strategy | Components | Recovery Time Objective |
-|------|----------|------------|-------------------------|
-| Basic | Point-in-Time Recovery + S3 Versioning | Document content and metadata | 1-4 hours |
-| Standard | Basic + Manual exports | All system data | 2-8 hours |
-| Enhanced | Standard + Cross-Region Replication | All system data with geographic redundancy | 15-60 minutes |
-| Enterprise | Enhanced + Global Tables + Multi-region deployment | Complete system redundancy | < 15 minutes |
-
-## Testing and Validation
-
-Regular testing of your backup and recovery procedures is essential:
-
-### Quarterly Testing Checklist
-
-1. **DynamoDB Restoration Test**:
-   - Restore a table to a point in time
-   - Verify data integrity
-   - Test application functionality with restored data
-
-2. **S3 Document Recovery Test**:
-   - Recover a document from a previous version
-   - Verify file integrity
-   - Confirm metadata association
-
-3. **Full System Recovery Drill**:
-   - Restore complete system in test environment
-   - Validate all components and integrations
-   - Measure actual recovery time
-
-## Backup Monitoring and Maintenance
-
-### CloudWatch Alarms
-
-Set up the following CloudWatch alarms to monitor backup health:
-
-1. **PITR Status Alarm**:
-   - Monitor `ContinuousBackupsStatus` metric
-   - Alert on DISABLED status
-
-2. **S3 Versioning Alarm**:
-   - Create custom Lambda to check versioning status
-   - Schedule regular verification
-
-3. **Replication Latency Alarm**:
-   - For Cross-Region Replication, monitor `ReplicationLatency`
-   - Alert on delays exceeding threshold
-   - Track `BytesPendingReplication` and `OperationsPendingReplication`
-   - Monitor `ReplicationTimeHigh` if Replication Time Control is enabled
-
-### Backup Validation Procedures
-
-Implement regular validation of your backups:
-
-1. **Metadata Integrity Check**:
-   ```bash
-   # Sample script to validate DynamoDB export integrity
-   aws s3 cp s3://your-backup-bucket/latest-export/manifest-summary.json .
-   cat manifest-summary.json | jq '.itemCount'
-   ```
-
-2. **Document Sample Verification**:
-   - Periodically restore a sample document
-   - Verify content matches original
-   - Confirm all versions are available
-
-## Compliance and Retention
-
-### Backup Retention Policy
-
-Configure appropriate retention policies based on your requirements:
-
-1. **Short-term Operational Recovery**:
-   - DynamoDB PITR: 35 days
-   - S3 current and previous versions: Indefinite
-
-2. **Medium-term Compliance**:
-   - Monthly DynamoDB exports: 1 year
-   - Cognito user exports: 1 year
-
-3. **Long-term Archival**:
-   - Annual full system backup: 7+ years
-   - Consider S3 Glacier Instance Retrieval / S3 Glacier for cost optimization
-
-### Compliance Documentation
-
-Maintain records of your backup and recovery activities:
-
-1. **Backup Execution Logs**:
-   - Store CloudWatch Logs for all backup operations
-   - Document manual backup procedures
-
-2. **Recovery Test Reports**:
-   - Document all recovery tests
-   - Record success metrics and issues encountered
-
-3. **Audit Trail**:
-   - Maintain change logs for backup configuration
-   - Document access to backup resources
-
-## Cost Optimization
-
-### Backup Storage Optimization
-
-Implement cost-saving measures for backup storage:
-
-1. **S3 Lifecycle Policies**:
-   ```json
-   {
-   "Rules": [
-      {
-         "Status": "Enabled",
-         "Prefix": "backup/",
-         "Transition": {
-         "Days": 60,
-         "StorageClass": "GLACIER_IR"
-         }
-      }
-   ]
-   }
-   ```
-
-2. **S3 Version Management**:
-   - Configure version lifecycle policies to expire older versions
-   - Transition non-current versions to cheaper storage classes
-   - Implement expiration rules for delete markers with no non-current versions
-
-3. **DynamoDB Export Compression**:
-   - Enable compression for DynamoDB exports
-   - Implement server-side encryption for security
-
-4. **Selective Backup Strategy**:
-   - Identify critical vs. non-critical data
-   - Apply different retention periods based on data value
-   - Use tagging to manage backup lifecycle automatically
-
-## Additional Considerations
-
-### Multi-Tenant Environment Backups
-
-For FormKiQ deployments with multiple sites:
-
-1. **Site Isolation**:
-   - Consider separate backup schedules for different sites
-   - Prioritize critical tenants for more frequent backups
-
-2. **Site-Specific Recovery**:
-   - Develop procedures for recovering individual sites
-   - Test selective tenant restoration
-
-### Automation and Integration
-
-Enhance your backup strategy with automation:
-
-1. **AWS Backup Integration**:
-   - Consider using AWS Backup service for centralized management
-   - Define backup plans for FormKiQ resources
-
-2. **EventBridge Automation**:
-   - Create EventBridge rules to trigger backup verification
-   - Send notifications on backup completion or failure
-
-3. **CI/CD Pipeline Integration**:
-   - Include backup verification in deployment pipelines
-   - Ensure new deployments don't compromise recovery capabilities
-
-:::note
-While FormKiQ provides robust built-in backup mechanisms, it's the responsibility of system administrators to define and test comprehensive backup and recovery procedures aligned with their organization's business continuity requirements.
-:::
-
-## AWS Backup Integration
-
-AWS Backup provides a centralized service to manage and automate backups across AWS services. Consider integrating FormKiQ with AWS Backup for enhanced management capabilities:
-
-### Setting Up AWS Backup for FormKiQ
-
-1. Create a Backup Plan:
-   - Define backup frequency, window, and lifecycle
-   - Create resource assignments for FormKiQ resources
-
-2. Configure Resource Assignments:
-   - Include DynamoDB tables, S3 buckets, and other FormKiQ resources
-   - Use tags to identify FormKiQ resources
-
-3. Monitor Backup Jobs:
-   - Track backup job status in AWS Backup dashboard
-   - Set up notifications for backup events
-
-### Example AWS Backup Plan
+Example AWS Backup plan shape:
 
 ```json
 {
@@ -538,9 +184,317 @@ AWS Backup provides a centralized service to manage and automate backups across 
 }
 ```
 
+## Additional Backup Options
+
+### On-Demand Backups
+
+Use on-demand DynamoDB backups for stable recovery points that must persist beyond the PITR window.
+
+Best for:
+
+- Pre-upgrade safeguards
+- Migration checkpoints
+- Long-term retention
+- Compliance evidence
+- Point-in-time snapshots before high-risk changes
+
+```bash
+aws dynamodb create-backup \
+  --table-name formkiq-documents-table-name \
+  --backup-name PreMigrationBackup
+```
+
+### Document Metadata Export
+
+DynamoDB export to S3 can support long-term archival, analytics, compliance reporting, and migration workflows.
+
+```bash
+aws dynamodb export-table-to-point-in-time \
+  --table-arn arn:aws:dynamodb:us-east-1:123456789012:table/formkiq-documents-table-name \
+  --s3-bucket your-backup-bucket \
+  --s3-prefix document-metadata-backup \
+  --export-format DYNAMODB_JSON \
+  --export-time "2026-05-20T12:00:00Z"
+```
+
+Best for:
+
+- Extended archival needs
+- Compliance reporting
+- Offline analysis
+- Migration planning
+- Independent recovery records
+
+### Cognito and Identity Configuration Export
+
+If your deployment uses Amazon Cognito, back up more than the user list.
+
+Capture:
+
+- User pool ID and configuration
+- App clients
+- Groups and group membership
+- Custom attributes
+- Hosted UI/domain settings
+- Lambda triggers
+- SAML or OIDC identity provider settings
+- Password and MFA policy settings
+
+:::note
+Cognito user exports do not fully preserve password state, MFA enrollment, app client secrets, hosted UI configuration, or all federation settings. Identity recovery should include configuration documentation and a tested identity-provider recovery process.
+:::
+
+Example user export:
+
+```bash
+aws cognito-idp list-users \
+  --user-pool-id your-user-pool-id \
+  --output json > cognito-users-export.json
+```
+
+### CloudFormation Stack Backup
+
+Export CloudFormation templates, parameters, and outputs before upgrades and on a regular schedule.
+
+```bash
+aws cloudformation get-template \
+  --stack-name your-formkiq-stack \
+  --query TemplateBody \
+  --output json > formkiq-template-backup.json
+```
+
+```bash
+aws cloudformation describe-stacks \
+  --stack-name your-formkiq-stack \
+  --query "Stacks[0].{Parameters:Parameters,Outputs:Outputs}" \
+  --output json > formkiq-stack-state-backup.json
+```
+
+## Recovery Procedures
+
+### Recovery Decision Guide
+
+| Scenario | First recovery path |
+| --- | --- |
+| A user soft-deleted a document | Use FormKiQ document restore. |
+| A document was overwritten | Restore the previous S3 object version and reconcile metadata if needed. |
+| A document was purged | Review backups, audit logs, retention controls, and legal/compliance requirements. Purge is intended to remove content from active storage. |
+| Metadata was corrupted | Use DynamoDB PITR to restore to a new table, then repair or migrate affected records. |
+| Search results are wrong | Reindex affected documents or restore OpenSearch snapshot if required. |
+| User access is broken | Restore or reconfigure Cognito, SSO, groups, app clients, or API auth settings. |
+| Stack configuration was changed incorrectly | Reapply previous CloudFormation parameters or template. |
+| Full environment is unavailable | Follow complete environment recovery plan. |
+
+### Document Restore and S3 Recovery
+
+Start with the least disruptive recovery option.
+
+1. If the document was soft-deleted, use FormKiQ restore: [`PUT /documents/{documentId}/restore`](/docs/api-reference/set-document-restore).
+2. If content was overwritten, identify the correct S3 object version.
+3. Restore or copy the needed object version.
+4. Confirm FormKiQ metadata still points to the expected content.
+5. Verify download, search, and document activity records.
+
+For purge behavior, review [`DELETE /documents/{documentId}/purge`](/docs/api-reference/purge-document). Purge is designed to remove active document content and metadata traces outside audit logs and backups.
+
+### DynamoDB Point-in-Time Recovery
+
+To restore a DynamoDB table:
+
+1. Identify the affected table or tables.
+2. Identify the recovery timestamp.
+3. Restore the table to a new table.
+4. Compare restored records with the live table.
+5. Repair affected records, migrate restored data, or plan a controlled cutover.
+6. Validate FormKiQ behavior in a test environment before production changes.
+
+```bash
+aws dynamodb restore-table-to-point-in-time \
+  --source-table-name formkiq-documents-table-name \
+  --target-table-name formkiq-documents-restored \
+  --restore-date-time "2026-05-20T12:00:00Z"
+```
+
+:::warning
+Do not point a production FormKiQ stack at a restored DynamoDB table without a tested cutover plan. FormKiQ data spans tables, S3 content, indexes, queues, and integrations that may need coordinated recovery.
+:::
+
+### OpenSearch Index Recovery
+
+If enhanced full-text search is installed, choose between reindexing and snapshot restore.
+
+Use reindexing when:
+
+- Source documents and metadata are healthy
+- Search results are stale or incomplete
+- Mappings, schema, or full-text settings changed
+
+Use snapshot restore when:
+
+- The index was deleted or corrupted
+- Reindexing is too slow for the recovery target
+- A known-good snapshot exists
+
+Related operations:
+
+- [Get OpenSearch Snapshots](/docs/api-reference/get-open-search-snapshots)
+- [Restore OpenSearch Snapshot](/docs/api-reference/add-open-search-restore-snapshot)
+- [Reindex Document](/docs/api-reference/add-reindex-document)
+
+### Complete System Recovery
+
+Full environment recovery usually requires multiple coordinated steps:
+
+1. Redeploy or repair the FormKiQ CloudFormation stack.
+2. Restore or validate DynamoDB metadata and configuration.
+3. Restore or validate S3 document content.
+4. Restore, rebuild, or reindex search backends.
+5. Restore Cognito, SSO, custom authorizer, API key, or IAM access paths.
+6. Reconfigure domains, certificates, VPC settings, and integrations if needed.
+7. Validate API URLs and console access.
+8. Run a full functional smoke test.
+
+## Disaster Recovery Strategies
+
+### Cross-Region Replication
+
+Cross-region recovery is an architecture decision, not a simple backup setting. It should be designed and tested before an incident.
+
+S3 Cross-Region Replication can help with:
+
+- Regional disaster recovery
+- Data residency or duplicate-region requirements
+- Protection against regional S3 access disruption
+
+Plan for:
+
+- Destination bucket encryption and KMS keys
+- Replication of delete markers and noncurrent versions
+- Replication monitoring
+- Lifecycle policy differences between regions
+- Application cutover to the recovery region
+
+### DynamoDB Global Tables
+
+DynamoDB Global Tables may be useful for multi-region architectures, but they should not be treated as a generic backup feature.
+
+Use only after validating:
+
+- FormKiQ table design and write patterns
+- Conflict behavior
+- Region support
+- CloudFormation ownership
+- Recovery runbooks
+- Cost and operational complexity
+
+For many deployments, PITR, on-demand backups, exports, and tested restore procedures are a better first step than global active-active database replication.
+
+### Backup Strategy Tiers
+
+| Tier | Strategy | Typical use |
+| --- | --- | --- |
+| Basic | DynamoDB PITR, S3 versioning, CloudFormation exports | Standard operational recovery in one region. |
+| Standard | Basic plus on-demand backups, metadata exports, restore testing | Production environments with formal recovery expectations. |
+| Enhanced | Standard plus AWS Backup, cross-account or cross-region copies, OpenSearch snapshots | Regulated or higher availability environments. |
+| Enterprise | Enhanced plus tested regional recovery architecture | Environments with strict RTO/RPO or region failure requirements. |
+
+## Testing and Validation
+
+Test backup and recovery regularly.
+
+Recommended quarterly checks:
+
+- Restore a DynamoDB table to a new table and validate sample records.
+- Recover a sample S3 document version and verify checksum or file integrity.
+- Restore a soft-deleted FormKiQ document.
+- Validate OpenSearch snapshot or reindex procedure if enhanced search is installed.
+- Export and review CloudFormation parameters and outputs.
+- Confirm Cognito or SSO recovery documentation is current.
+- Run a complete recovery drill in a non-production environment.
+- Record actual RTO and RPO from the test.
+
+## Backup Monitoring and Maintenance
+
+Monitor backup posture with AWS-native tools.
+
+Recommended checks:
+
+- DynamoDB PITR remains enabled for required tables.
+- S3 bucket versioning remains enabled.
+- S3 lifecycle rules do not expire versions earlier than policy allows.
+- OpenSearch snapshots complete successfully where configured.
+- AWS Backup jobs complete successfully where used.
+- Cross-region replication has no growing backlog if enabled.
+- CloudFormation template and parameter exports are current.
+- Restore tests are completed and documented.
+
+Use AWS Config, EventBridge, CloudWatch, AWS Backup job notifications, or custom checks depending on your governance model.
+
+## Compliance and Retention
+
+Define retention by data type.
+
+| Data type | Retention considerations |
+| --- | --- |
+| Document content | Business retention, legal hold, object lock, version lifecycle, purge policy. |
+| Document metadata | PITR window, on-demand backups, exports, audit requirements. |
+| Search indexes | Snapshot retention or reindex strategy. |
+| User and access data | Cognito/IdP export, group membership, audit evidence. |
+| Logs and activity | CloudWatch retention, CloudTrail, reporting and analytics needs. |
+| Backup records | Evidence of backup jobs, restore tests, and recovery approvals. |
+
+For regulated deployments, align backup retention with legal, contractual, and data residency requirements. Also confirm where backup copies, exports, and replicated data are stored.
+
+## Cost Optimization
+
+Backup and recovery choices affect AWS cost.
+
+Cost drivers include:
+
+- S3 current and noncurrent object versions
+- S3 replication and cross-region transfer
+- DynamoDB PITR, on-demand backups, and exports
+- AWS Backup recovery points and cross-account or cross-region copies
+- OpenSearch snapshots and restored domains
+- CloudWatch and CloudTrail retention
+
+Use lifecycle policies carefully. Lower-cost storage can reduce backup cost, but it can also increase restore time or retrieval cost.
+
+For cost planning, see [Costs & AWS Usage](/docs/platform/costs).
+
+## Additional Considerations
+
+### Multi-Tenant Environment Backups
+
+For multi-site deployments, a single backup plan may still cover shared infrastructure, but recovery decisions can be tenant-specific.
+
+Plan for:
+
+- Which sites are business-critical
+- Whether a single site can be repaired without affecting others
+- How tenant-specific exports are handled
+- Whether tenants have different retention or residency requirements
+- How recovery evidence is reported per tenant
+
+For deployment model guidance, see [Multi-Tenant and Multi-Instance Deployments](/docs/platform/multi-tenant-vs-multi-instance).
+
+### Automation and Integration
+
+Use automation where it reduces operational risk:
+
+- Schedule backup verification checks.
+- Send backup and restore events to operations channels.
+- Include recovery checks in deployment pipelines.
+- Export stack configuration before production changes.
+- Run document restore tests with controlled sample documents.
+
 ## Additional Resources
 
+- [Updates, Upgrades, and Rollbacks](/docs/platform/updates_upgrades_and_rollbacks)
+- [Document Storage](/docs/platform/document_storage)
+- [Documents](/docs/features/documents)
+- [Search](/docs/features/search)
+- [Status Monitoring and Alerting](/docs/how-tos/set-up-status-monitoring-and-alerting)
 - [AWS DynamoDB Backup and Restore Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html)
 - [AWS S3 Versioning Documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html)
 - [AWS Backup Service Documentation](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
-- [FormKiQ Security Documentation](/docs/platform/security)

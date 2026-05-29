@@ -1,43 +1,63 @@
 ---
-sidebar_position: 10
+sidebar_position: 1
+title: CloudFormation Stack Failed
 ---
 
-# CloudFormation Troubleshooting
+# CloudFormation Stack Failed
 
-This tutorial shows you how to use **AWS CloudShell** to run a helper script (`list-cfn-events.sh`) that gathers and displays all CloudFormation events. This will show you how to quickly zero in on the resource and error message responsible for a deployment failure.
+Use this guide when a FormKiQ CloudFormation stack does not reach `CREATE_COMPLETE` or `UPDATE_COMPLETE`.
 
-## Open AWS CloudShell
+CloudFormation failures are usually easiest to diagnose by finding the first failed resource in the root stack or a nested stack. Later failures are often side effects of the first one.
 
-* Sign in to the [AWS Management Console](https://console.aws.amazon.com/).
+## What You Need
 
-* Click the **CloudShell** icon in the top navigation bar (looks like a “>_” prompt).
+- Access to the AWS account and Region where FormKiQ is being installed or updated.
+- Permission to view CloudFormation stacks and stack events.
+- AWS CloudShell or a terminal with the AWS CLI configured.
+- The root FormKiQ stack name.
+
+## Start in the CloudFormation Console
+
+1. Open the [CloudFormation Console](https://console.aws.amazon.com/cloudformation).
+2. Switch to the AWS Region where FormKiQ is being installed.
+3. Open the root FormKiQ stack.
+4. Select the **Events** tab.
+5. Look for the first event with a status ending in `_FAILED`.
+
+If the failed resource is a nested stack, open that nested stack and repeat the same event review there.
+
+## Use the CloudShell Helper Script
+
+The helper script gathers root and nested stack events so you can review them in one output file.
+
+### Open AWS CloudShell
+
+Sign in to the [AWS Management Console](https://console.aws.amazon.com/) and open AWS CloudShell from the top navigation bar.
 
 ![Open CloudShell](./img/cloudshell.png)
 
-## Download the Script
+### Download the Script
 
-In CloudShell’s terminal, download the pre-built script:
+Run:
 
 ```bash
 curl -O https://docs.formkiq.com/scripts/list-cfn-events.sh
 chmod +x list-cfn-events.sh
 ```
 
-:::note
-The chmod +x command sets the script’s execute permission bit, making it executable so you can run it directly with ./list-cfn-events.sh.
-:::
+The `chmod +x` command makes the script executable so it can be run with `./list-cfn-events.sh`.
 
-## Run the Script
+### Run the Script
 
-Execute the script, passing your root stack’s name and saving the output into a file:
+Pass the root stack name and save the output:
 
 ```bash
 ./list-cfn-events.sh my-root-stack-name > output
 ```
 
-You’ll see output like:
+Example output:
 
-```
+```text
 ========================================
   CloudFormation Events for Stack:
       my-root-stack-name
@@ -46,20 +66,50 @@ You’ll see output like:
 
 2025-06-14T15:02:10Z    MyBucket        CREATE_COMPLETE    AWS::S3::Bucket        -
 2025-06-14T15:01:58Z    MyBucketPolicy  CREATE_FAILED      AWS::S3::BucketPolicy  Policy already exists
-…
 ```
 
-The script then repeats the header-and-events block for each nested stack.
+The script repeats the event block for each nested stack.
 
-The output file can be downloaded by selecting **Download File** under the **Actions** menu.
+To download the output file, select **Download File** from the CloudShell **Actions** menu.
 
 ![Download Output File](./img/cloudshell-download.png)
 
 ## Interpret the Results
 
-* Look for *_FAILED statusesAny line where the Status column ends in _FAILED indicates the resource that caused the rollback or failure.
+When reading the output:
 
-* Read the Status ReasonThe final column often contains the AWS-reported error message (e.g. “Policy already exists”, “Access denied”, etc.).
+- Look for statuses ending in `_FAILED`.
+- Start with the earliest failed resource, not the last message in the stack.
+- Read the status reason carefully; it often contains the AWS service error.
+- If the failed resource is a nested stack, inspect the nested stack events.
+- Check whether the root cause is permissions, naming conflict, quota, unsupported Region, VPC configuration, or service-linked role setup.
 
-* Nested Stack ContextIf the failure occurs inside a nested stack, you’ll see it under that nested stack’s header—so you know exactly which template and resource need fixing.
-```
+Common examples:
+
+| Failure pattern | What to check |
+| --- | --- |
+| `AccessDenied` | IAM permissions, KMS key policy, bucket policy, service role permissions. |
+| Resource already exists | Stack name, bucket name, policy name, custom domain, retained resources from a previous install. |
+| Service quota exceeded | AWS service quotas for Lambda, OpenSearch, API Gateway, VPC, or other deployed services. |
+| Unsupported parameter or Region | Template parameters and AWS service availability in the selected Region. |
+| VPC or subnet error | Subnet selection, route tables, NAT access, security groups, and OpenSearch VPC requirements. |
+| ECS service-linked role exists | This may be safe if the role already exists; review the specific status reason. |
+
+## After Fixing the Cause
+
+After the cause is understood:
+
+1. Decide whether the stack can be updated, retried, or must be deleted and recreated.
+2. Avoid deleting a stack that contains production documents or configuration unless a backup and recovery plan exists.
+3. If this is a new failed installation with no production data, reinstalling may be the fastest path.
+4. If this is an update failure, review rollback state before making another change.
+
+For update failures, see [Updates, Upgrades, and Rollbacks](/docs/platform/updates_upgrades_and_rollbacks).
+
+## Where to Go Next
+
+- [Quick Start (AWS)](/docs/getting-started/quick-start)
+- [Internal Server Error](/docs/troubleshooting/internal-server-error)
+- [Updates, Upgrades, and Rollbacks](/docs/platform/updates_upgrades_and_rollbacks)
+- [Backup and Recovery](/docs/platform/backup_and_recovery)
+- [Status Monitoring and Alerting](/docs/how-tos/set-up-status-monitoring-and-alerting)
