@@ -340,6 +340,6 @@ If a later request fails because the document ID is missing, rerun **Add new Doc
 - For more document examples, see the [Documents API Tutorial](/docs/tutorials/Documents/documents-api)
 - For structured metadata, see the [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
 - For SDK-based integrations, see [SDKs & API Integration](/docs/category/sdk-api-integration)
-- For endpoint details, review the [API Reference](/docs/category/api-reference)
+- For endpoint details, review the [API Reference](/docs/category/formkiq-api)
 - For broader examples, explore [FormKiQ Tutorials](/docs/category/tutorials)
 - Join our [Slack Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g)

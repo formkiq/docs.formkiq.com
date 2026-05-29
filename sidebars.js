@@ -158,25 +158,12 @@ const sidebars = {
       },
       items: [
         {
-          type: "category",
-          label: "Python",
-          link: categoryIndex(
-            "Python",
-            "Using the FormKiQ Python SDK.",
-            "/category/python"
-          ),
-          items: ["tutorials/Python/using-python-client-sdk"],
+          type: "link",
+          label: "API Reference",
+          href: "/docs/category/formkiq-api",
         },
-        {
-          type: "category",
-          label: "TypeScript",
-          link: categoryIndex(
-            "TypeScript",
-            "Using the FormKiQ TypeScript SDK.",
-            "/category/typescript"
-          ),
-          items: ["tutorials/TypeScript/using-typescript-client-sdk"],
-        },
+        "tutorials/Python/using-python-client-sdk",
+        "tutorials/TypeScript/using-typescript-client-sdk",
         "how-tos/jwt-authentication-token",
         "tutorials/using-a-server-side-proxy",
         "tutorials/formkiq-document-api-with-zapier",
@@ -297,21 +284,6 @@ const sidebars = {
             "/category/error-handling"
           ),
           items: ["platform/error_handling/dlq"],
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "API Reference",
-      link: {
-        type: "doc",
-        id: "category-pages/api-reference",
-      },
-      items: [
-        {
-          type: "link",
-          label: "FormKiQ API",
-          href: "/docs/category/formkiq-api",
         },
       ],
     },

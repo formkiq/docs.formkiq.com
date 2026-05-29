@@ -291,6 +291,5 @@ A successful response should include all of the documents you've uploaded so far
 
 From here, you can add an endpoint to retrieve the content URL for downloading the file to your client, and a further endpoint to approve or reject the document by adding additional metadata and possibly updating or removing existing metadata.
 
-You can learn more about the various endpoints available in the [FormKiQ API Reference](/docs/category/api-reference) for more endpoints you can try out.).
-
+You can learn more about the various endpoints available in the [FormKiQ API Reference](/docs/category/formkiq-api) for more endpoints you can try out.).
 

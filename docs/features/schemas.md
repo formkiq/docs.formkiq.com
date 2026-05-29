@@ -1,229 +1,227 @@
 ---
 sidebar_position: 25
+title: Schemas
 ---
 
 # Schemas
 
 ## Overview
 
-The Schemas and Classifications feature enables users to define a set of rules for document attributes. These rules help ensure data consistency and enforce required or optional attributes for each document. By utilizing this structure, you can create a robust framework for document categorization and validation.
+Schemas define rules for document attributes. They help keep metadata consistent by specifying which attributes are required, which are optional, which values are allowed, and which attribute combinations should be indexed for multi-attribute search.
 
-### Site Schema
+FormKiQ supports two related schema concepts:
 
-The site schema applies at the site level and establishes the foundational structure and rules for how documents should be organized and stored across a site. The site schema defines the required and optional attributes that all documents within a site must adhere to, ensuring consistency and integrity of the site’s document repository.
+- **Site schema**: Applies to documents in a site.
+- **Classification schema**: Applies to documents assigned to a specific classification.
 
+Use schemas when document metadata needs structure, validation, consistency, search optimization, or localized allowed values.
 
-### Classification Schemas
+## Site Schema vs Classification Schema
 
-Classification schemas are applied at the document level and is used to categorize or apply individual documents with additional metadata; this is done by applying a reserved Classification attribute to the document. This allows for more granular control and enables users to apply classification schemas that may influence how documents are searched, filtered, or managed without altering the underlying site schema. In other words, while the site schema governs the overall structure, site classification schemas provide a flexible way to add context or categorization to specific documents.
+| Schema type | Scope | Best for |
+| --- | --- | --- |
+| Site schema | Applies at the site level. | Metadata rules that should apply broadly across the site. |
+| Classification schema | Applies to documents with a specific classification. | Metadata rules for a document type, record class, business process, or department. |
 
-Both features use the same JSON structure outlined below, but they serve distinct purposes within the document management platform.
+Examples:
 
-## Use Cases
+- A site schema might require every document to have `department`.
+- An invoice classification might require `invoiceNumber`, `vendorName`, and `invoiceDate`.
+- A contract classification might require `counterparty`, `effectiveDate`, and `contractType`.
 
-### Site Schemas
+Recommended model:
 
-#### Global Data Integrity
+- Use the site schema for shared requirements.
+- Use classification schemas for document-type-specific requirements.
+- Avoid applying multiple overlapping classifications to one document unless the validation behavior is clearly understood and tested.
 
-Enforce consistent data structures across all documents in a site, ensuring that critical information is always captured.
+## How Schemas Work with Attributes
 
-#### Standardization
+Schemas do not replace attributes. Schemas define rules for attributes.
 
-Define uniform attribute rules for documents, so every document adheres to the same format and validation criteria.
+| Concept | Role |
+| --- | --- |
+| Attribute definition | Defines an available field, such as `department` or `invoiceNumber`. |
+| Document attribute | Stores a value on a document, such as `department = Finance`. |
+| Site schema | Defines site-wide metadata expectations. |
+| Classification schema | Defines metadata expectations for a specific document class. |
+| Locale resource item | Provides localized display values for allowed values. |
 
-#### Indexing and Search Optimization
-
-Utilize composite keys and structured attributes to improve searchability and retrieval of documents across the entire site.
-
-#### Compliance and Auditing
-Ensure that documents meet regulatory or internal standards by requiring mandatory fields and controlled data formats.
-
-#### Efficient Data Management
-Simplify data ingestion, updates, and reporting processes by having a well-defined schema at the site level.
-
-### Site Classification Schemas
-
-#### Granular Document Tagging
-Categorize individual documents with specific metadata that can be used to filter or search for documents based on context.
-
-#### Enhanced Document Filtering
-Apply classification schemas to support dynamic grouping or segmentation of documents, such as by department, project, or content type.
-
-#### Contextual Metadata
-Provide additional context to documents without altering the core site schema, enabling richer document insights.
-
-#### Flexible Document Organization
-Allow users to classify documents in ways that meet evolving business needs, such as temporary projects or ad hoc categorization.
-
-#### Personalized Document Management
-Enable tailored views and workflows by assigning classification schemas to documents that align with user roles or departmental requirements.
+For attribute details, see [Attributes](/docs/features/attributes). For localized allowed values, see [Locales](/docs/features/locales).
 
 ## Schema Structure
 
-```JSON
+Site schemas and classification schemas use the same core structure.
+
+```json
 {
-  "name": "string",
+  "name": "Financial Records",
   "attributes": {
     "compositeKeys": [],
     "required": [],
     "optional": [],
-    "allowAdditionalAttributes": boolean
+    "allowAdditionalAttributes": true
   }
 }
 ```
 
-### Core Components
+| Field | Description |
+| --- | --- |
+| `name` | Human-readable schema or classification name. |
+| `attributes` | Container for schema rules. |
+| `compositeKeys` | Attribute combinations indexed for multi-attribute search. |
+| `required` | Attributes that must be present. |
+| `optional` | Attributes that are allowed but not required. |
+| `allowAdditionalAttributes` | Whether attributes outside the required and optional lists are allowed. |
 
-| Component | Required | Description |
-|-----------|----------|-------------|
-| name | Yes | Schema identifier |
-| attributes | Yes | Configuration object |
-| compositeKeys | No | Custom Attribute Key generated for searching |
-| required | No | Mandatory attribute rules |
-| optional | No | Optional attribute rules |
-| allowAdditionalAttributes | No | Allow undefined attributes |
+## Required and Optional Attributes
 
-### Attribute Types
+Required and optional schema entries define rules for document attributes.
 
-Below are detailed description of the different components of the schema.
+### Required Attributes
 
-#### Composite Keys
-
-When using DynamoDB endpoints for search, IE: /search. There is a limitation of only being able to search 1 attribute at a time. To search for multiple attributes you can either use a fulltext solution like Opensearch or Typesense, or you can setup composite keys which will automatically setup the indexes required for multiple attribute search.
-
-For example: Below shows how to setup a composite key for attributes "department" and "date". When a document is added with both those attribute and composite index will be create that will allow for the searching of both attributes.
-
-```json
-{
-  "compositeKeys": [
-    {
-      "attributeKeys": ["department", "date"]
-    }
-  ]
-}
-```
-
-##### Parameters
-- **attributeKeys**: Array of attribute keys that form the composite key
-- Must contain 2-3 attributes per composite key
-- Maximum of 5 composite keys per schema
-- Order matters for key formation
-
-:::note
-When using three-key composite keys, searches must specify all three keys. If you need to search with only two of the three keys, create a separate composite key for that combination. For more complex search patterns, consider using the Fulltext Search Module.
-:::
-
-
-#### Required Attributes
-Define mandatory document attributes with validation rules.
+Required attributes must be present for documents governed by the schema.
 
 ```json
 {
   "required": [
     {
-      "attributeKey": "string",
-      "defaultValue": "string",
-      "defaultValues": ["string"],
-      "allowedValues": ["string"],
-      "minNumberOfValues": number,
-      "maxNumberOfValues": number
+      "attributeKey": "documentType",
+      "allowedValues": ["invoice", "receipt", "statement"],
+      "minNumberOfValues": 1,
+      "maxNumberOfValues": 1
     }
   ]
 }
 ```
 
-##### Parameters
-- **attributeKey**: Unique attribute identifier
-- **defaultValue**: Single default value
-- **defaultValues**: Multiple default options
-- **allowedValues**: Valid value constraints
-- **minNumberOfValues**: The minimum number of attribute values
-- **maxNumberOfValues**: The maximum number of attribute values
+### Optional Attributes
 
-#### Optional Attributes
-Define permitted but not mandatory attributes.
+Optional attributes are permitted but not mandatory.
 
 ```json
 {
   "optional": [
     {
-      "attributeKey": "string",
-      "allowedValues": ["string"],
-      "minNumberOfValues": number,
-      "maxNumberOfValues": numbe
+      "attributeKey": "department",
+      "allowedValues": ["finance", "legal", "operations"],
+      "minNumberOfValues": 1,
+      "maxNumberOfValues": 1
     }
   ]
 }
 ```
 
-##### Parameters
-- **attributeKey**: Unique attribute identifier
-- **allowedValues**: Valid value constraints
-- **minNumberOfValues**: The minimum number of attribute values
-- **maxNumberOfValues**: The maximum number of attribute values
+| Field | Purpose |
+| --- | --- |
+| `attributeKey` | Attribute that the rule applies to. |
+| `defaultValue` | Single default value. |
+| `defaultValues` | Multiple default values. |
+| `allowedValues` | Enumerated values the attribute may contain. |
+| `minNumberOfValues` | Minimum number of values required. |
+| `maxNumberOfValues` | Maximum number of values allowed. |
 
-### Applying a Classification Schema to a Document
+## Allowed Values and Localized Values
 
-```bash
-curl -X PUT "https://api.example.com/documents/{documentId}/attributes/classificationId" \
-  -H "Authorization: YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "value": "{classificationId}"
-  }'
+`allowedValues` define the canonical stored values that are accepted for an attribute.
+
+```json
+{
+  "attributeKey": "priority",
+  "allowedValues": ["HI", "MD", "LO"]
+}
 ```
 
+Allowed values are enumerated values. They are not regex patterns. If a value must match a pattern, model that validation separately in the process that creates or updates the attribute.
+
+Localized display values can be added through locale resource items. The stored value can remain stable while users see translated or region-specific labels.
+
+Example:
+
+| Stored value | `en-US` display | `fr-CA` display |
+| --- | --- | --- |
+| `HI` | High | Eleve |
+| `MD` | Medium | Moyen |
+| `LO` | Low | Faible |
+
+For details, see [Locales](/docs/features/locales).
+
+## Composite Keys
+
+Composite keys optimize multi-attribute searches through the DynamoDB-backed `/search` endpoint.
+
+By default, DynamoDB-style attribute search is best for targeted lookup patterns. Composite keys let you define common multi-attribute combinations that FormKiQ should index.
+
+Example:
+
+```json
+{
+  "compositeKeys": [
+    {
+      "attributeKeys": ["department", "fiscalYear", "quarter"]
+    }
+  ]
+}
+```
+
+Use composite keys when users or integrations frequently search by the same attribute combination.
+
+Guidelines:
+
+- Use 2 to 3 attributes per composite key.
+- Define no more than 5 composite keys per schema.
+- Order matters for key formation.
+- Three-key composite searches should provide all three keys.
+- Create a separate two-key composite key if users need that two-key search.
+- Use full-text search or OpenSearch for broader ad hoc search patterns.
+
+For search guidance, see [Search](/docs/features/search).
+
+## `allowAdditionalAttributes`
+
+`allowAdditionalAttributes` controls whether documents can include attributes that are not listed in the schema's `required` or `optional` sections.
+
+| Setting | Behavior | Best for |
+| --- | --- | --- |
+| `true` | Documents can include additional attributes beyond the schema. | Flexible metadata capture, evolving processes, exploratory use cases. |
+| `false` | Documents are limited to the schema-defined attributes. | Regulated records, controlled forms, strict classification, data governance. |
+
+Use `false` when metadata consistency is more important than flexibility. Use `true` when teams need room to add new attributes without changing the schema first.
+
+## Applying Classifications to Documents
+
+A classification schema applies when a document is assigned a classification. The classification is represented through document attributes using the API-supported classification attribute shape.
+
+Use the generated document attribute APIs for exact request formats:
+
+- [Add attribute to document](/docs/api-reference/add-document-attributes)
+- [Set document's attributes](/docs/api-reference/set-document-attributes)
+- [Get document's attributes](/docs/api-reference/get-document-attributes)
+
 :::note
-NOTE: While it is possible to assign more than one Classification Schema to a document, no prioritization functionality has been implemented, so the attribute validation results may not be consistent in the case of overlap. Our recommendation is to only enable a site schema and one classification schema for each document.
+Although a document can be assigned more than one classification, overlapping classification schemas can produce confusing validation behavior. Prefer one site schema plus one classification schema per document unless multiple classifications have been explicitly tested.
 :::
 
 ## Practical Examples
 
-### Document Classification Schema
+### Site Schema Example
+
+Use a site schema for attributes expected across the site.
+
 ```json
 {
-  "name": "Legal Documents",
+  "name": "Site Metadata",
   "attributes": {
     "required": [
       {
-        "attributeKey": "documentType",
-        "allowedValues": ["contract", "agreement", "policy"]
-      },
-      {
-        "attributeKey": "securityLevel",
-        "defaultValue": "confidential",
-        "allowedValues": ["public", "confidential", "restricted"]
+        "attributeKey": "department",
+        "allowedValues": ["finance", "legal", "operations"]
       }
     ],
     "optional": [
       {
-        "attributeKey": "department",
-        "allowedValues": ["legal", "compliance", "operations"]
-      }
-    ],
-    "allowAdditionalAttributes": false
-  }
-}
-```
-
-### Financial Document Schema
-```json
-{
-  "name": "Financial Records",
-  "attributes": {
-    "compositeKeys": [
-      {
-        "attributeKeys": ["year", "quarter", "department"]
-      }
-    ],
-    "required": [
-      {
-        "attributeKey": "documentType",
-        "allowedValues": ["invoice", "receipt", "statement"]
-      },
-      {
-        "attributeKey": "fiscalYear",
-        "defaultValue": "2024"
+        "attributeKey": "region",
+        "allowedValues": ["NA", "EMEA", "APAC"]
       }
     ],
     "allowAdditionalAttributes": true
@@ -231,10 +229,47 @@ NOTE: While it is possible to assign more than one Classification Schema to a do
 }
 ```
 
-### HR Document Schema
+### Invoice Classification Example
+
+Use a classification schema for attributes required by a specific document type.
+
 ```json
 {
-  "name": "Employee Records",
+  "name": "Invoice",
+  "attributes": {
+    "compositeKeys": [
+      {
+        "attributeKeys": ["vendorName", "invoiceDate"]
+      }
+    ],
+    "required": [
+      {
+        "attributeKey": "documentType",
+        "defaultValue": "invoice",
+        "allowedValues": ["invoice"]
+      },
+      {
+        "attributeKey": "invoiceNumber"
+      },
+      {
+        "attributeKey": "vendorName"
+      }
+    ],
+    "optional": [
+      {
+        "attributeKey": "purchaseOrderNumber"
+      }
+    ],
+    "allowAdditionalAttributes": false
+  }
+}
+```
+
+### HR Record Classification Example
+
+```json
+{
+  "name": "Employee Record",
   "attributes": {
     "compositeKeys": [
       {
@@ -243,14 +278,11 @@ NOTE: While it is possible to assign more than one Classification Schema to a do
     ],
     "required": [
       {
-        "attributeKey": "documentType",
-        "allowedValues": ["contract", "review", "certification"]
-      },
-      {
         "attributeKey": "employeeId"
       },
       {
-        "attributeKey": "department"
+        "attributeKey": "documentType",
+        "allowedValues": ["contract", "review", "certification"]
       }
     ],
     "optional": [
@@ -268,46 +300,85 @@ NOTE: While it is possible to assign more than one Classification Schema to a do
 
 ## Best Practices
 
-### Schema Design
-- **Keep schemas focused and specific:**
-  - Instead of one general "Document" schema, create specific schemas like "Invoice", "Contract", etc.
-  - Example: Create separate schemas for HR documents by type (employee contracts, performance reviews)
+### Start with Attribute Design
 
-- **Use clear naming conventions:**
-  - For attribute keys: `camelCase` or `snake_case` consistently (e.g., `documentType` or `document_type`)
-  - FormKiQ's reserved attributes us `PascalCase`, having the first character of each word capitalized, e.g., `Classification`
-  - Example schema naming: `department-documentType-version` (e.g., `finance-invoice-v1`)
+Define the attributes first, then use schemas to control how those attributes are used.
 
-- **Document schema purposes:**
-  - Include detailed descriptions in schema definitions
-  - Example: Create a data dictionary for each schema that explains each attribute's purpose and format
+Good candidates for schema rules:
 
-### Composite Keys
-- **Choose attributes that create meaningful combinations:**
-  - Example: `["projectId", "documentType"]` allows finding all specifications for a specific project
-  - Example: `["department", "fiscalYear", "quarter"]` enables quarterly financial report lookups
+- `documentType`
+- `department`
+- `region`
+- `customerId`
+- `invoiceNumber`
+- `retentionCategory`
+- `confidentiality`
 
-- **Consider query patterns:**
-  - Analyze most common searches before defining composite keys
-  - Example: If users frequently search by both customer and product, create a composite key with both attributes
+### Use Site Schema for Shared Rules
 
-- **Order attributes by specificity:**
-  - Place most specific attributes first in the composite key
-  - Example: `["employeeId", "documentType", "year"]` rather than `["year", "documentType", "employeeId"]`
+Keep site schema focused on metadata that applies broadly. Avoid overloading the site schema with every document-type-specific field.
 
-### Attribute Management
-- **Define clear validation rules:**
-  - For dates: Use specific formats (e.g., ISO 8601: YYYY-MM-DD)
-  - For IDs: Define patterns like `"allowedValues": ["PR-\\d{4}"]` for project IDs
+### Use Classifications for Document Types
 
-- **Use appropriate default values:**
-  - Current year for `fiscalYear`: `"defaultValue": "2024"`
-  - Current status for workflow: `"defaultValue": "draft"`
+Create classification schemas for document types or business processes that need their own required fields.
 
-- **Document allowed values:**
-  - Create an attribute reference guide with all possible values and their meanings
-  - Example: For `priority` attribute, document that values `["high", "medium", "low"]` correspond to response times
+Examples:
 
-## API Integration
+- Invoice
+- Contract
+- HR Record
+- Policy
+- Case Evidence
 
-For complete API documentation, see [Schema API Reference](/docs/api-reference/get-sites-schema).
+### Keep Allowed Values Stable
+
+Use canonical stored values that are stable across languages and user interfaces. Use locales for translated display values.
+
+### Design Composite Keys from Real Searches
+
+Create composite keys only for search patterns that users or integrations actually need. Too many unused composite keys add complexity without improving the user experience.
+
+### Test Strict Schemas Before Production
+
+If `allowAdditionalAttributes` is `false`, test document creation, upload, mapping, workflow, and integration paths before production. Strict schemas can reject or block metadata that was accepted previously.
+
+## API Operations
+
+Use the generated API reference for exact request and response schemas.
+
+### Site Schema Operations
+
+| Operation | Purpose | API reference |
+| --- | --- | --- |
+| Get site schema | Retrieve the site schema. | [`GET /sites/{siteId}/schema/document`](/docs/api-reference/get-sites-schema) |
+| Set site schema | Create or update the site schema. | [`PUT /sites/{siteId}/schema/document`](/docs/api-reference/set-sites-schema) |
+| Get schema allowed values | Retrieve allowed values and localized values for a site schema attribute. | [`GET /sites/{siteId}/schema/document/attributes/{key}/allowedValues`](/docs/api-reference/get-sites-schema-attribute-allowed-values) |
+
+### Classification Operations
+
+| Operation | Purpose | API reference |
+| --- | --- | --- |
+| List classifications | Retrieve classifications for a site. | [`GET /sites/{siteId}/classifications`](/docs/api-reference/get-sites-classifications) |
+| Add classification | Create a classification schema. | [`POST /sites/{siteId}/classifications`](/docs/api-reference/add-classification) |
+| Get classification | Retrieve one classification schema. | [`GET /sites/{siteId}/classifications/{classificationId}`](/docs/api-reference/get-classification) |
+| Set classification | Update a classification schema. | [`PUT /sites/{siteId}/classifications/{classificationId}`](/docs/api-reference/set-classification) |
+| Delete classification | Delete a classification schema. | [`DELETE /sites/{siteId}/classifications/{classificationId}`](/docs/api-reference/delete-classification) |
+| Get classification allowed values | Retrieve allowed values and localized values for a classification attribute. | [`GET /sites/{siteId}/classifications/{classificationId}/attributes/{key}/allowedValues`](/docs/api-reference/get-classification-attribute-allowed-values) |
+
+### Related Document and Search Operations
+
+| Operation | Purpose | API reference |
+| --- | --- | --- |
+| Add document attributes | Assign attributes or classifications to a document. | [`POST /documents/{documentId}/attributes`](/docs/api-reference/add-document-attributes) |
+| Set document attributes | Set document attributes. | [`PUT /documents/{documentId}/attributes`](/docs/api-reference/set-document-attributes) |
+| Search documents | Search by metadata and attributes, including composite key patterns. | [`POST /search`](/docs/api-reference/document-search) |
+| Full-text search | Search broader text and indexed content where enabled. | [`POST /searchFulltext`](/docs/api-reference/search-fulltext) |
+
+## Where to Go Next
+
+- [Attributes](/docs/features/attributes)
+- [Locales](/docs/features/locales)
+- [Search](/docs/features/search)
+- [Documents](/docs/features/documents)
+- [Mappings](/docs/features/mappings)
+- [Site Classification Schemas Tutorial](/docs/tutorials/Documents/site-classification-schemas)

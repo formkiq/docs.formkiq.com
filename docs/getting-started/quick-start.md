@@ -603,7 +603,7 @@ For setup details, see [API Security Tokens](/docs/platform/security#api-securit
 
 ### Use the API Reference
 
-After the walkthrough, use the [FormKiQ API Reference](/docs/category/api-reference) to explore the full set of endpoints. The reference is most useful once you already know your base URL and authentication method.
+After the walkthrough, use the [FormKiQ API Reference](/docs/category/formkiq-api) to explore the full set of endpoints. The reference is most useful once you already know your base URL and authentication method.
 
 Common next endpoints to review:
 

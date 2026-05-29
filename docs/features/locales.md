@@ -1,202 +1,202 @@
 ---
 sidebar_position: 7
+title: Locales
 ---
 
 # Locales
 
 ## Overview
 
-The Locales feature enables the management and retrieval of localized content for individual websites. It provides endpoints for handling different language settings and their associated resource items, making it easier to support multi-language sites and internationalization (i18n).
+Locales let a FormKiQ site store and retrieve language-specific display values. They are mainly used for localized interface strings and localized allowed values for schema and classification attributes.
 
-FormKiQ recommends using a `Language Tag` that combines an ISO 639 Language code with a an ISO 3166 Country code, but that some other settings such as "en-001" and "en" are also accepted.
+Locales do not translate document content automatically. They provide a way to manage localized resource items that applications, consoles, and integrations can use when presenting FormKiQ metadata to users.
 
-### Examples
-- en-US
-- fr-CA
-- de-DE
+Use Locales when you need:
 
-:::note
-NOTE: using a language code on its own (e.g., `ar`) for Arabic is accepted, but future versions of FormKiQ may provide more automatic localization using `Accept-Language`, which would then likely choose a country code, such as `ar-SA`. Using `en-001` (World English) or `es-419` (Latin American and Carribean Spanish) is also accepted, but would also choose a default country code chosen automatically for future enhancements.
-:::
+- User interface labels in multiple languages
+- Localized display text for schema allowed values
+- Localized display text for classification allowed values
+- Site-specific terminology for different regions or audiences
+- Multi-language administration or document review experiences
 
-## Use Cases
+## What Locales Control
 
-### Multi-Language Support
-Retrieve the supported locales for a site to present content in multiple languages.
+FormKiQ locale resources control display values, not the stored canonical values.
 
-### Content Localization:
-Access and update resource items containing localized strings, which can be used for UI labels, error messages, and other text elements.
+For example, a schema might store the allowed value `HI` for a `priority` attribute. Locale resource items can display that value as:
 
-### Enhanced User Experience:
-Tailor the user experience by dynamically loading locale-specific content, ensuring that users see information in their preferred language.
-   
-### Site Customization:
-Allow site administrators to manage locale settings and resource items, enabling on-the-fly customization of content based on the target audience.
+| Locale | Stored value | Display value |
+| --- | --- | --- |
+| `en-US` | `HI` | `High` |
+| `fr-CA` | `HI` | `Eleve` |
+| `es-419` | `HI` | `Alto` |
+
+The canonical value remains `HI`. The localized value changes based on the requested locale.
+
+## Locale Tag Format
+
+FormKiQ recommends using BCP 47-style language tags that combine an ISO 639 language code with an ISO 3166 country or region code.
+
+Common examples:
+
+- `en-US`
+- `fr-CA`
+- `de-DE`
+- `pt-PT`
+- `es-419`
+- `en-001`
+
+Language-only tags, such as `en` or `ar`, may be accepted. Prefer a more specific locale such as `en-US`, `fr-CA`, or `ar-SA` when regional terminology, formatting, or display text matters.
 
 ## Resource Types
 
-### INTERFACE
+Locale resource items are grouped by item type.
 
-The locale interface resource is a generic resource that has a **interfaceKey** and an associated **localizedValue**. This can be used to store localized strings for display on a user interface.
+| Resource type | Purpose | Example |
+| --- | --- | --- |
+| `INTERFACE` | Localized strings for user interfaces, labels, prompts, or messages. | `uploadButton = Upload Document` |
+| `SCHEMA` | Localized display values for allowed values in a site schema. | `priority: HI = High` |
+| `CLASSIFICATION` | Localized display values for allowed values in a classification schema. | `contractType: MSA = Master Services Agreement` |
 
-### SCHEMA
+## Localized Allowed Values
 
-Allow the association of a Schema attribute's allowed value to be associated **localizedValue**.
+Localized allowed values are useful when your stored values should remain stable but users should see translated or region-specific text.
 
-Localized values can be retrieved using the **GET /sites/&lt;siteId&gt;/schema/document** and the locale query parameter, e.g., `?locale=pt-PT`.
+Example schema allowed values:
 
-### CLASSIFICATION
-
-Allow the association of a Schema classification attribute's allowed value to be associated **localizedValue**.
-
-Localized values can be retrieved using the **GET /sites/&lt;siteId&gt;/classifications/&lt;classificationId&gt;** and the locale query parameter, e.g., `?locale=pt-PT`.
-
-
-## API Locale Endpoints
-
-[See full Documents API documentation here](/docs/category/formkiq-api)
-
-### POST /locale 
-
-Adds a new locale to the specified site.
-
-#### Sample Request
-
-```bash
-curl -X POST "https://<FORMKIQ_API>/locale?siteId=yourSiteId" \
-  -H "Authorization: YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-  "locale": "en-US"
-}'
-```
-
-### GET /locale 
-
-Returns a list of locale(s) in a specified site
-
-#### Sample Request
-
-```bash
-curl -X GET "https://<FORMKIQ_API>/locale?siteId=yourSiteId&limit=10" \
-  -H "Authorization: YOUR_JWT_TOKEN"
-```
-
-#### Sample Response (HTTP 200)
-
-```
+```json
 {
-  "locales": [
-    {
-      "locale": "en-US"
-    }
-  ]
+  "allowedValues": ["HI", "MD", "LO"]
 }
 ```
 
-### POST /sites/&lt;siteId&gt;/locales/&lt;locale&gt;/resourceItems
+Localized display values for `en-US`:
 
-Adds a new localized resource item for a given locale.
-
-#### INTERFACE Request
-
-```bash
-curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItems?siteId=yourSiteId" \
-  -H "Authorization: YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-  "resourceItem": {
-    "itemType": "INTERFACE",
-    "localizedValue": "myLocaleValue",
-    "interfaceKey": "myKey"
-  }
-}'
-```
-
-#### SCHEMA Request
-
-```bash
-curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItems?siteId=yourSiteId" \
-  -H "Authorization: YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-  "resourceItem": {
-    "itemType": "SCHEMA",
-    "attributeKey":"priority",
-    "localizedValue": "High",
-    "allowedValue": "HI"
-  }
-}'
-```
-
-#### CLASSIFICATION Request
-
-```bash
-curl -X POST "https://<FORMKIQ_API>/sites/{siteId}/locales/{locale}/resourceItems?siteId=yourSiteId" \
-  -H "Authorization: YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-  "resourceItem": {
-    "itemType": "CLASSIFICATION",
-    "attributeKey":"priority",
-    "localizedValue": "High",
-    "allowedValue": "HI"
-  }
-}'
-```
-
-#### Sample Response (HTTP 200)
-
-```
+```json
 {
-  "itemKey": "INTERFACE##myKey"
-}
-```
-
-### GET /sites/&lt;siteId&gt;/schema/document/attributes/&lt;key&gt;/allowedValues
-
-Returns an attribute's allowed values from the site schema.
-
-#### Request Example
-
-```bash
-curl -X GET "https://<FORMKIQ_API>/sites/{siteId}/schema/document/attributes/{key}/allowedValues?siteId=yourSiteId" \
-  -H "Authorization: YOUR_JWT_TOKEN"
-```
-
-#### Sample Response (HTTP 200)
-
-```
-{
-  "allowedValues": [
-    "HI", "LO", "MD"
-  ],
   "localizedAllowedValues": {
-    "HI": "High"
+    "HI": "High",
+    "MD": "Medium",
+    "LO": "Low"
   }
 }
 ```
 
-### GET /sites/&lt;siteId&gt;/classifications/&lt;classificationId&gt;/attributes/&lt;key&gt;/allowedValues
+Localized display values for `fr-CA`:
 
-Returns an attribute's allowed values from the site classification schema.
-
-#### Request Example
-
-```bash
-curl -X GET "https://<FORMKIQ_API>/sites/{siteId}/classifications/{classificationId}/attributes/{key}/allowedValues?siteId=yourSiteId" \
-  -H "Authorization: YOUR_JWT_TOKEN"
-```
-
-#### Sample Response (HTTP 200)
-
-```
+```json
 {
-  "allowedValues": [
-    "HI", "LO", "MD"
-  ],
   "localizedAllowedValues": {
-    "HI": "High"
+    "HI": "Eleve",
+    "MD": "Moyen",
+    "LO": "Faible"
   }
 }
 ```
+
+When a schema, classification, or allowed-values endpoint supports a `locale` query parameter, the response can include localized values for that locale.
+
+Related endpoints:
+
+- [`GET /sites/{siteId}/schema`](/docs/api-reference/get-sites-schema)
+- [`GET /sites/{siteId}/classifications/{classificationId}`](/docs/api-reference/get-classification)
+- [`GET /sites/{siteId}/schema/document/attributes/{key}/allowedValues`](/docs/api-reference/get-sites-schema-attribute-allowed-values)
+- [`GET /sites/{siteId}/classifications/{classificationId}/attributes/{key}/allowedValues`](/docs/api-reference/get-classification-attribute-allowed-values)
+
+## Common Use Cases
+
+### Multi-Language Interfaces
+
+Store interface labels, prompts, help text, or message strings as `INTERFACE` resource items. Applications can retrieve the locale-specific value and display the correct text for the user.
+
+### Localized Metadata Forms
+
+Use `SCHEMA` resource items so allowed values in document metadata forms display in the user's language while preserving stable stored values.
+
+### Localized Classification Forms
+
+Use `CLASSIFICATION` resource items when different document classes need localized allowed values. This is useful when document types, review categories, or business terms vary by language or region.
+
+### Region-Specific Terminology
+
+Use locales when different regions use different business terms for the same stored value. For example, a stored value can remain stable while the UI displays region-specific terminology.
+
+## Best Practices
+
+### Keep Stored Values Stable
+
+Use short, stable canonical values for allowed values, and localize only the display text.
+
+Good stored values:
+
+- `HI`, `MD`, `LO`
+- `DRAFT`, `APPROVED`, `ARCHIVED`
+- `CONTRACT`, `INVOICE`, `POLICY`
+
+Avoid storing translated labels as canonical values if the same value will be used across multiple locales.
+
+### Use Specific Locale Tags
+
+Use region-specific locale tags when wording may differ by country or region.
+
+Examples:
+
+- Use `fr-CA` for Canadian French.
+- Use `pt-PT` for European Portuguese.
+- Use `es-419` for Latin American Spanish.
+- Use `en-001` for world English when a global English label set is needed.
+
+### Plan Fallback Behavior
+
+Applications should decide what to display when a localized value is missing. Common fallback options:
+
+- Show the canonical stored value.
+- Fall back to a default locale such as `en-US`.
+- Show an administrative placeholder so missing translations can be corrected.
+
+### Manage Locales with Schema Changes
+
+When adding or changing allowed values in schemas or classifications:
+
+- Add the canonical allowed value first.
+- Add localized resource items for each supported locale.
+- Confirm allowed-values endpoints return the expected `localizedAllowedValues`.
+- Review downstream forms, reports, and integrations that display the value.
+
+## API Operations
+
+Use the generated API reference for exact request and response schemas.
+
+### Locale Operations
+
+| Operation | Purpose | API reference |
+| --- | --- | --- |
+| List locales | Retrieve locales configured for a site. | [`GET /sites/{siteId}/locales`](/docs/api-reference/get-locales) |
+| Add locale | Add a locale to a site. | [`POST /sites/{siteId}/locales`](/docs/api-reference/add-locale) |
+| Delete locale | Delete a locale from a site. | [`DELETE /sites/{siteId}/locales/{locale}`](/docs/api-reference/delete-locale) |
+
+### Resource Item Operations
+
+| Operation | Purpose | API reference |
+| --- | --- | --- |
+| List resource items | Retrieve localized resource items for a locale. | [`GET /sites/{siteId}/locales/{locale}/resourceItems`](/docs/api-reference/get-locale-resource-items) |
+| Add resource item | Add a localized resource item. | [`POST /sites/{siteId}/locales/{locale}/resourceItems`](/docs/api-reference/add-locale-resource-item) |
+| Get resource item | Retrieve one localized resource item. | [`GET /sites/{siteId}/locales/{locale}/resourceItems/{itemKey}`](/docs/api-reference/get-locale-resource-item) |
+| Set resource item | Update a localized resource item. | [`PUT /sites/{siteId}/locales/{locale}/resourceItems/{itemKey}`](/docs/api-reference/set-locale-resource-item) |
+| Delete resource item | Delete a localized resource item. | [`DELETE /sites/{siteId}/locales/{locale}/resourceItems/{itemKey}`](/docs/api-reference/delete-locale-resource-item) |
+
+### Allowed Value Operations
+
+| Operation | Purpose | API reference |
+| --- | --- | --- |
+| Get attribute allowed values | Retrieve allowed values for an attribute. | [`GET /attributes/{key}/allowedValues`](/docs/api-reference/get-attribute-allowed-values) |
+| Get schema attribute allowed values | Retrieve allowed values and localized values for a site schema attribute. | [`GET /sites/{siteId}/schema/document/attributes/{key}/allowedValues`](/docs/api-reference/get-sites-schema-attribute-allowed-values) |
+| Get classification attribute allowed values | Retrieve allowed values and localized values for a classification attribute. | [`GET /sites/{siteId}/classifications/{classificationId}/attributes/{key}/allowedValues`](/docs/api-reference/get-classification-attribute-allowed-values) |
+
+## Where to Go Next
+
+- [Attributes](/docs/features/attributes)
+- [Schemas](/docs/features/schemas)
+- [Documents](/docs/features/documents)
+- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+- [DynamoDB Schema](/docs/platform/database_schema)
