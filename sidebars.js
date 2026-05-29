@@ -152,6 +152,7 @@ const sidebars = {
     {
       type: "category",
       label: "SDKs & API Integration",
+      collapsed: false,
       link: {
         type: "doc",
         id: "category-pages/sdk-api-integration",
@@ -162,8 +163,16 @@ const sidebars = {
           label: "API Reference",
           href: "/docs/category/formkiq-api",
         },
-        "tutorials/Python/using-python-client-sdk",
-        "tutorials/TypeScript/using-typescript-client-sdk",
+        {
+          type: "doc",
+          id: "tutorials/Python/using-python-client-sdk",
+          label: "Python SDK",
+        },
+        {
+          type: "doc",
+          id: "tutorials/TypeScript/using-typescript-client-sdk",
+          label: "TypeScript SDK",
+        },
         "how-tos/jwt-authentication-token",
         "tutorials/using-a-server-side-proxy",
         "tutorials/formkiq-document-api-with-zapier",

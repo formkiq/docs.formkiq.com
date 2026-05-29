@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1100" height="560" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FormKiQ Upload Flow (Python SDK)">
+<svg width="1100" height="560" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FormKiQ Upload Flow (TypeScript SDK)">
   <defs>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1a1a1a" flood-opacity="0.20"/>
@@ -29,13 +29,13 @@
     </style>
   </defs>
 
-  <text class="title" x="550" y="40" text-anchor="middle">FormKiQ Upload Flow (Python SDK)</text>
+  <text class="title" x="550" y="40" text-anchor="middle">FormKiQ Upload Flow (TypeScript SDK)</text>
   <text class="subtitle" x="550" y="64" text-anchor="middle">Inline create → Presign → S3 PUT → Verify</text>
 
   <g filter="url(#shadow)">
     <rect x="70" y="110" rx="16" ry="16" width="300" height="90" fill="url(#panelGrad)" stroke="#2f5fcc" stroke-width="1.5"/>
   </g>
-  <text class="panelTitle" x="220" y="164" text-anchor="middle">Python Script</text>
+  <text class="panelTitle" x="220" y="164" text-anchor="middle">TypeScript Script</text>
 
   <g filter="url(#shadow)">
     <rect x="400" y="110" rx="16" ry="16" width="300" height="90" fill="url(#panelGrad)" stroke="#2f5fcc" stroke-width="1.5"/>
