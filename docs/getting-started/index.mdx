@@ -1,0 +1,61 @@
+---
+title: Getting Started
+slug: /category/getting-started
+hide_table_of_contents: true
+---
+
+import styles from './getting-started.module.css';
+
+# Getting Started
+
+Start here to deploy FormKiQ, understand the first API workflow, or set up a local development environment.
+
+<div className={styles.heroPanel}>
+  <div>
+    <p className={styles.eyebrow}>Recommended first path</p>
+    <h2>Deploy FormKiQ in AWS</h2>
+    <p>
+      Use the AWS quick start to launch FormKiQ Core with CloudFormation, configure required parameters,
+      and reach a working document management environment.
+    </p>
+  </div>
+  <a className={styles.primaryAction} href="/docs/getting-started/quick-start">
+    Open Quick Start
+  </a>
+</div>
+
+<div className={styles.pathGrid}>
+  <a className={styles.pathCard} href="/docs/getting-started/quick-start">
+    <span className={styles.step}>01</span>
+    <h3>Quick Start (AWS)</h3>
+    <p>Deploy FormKiQ into your AWS account with CloudFormation and complete the core setup steps.</p>
+  </a>
+
+  <a className={styles.pathCard} href="/docs/getting-started/api-walkthrough">
+    <span className={styles.step}>02</span>
+    <h3>API Walkthrough</h3>
+    <p>Make your first authenticated API calls and learn the basic document upload and retrieval flow.</p>
+  </a>
+
+  <a className={styles.pathCard} href="/docs/getting-started/quick-start-local">
+    <span className={styles.step}>03</span>
+    <h3>Local Quick Start</h3>
+    <p>Run FormKiQ locally when you want a development-oriented setup before or alongside AWS deployment.</p>
+  </a>
+
+  <a className={styles.pathCard} href="/docs/getting-started/cloudformation-troubleshooting">
+    <span className={styles.step}>04</span>
+    <h3>CloudFormation Troubleshooting</h3>
+    <p>Use CloudShell and stack events to diagnose failed or incomplete CloudFormation deployments.</p>
+  </a>
+</div>
+
+<div className={styles.nextSection}>
+  <h2>After Setup</h2>
+  <div className={styles.nextGrid}>
+    <a href="/docs/platform/overview">Review the platform architecture</a>
+    <a href="/docs/platform/security">Understand security options</a>
+    <a href="/docs/features/documents">Explore document capabilities</a>
+    <a href="/docs/category/formkiq-api">Open the API reference</a>
+  </div>
+</div>

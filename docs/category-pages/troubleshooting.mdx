@@ -1,0 +1,26 @@
+---
+title: Troubleshooting
+slug: /category/troubleshooting
+hide_table_of_contents: true
+---
+
+import styles from './category-page.module.css';
+
+# Troubleshooting
+
+<div className={styles.introPanel}>
+  <p>Start here when diagnosing deployment, API, or runtime issues in a FormKiQ environment.</p>
+</div>
+
+<div className={styles.cardGrid}>
+  <a className={styles.card} href="/docs/troubleshooting/internal-server-error">
+    <p className={styles.eyebrow}>API errors</p>
+    <h2>Internal Server Error</h2>
+    <p>Diagnose internal server errors after installation or during API usage.</p>
+  </a>
+  <a className={styles.card} href="/docs/getting-started/cloudformation-troubleshooting">
+    <p className={styles.eyebrow}>Deployment</p>
+    <h2>CloudFormation Troubleshooting</h2>
+    <p>Inspect stack events and nested resources when CloudFormation deployment fails.</p>
+  </a>
+</div>

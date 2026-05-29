@@ -1,0 +1,43 @@
+---
+title: Operations
+slug: /category/operations
+hide_table_of_contents: true
+---
+
+import styles from './category-page.module.css';
+
+# Operations
+
+<div className={styles.introPanel}>
+  <p>Operational guidance for maintaining FormKiQ environments, monitoring system health, managing backups, handling failures, and planning migrations.</p>
+</div>
+
+<div className={styles.cardGrid}>
+  <a className={styles.card} href="/docs/platform/updates_upgrades_and_rollbacks">
+    <p className={styles.eyebrow}>Lifecycle</p>
+    <h2>Updates, Upgrades, and Rollbacks</h2>
+    <p>Plan and execute stack updates while preserving a rollback path.</p>
+  </a>
+  <a className={styles.card} href="/docs/platform/backup_and_recovery">
+    <p className={styles.eyebrow}>Resilience</p>
+    <h2>Backup and Recovery</h2>
+    <p>Protect document data and platform configuration against failure scenarios.</p>
+  </a>
+  <a className={styles.card} href="/docs/platform/migration-and-data-import">
+    <p className={styles.eyebrow}>Migration</p>
+    <h2>Migration and Data Import</h2>
+    <p>Plan document imports and migrations from existing systems.</p>
+  </a>
+  <a className={styles.card} href="/docs/how-tos/set-up-status-monitoring-and-alerting">
+    <p className={styles.eyebrow}>Observability</p>
+    <h2>Status Monitoring and Alerting</h2>
+    <p>Set up monitoring and alerting for operational visibility.</p>
+  </a>
+</div>
+
+<div className={styles.section}>
+  <h2>Error Handling</h2>
+  <div className={styles.linkList}>
+    <a href="/docs/platform/error_handling/dlq">Dead-Letter Queue Handling</a>
+  </div>
+</div>
