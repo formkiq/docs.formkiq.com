@@ -2,66 +2,118 @@
 sidebar_position: 1
 ---
 
-# Getting an JWT Authentication Token
+# Get a JWT Authentication Token
 
-This tutorial will take you through the basics of the FormKiQ Document API, including: adding documents, working with document tags, and searching for documents.
+Use this guide to get a JWT access token for FormKiQ API requests. Most API examples in the documentation require this token in the `Authorization` header.
 
-## Prerequisite
+## Before You Begin
 
-* You have installed FormKiQ; see the [Quickstart](/docs/getting-started/quick-start) for more information
-* Install either: cURL or your favorite API Client, like https://www.postman.com.
-* Optionally install: https://stedolan.github.io/jq, a command-line JSON processor which formats JSON so it is more readable.
-* All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
+Confirm you have:
 
+- A deployed FormKiQ environment.
+- Access to the AWS account and Region where FormKiQ is deployed.
+- Access to the FormKiQ administrator username and password.
+- cURL or an API client such as Postman.
+- Optional: [jq](https://jqlang.github.io/jq/) for formatting JSON responses.
 
-## CloudFormation Outputs
+## Variables Used
 
-We are going to need to know the name of a few AWS resources creating during the FormKiQ installation. Opening the [CloudFormation console](https://console.aws.amazon.com/cloudformation), find your FormKiQ stack and click the `Outputs` tab.
+| Placeholder | Description |
+| --- | --- |
+| `COGNITO_API_ENDPOINT_URL` | Cognito API endpoint from the FormKiQ CloudFormation stack outputs, including `https://`. |
+| `HTTP_API_URL` | FormKiQ API endpoint from the CloudFormation stack outputs, including `https://`. |
+| `USERNAME` | FormKiQ administrator email address. |
+| `PASSWORD` | FormKiQ administrator password. |
+| `AUTHORIZATION_TOKEN` | Access token returned by the login request. |
+
+The examples below use shell variables. Replace the values before running the commands:
+
+```bash
+export COGNITO_API_ENDPOINT_URL="https://your-cognito-api.example.com"
+export HTTP_API_URL="https://your-formkiq-api.example.com"
+export USERNAME="admin@example.com"
+export PASSWORD="your-password"
+```
+
+## Step 1: Find the Cognito API Endpoint
+
+Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation), select your FormKiQ stack, and open the **Outputs** tab.
 
 ![CloudFormation Outputs](./img/cf-outputs-apis.png)
 
-The following are outputs we'll need to know.
+Find the `CognitoApiEndpoint` output. Use that value as `COGNITO_API_ENDPOINT_URL`.
 
-| Argument | Description
-| -------- | ------- |
-| `CognitoApiEndpoint` | The Cognito API Endpoint
+If you want to verify the token with the FormKiQ API, also record the `HttpApiUrl` output as `HTTP_API_URL`.
 
-## Get JWT Authentication Token
+## Step 2: Request an Access Token
 
-The first thing we need is a https://jwt.io that will tell the API we are authorized to make the API request.
+Send a login request to the Cognito API endpoint.
 
-Authenticating can be done using the Cognito API Endpoint URL with the following command. The descriptions of the required arguments are in the table below.
-
-```
-curl -X POST https://COGNITO_API_ENDPOINT_URL/login \
-   -H "Content-Type: application/json" \
-   -d '{"username": "USERNAME", "password": "PASSWORD"}'
+```bash
+curl -X POST "${COGNITO_API_ENDPOINT_URL}/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username": "'"${USERNAME}"'", "password": "'"${PASSWORD}"'"}'
 ```
 
-| Argument | Description
-| -------- | ------- |
-| `COGNITO_API_ENDPOINT_URL` | The Cognito API endpoint URL found in the CloudFormation Outputs.
-| `USERNAME` | The administrator email address.
-| `PASSWORD` | The administrator password.
+A successful response includes an `AccessToken`.
 
-
-The JSON response should return successful response like below:
-```
+```json
 {
-  ...
   "AuthenticationResult": {
-    "AccessToken": "eyJraWQiOiJkdkpnTHlm ...",
+    "AccessToken": "eyJraWQiOiJkdkpnTHlm...",
+    "ExpiresIn": 86400,
+    "TokenType": "Bearer",
+    "RefreshToken": "eyJjdHkiOiJKV1Qi...",
+    "IdToken": "eyJraWQiOiI5YUpvb..."
   }
-  ...
 }
 ```
 
-You can use the `AccessToken` to access the FormKiQ API.
+Use the `AccessToken` value as `AUTHORIZATION_TOKEN` in FormKiQ API requests. Do not use the `IdToken` for FormKiQ API authorization.
+
+```bash
+export AUTHORIZATION_TOKEN="eyJraWQiOiJkdkpnTHlm..."
+```
 
 :::note
-The `AccessToken` is only valid for 1 hour.
+The access token is valid for a limited time. If API requests start returning `401 Unauthorized`, request a new token.
 :::
 
-## Summary
+## Verify the Result
 
-Throughout this tutorial, you have successfully used the FormKiQ Cognito API to authenticate against FormKiQ and retrieve an `AccessToken` that can be used to access the FormKiQ API.
+Use the token with `GET /sites` to confirm that the JWT is valid and that the user has FormKiQ site access.
+
+```bash
+curl -X GET "${HTTP_API_URL}/sites" \
+  -H "Authorization: Bearer ${AUTHORIZATION_TOKEN}"
+```
+
+The request should return the sites available to the authenticated user.
+
+```json
+{
+  "sites": [
+    {
+      "siteId": "default",
+      "permission": "READ_WRITE"
+    }
+  ]
+}
+```
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| `401 Unauthorized` | The token is expired, missing, or not an access token. | Request a new token and use the `AccessToken` value. |
+| `403 Forbidden` | The user is authenticated but does not have permission for the requested API action. | Check FormKiQ user groups and permissions. |
+| `404 Not Found` on `/login` | The wrong endpoint was used. | Confirm you are using `CognitoApiEndpoint`, not `HttpApiUrl`. |
+| `GET /sites` fails | The request is using the wrong API URL or token format. | Use `HttpApiUrl` and send `Authorization: Bearer <AccessToken>`. |
+| API call uses the wrong token | The `IdToken` was used instead of the `AccessToken`. | Use `AuthenticationResult.AccessToken` for API authorization. |
+| Login request fails | Username, password, or deployment endpoint is incorrect. | Confirm the administrator credentials and CloudFormation output values. |
+
+## Next Steps
+
+- [Add Documents](/docs/how-tos/api-add-documents)
+- [Add Document Tags](/docs/how-tos/api-add-document-tags)
+- [Document Search](/docs/how-tos/api-document-search)

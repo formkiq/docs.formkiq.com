@@ -15,14 +15,22 @@ FormKiQ runs in your AWS account, so monitoring should combine:
 - Logs and dashboards for investigation and trend analysis.
 - Notification routing so the right team sees the right alert.
 
-## Prerequisites
+## Before You Begin
 
-Before you begin, confirm you have:
+Confirm you have:
 
 - Access to the AWS account and Region where FormKiQ is deployed.
 - AWS permissions for CloudWatch, CloudWatch Logs, SNS, SQS, Lambda, API Gateway, DynamoDB, and CloudFormation.
 - The FormKiQ API endpoint from your CloudFormation stack outputs.
 - At least one alert destination, such as email, Slack, PagerDuty, ServiceNow, Jira, or another incident-management tool.
+
+## Variables Used
+
+| Placeholder | Description |
+| --- | --- |
+| `FORMKIQ_API_URL` | FormKiQ API endpoint from the CloudFormation stack output, including `https://`. |
+| `ALERT_TOPIC` | SNS topic or incident-management destination for alerts. |
+| `AWS_REGION` | AWS Region where FormKiQ is deployed. |
 
 ## Monitoring Layers
 
@@ -43,7 +51,7 @@ Use more than one monitoring layer. A single endpoint check can confirm basic av
 Use the `/version` endpoint for a simple external availability check.
 
 ```bash
-curl -i https://<your-formkiq-endpoint>/version
+curl -i https://FORMKIQ_API_URL/version
 ```
 
 Expected result:
@@ -62,7 +70,7 @@ Recommended setup:
 | Setting | Recommendation |
 | --- | --- |
 | Blueprint | API canary |
-| URL | `https://<your-formkiq-endpoint>/version` |
+| URL | `https://FORMKIQ_API_URL/version` |
 | Schedule | Every 5 minutes for production; every 15 to 30 minutes for non-production |
 | Timeout | Short enough to catch endpoint stalls, but long enough for normal regional latency |
 | Success condition | HTTP `200` |
@@ -171,7 +179,7 @@ Route alerts based on severity and ownership.
 
 Keep notification rules simple at first. Too many noisy alerts make real incidents easier to miss.
 
-## Test the Alerting Setup
+## Verify Monitoring
 
 After configuring monitoring, test the full path from alarm condition to notification.
 
@@ -189,6 +197,16 @@ Recommended tests:
 Do not intentionally break a production FormKiQ stack to test alarms. Use non-production resources or safe canary URL changes for alert-path testing.
 :::
 
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Canary fails immediately | URL is incorrect or unreachable. | Confirm `FORMKIQ_API_URL` and test `/version` manually. |
+| Alarm fires but no one is notified | SNS subscription or integration is not active. | Confirm subscriptions are confirmed and alert routing is configured. |
+| Lambda errors occur without alerts | Alarms do not cover the affected function. | Review function metrics and add alarms for critical functions. |
+| DLQ has messages but no alert | DLQ metric alarm is missing or threshold is too high. | Add an alarm on visible messages for production DLQs. |
+| Dashboard looks healthy during an incident | The dashboard does not include the failing layer. | Add widgets for queues, DLQs, Lambda errors, and downstream services. |
+
 ## Operational Best Practices
 
 - Define who owns each production alert.
@@ -200,7 +218,7 @@ Do not intentionally break a production FormKiQ stack to test alarms. Use non-pr
 - Include monitoring checks in upgrade and migration plans.
 - Monitor CloudWatch usage and log retention as part of AWS cost planning.
 
-## Where to Go Next
+## Next Steps
 
 - [Dead-Letter Queue](/docs/platform/error_handling/dlq)
 - [Reporting, Analytics, and Audit](/docs/platform/reporting-and-analytics)

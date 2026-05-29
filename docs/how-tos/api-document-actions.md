@@ -2,116 +2,202 @@
 sidebar_position: 5
 ---
 
-# Document Actions
+# Add Document Actions
 
-This guide show you how to add actions to your documents to automate your document workflows.
+Use this guide to attach actions to documents so FormKiQ can run processing steps such as webhooks, OCR, and full-text indexing.
 
-Document actions allow you to have your documents automatically perform certain operations.
+## Before You Begin
 
-## Prerequisite
+Confirm you have:
 
-* You have installed FormKiQ; see the <a href="/docs/getting-started/quick-start#install-formkiq">FormKiQ One-Click Installation Links</a> for more information
-* Install either: cURL or your favorite API Client, like https://www.postman.com.
-* Optionally install: https://stedolan.github.io/jq, a command-line JSON processor which formats JSON so it is more readable.
-* All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
+- A deployed FormKiQ environment. See [Quick Start](/docs/getting-started/quick-start#install-formkiq).
+- cURL or an API client such as Postman.
+- A JWT access token. See [Get a JWT Authentication Token](/docs/how-tos/jwt-authentication-token).
+- A webhook endpoint if you want to test webhook actions.
+- OCR or full-text modules installed if you want to test enhanced OCR or OpenSearch-backed full-text indexing.
+- Optional: [jq](https://jqlang.github.io/jq/) for formatting JSON responses.
 
-## Get JWT Authentication Token
+## Variables Used
 
-You first need to get an `authorization` token to access the FormKiQ API. See [Getting an JWT Authentication Token](/docs/how-tos/jwt-authentication-token) for steps on how to get the token.
+| Placeholder | Description |
+| --- | --- |
+| `HTTP_API_URL` | FormKiQ API endpoint from the CloudFormation stack output, including `https://`. |
+| `AUTHORIZATION_TOKEN` | JWT access token used in the `Authorization` header. |
+| `SITE_ID` | Optional FormKiQ site ID. Use `default` unless your deployment uses multiple sites. |
+| `DOCUMENT_ID` | Document ID returned by FormKiQ. |
+| `WEBHOOK_URL` | Endpoint that receives webhook action requests. |
+| `BASE64_CONTENT` | Base64-encoded document content. |
 
-## CloudFormation Outputs
+The examples below use shell variables. Replace the values before running the commands:
 
-We are going to need to know the name FormKiQ of a few AWS resources creating during the FormKiQ installation. Opening the [CloudFormation console](https://console.aws.amazon.com/cloudformation), find your FormKiQ stack and click the `Outputs` tab.
+```bash
+export HTTP_API_URL="https://your-formkiq-api.example.com"
+export AUTHORIZATION_TOKEN="your-jwt-access-token"
+export SITE_ID="default"
+export DOCUMENT_ID="your-document-id"
+export WEBHOOK_URL="https://example.com/webhook"
+```
+
+## Step 1: Find the FormKiQ API Endpoint
+
+Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation), select your FormKiQ stack, and open the **Outputs** tab.
 
 ![CloudFormation Outputs](./img/cf-outputs-apis.png)
 
-The following are outputs we'll need to know.
+Use the `HttpApiUrl` output as `HTTP_API_URL`.
 
-For all API requests the following table describes the values that need to be replaced in the API request.
+## Step 2: Add a Webhook Action to an Existing Document
 
-| Argument | Description
-| -------- | ------- |
-| `HTTP_API_URL` | The URL for the API endpoint that uses Cognito authorization.
-| `AUTHORIZATION_TOKEN` | The token retrieved from Step 1.
+Use `POST /documents/{documentId}/actions` to add one or more actions to an existing document.
 
-## Add Document with Webhook Actions
-
-The webhook action will send a POST request to any endpoint.
-
-In the example below, using https://pipedream.com we can create an endpoint and then have FormKiQ call that endpoint once the document is created.
-
+```bash
+curl -X POST "${HTTP_API_URL}/documents/${DOCUMENT_ID}/actions?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "actions": [
+      {
+        "type": "WEBHOOK",
+        "parameters": {
+          "url": "'"${WEBHOOK_URL}"'"
+        }
+      }
+    ]
+  }'
 ```
-curl -X POST https://HTTP_API_URL/documents \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{
-  "path": "test.txt",
-  "contentType": "text/plain",
-  "content": "This is sample content",
+
+This appends the action to the document. It does not replace existing actions.
+
+## Step 3: Add OCR and Full-Text Actions to an Existing Document
+
+Use OCR and full-text actions when document content should be extracted and indexed for search.
+
+```bash
+curl -X POST "${HTTP_API_URL}/documents/${DOCUMENT_ID}/actions?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "actions": [
+      {
+        "type": "OCR"
+      },
+      {
+        "type": "FULLTEXT"
+      }
+    ]
+  }'
+```
+
+:::note
+FormKiQ Core includes OCR with Tesseract. Commercial offerings can include Amazon Textract and enhanced OCR or full-text modules, depending on the deployed configuration.
+:::
+
+## Step 4: Add a Document with a Webhook Action
+
+The webhook action sends a `POST` request to the configured endpoint after the document is created.
+
+```bash
+curl -X POST "${HTTP_API_URL}/documents?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "path": "test.txt",
+    "contentType": "text/plain",
+    "content": "This is sample content",
+    "actions": [
+      {
+        "type": "WEBHOOK",
+        "parameters": {
+          "url": "'"${WEBHOOK_URL}"'"
+        }
+      }
+    ]
+  }'
+```
+
+A successful response returns the created `documentId`. The response may also include the `siteId`.
+
+```json
+{
+  "documentId": "983a9d66-3833-4e09-b3b0-a1808b87502c",
+  "siteId": "default"
+}
+```
+
+## Step 5: Add a Document with OCR and Full-Text Actions
+
+Use OCR and full-text actions when document content should be extracted and indexed for search.
+
+```bash
+curl -X POST "${HTTP_API_URL}/documents?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "path": "sample.pdf",
+    "contentType": "application/pdf",
+    "isBase64": true,
+    "content": "BASE64_CONTENT",
+    "actions": [
+      {
+        "type": "OCR"
+      },
+      {
+        "type": "FULLTEXT"
+      }
+    ]
+  }'
+```
+
+A successful response returns the created `documentId`.
+
+```json
+{
+  "documentId": "983a9d66-3833-4e09-b3b0-a1808b87502c"
+}
+```
+
+## Step 6: Check Document Action Status
+
+Use `GET /documents/{documentId}/actions` to inspect action status.
+
+```bash
+curl -X GET "${HTTP_API_URL}/documents/${DOCUMENT_ID}/actions?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}"
+```
+
+A successful response returns the configured actions and their status. Actions run asynchronously, so an action may be `PENDING`, `IN_QUEUE`, or `RUNNING` before it becomes `COMPLETE` or `FAILED`.
+
+```json
+{
   "actions": [
     {
-      "type": "webhook",
+      "type": "WEBHOOK",
       "parameters": {
-        "url": "https://eos1teg4kuo0fa7.m.pipedream.net"
-      }
+        "url": "https://example.com/webhook"
+      },
+      "status": "COMPLETE"
     }
   ]
-}'
-```
-
-A successful message return the document id that was created.
-```
-{
-  "documentId":"983a9d66-3833-4e09-b3b0-a1808b87502c"
 }
 ```
 
-## Add Document with OCR & FULLTEXT Actions
+## Verify the Result
 
-FormKiQ Core has OCR with Tesseract, while [FormKiQ Essentials, Advanced, and Enterprise](https://www.formkiq.com/products/formkiq-essentials) include Amazon Textract. [FormKiQ Advanced and Enterprise](https://www.formkiq.com/products.formkiq-advanced) also have an <a href="/docs/add-on-modules/modules/enhanced-document-ocr">Enhanced Document OCR Module</a>,  [FormKiQ Advanced and Enterprise](https://www.formkiq.com/products/formkiq-enterprise) also have an <a href="/docs/add-on-modules/modules/enhanced-fulltext-document-search">Enhanced Fulltext Document Search Module</a> which can be used to automatically run a OCR scan on a document and put the OCR results automatically into [OpenSearch](https://aws.amazon.com/opensearch-service), enabling full-text document searching.
+Confirm the action status becomes `COMPLETE`. For webhook actions, also confirm the receiving endpoint received a request. For OCR or full-text actions, confirm extracted text or search results are available after processing completes.
 
+## Troubleshooting
 
-```
-curl -X POST https://HTTP_API_URL/documents \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{
-  "path": "sample.pdf",
-  "contentType": "application/pdf",
-  "isBase64":true,
-  "content": "BASE64_CONTENT",
-  "actions": [
-    {
-      "type": "ocr"
-    },
-    {
-      "type": "fulltext"
-    },
-  ]
-}'
-```
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Action remains pending | Background processing is delayed or failing. | Check queues, Lambda logs, and the [Dead-Letter Queue](/docs/platform/error_handling/dlq). |
+| Webhook does not receive a request | Endpoint is unavailable or rejects the request. | Check the webhook URL, network access, and endpoint logs. |
+| OCR or full-text action fails | Required module or permissions are missing. | Confirm OCR/full-text modules and AWS permissions. |
+| `400 Bad Request` | Action body is malformed. | Check JSON formatting and action type names. |
+| `401 Unauthorized` | Token is missing or expired. | Get a new JWT access token. |
+| Action is missing in a multi-site deployment | The request used the wrong site. | Confirm `SITE_ID` or omit it only when using the default site. |
 
-A successful message return the document id that was created.
-```
-{
-  "documentId":"983a9d66-3833-4e09-b3b0-a1808b87502c"
-}
-```
+## Next Steps
 
-## Get Document Actions Status
-
-The `GET /documents/{documentId}/actions` can be used to get the status of the action.
-
-```
-curl -X GET https://HTTP_API_URL/documents/DOCUMENT_ID/actions \
-   -H "Authorization: AUTHORIZATION_TOKEN"
-```
-
-Which will return a list of document actions like:
-```
-{
-  "actions":[{
-    "type":"webhook",
-    "parameters":{
-      "url":"https://eos1teg4kuo0fa7.m.pipedream.net"
-    },
-    "status":"complete"}
-  ]
-}
-```
+- [Rulesets](/docs/features/rulesets)
+- [Workflows](/docs/features/workflows)
+- [Search Documents](/docs/how-tos/api-document-search)
