@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1240" height="720" viewBox="0 0 1240 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scalable FormKiQ reference architecture">
+  <defs>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#111827" flood-opacity="0.18"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#15803d"/>
+    </marker>
+    <style>
+      .title { font: 700 24px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a; }
+      .subtitle { font: 500 14px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569; }
+      .bandTitle { font: 700 14px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#334155; }
+      .boxTitle { font: 700 15px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a; }
+      .boxText { font: 500 12px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569; }
+      .label { font: 700 12px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569; }
+      .box { rx:10; ry:10; filter:url(#shadow); stroke-width:1.3; }
+      .blue { fill:#eff6ff; stroke:#2563eb; }
+      .green { fill:#ecfdf5; stroke:#059669; }
+      .amber { fill:#fffbeb; stroke:#d97706; }
+      .purple { fill:#f5f3ff; stroke:#7c3aed; }
+      .slate { fill:#f8fafc; stroke:#64748b; }
+      .line { fill:none; stroke:#475569; stroke-width:1.7; marker-end:url(#arrow); }
+      .lineGreen { fill:none; stroke:#15803d; stroke-width:1.7; marker-end:url(#arrowGreen); }
+    </style>
+  </defs>
+
+  <rect width="1240" height="720" fill="#ffffff"/>
+  <text class="title" x="620" y="42" text-anchor="middle">Scalable FormKiQ Reference Architecture</text>
+  <text class="subtitle" x="620" y="66" text-anchor="middle">Use FormKiQ as the document layer, then scale ingestion, processing, search, governance, and operations independently.</text>
+
+  <rect x="40" y="100" width="1160" height="118" rx="14" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text class="bandTitle" x="62" y="126">Ingestion</text>
+
+  <rect class="box blue" x="70" y="145" width="150" height="54"/>
+  <text class="boxTitle" x="145" y="167" text-anchor="middle">Applications</text>
+  <text class="boxText" x="145" y="185" text-anchor="middle">portal, product, API</text>
+
+  <rect class="box blue" x="270" y="145" width="150" height="54"/>
+  <text class="boxTitle" x="345" y="167" text-anchor="middle">FormKiQ API</text>
+  <text class="boxText" x="345" y="185" text-anchor="middle">JWT, API key, IAM</text>
+
+  <rect class="box blue" x="470" y="145" width="150" height="54"/>
+  <text class="boxTitle" x="545" y="167" text-anchor="middle">S3 Upload</text>
+  <text class="boxText" x="545" y="185" text-anchor="middle">presigned URLs</text>
+
+  <rect class="box blue" x="670" y="145" width="150" height="54"/>
+  <text class="boxTitle" x="745" y="167" text-anchor="middle">Bulk Intake</text>
+  <text class="boxText" x="745" y="185" text-anchor="middle">FileSync, imports</text>
+
+  <rect class="box blue" x="870" y="145" width="150" height="54"/>
+  <text class="boxTitle" x="945" y="167" text-anchor="middle">Public Intake</text>
+  <text class="boxText" x="945" y="185" text-anchor="middle">webhooks, forms</text>
+
+  <path class="line" d="M 220 172 L 270 172"/>
+  <path class="line" d="M 420 172 L 470 172"/>
+
+  <rect x="40" y="250" width="1160" height="152" rx="14" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text class="bandTitle" x="62" y="276">Document Layer</text>
+
+  <rect class="box green" x="100" y="305" width="170" height="62"/>
+  <text class="boxTitle" x="185" y="329" text-anchor="middle">Document Metadata</text>
+  <text class="boxText" x="185" y="348" text-anchor="middle">DynamoDB-backed state</text>
+
+  <rect class="box green" x="335" y="305" width="170" height="62"/>
+  <text class="boxTitle" x="420" y="329" text-anchor="middle">Document Content</text>
+  <text class="boxText" x="420" y="348" text-anchor="middle">S3 object storage</text>
+
+  <rect class="box green" x="570" y="305" width="170" height="62"/>
+  <text class="boxTitle" x="655" y="329" text-anchor="middle">Attributes &amp; Tags</text>
+  <text class="boxText" x="655" y="348" text-anchor="middle">retrieval and routing</text>
+
+  <rect class="box green" x="805" y="305" width="170" height="62"/>
+  <text class="boxTitle" x="890" y="329" text-anchor="middle">Sites &amp; Tenants</text>
+  <text class="boxText" x="890" y="348" text-anchor="middle">isolation by siteId</text>
+
+  <path class="lineGreen" d="M 345 199 C 345 246, 185 254, 185 305"/>
+  <path class="lineGreen" d="M 545 199 C 545 246, 420 254, 420 305"/>
+  <path class="lineGreen" d="M 745 199 C 745 246, 655 254, 655 305"/>
+  <path class="lineGreen" d="M 945 199 C 945 246, 890 254, 890 305"/>
+
+  <rect x="40" y="435" width="1160" height="128" rx="14" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text class="bandTitle" x="62" y="461">Asynchronous Processing</text>
+
+  <rect class="box amber" x="80" y="490" width="150" height="54"/>
+  <text class="boxTitle" x="155" y="512" text-anchor="middle">Actions</text>
+  <text class="boxText" x="155" y="530" text-anchor="middle">OCR, full text, events</text>
+
+  <rect class="box amber" x="275" y="490" width="150" height="54"/>
+  <text class="boxTitle" x="350" y="512" text-anchor="middle">Rulesets</text>
+  <text class="boxText" x="350" y="530" text-anchor="middle">route by metadata</text>
+
+  <rect class="box amber" x="470" y="490" width="150" height="54"/>
+  <text class="boxTitle" x="545" y="512" text-anchor="middle">Workflows</text>
+  <text class="boxText" x="545" y="530" text-anchor="middle">queues, approvals</text>
+
+  <rect class="box amber" x="665" y="490" width="150" height="54"/>
+  <text class="boxTitle" x="740" y="512" text-anchor="middle">EventBridge</text>
+  <text class="boxText" x="740" y="530" text-anchor="middle">external pipelines</text>
+
+  <rect class="box amber" x="860" y="490" width="150" height="54"/>
+  <text class="boxTitle" x="935" y="512" text-anchor="middle">OpenSearch</text>
+  <text class="boxText" x="935" y="530" text-anchor="middle">full-text retrieval</text>
+
+  <rect class="box amber" x="1055" y="490" width="105" height="54"/>
+  <text class="boxTitle" x="1108" y="512" text-anchor="middle">DLQ</text>
+  <text class="boxText" x="1108" y="530" text-anchor="middle">failed work</text>
+
+  <path class="line" d="M 185 367 C 185 430, 155 430, 155 490"/>
+  <path class="line" d="M 655 367 C 655 430, 350 430, 350 490"/>
+  <path class="line" d="M 655 367 C 655 430, 545 430, 545 490"/>
+  <path class="line" d="M 420 367 C 420 430, 935 430, 935 490"/>
+
+  <rect x="40" y="595" width="1160" height="86" rx="14" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text class="bandTitle" x="62" y="622">Security, Governance, and Operations</text>
+
+  <rect class="box purple" x="165" y="636" width="150" height="34"/>
+  <text class="boxTitle" x="240" y="658" text-anchor="middle">Users &amp; Groups</text>
+
+  <rect class="box purple" x="365" y="636" width="150" height="34"/>
+  <text class="boxTitle" x="440" y="658" text-anchor="middle">OPA &amp; Policies</text>
+
+  <rect class="box purple" x="565" y="636" width="150" height="34"/>
+  <text class="boxTitle" x="640" y="658" text-anchor="middle">Audit Activity</text>
+
+  <rect class="box purple" x="765" y="636" width="150" height="34"/>
+  <text class="boxTitle" x="840" y="658" text-anchor="middle">CloudWatch</text>
+
+  <rect class="box purple" x="965" y="636" width="150" height="34"/>
+  <text class="boxTitle" x="1040" y="658" text-anchor="middle">Backups</text>
+</svg>

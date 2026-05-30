@@ -45,6 +45,11 @@ const sidebars = {
         "getting-started/quick-start",
         "getting-started/api-walkthrough",
         "getting-started/quick-start-local",
+        {
+          type: "doc",
+          id: "tutorials/build-scalable-solutions-using-formkiq",
+          label: "Scalable Solution Architecture",
+        },
       ],
     },
     {
@@ -252,6 +257,7 @@ const sidebars = {
             "tutorials/FileSync CLI/Pre-Hook",
           ],
         },
+        "tutorials/build-scalable-solutions-using-formkiq",
         "tutorials/build-document-review-approval-workflow",
         "tutorials/build-ocr-searchable-archive",
         "tutorials/build-event-driven-document-processing-pipeline",
