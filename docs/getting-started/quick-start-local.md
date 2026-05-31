@@ -171,4 +171,4 @@ For additional help:
 - Visit [FormKiQ GitHub](https://github.com/formkiq/formkiq-core)
 - Join our [Slack Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g)
 
-For more API endpoints, see the [FormKiQ API Reference](/docs/category/api-reference).
+For more API endpoints, see the [FormKiQ API Reference](/docs/category/formkiq-api).

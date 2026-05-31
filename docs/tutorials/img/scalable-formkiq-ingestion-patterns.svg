@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1240" height="640" viewBox="0 0 1240 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FormKiQ scalable ingestion patterns">
+  <defs>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#111827" flood-opacity="0.18"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 24px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a; }
+      .subtitle { font: 500 14px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569; }
+      .boxTitle { font: 700 15px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a; }
+      .boxText { font: 500 12px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569; }
+      .label { font: 700 12px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569; }
+      .box { rx:10; ry:10; filter:url(#shadow); stroke-width:1.3; }
+      .blue { fill:#eff6ff; stroke:#2563eb; }
+      .green { fill:#ecfdf5; stroke:#059669; }
+      .amber { fill:#fffbeb; stroke:#d97706; }
+      .purple { fill:#f5f3ff; stroke:#7c3aed; }
+      .slate { fill:#f8fafc; stroke:#64748b; }
+      .line { fill:none; stroke:#475569; stroke-width:1.7; marker-end:url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1240" height="640" fill="#ffffff"/>
+  <text class="title" x="620" y="42" text-anchor="middle">Choose the Right Ingestion Pattern</text>
+  <text class="subtitle" x="620" y="66" text-anchor="middle">Use the smallest synchronous request possible, then move bytes and processing off the request path.</text>
+
+  <rect class="box slate" x="60" y="110" width="240" height="84"/>
+  <text class="boxTitle" x="180" y="139" text-anchor="middle">Inline API Upload</text>
+  <text class="boxText" x="180" y="160" text-anchor="middle">Small text or JSON documents</text>
+  <text class="boxText" x="180" y="178" text-anchor="middle">Simple API-driven tests</text>
+
+  <rect class="box blue" x="365" y="110" width="240" height="84"/>
+  <text class="boxTitle" x="485" y="139" text-anchor="middle">Presigned S3 Upload</text>
+  <text class="boxText" x="485" y="160" text-anchor="middle">Large files and browsers</text>
+  <text class="boxText" x="485" y="178" text-anchor="middle">API returns URL, client uploads bytes</text>
+
+  <rect class="box green" x="670" y="110" width="240" height="84"/>
+  <text class="boxTitle" x="790" y="139" text-anchor="middle">FileSync CLI or Import</text>
+  <text class="boxText" x="790" y="160" text-anchor="middle">Bulk migration and batch import</text>
+  <text class="boxText" x="790" y="178" text-anchor="middle">Repeatable high-volume loading</text>
+
+  <rect class="box purple" x="975" y="110" width="205" height="84"/>
+  <text class="boxTitle" x="1078" y="139" text-anchor="middle">Proxy or Gateway</text>
+  <text class="boxText" x="1078" y="160" text-anchor="middle">App-specific validation</text>
+  <text class="boxText" x="1078" y="178" text-anchor="middle">Custom authorization</text>
+
+  <path class="line" d="M 180 194 L 180 270"/>
+  <path class="line" d="M 485 194 L 485 270"/>
+  <path class="line" d="M 790 194 L 790 270"/>
+  <path class="line" d="M 1078 194 L 1078 270"/>
+
+  <rect x="110" y="270" width="1010" height="78" rx="14" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text class="boxTitle" x="615" y="302" text-anchor="middle">Normalize at the Document Boundary</text>
+  <text class="boxText" x="615" y="326" text-anchor="middle">Apply stable paths, content types, tags, attributes, document IDs, and tenant/site IDs before asynchronous work begins.</text>
+
+  <path class="line" d="M 615 348 L 615 416"/>
+
+  <rect class="box amber" x="90" y="430" width="200" height="82"/>
+  <text class="boxTitle" x="190" y="459" text-anchor="middle">Actions</text>
+  <text class="boxText" x="190" y="480" text-anchor="middle">OCR, full-text, malware scan,</text>
+  <text class="boxText" x="190" y="498" text-anchor="middle">EventBridge, webhooks</text>
+
+  <rect class="box amber" x="380" y="430" width="200" height="82"/>
+  <text class="boxTitle" x="480" y="459" text-anchor="middle">Rulesets</text>
+  <text class="boxText" x="480" y="480" text-anchor="middle">Route by content type, tag,</text>
+  <text class="boxText" x="480" y="498" text-anchor="middle">attribute, barcode, or field</text>
+
+  <rect class="box amber" x="670" y="430" width="200" height="82"/>
+  <text class="boxTitle" x="770" y="459" text-anchor="middle">Work Queues</text>
+  <text class="boxText" x="770" y="480" text-anchor="middle">Review, approval, exception,</text>
+  <text class="boxText" x="770" y="498" text-anchor="middle">and operations queues</text>
+
+  <rect class="box amber" x="960" y="430" width="200" height="82"/>
+  <text class="boxTitle" x="1060" y="459" text-anchor="middle">Search Indexes</text>
+  <text class="boxText" x="1060" y="480" text-anchor="middle">DynamoDB-backed search and</text>
+  <text class="boxText" x="1060" y="498" text-anchor="middle">OpenSearch full text</text>
+
+  <path class="line" d="M 615 416 C 520 416, 190 402, 190 430"/>
+  <path class="line" d="M 615 416 C 560 416, 480 402, 480 430"/>
+  <path class="line" d="M 615 416 C 670 416, 770 402, 770 430"/>
+  <path class="line" d="M 615 416 C 720 416, 1060 402, 1060 430"/>
+
+  <text class="label" x="620" y="572" text-anchor="middle">Scale rule: keep uploads durable and fast, then perform expensive work asynchronously with retries and operational visibility.</text>
+</svg>

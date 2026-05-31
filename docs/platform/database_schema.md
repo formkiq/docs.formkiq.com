@@ -10,19 +10,23 @@ In a DynamoDB table, the primary key is a fundamental component of the database 
 
 The table may also include Global Secondary Indexes named using the prefix (GSI) which can be employed to facilitate efficient querying of data based on different attributes.
 
+This page describes the DynamoDB item patterns used by FormKiQ. It is intended for troubleshooting, reporting, migration planning, and architectural review. Application integrations should normally use the FormKiQ APIs instead of reading or writing these tables directly.
+
 ## Multi-Tenant
 
 When an entity is stored for a specific `SiteId` other than the `default` site, the format of the `PK` is prefixed with `SiteId/`.
 
 For example: When using a siteId of `finance`, the PK will store a document using `finance/docx#`.
 
+This prefixing pattern keeps data for separate sites logically isolated while still allowing the same table design to support single-site and multi-site deployments. When reviewing records, always confirm whether a key is scoped to the default site or a named site.
+
 ## Sites
 
-The following are the entities related to `Sites`.
+The following entities define sites and site-level permissions. A site is the primary logical boundary for document access, metadata, and tenant-style partitioning in FormKiQ.
 
 ### Sites
 
-The Sites Entity
+The Sites entity stores the site record itself, including display information and lifecycle status. It is used when listing available sites, validating whether a site is active, and enforcing site-scoped behavior across documents and users.
 
 #### Entity Key Schema
 
@@ -43,7 +47,7 @@ The Sites Entity
 
 ### Group Permissions
 
-The Group to Sites permissions mapping.
+The Group Permissions entity maps a group to the site permissions that group receives. It supports role-based access decisions by connecting identity-group membership to site-level capabilities such as read, write, delete, or administrative behavior.
 
 #### Entity Key Schema
 
@@ -64,11 +68,11 @@ The Group to Sites permissions mapping.
 
 ## Documents
 
-The following are the entities related to `Documents`.
+The following entities store document metadata, lifecycle state, processing state, tags, attributes, and document-related module results. Document content is stored in Amazon S3; DynamoDB stores the metadata and indexes required to manage and find that content.
 
 ### Document
 
-The Document Entity consists of attributes that capture essential information about a document.
+The Document entity is the primary metadata record for a stored document. It connects the user-facing document identifier to its path, content type, S3 version, checksum information, user ownership, and date fields used for listing and audit-style queries.
 
 #### Entity Key Schema
 
@@ -98,7 +102,7 @@ The Document Entity consists of attributes that capture essential information ab
 
 ### Child Document
 
-A Child Document Entity includes attributes that capture details specific to the subsidiary document.
+A Child Document entity represents a relationship between a parent document and a subsidiary or derived document. This pattern is used when one document is associated with another document as part of a larger document set, generated output, extraction result, or related processing flow.
 
 #### Entity Key Schema
 
@@ -116,7 +120,7 @@ A Child Document Entity includes attributes that capture details specific to the
 
 ### Document (Soft Delete)
 
-A "soft delete" Document is moved into a different PK namespace than all other documents.
+A soft-deleted document is moved into a separate key namespace so it no longer appears in normal active-document queries. The record can still retain enough metadata to support deleted-document listings, restore behavior, audit review, and retention workflows.
 
 #### Entity Key Schema
 
@@ -143,7 +147,7 @@ A "soft delete" Document is moved into a different PK namespace than all other d
 
 ### Document OCR
 
-Contains all information about any optical character recognition (OCR) data for the document.
+The Document OCR entity stores OCR processing metadata for a document. It tracks which OCR engine was used, whether the OCR request succeeded, failed, or was skipped, and any job identifier needed to connect the FormKiQ document record to asynchronous OCR processing results.
 
 #### Entity Key Schema
 
@@ -167,7 +171,7 @@ Contains all information about any optical character recognition (OCR) data for 
 
 ### Document Actions
 
-Schema for Document Actions.
+Document Actions store queued or completed processing requests for a document. Actions are used for automation such as OCR, full-text extraction, webhooks, notifications, antivirus scanning, ruleset execution, or workflow-related processing.
 
 #### Entity Key Schema
 
@@ -203,7 +207,7 @@ Schema for Document Actions.
 
 ### Document Sync
 
-Schema for Document Sync Events.
+Document Sync records track synchronization work between FormKiQ and an external service or module. They provide status, service, type, and message fields so synchronization attempts can be listed, retried, audited, or diagnosed.
 
 #### Entity Key Schema
 
@@ -229,7 +233,7 @@ Schema for Document Sync Events.
 
 ### Document Tag
 
-Document Tag(s) entity.
+Document Tag records support legacy key-value metadata for documents. They are indexed so documents can be found by tag key and tag value without scanning all document records.
 
 #### Entity Key Schema
 
@@ -254,7 +258,7 @@ Document Tag(s) entity.
 
 ### Document Tag (Multi-Value)
 
-Document Tag(s) entity with multiple values.
+Document Tag (Multi-Value) records support tags where a single key can have more than one value. The indexed value pattern allows each value to participate in tag search while preserving the document-level relationship to the original tag key.
 
 #### Entity Key Schema
 
@@ -280,7 +284,7 @@ Document Tag(s) entity with multiple values.
 
 ### Document Attribute
 
-Document Attribute entity.
+Document Attribute records store structured metadata values attached to documents. Attributes support typed values and are the preferred metadata model for validation, filtering, workflow decisions, and richer document classification.
 
 #### Entity Key Schema
 
@@ -307,7 +311,7 @@ Document Attribute entity.
 
 ### Document Data Classification Result
 
-Contains all information about Data Classification Result for the document.
+Document Data Classification Result records store the output of classification or LLM-assisted classification processing for a document. They preserve the prompt/entity name, generated content, extracted attributes, and audit fields needed to understand when and how classification was produced.
 
 #### Entity Key Schema
 
@@ -329,7 +333,7 @@ Contains all information about Data Classification Result for the document.
 
 ### Document Metadata Extraction Result
 
-Contains all information about Metadata Extraction Result for the document.
+Document Metadata Extraction Result records store extracted metadata produced from document processing. These records make extraction output available for review, later automation, and comparison across multiple extraction runs for the same document.
 
 #### Entity Key Schema
 
@@ -353,7 +357,7 @@ Contains all information about Metadata Extraction Result for the document.
 
 ### Document MalwareScan Result
 
-Contains all information about Malware Scan Result for the document.
+Document MalwareScan Result records store the outcome of malware or antivirus scanning for a document version. They help determine whether a file was clean, malicious, or failed scanning and preserve the scan engine and S3 version associated with the result.
 
 #### Entity Key Schema
 
@@ -374,7 +378,7 @@ Contains all information about Malware Scan Result for the document.
 
 ### Document Publication
 
-Document Publication entity.
+Document Publication records store publication-specific information for documents that are exposed through a publication workflow or public-facing document path. They connect the published path and content type back to the source document and S3 version.
 
 #### Entity Key Schema
 
@@ -401,11 +405,15 @@ These activities typically include operations such as CREATE, VIEW, DELETE, and 
 
 This tracking provides visibility into who accessed or altered a document, when the action occurred, and what changes were made. Document Activities are crucial for auditing, security, compliance, and overall document management, ensuring accountability and transparency in document usage.
 
+Resource user activity is broader than document-only activity. It can capture actions against documents, entity types, entities, and other managed resources so administrators can review activity by resource, user, and date.
+
 :::note
 These attributes are stored in the "audit" DynamoDB table.
 :::
 
 ### EntityType Activity Key Schema
+
+EntityType activity keys store audit records for actions performed against entity type definitions. They support lookups by entity type, user, and activity date.
 
 | Attributes | Format |
 |------------|---------|
@@ -418,6 +426,8 @@ These attributes are stored in the "audit" DynamoDB table.
 
 ### Entities Activity Key Schema
 
+Entities activity keys store audit records for actions performed against individual entity records. They support entity-level timelines and user/date-based activity queries.
+
 | Attributes | Format |
 |------------|---------|
 | PK | "entity#" + entityTypeId + "#" documentId |
@@ -429,6 +439,8 @@ These attributes are stored in the "audit" DynamoDB table.
 
 ### Document Activity Key Schema
 
+Document activity keys store audit records for document actions. They support document timelines as well as cross-document activity views by user and date.
+
 | Attributes | Format |
 |------------|---------|
 | PK | "doc#" + documentId |
@@ -439,6 +451,8 @@ These attributes are stored in the "audit" DynamoDB table.
 | GSI2SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
 
 ### Activity Attributes
+
+Activity attributes describe the actor, resource, operation, status, source, and change details associated with an activity record.
 
 | Attributes | Description |
 |------------|-------------|
@@ -464,6 +478,8 @@ These activities typically include operations such as CREATE, VIEW, DELETE, and 
 
 This tracking provides visibility into who accessed or altered a document, when the action occurred, and what changes were made. Document Activities are crucial for auditing, security, compliance, and overall document management, ensuring accountability and transparency in document usage.
 
+Document user activity is stored alongside version-related records so a document's metadata and content changes can be tied back to the activity that created or modified them.
+
 :::note
 These attributes are stored in the "versions" DynamoDB table.
 :::
@@ -471,6 +487,8 @@ These attributes are stored in the "versions" DynamoDB table.
 ### Document Activity
 
 The main document user activity tracking record. Depending on the type of document activity, the versionPk, versionSk refers to the record associated with the activity.
+
+This record acts as the activity timeline entry for a document. The version key references allow the activity entry to point to the metadata or content snapshot associated with the user action.
 
 #### Entity Key Schema
 
@@ -498,6 +516,8 @@ The main document user activity tracking record. Depending on the type of docume
 
 Document Metadata refers to the metadata information attached to the document.
 
+These records capture metadata snapshots for version and activity tracking. They help preserve what metadata was present at a point in time, rather than only storing the latest active document state.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -520,6 +540,8 @@ Document Metadata refers to the metadata information attached to the document.
 
 Document Version Tracking refers to the process of recording and managing changes made to the content of a document over time. Each time a document is edited or updated, a new version is created, allowing users to track and compare previous iterations of the document.
 
+The version record stores content-level information such as content type, size, checksum, and S3 version. This allows FormKiQ to associate document history with the correct stored object version.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -540,6 +562,8 @@ Document Version Tracking refers to the process of recording and managing change
 ### Document Attribute Version
 
 Document Attribute Tracking refers to the monitoring and recording of changes made to the metadata or properties associated with a document.
+
+Attribute version records preserve the state of structured metadata over time. They support auditability for changes to attributes that may drive workflows, search behavior, compliance status, or business classification.
 
 #### Entity Key Schema
 
@@ -563,7 +587,7 @@ Document Attribute Tracking refers to the monitoring and recording of changes ma
 
 ## Attributes
 
-The Attributes Entity consists of attributes that capture essential information about a document.
+The Attributes entity defines reusable metadata fields that can be attached to documents. Attribute definitions describe the key, type, data type, and usage state so documents can use structured metadata consistently across sites, schemas, search, and workflows.
 
 ### Entity Key Schema
 
@@ -589,9 +613,11 @@ The Attributes Entity consists of attributes that capture essential information 
 
 ## Schema
 
-The Schema Entity consists of attributes configurations.
+Schema entities define allowed metadata structures for sites and documents. They are used to validate expected attributes, support composite-key search patterns, and constrain allowed values where structured metadata is required.
 
 ### Site Entity Schema
+
+The Site Entity Schema stores the JSON schema configuration for a site-level entity. It defines the metadata shape and validation expectations used for documents or other site-scoped records.
 
 #### Entity Key Schema
 
@@ -608,6 +634,8 @@ The Schema Entity consists of attributes configurations.
 | schema | Schema JSON document |
 
 ### Site Composite Key
+
+Site Composite Key records support multi-attribute query patterns. They store configured combinations of attribute keys so FormKiQ can search efficiently across more than one metadata field.
 
 #### Entity Key Schema
 
@@ -626,6 +654,8 @@ The Schema Entity consists of attributes configurations.
 
 ### Site Attribute Key
 
+Site Attribute Key records provide a searchable index of attribute keys referenced by a site schema. This helps FormKiQ identify schema-managed attributes without parsing every schema document.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -639,6 +669,8 @@ The Schema Entity consists of attributes configurations.
 
 A searchable key for an attributes allowed values in a Site Schema.
 
+Allowed-value records make enumerated values queryable. They support validation and user-interface experiences where a schema limits an attribute to a known list of values.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -650,9 +682,11 @@ A searchable key for an attributes allowed values in a Site Schema.
 
 ## Classification 
 
-The Classification Entity attributes.
+Classification entities define document classification schemas and related search helpers. They allow FormKiQ to model category-specific metadata rules, composite keys, and allowed values for classified documents.
 
 ### Classification Entity
+
+The Classification Entity stores the schema document for a classification. A classification can define the expected metadata shape for documents assigned to that class.
 
 #### Entity Key Schema
 
@@ -673,6 +707,8 @@ The Classification Entity attributes.
 
 ### Classification Composite Key 
 
+Classification Composite Key records support efficient searches across configured combinations of classification attributes.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -691,6 +727,8 @@ The Classification Entity attributes.
 
 ### Site Attribute Key
 
+Classification Site Attribute Key records index the attribute keys used by a classification schema.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -704,6 +742,8 @@ The Classification Entity attributes.
 
 A searchable key for an attributes allowed values in a Classification
 
+Classification allowed-value records make classification-specific enumerations searchable and enforceable.
+
 #### Entity Key Schema
 
 | Attributes | Format |
@@ -715,11 +755,11 @@ A searchable key for an attributes allowed values in a Classification
 
 ## Document Shares
 
-The following are the entities related to sharing of Documents.
+The following entities support document sharing. They model which users or groups can access shared files or directories and how a shared document can be looked up by the share name, path, document, or site.
 
 ### Shares
 
-A list of shares for a particular user role.
+Shares records list the documents or folders shared with a particular group or user. They are used to resolve what a principal can access and what permission type applies to the shared resource.
 
 #### Entity Key Schema
 
@@ -744,7 +784,7 @@ A list of shares for a particular user role.
 
 ### Document Share
 
-A list of shares for a particular user role.
+Document Share records provide a document-centric lookup for a share. They make it possible to find share metadata from the shared document identifier, path, and share name.
 
 #### Entity Key Schema
 
@@ -772,7 +812,7 @@ A list of shares for a particular user role.
 
 ## Document Folder
 
-Document folder / file listing index.
+Document Folder records maintain folder and file listing indexes for document paths. They support browsing folder-style structures without scanning every document in the site.
 
 ### Entity Key Schema
 
@@ -797,7 +837,7 @@ Document folder / file listing index.
 
 ## Document Folder Permission
 
-Document folder permission.
+Document Folder Permission records store path-based permissions for folder-style document organization. They allow role permissions to be attached to a folder path and evaluated during folder browsing or document access.
 
 ### Entity Key Schema
 
@@ -818,7 +858,7 @@ Document folder permission.
 
 ## Queue
 
-Queue entity object.
+Queue records define workflow or review queues that documents can be routed into. Queues are used by workflow and document action processing to group documents awaiting human or automated handling.
 
 ### Entity Key Schema
 
@@ -838,11 +878,11 @@ Queue entity object.
 
 ## Workflows
 
-The following are the entities related to `Workflows`.
+The following entities define workflow templates and track documents currently moving through workflows. Workflows connect rules, queues, actions, and document state transitions.
 
 ### Workflow
 
-The workflow entity consists of attributes that capture essential information about a workflow.
+The Workflow entity stores the workflow definition and operational metadata. It identifies the workflow by name and status and stores the workflow JSON used by processing logic.
 
 #### Entity Key Schema
 
@@ -869,7 +909,7 @@ The workflow entity consists of attributes that capture essential information ab
 
 ### Document Workflow
 
-The document workflow entity consists of attributes that capture essential information about a document in a workflow.
+The Document Workflow entity tracks a specific document's progress through a workflow. It records the workflow, current step, action references, and status needed to resume or inspect workflow execution.
 
 #### Entity Key Schema
 
@@ -896,11 +936,11 @@ The document workflow entity consists of attributes that capture essential infor
 
 ## Case Management
 
-The following are the entities related to `Case Management`.
+The following entities support case management. Cases group tasks, NIGO items, and related documents so document-centric work can be tracked as a larger business process.
 
 ### Case
 
-The Case Entity consists of attributes that capture essential information about a case.
+The Case entity stores the top-level case record, including its status, date range, case number, and metadata. It acts as the parent object for tasks, NIGO records, and case-related documents.
 
 #### Entity Key Schema
 
@@ -928,7 +968,7 @@ The Case Entity consists of attributes that capture essential information about 
 
 ### Task
 
-The Case Entity consists of attributes that capture essential information about a task.
+The Task entity stores work items under a case. A task can represent a review step, operational assignment, or follow-up action with its own status and date fields.
 
 #### Entity Key Schema
 
@@ -953,7 +993,7 @@ The Case Entity consists of attributes that capture essential information about 
 
 ### Nigo
 
-The Case Entity consists of attributes that capture essential information about a nigo.
+The Nigo entity stores "not in good order" items associated with a case. These records can represent missing, invalid, or incomplete information that must be resolved before the case can proceed.
 
 #### Entity Key Schema
 
@@ -978,7 +1018,7 @@ The Case Entity consists of attributes that capture essential information about 
 
 ### Document
 
-The Document Entity consists of attributes that capture essential information about a document attached to a Case / Task / Nigo.
+The Case Management Document entity links a FormKiQ document to a case, task, or NIGO record. It provides the relationship between the document and the business object it supports.
 
 #### Entity Key Schema
 
@@ -999,11 +1039,11 @@ The Document Entity consists of attributes that capture essential information ab
 
 ## Rulesets
 
-The following are the entities related to `Rulesets`.
+The following entities define rulesets and rules used for automation. Rulesets evaluate document conditions and can trigger workflows or other actions when matching documents are created or updated.
 
 ### Ruleset
 
-The Ruleset Entity consists of attributes that capture essential information about a ruleset.
+The Ruleset entity stores a versioned set of automation rules. Priority and status determine whether and how the ruleset participates in document processing.
 
 #### Entity Key Schema
 
@@ -1026,7 +1066,7 @@ The Ruleset Entity consists of attributes that capture essential information abo
 
 ### Rule
 
-The Rule Entity consists of attributes that capture essential information about a rule.
+The Rule entity stores the conditions and target workflow for an individual rule. Rules are ordered by priority and evaluated as part of the parent ruleset.
 
 #### Entity Key Schema
 
@@ -1058,11 +1098,11 @@ The Rule Entity consists of attributes that capture essential information about 
 
 ## Mappings
 
-The following are the entities related to `Mappings`.
+The following entities support mappings, which translate or connect external data structures to FormKiQ document attributes and metadata.
 
 ### Mapping
 
-The Mapping Entity consists of attributes that capture essential information about a mapping.
+The Mapping entity stores a named metadata mapping definition. Mappings are useful when importing, transforming, or synchronizing document metadata from another system.
 
 #### Entity Key Schema
 
@@ -1084,7 +1124,7 @@ The Mapping Entity consists of attributes that capture essential information abo
 
 ## API Keys
 
-Api Key(s) allow access to API.
+API Key records store API key metadata used for key-based API access. API keys are scoped to a site and can include permissions and group claims used by the API authorization layer.
 
 #### Entity Key Schema
 
@@ -1111,11 +1151,11 @@ Api Key(s) allow access to API.
 
 ## Activities Events
 
-Storage of activity Entity Events.
+Activity event records provide event-sourcing support for activity data. They preserve references to activity records and can use time-to-live behavior for retention management.
 
 ### Document Activities Events
 
-Document Activities Events.
+Document Activities Events store event records related to document activity. They allow activity changes to be processed or retained separately from the current activity records themselves.
 
 #### Entity Event Sourcing Key Schema
 
@@ -1136,7 +1176,7 @@ Document Activities Events.
 
 ## Entities Types
 
-Storage of entity types
+Entity Types define custom business object types that can be managed alongside documents. They provide the namespace and name used to group related entities under a reusable type definition.
 
 ### Entity Key Schema
 
@@ -1158,7 +1198,7 @@ Storage of entity types
 
 ## Entity
 
-Storage of entity
+Entity records store instances of a configured entity type. They are useful for representing business objects that relate to documents, such as customers, vendors, cases, assets, or other domain-specific records.
 
 ### Entity Key Schema
 
@@ -1184,11 +1224,11 @@ Entity attributes metadata are stored with the prefix of attr#
 
 ## Locale
 
-The storing of Locale information.
+Locale records store localized labels and values used by the interface, schemas, classifications, and allowed values. They allow the same FormKiQ configuration to present user-facing text in different languages or regional formats.
 
 ### Locale List
 
-The listing of all locale setup.
+Locale List records track the locales configured for the deployment. They allow the system to enumerate which locale values are available.
 
 #### Entity Key Schema
 
@@ -1205,7 +1245,7 @@ The listing of all locale setup.
 
 ### Locale Type
 
-Locale schema for the managing of Locale for Interface, Schema, Classification:
+Locale Type records store localized values for interface labels, schema attributes, classification attributes, and allowed values.
 
 Fetch patterns include:
 
@@ -1238,9 +1278,11 @@ Fetch patterns include:
 
 ## Open Policy (OPA)
 
-Open Policy Agent configuration.
+Open Policy Agent records store policy configuration used for advanced authorization decisions. OPA policies can evaluate document, user, role, and attribute context to enforce access-control rules beyond basic group membership.
 
 ### Entity Key Schema (Full)
+
+The full OPA policy record stores the complete policy document for a site. It is useful when the policy should be read or replaced as a single unit.
 
 | Attributes | Format |
 |------------|---------|
@@ -1249,12 +1291,16 @@ Open Policy Agent configuration.
 
 ### Entity Key Schema (Policy)
 
+The policy OPA record stores the policy body for a site-level access-control configuration.
+
 | Attributes | Format |
 |------------|---------|
 | PK | "controlpolicy#opa" |
 | SK | "opa#policy#" + siteId + "#policy" |
 
 ### Entity Key Schema (Policy Item)
+
+Policy item records store individual indexed policy fragments. This supports policies that are managed or evaluated as ordered items rather than only as one complete document.
 
 | Attributes | Format |
 |------------|---------|

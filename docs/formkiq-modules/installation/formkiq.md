@@ -2,43 +2,35 @@
 sidebar_position: 1
 ---
 
-# Installing FormKiQ
-# (Commercially-Licensed Offerings)
+# Commercial Deployment Notes
 
 ## Overview
 
-As with FormKiQ Core, **FormKiQ Essentials**, **Advanced**, and **Enterprise** editions are deployed using AWS CloudFormation, which automates the creation and management of required AWS resources. This guide walks you through the installation process.
+FormKiQ **Essentials**, **Advanced**, and **Enterprise** are deployed using AWS CloudFormation, but the installation links and templates are customer-specific. They are provided during onboarding or by the FormKiQ team based on the licensed edition, modules, target AWS regions, and deployment requirements.
+
+For the public, open-source installation path, use the [Core AWS Quick Start](/docs/getting-started/quick-start).
 
 ## Prerequisites
 
-Before beginning installation, ensure you have reviewed the [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites).
+Before beginning a commercial deployment:
+
+- Review the shared [FormKiQ prerequisites](/docs/getting-started/quick-start#prerequisites)
+- Confirm the AWS region or regions for deployment
+- Confirm whether the deployment requires VPC, OpenSearch, certificate, SSO, OCR/IDP, or other module configuration
+- Confirm that you have the customer-specific CloudFormation link or template URL provided by FormKiQ
 
 ## Installation Steps
 
-### 1. Select AWS Region
+### 1. Open the Customer-Specific Installation Link
 
-Choose your deployment region from the following options:
-
-| AWS Region | Location | Install Link |
-|------------|----------|--------------|
-| us-east-1 | N. Virginia | [Install](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new) |
-| us-east-2 | Ohio | [Install](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new) |
-| us-west-2 | Oregon | [Install](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new) |
-| ca-central-1 | Canada (Central) | [Install](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new) |
-| eu-central-1 | Frankfurt | [Install](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new) |
-| eu-west-1 | Ireland | [Install](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new) |
-| eu-west-3 | Paris | [Install](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new) |
-| ap-south-1 | Mumbai | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new) |
-| ap-southeast-1 | Singapore | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new) |
-| ap-southeast-2 | Sydney | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new) |
-| ap-northeast-2 | Seoul | [Install](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new) |
-| sa-east-1 | São Paulo | [Install](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new) |
+Use the CloudFormation installation link or template URL provided by FormKiQ for your licensed edition and deployment region.
 
 ### 2. Create CloudFormation Stack
 
-1. Click the installation link for your chosen region
-2. Log into AWS Console if prompted
-3. You'll be directed to "CloudFormation Create Stack"
+1. Open the provided installation link
+2. Log into the AWS Console if prompted
+3. Confirm that the CloudFormation template URL is populated
+4. Continue to the stack configuration step
 
 ![CloudFormation Create Stack](./img/cf-createstack.png)
 
@@ -60,6 +52,8 @@ For production deployments, we recommend:
 Review and configure the standard FormKiQ parameters as described in the [Quick Start Guide](/docs/getting-started/quick-start#required-parameters).
 
 #### Additional Parameters
+
+Your commercial template may include additional parameters depending on licensed edition, selected modules, and deployment architecture.
 
 ##### Certificate Integration
 ```plaintext

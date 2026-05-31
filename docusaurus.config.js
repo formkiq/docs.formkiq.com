@@ -13,6 +13,16 @@ const config = {
   organizationName: 'FormKiQ',
   projectName: 'formkiq',
   onBrokenLinks: 'throw',
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: `
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+      `,
+    },
+  ],
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],

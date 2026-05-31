@@ -11,15 +11,15 @@ tags:
   - cli
   - migration
 ---
-## Overview
+# Import CSV Data Migration Using the FormKiQ CLI
+
+## What You Will Build
 
 This tutorial explains how to perform a **bulk data migration into FormKiQ** using the **FormKiQ CLI (`fk`)** and its built-in `--import-csv` functionality. The CLI importer is designed for efficiently loading large volumes of documents and metadata during initial onboarding or system migrations.
 
 You will learn how to import **attributes**, **documents**, **document content**, and **document attributes** in a safe, repeatable order that supports re-runs without creating duplicates.
 
----
-
-## Prerequisites
+## Before You Begin
 
 Before starting the migration, ensure you have:
 
@@ -29,9 +29,17 @@ Before starting the migration, ensure you have:
 - UUID v4 values generated for documents
 - Sufficient CPU and network bandwidth on the machine running the CLI
 
----
+## Workflow Overview
 
-## Setup
+1. Verify the CLI configuration.
+2. Import attribute definitions.
+3. Import document records.
+4. Import document attribute values.
+5. Import document content.
+6. Verify each import stage.
+7. Review performance and troubleshooting guidance.
+
+## Step 1: Verify the CLI Setup
 
 ### Install and configure the FormKiQ CLI
 
@@ -61,9 +69,7 @@ This order ensures all referenced objects exist before they are used.
 When importing a large number of documents, review [Scaling FormKiQ Components](/docs/platform/overview#scaling-formkiq-components) to reduce overall migration time.
 :::
 
-## Step-by-step walkthrough
-
-### Import attributes
+## Step 2: Import Attributes
 
 Attributes define the metadata fields that can later be assigned to documents.
 
@@ -88,7 +94,7 @@ fk --import-csv --attributes attributes.csv
 
 This step can be safely re-run to add or update attribute definitions.
 
-### Import documents
+## Step 3: Import Documents
 
 This step registers document records in FormKiQ without uploading content yet.
 
@@ -115,7 +121,7 @@ Using a consistent DocumentId allows you to re-run imports without creating dupl
 fk --import-csv --documents documents.csv
 ```
 
-### Import document attributes
+## Step 4: Import Document Attributes
 
 This step assigns metadata values to existing documents.
 
@@ -141,7 +147,7 @@ fk --import-csv --document-attributes document-attributes.csv
 
 This step performs the bulk data transfer and is the most resource-intensive part of the migration.
 
-### Import document contents
+## Step 5: Import Document Contents
 
 This step uploads or links the actual binary content for each document.
 
@@ -165,7 +171,7 @@ fk --import-csv --document-contents document-contents.csv
 
 This step performs the bulk data transfer and is the most resource-intensive part of the migration.
 
-### Verify the import against FormKiQ (recommended)
+## Verify the Result
 
 After running an import, you can use the `--verify` option to **validate the imported data against FormKiQ**.  
 This verification step confirms that the data written during the import is **consistent with FormKiQ’s internal rules and state**.
@@ -229,20 +235,22 @@ Convenient, but has CPU and throughput limits
 Running the CLI on an EC2 instance in the same region as FormKiQ provides the best performance.
 :::
 
-## Common errors and troubleshooting
+## Clean Up
 
-### Document not found
-- Ensure document import ran before content or attribute imports
+Archive the import CSV files and CLI output logs with your migration records. Remove local files containing sensitive data after validation is complete.
 
-### Attribute does not exist
-- Verify attributes were imported successfully before assigning values
+## Troubleshooting
 
-### Slow import performance
-- Review scaling guidance and consider using a larger EC2 instance
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Document not found | Document content or attributes were imported before the document records. | Run the import stages in the documented order. |
+| Attribute does not exist | Document attributes reference keys that were not created. | Verify the attributes import before assigning document attributes. |
+| Slow import performance | The CLI host, network, API, or downstream services are constrained. | Run the CLI from EC2 in the same Region and review scaling guidance. |
+| Duplicate documents | Document IDs were regenerated between import attempts. | Use stable UUIDs in the `DocumentId` column. |
 
-### Duplicate documents
-- Ensure consistent UUID usage in DocumentId
-
-## Next steps
+## Next Steps
 
 After completing the migration, validate imported data using the FormKiQ UI or API.
+
+- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [Migration and Data Import](/docs/platform/migration-and-data-import)

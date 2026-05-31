@@ -1,156 +1,243 @@
 ---
 sidebar_position: 8
+title: Compliance, Data Residency, and Data Sovereignty
 ---
 
 # Compliance, Data Residency, and Data Sovereignty
 
 ## Overview
 
-FormKiQ is designed with global compliance in mind, providing enterprises with the tools necessary to meet regulatory requirements across different regions. FormKiQ's architecture allows organizations to maintain control over where their data is stored and processed, supporting compliance with data residency and sovereignty requirements in various jurisdictions.
+FormKiQ can help organizations design document management deployments that support data residency, data sovereignty, privacy, audit, and governance requirements. Because FormKiQ runs in the customer's AWS account, customers keep control over the AWS region, account structure, network boundaries, encryption settings, identity model, retention approach, and operational monitoring.
 
-:::note
-FormKiQ's cloud-native architecture leverages AWS regional infrastructure to help organizations meet specific geographic data storage requirements.
-:::
+This page explains the technical controls and deployment patterns that can support compliance programs. It is not legal advice and should not be read as a certification that a specific FormKiQ deployment satisfies a law, regulation, or industry standard.
+
+## Shared Responsibility
+
+Compliance depends on the way FormKiQ, AWS, and the customer environment are configured together.
+
+| Area | Responsibility |
+| --- | --- |
+| AWS infrastructure | AWS provides regional infrastructure, physical security, service-level compliance programs, and cloud service controls. |
+| FormKiQ platform | FormKiQ provides document APIs, metadata controls, authentication options, authorization models, audit data, encryption support, and deployment patterns that can be configured for regulated environments. |
+| Customer configuration | Customers choose AWS regions, accounts, networking, IAM policies, identity providers, retention policies, access models, backup settings, monitoring, incident response, and legal/compliance processes. |
+| Legal compliance | Customers remain responsible for determining whether their implementation satisfies specific regulatory, contractual, or jurisdictional requirements. |
 
 ## Data Residency
 
-Data residency refers to the geographic location where your data is stored. FormKiQ supports data residency requirements by leveraging AWS regional infrastructure, allowing you to select the specific geographic location where your data will be stored.
+Data residency refers to where data is stored. In FormKiQ, residency is primarily controlled by the AWS region where the stack is deployed and by any optional cross-region architecture the customer chooses to configure.
 
-### Regional Deployment Options
+### Region Selection
 
-FormKiQ can be deployed in any AWS region where the required services are available, including:
+FormKiQ can be deployed in AWS regions where the required AWS services are available. The exact services depend on the selected FormKiQ edition and modules, but commonly include Amazon S3, Amazon DynamoDB, Amazon API Gateway, AWS Lambda, Amazon Cognito, Amazon CloudWatch, and optional services such as Amazon OpenSearch Service.
 
-- North America (US, Canada)
-- Europe (EU countries, UK)
-- Asia Pacific (Australia, Singapore, Japan)
-- South America (Brazil)
-- Middle East and Africa coming soon
+Before deployment, confirm:
 
-By choosing the appropriate AWS region for your FormKiQ deployment, you can ensure that your document data remains within your preferred geographic boundaries to satisfy regulatory requirements.
+- The preferred AWS region meets the organization's data residency requirement.
+- Required AWS services are available in that region.
+- Optional modules, such as enhanced search or advanced encryption, are supported in that region.
+- Backup, log, monitoring, and export destinations remain within approved regions.
+- Any external integrations process or store data in approved locations.
 
-### Multi-Region Architecture
+For current AWS availability, use [AWS Regions and Service Availability](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
-For organizations with global operations and complex data residency requirements, FormKiQ can also support multi-region deployments on request:
+### Data Stored by FormKiQ
 
-- Deploy separate FormKiQ instances in different regions
-- Maintain isolation between regional deployments for data residency compliance
-- Configure region-specific access controls and policies
+FormKiQ deployments can store or process several categories of data.
+
+| Data category | Typical storage or processing location |
+| --- | --- |
+| Document content | Amazon S3 in the deployment region. |
+| Document metadata and configuration | Amazon DynamoDB in the deployment region. |
+| Search indexes | Amazon OpenSearch Service when enhanced search is installed. |
+| User and group data | Amazon Cognito or the configured identity provider. |
+| Audit and activity records | FormKiQ tables and logs, depending on configuration. |
+| Logs and metrics | Amazon CloudWatch in the deployment region. |
+| Backups and exports | Customer-configured AWS backup, export, or replication destinations. |
+
+See [Document Storage](/docs/platform/document_storage) for more detail on storage architecture.
+
+### Multi-Region Deployments
+
+Organizations with regional data boundaries can deploy separate FormKiQ instances in different AWS regions. This pattern is often cleaner than trying to centralize all data in one global deployment.
+
+Multi-region deployments can support:
+
+- Separate regional document repositories
+- Region-specific identity and access policies
+- Isolation between regulated data sets
+- Localized backup and recovery plans
+- Region-specific retention and audit requirements
+
+If cross-region access, reporting, replication, or identity federation is required, it should be designed explicitly so data movement and processing locations remain understood.
 
 ## Data Sovereignty
 
-Data sovereignty encompasses legal requirements that data be subject to the laws and governance structures of the nation where it is collected or processed. FormKiQ's flexible architecture supports organizations in meeting data sovereignty requirements across multiple jurisdictions.
+Data sovereignty refers to the legal and governance requirements that may apply based on where data is collected, stored, processed, accessed, or transferred.
 
-### Key Data Sovereignty Features
+FormKiQ can support sovereignty requirements through customer-controlled deployment choices:
 
-- **Access Controls**: Granular permissions using RBAC and ABAC to enforce jurisdiction-specific access policies
-- **Encryption**: Comprehensive data encryption to maintain data confidentiality
-- **Audit Logging**: Detailed audit trails for data access and processing activities
-- **Configurable Data Retention**: Policies for data lifecycle management to comply with retention requirements
+| Requirement | FormKiQ control or design option |
+| --- | --- |
+| Keep documents in a specific jurisdiction | Deploy FormKiQ in an AWS region approved for that jurisdiction. |
+| Restrict access by region, business unit, or tenant | Use sites, groups, RBAC, folder permissions, and optional ABAC policies. |
+| Limit administrative access | Configure IAM, Cognito groups, identity provider rules, and operational roles. |
+| Protect document content and metadata | Use AWS encryption controls and optional FormKiQ encryption modules. |
+| Prove access and activity | Use FormKiQ activity data, CloudWatch logs, CloudTrail, and reporting exports. |
+| Separate regional operations | Use separate AWS accounts, stacks, or regions for regulated environments. |
 
-## Regional Compliance Support
+## Compliance Controls FormKiQ Can Support
 
-### European Union (GDPR)
+FormKiQ provides technical capabilities that customers can combine with their own policies, procedures, and AWS account controls.
 
-FormKiQ supports compliance with the General Data Protection Regulation (GDPR) through:
+| Compliance need | Relevant FormKiQ or AWS capability |
+| --- | --- |
+| Access control | JWT authentication, IAM authentication, API keys, RBAC, folder permissions, and optional ABAC through OPA. |
+| Data classification | Document attributes, schemas, classification workflows, OCR, and metadata tagging. |
+| Auditability | Document activity records, API logs, CloudWatch logs, CloudTrail, and reporting exports. |
+| Retention planning | Document metadata, entity-based retention models, backup retention planning, S3 lifecycle policies, and customer-defined processes. |
+| Encryption | AWS-managed encryption, customer-managed key options, and the Full Encryption module. |
+| Backup and recovery | DynamoDB Point-in-Time Recovery, S3 versioning, OpenSearch snapshots, AWS Backup, and customer-defined recovery procedures. |
+| Tenant or jurisdiction separation | Separate sites, groups, AWS accounts, stacks, or regional deployments. |
+| Search and discovery | Metadata search, full-text search, attributes, and reporting exports. |
 
-- Data storage in EU regions to maintain data residency within the European Economic Area (eu-west-1 - Ireland, eu-west-3 - Paris, eu-central-1 - Frankfurt, other regions coming soon)
-- Data processing controls to support data subject rights (access, rectification, erasure)
-- Secure data transfer mechanisms when cross-border data transfers are necessary
-- Comprehensive audit logging for transparency and accountability
-- Data minimization capabilities through selective metadata extraction and storage
+Related details are available in [Security](/docs/platform/security), [Reporting, Analytics, and Audit](/docs/platform/reporting-and-analytics), [Backup and Recovery](/docs/platform/backup_and_recovery), [Full Encryption](/docs/formkiq-modules/modules/full-encryption), and [Open Policy Agent](/docs/formkiq-modules/modules/open_policy_agent).
 
-### United Kingdom (UK GDPR and Data Protection Act 2018)
+## Regional Privacy and Residency Considerations
 
-FormKiQ supports compliance with the UK's data protection framework through:
+The following sections describe common considerations for regional privacy and residency planning. They are not a substitute for legal review.
 
-- Data storage in the London AWS region to maintain UK data residency (eu-west-2)
-- Controls aligned with UK GDPR requirements for data subject rights
-- Security measures that meet UK standards for "appropriate technical and organizational measures"
-- Audit capabilities to demonstrate accountability and compliance
-- Data transfer mechanisms for secure movement of data between UK and other jurisdictions
+### European Union
 
-### Canada (PIPEDA)
+For EU privacy and residency requirements, customers commonly evaluate:
 
-The Personal Information Protection and Electronic Documents Act (PIPEDA) compliance is supported through:
+- Deployment in an approved AWS region in or near the European Economic Area
+- Whether backups, logs, exports, search indexes, and integrations remain in approved regions
+- Data subject request workflows for access, correction, deletion, export, and restriction
+- Metadata minimization and document classification practices
+- Audit evidence for access, processing, and administrative actions
+- Cross-border transfer requirements when users or systems outside the EU access data
 
-- Canadian region deployment options for data residency (ca-central-1 - Montreal and ca-west-1 - Calgary)
-- Consent management tools for document collection and processing
-- Security measures that meet the "appropriate level of protection" requirement
-- Access controls to restrict personal information to authorized personnel
-- Breach notification capabilities
+### United Kingdom
 
-### California (CCPA/CPRA)
+For UK privacy and residency requirements, customers commonly evaluate:
 
-FormKiQ features supporting California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA) requirements include:
+- Deployment in an approved UK or otherwise acceptable AWS region
+- Alignment between UK identity, administrative access, and operational support processes
+- Controls for data subject requests
+- Auditability of access and processing activities
+- Transfer controls for integrations or support activity outside the UK
 
-- Data discovery capabilities to identify consumer personal information
-- Metadata tagging to categorize sensitive personal information
-- Access controls to limit data usage to specified purposes
-- Audit trails to demonstrate compliance with consumer rights requests
-- Document retention management to enforce data deletion requirements
+### Canada
 
-### Australia (Privacy Act)
+For Canadian privacy and residency requirements, customers commonly evaluate:
 
-Australian Privacy Act compliance is facilitated through:
+- Deployment in an approved Canadian AWS region where required
+- Whether provincial, sector-specific, or contractual residency rules apply
+- Access restrictions for personal information
+- Audit trails for document activity and administrative activity
+- Breach response and notification processes owned by the customer
+- Retention, deletion, and records management policies
 
-- Data storage in Sydney AWS region (ap-southeast-2)
-- Security controls aligned with Australian Privacy Principles (APPs)
-- Collection limitations through selective document processing
-- Access management for personal information
-- Audit capabilities to demonstrate APP compliance
+### United States
 
-## Implementing Compliant Solutions
+For US privacy, sector, or state-level requirements, customers commonly evaluate:
 
-### Architecture Considerations
+- Deployment in an approved US AWS region
+- Whether state privacy requirements apply, such as California privacy laws
+- Data discovery and classification workflows for personal information
+- Access controls that limit use to approved business purposes
+- Audit trails for consumer, customer, employee, or regulated records
+- Deletion, retention, litigation hold, and records management processes
 
-When implementing a compliant document management solution with FormKiQ, consider:
+### Australia
 
-1. **Region Selection**: Choose AWS regions that align with your organization's data residency requirements
-2. **User Access Models**: Implement RBAC/ABAC policies that respect geographic data access restrictions
-3. **Data Classification**: Utilize metadata and attributes to identify and manage regulated data
-4. **Monitoring Configuration**: Set up appropriate audit logging and monitoring for compliance verification
+For Australian privacy and residency requirements, customers commonly evaluate:
 
-### Deployment Examples
+- Deployment in an approved Australian AWS region where required
+- Access controls for personal information
+- Audit evidence for access and processing activities
+- Collection limitation and metadata minimization practices
+- Retention and disposal processes aligned to customer policy
 
-#### Example 1: Multi-National Financial Services
+### Healthcare and Regulated Data
 
-A financial services company operating in the EU, Canada, and the US can implement FormKiQ with:
+Healthcare, financial services, public sector, and other regulated deployments may require additional contractual, operational, and technical controls. For example, HIPAA-oriented deployments may require review of AWS eligible services, business associate agreements, access logging, encryption, backup retention, incident response, and customer operating procedures.
 
-- Separate FormKiQ instances in EU, Canadian, and US AWS regions
-- Region-specific access policies enforced through ABAC
-- Cross-region authentication while maintaining data isolation
-- Region-specific retention periods based on local regulations
+Do not assume a deployment is compliant because it uses AWS or FormKiQ. The customer must validate the complete architecture, contracts, procedures, and evidence requirements for the applicable regulation.
 
-#### Example 2: Healthcare Provider
+## Deployment Patterns
 
-A healthcare organization subject to HIPAA, GDPR, and Australian privacy laws can deploy:
+### Single-Region Deployment
 
-- Region-specific FormKiQ instances with appropriate encryption settings
-- PHI/PII identification through metadata tagging
-- Jurisdiction-specific access controls and data processing policies
-- Comprehensive audit logs to demonstrate regulatory compliance
+A single-region deployment is usually the simplest pattern when all users and documents can be governed under one jurisdictional or organizational policy.
+
+Use this pattern when:
+
+- One AWS region satisfies the residency requirement.
+- Users can access the same regional deployment.
+- Backup, monitoring, and export destinations are approved for that region.
+- Operational processes are centralized.
+
+### Multi-Region Isolated Deployment
+
+A multi-region isolated deployment uses separate FormKiQ stacks for different jurisdictions or business units.
+
+Use this pattern when:
+
+- Different regions require separate data boundaries.
+- Regional teams need different retention, access, or audit policies.
+- Cross-region data movement must be minimized.
+- Each jurisdiction needs its own recovery and monitoring plan.
+
+### Multi-Account Deployment
+
+A multi-account deployment separates environments by AWS account. This can be combined with single-region or multi-region patterns.
+
+Use this pattern when:
+
+- Production, staging, and development require strict isolation.
+- Regulated data should be separated from general business workloads.
+- Different business units or customers require separate AWS account boundaries.
+- IAM, billing, logging, or incident response should be managed separately.
+
+## Compliance Planning Checklist
+
+Use this checklist before deploying FormKiQ for a regulated or residency-sensitive workload.
+
+- Confirm the required AWS region and service availability.
+- Identify all data categories that will be stored, indexed, logged, exported, or backed up.
+- Decide whether one FormKiQ stack is sufficient or whether regional/account isolation is required.
+- Define which users, groups, roles, and systems can access each site.
+- Decide whether RBAC is sufficient or ABAC/OPA is needed for metadata-based access.
+- Define document classification and metadata standards.
+- Confirm encryption requirements, including whether customer-managed keys are required.
+- Define backup retention, recovery objectives, and export locations.
+- Confirm CloudWatch, CloudTrail, audit, and reporting requirements.
+- Review whether external integrations move data outside approved regions.
+- Document data subject request, deletion, retention, legal hold, and incident response processes.
+- Validate legal, contractual, and compliance obligations with the appropriate internal or external advisors.
 
 ## AWS Compliance Programs
 
-FormKiQ leverages AWS infrastructure, which maintains certifications and attestations for various compliance programs including:
+AWS maintains compliance programs, certifications, and attestations for many services and regions. These AWS programs can be relevant to a FormKiQ deployment because FormKiQ runs on AWS services in the customer's account.
 
-- ISO 27001, 27017, 27018, 9001
-- SOC 1, SOC 2, SOC 3
-- PCI DSS
-- GDPR
-- HIPAA eligibility
-- FedRAMP
-- MTCS
-- IRAP
+Customers should confirm:
 
-FormKiQ's architecture is designed to operate within these compliance frameworks, enabling customers to extend these compliance capabilities to their document management system.
+- Which AWS compliance programs apply to the selected services and regions
+- Whether the customer's selected AWS account, region, and services are in scope
+- Whether additional contracts, agreements, or internal controls are required
+- Whether optional FormKiQ modules or customer integrations introduce additional requirements
 
-:::note
-While FormKiQ provides the technical capabilities to support compliance, customers remain responsible for configuring their implementation to meet specific regulatory requirements. We recommend consulting with legal and compliance professionals when designing your document management solution.
-:::
+Use the current [AWS Compliance Programs](https://aws.amazon.com/compliance/programs/) documentation as the source of truth for AWS attestations and regional service scope.
 
 ## Additional Compliance Resources
 
+- [Security](/docs/platform/security)
+- [Reporting, Analytics, and Audit](/docs/platform/reporting-and-analytics)
+- [Backup and Recovery](/docs/platform/backup_and_recovery)
+- [Document Storage](/docs/platform/document_storage)
+- [Multi-Tenant vs Multi-Instance](/docs/platform/multi-tenant-vs-multi-instance)
+- [Full Encryption](/docs/formkiq-modules/modules/full-encryption)
+- [Open Policy Agent](/docs/formkiq-modules/modules/open_policy_agent)
 - [AWS Compliance Programs](https://aws.amazon.com/compliance/programs/)
 - [AWS Regions and Service Availability](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-- [FormKiQ Security Documentation](/docs/platform/security)

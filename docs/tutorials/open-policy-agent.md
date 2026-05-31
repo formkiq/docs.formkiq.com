@@ -6,17 +6,13 @@ sidebar_position: 20
 
 This tutorial uses the FormKiQ [Open Policy Agent module](/docs/add-on-modules/modules/open_policy_agent) to demonstrate how to protect documents using access attributes.
 
-We will be:
+## What You Will Build
 
-* Adding three documents with different access attributes (two with, and one without)
-
-* Add an OPA policy that restricts access to documents
-
-* Attempt document access with both an admin role and a user role
+You will create a user and Cognito group, configure an OPA policy, add documents with different access attributes, and compare document access for an admin user and a restricted user.
 
 The code for the tutorial can be found within the [FormKiQ Github Tutorials](https://github.com/formkiq/tutorials/tree/master/java/opa)
 
-## What you’ll need
+## Before You Begin
 
 * A text editor or IDE - for example [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
 
@@ -28,7 +24,16 @@ The code for the tutorial can be found within the [FormKiQ Github Tutorials](htt
 
 * An Admin [JWT Authentication Token](/docs/how-tos/jwt-authentication-token)
 
-## Create User
+## Workflow Overview
+
+1. Create a test user and Cognito group.
+2. Configure Java API clients for admin and user tokens.
+3. Add an OPA policy.
+4. Create documents with different access attributes.
+5. Run access checks as admin and user.
+6. Verify the expected access decisions.
+
+## Step 1: Create User
 
 Goto the [Cognito Console](https://console.aws.amazon.com/cognito) and find your FormKiQ user pool and click the `Create user` button.
 
@@ -56,7 +61,7 @@ You should now see the `default` and `opa` group listed under the user's members
 
 ![Cognito OPA User Group Membership](./img/opa-group-membership.png)
 
-## FormKiQ Client Library
+## Step 2: Configure the FormKiQ Client Library
 
 FormKiQ has a client library available in [Java](https://github.com/formkiq/formkiq-client-sdk-java/) and [Python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
@@ -64,7 +69,7 @@ FormKiQ has a client library available in [Java](https://github.com/formkiq/form
 This tutorial will be using the Java API and requires a client of version 1.14.0 or greater, but we will also reference the REST API endpoints used.
 :::
 
-## Setup API
+### Setup API
 
 The Java API requires the creation of a `ApiClient` which requires a JWT `AccessToken` and the `FormKiQ url` of the FormKiQ instances to use.
 
@@ -103,7 +108,7 @@ public void setUpApi() {
 ```
 
 
-## OPA Policy
+## Step 3: Add an OPA Policy
 
 We will now configure an OPA policy that will restrict users with the "opa" role to only be able to access documents that have an access attribute of "documentType" = "invoice".
 
@@ -134,7 +139,7 @@ adminControlApi.setOpaConfiguration(new SetOpaConfigurationRequest().siteId(site
 The REST API endpoint `PUT /sites/opa/accessPolicies` can be used to set the OPA policy
 :::
 
-## Add Documents
+## Step 4: Add Documents
 
 Finally, we will add three documents:
 
@@ -176,7 +181,7 @@ String documentId2 = app.addDocument(siteId, "protected2.txt", "my protected con
     Arrays.asList(accessAttribute2));
 ```
 
-## Application Output
+## Verify the Result
 
 Running the application, you will receive an output similar to the following, expect the documentIds will change.
 
@@ -206,10 +211,19 @@ The user does not have access to document `467a0982-85a7-4b3b-bfda-8e85ab9107fc`
 
 The admin will have access to all three documents, regardless of the OPA policy.
 
-## Summary
+## Clean Up
 
-And there you have it! We have shown how easy it is to use the power of OPA policies and access attributes to secure documents.
+Remove the test user, Cognito group, OPA policy, and test documents if they are no longer needed.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Troubleshooting
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| User can access too much | OPA policy allows the role or access attribute unexpectedly. | Review role names and policy conditions. |
+| User cannot access expected document | Access attribute value does not match the policy. | Confirm `documentType=invoice` on the document. |
+| Policy update fails | Admin token or OPA module access is missing. | Confirm the admin JWT and module availability. |
+
+## Next Steps
+
+- [Open Policy Agent](/docs/formkiq-modules/modules/open_policy_agent)
+- [Security](/docs/platform/security)

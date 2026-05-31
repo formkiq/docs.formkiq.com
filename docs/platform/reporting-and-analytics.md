@@ -1,369 +1,222 @@
 ---
 sidebar_position: 8
+title: Reporting, Analytics, and Audit
+sidebar_label: Reporting and Analytics
 ---
 
-# Reporting and Analytics
+# Reporting, Analytics, and Audit
 
-## Overview
+FormKiQ can support operational dashboards, audit reporting, compliance reviews, BI analytics, and custom reporting pipelines because document metadata, activity, storage, API traffic, and document events are available through AWS-native services and FormKiQ APIs.
 
-FormKiQ's data architecture enables powerful reporting and analytics capabilities through integration with business intelligence tools like Amazon QuickSight and other analytics platforms. This documentation provides guidance on setting up reports, analyzing audit logs, monitoring user activity, and creating custom reporting integrations to gain valuable insights from your document management system.
+This page explains the main reporting data sources and the recommended patterns for turning FormKiQ operational data into reports.
+
+:::warning
+Avoid heavy analytics directly against production DynamoDB tables unless you understand the access patterns, cost, and throttling risk. For larger reports, prefer DynamoDB export to S3, purpose-built reporting copies, or API-based extracts with controlled pagination.
+:::
+
+## Reporting Data Sources
+
+| Source | Contains | Best for |
+|--------|----------|----------|
+| DynamoDB document records | Document metadata, attributes, tags, paths, status, and indexes. | Document inventory, metadata completeness, site-level reporting. |
+| DynamoDB activity and audit records | User activity, resource activity, document activity, and change references. | Audit reports, user activity, compliance review. |
+| Amazon S3 | Document content, object versions, optional access logs, exported data. | Storage growth, retention analysis, access-log analysis, data lake exports. |
+| Amazon CloudWatch | API Gateway, Lambda, queue, and service logs and metrics. | Operational dashboards, latency, errors, throttling, alarms. |
+| EventBridge, SNS, and SQS | Document lifecycle events and processing messages. | Near-real-time reporting and event-driven integrations. |
+| FormKiQ APIs | Documents, attributes, versions, workflows, queues, user activity, and configuration. | Application-level reporting and controlled extracts. |
+| Search indexes | Full-text search index data, when enabled. | Search usage analysis and content-discovery reports, depending on configuration. |
+
+For the underlying table patterns, see [DynamoDB Schema](/docs/platform/database_schema). For storage architecture, see [Document Storage](/docs/platform/document_storage).
+
+## Choose the Right Reporting Path
+
+| Reporting need | Recommended path |
+|----------------|------------------|
+| Operational health dashboard | CloudWatch metrics and alarms for API Gateway, Lambda, DynamoDB, SQS, SNS, and OpenSearch. |
+| Document inventory report | FormKiQ APIs for small/controlled extracts, or DynamoDB export to S3 for larger analysis. |
+| User activity or audit report | Activity records, user activity APIs, and CloudWatch logs where applicable. |
+| Compliance dashboard | DynamoDB export to S3, Glue catalog, Athena queries, and QuickSight dashboards. |
+| Storage growth report | S3 metrics, S3 Inventory, lifecycle reports, and document metadata. |
+| Workflow queue aging | Workflow, queue, and document action records; optionally copied into a reporting table. |
+| Near-real-time reporting | EventBridge/SNS/SQS event pipeline into Lambda, S3, DynamoDB, or a data warehouse. |
+| External BI tool integration | Athena over exported S3 data, or a curated reporting database populated by ETL. |
+
+## Starter Reports
+
+These are good first reports for most FormKiQ environments:
+
+- Documents created by day, week, or month
+- Documents by site
+- Documents by content type
+- Documents by classification or schema
+- Documents missing required metadata
+- Storage by site or document category
+- User activity by day
+- Most active users or groups
+- Failed document actions
+- Workflow queue aging
+- OCR or Textract processing volume
+- API request volume, latency, and error rate
+- Search usage and indexing failures, when full-text search is enabled
+
+## QuickSight and Athena Pattern
+
+For BI reporting, the most durable pattern is usually:
+
+1. Export DynamoDB tables to S3.
+2. Catalog the exported data with AWS Glue.
+3. Query the data with Amazon Athena.
+4. Build QuickSight dashboards from Athena datasets.
+5. Schedule exports and dataset refreshes based on reporting needs.
+
+This approach avoids running large BI queries directly against operational DynamoDB tables and makes it easier to join FormKiQ data with other enterprise datasets.
 
 :::note
-FormKiQ stores document metadata in DynamoDB and stores document content in S3, providing multiple avenues for data analysis and reporting based on your specific needs.
+Direct reads from DynamoDB can be useful for small operational reports, but large dashboards should use exports, curated reporting tables, or an analytics pipeline.
 :::
 
 ## Amazon QuickSight Integration
 
-Amazon QuickSight is a cloud-native business intelligence service that integrates seamlessly with AWS services used by FormKiQ, enabling powerful visualization and analysis capabilities.
+Amazon QuickSight can be used to visualize FormKiQ reporting datasets. QuickSight is usually connected to Athena datasets, exported S3 data, or curated reporting tables rather than raw operational tables.
 
-### Setting Up QuickSight with FormKiQ
+When setting up QuickSight:
 
-To connect Amazon QuickSight to your FormKiQ data sources:
+1. Grant QuickSight least-privilege access to the reporting data source.
+2. Use Athena or curated datasets for larger reports.
+3. Use SPICE for dashboards that need fast repeated access.
+4. Schedule refreshes based on business reporting requirements.
+5. Mask or exclude sensitive metadata where reports are shared broadly.
 
-1. **Enable QuickSight Access to FormKiQ Resources**:
-   - Configure QuickSight permissions to access your FormKiQ DynamoDB tables
-   - Enable access to S3 buckets containing document content and audit logs
-   - Set up appropriate IAM roles for QuickSight's service account
+Common QuickSight dashboards include:
 
-2. **Create Data Sources**:
-   - Add DynamoDB tables as data sources (DocumentsTable, MetadataTable, etc.)
-   - Import audit logs from CloudWatch Logs or S3
-   - Configure direct query or SPICE ingestion based on data volume
+- Document inventory dashboard
+- User activity dashboard
+- Compliance monitoring dashboard
+- Workflow performance dashboard
+- Storage and retention dashboard
+- OCR and processing-volume dashboard
 
-3. **Configure Data Sets**:
-   - Create calculated fields for common metrics
-   - Set up appropriate join relationships between tables
-   - Configure refresh schedules based on reporting needs
+## Audit Reporting
 
-### Standard Report Templates
+FormKiQ audit reporting usually combines activity records, user information, document metadata, and operational logs.
 
-FormKiQ environments can benefit from these pre-defined QuickSight visualizations:
+Useful audit dimensions include:
 
-#### Document Analytics Dashboard
+- User or group
+- Site ID
+- Document ID
+- Resource type
+- Activity type
+- Activity status
+- Source IP address
+- Timestamp
+- Change set, when available
 
-A comprehensive dashboard showing:
-- Document volume trends over time
-- Document type distribution
-- Storage utilization metrics
-- Processing queue analytics
-- Tag and metadata usage statistics
+Common audit questions include:
 
-#### User Activity Report
+- Who viewed or modified a document?
+- Which documents were accessed outside business hours?
+- Which operations failed or were unauthorized?
+- Which documents were deleted, restored, or purged?
+- Which metadata values changed during a review period?
 
-Monitor user engagement with:
-- User-specific document access patterns
-- Document creation, modification, and access trends
-- Most active users and departments
-- Search activity analysis
-- API usage patterns by user or application
+For schema details, see the `Resource User Activity`, `Document User Activity`, and `Activities Events` sections in [DynamoDB Schema](/docs/platform/database_schema).
 
-#### Compliance Monitoring Dashboard
+## Operational Monitoring
 
-Track compliance-related metrics including:
-- Document retention compliance status
-- Access permission audit results
-- Required metadata completeness
-- Workflow completion rates
-- Potential policy violations
+Use CloudWatch for system-level reporting and alerting.
 
-## Custom Report Configuration
+Recommended CloudWatch views include:
 
-### Data Export for Analysis
+- API Gateway request count, latency, integration latency, and 4xx/5xx errors
+- Lambda errors, duration, throttles, and concurrent executions
+- DynamoDB throttled requests, consumed capacity, and latency
+- SQS queue depth, message age, and dead-letter queue count
+- SNS delivery failures
+- OpenSearch cluster health, indexing failures, and query latency, when enabled
+- CloudWatch Logs volume and retention
 
-Before creating reports, you may need to export data from FormKiQ's DynamoDB tables for analysis:
+For cost context, see [Costs & AWS Usage](/docs/platform/costs).
 
-1. **DynamoDB Export to S3**:
-   - Use the DynamoDB export feature to create full or incremental exports to S3
-   - Process these exports with tools like AWS Glue or Lambda
-   - Create Athena tables over the exported data for SQL-based analysis
+## API-Based Reporting
 
-2. **Amazon DynamoDB Streams to Analytics**:
-   - Configure DynamoDB Streams to capture table changes
-   - Process streams with Lambda for real-time analytics
-   - Store processed data in analytics-optimized formats
+For application-level reporting or smaller controlled extracts, use FormKiQ APIs.
 
-### DynamoDB Table Analysis
+Example document list request:
 
-FormKiQ's DynamoDB tables provide rich metadata for custom reports. Since DynamoDB is NoSQL, you'll use DynamoDB-specific query patterns, using the Partition Key (PK), Sort Key (SK), and the Global Secondary Index Keys to filter and query.
+```bash
+curl -X GET "https://{FORMKIQ_API_URL}/documents?limit=100" \
+  -H "Authorization: {authorization}"
+```
 
-See [FormKiQ DynamoDB Schema Documentation](/docs/platform/database_schema) for more information on how FormKiQ's metadata is organized.
+Example document attributes request:
 
-### S3 Access Pattern Analysis
+```bash
+curl -X GET "https://{FORMKIQ_API_URL}/documents/{documentId}/attributes" \
+  -H "Authorization: {authorization}"
+```
 
-Monitor document access patterns using S3 access logs:
+Example document versions request:
 
-1. **Configure S3 Access Logging** for your FormKiQ document bucket
-2. **Create an Athena table** for the access logs
-3. **Design reports** to analyze access patterns, including:
-   - Most frequently accessed documents
-   - Time-based access patterns
-   - User access distribution
-   - Unusual access patterns
+```bash
+curl -X GET "https://{FORMKIQ_API_URL}/documents/{documentId}/versions" \
+  -H "Authorization: {authorization}"
+```
 
-### Custom Visualization Techniques
+For API details, see the [FormKiQ API Reference](/docs/category/formkiq-api) and the [API Walkthrough](/docs/getting-started/api-walkthrough).
 
-Effective techniques for FormKiQ data visualization:
+## Event-Driven Reporting
 
-- **Heatmaps** for document activity concentration
-- **Sankey diagrams** for document workflow progression
-- **Geospatial maps** for user access locations
-- **Correlation analysis** between metadata and document usage
+For near-real-time reporting, connect document events to an analytics pipeline.
 
-## Audit Log Analysis
+A typical pattern:
 
-FormKiQ generates comprehensive audit logs that can be analyzed for security, compliance, and operational insights.
+1. Publish document lifecycle events through EventBridge, SNS, or SQS.
+2. Process events with Lambda.
+3. Normalize event data into a reporting table, S3 data lake, or external data warehouse.
+4. Build dashboards from the reporting store.
+5. Add alarms for critical events such as repeated processing failures or large failed-action counts.
 
-### CloudWatch Logs Integration
+Use this pattern when reports need to update continuously or when downstream systems need to react to document changes.
 
-FormKiQ audit logs in CloudWatch can be analyzed through:
+For event details, see [Document Events](/docs/features/documents#document-events-features) and [Document Event Processing](/docs/tutorials/document-event-processing).
 
-1. **CloudWatch Logs Insights**:
-   ```
-   fields @timestamp, @message
-   | parse @message "*.eventName\":\"*\"" as prefix, eventName
-   | filter eventName = "GetDocument"
-   | parse @message "*.userIdentity.username\":\"*\"" as prefix, username
-   | parse @message "*.resources.ARN\":\"*\"" as prefix, resourceARN
-   | stats count(*) as accessCount by username, resourceARN
-   | sort accessCount desc
-   | limit 20
-   ```
+## Optional Advanced Patterns
 
-2. **CloudWatch Metrics and Alarms**:
-   - Create metrics based on API call volume
-   - Set alarms for unusual activity patterns
-   - Monitor error rates and performance trends
+Advanced reporting can integrate with broader analytics platforms, but these should be treated as optional architecture patterns rather than required setup.
 
-### Audit Log Export to S3
+Common advanced patterns include:
 
-For long-term analysis:
+- Tableau, Power BI, or Looker connected through Athena or a curated warehouse
+- SageMaker anomaly detection for unusual usage patterns
+- Forecasting storage growth or processing volume
+- Cross-site aggregation for multi-tenant reporting
+- Data warehouse replication for enterprise BI programs
 
-1. **Configure CloudWatch Logs to export** to an S3 bucket
-2. **Create an AWS Glue crawler** to catalog the log data
-3. **Query using Amazon Athena** for ad-hoc investigations
-4. **Connect to QuickSight** for visualization
+## Security and Cost Best Practices
 
-### Security Analysis Reporting
+- Use least-privilege IAM roles for reporting tools.
+- Do not expose sensitive document metadata in shared dashboards unless approved.
+- Prefer exports or reporting replicas for high-volume analysis.
+- Schedule large exports and scans outside peak operational windows.
+- Use S3 lifecycle policies for exported reporting data.
+- Monitor QuickSight SPICE usage and dataset refresh cost.
+- Set CloudWatch log retention intentionally.
+- Avoid full-text search indexes for reporting needs that can be satisfied by metadata or attributes.
+- Tag reporting infrastructure for cost allocation.
 
-Key security metrics for monitoring:
+## Where to Go Next
 
-- Failed authentication attempts
-- Permission denied events
-- Document access outside business hours
-- Unusual volume of API requests
-- Access from unexpected IP addresses
-
-## User Activity Reporting
-
-### User Behavior Analytics
-
-FormKiQ's comprehensive logging enables user behavior analysis:
-
-1. **Activity Timeline**:
-   - Document the sequence of user actions
-   - Identify patterns of document access and modification
-   - Correlate activities across multiple documents
-
-2. **Collaboration Analysis**:
-   - Track document sharing patterns
-   - Measure team engagement with shared documents
-   - Identify collaboration bottlenecks
-
-3. **Feature Adoption Tracking**:
-   - Monitor usage of advanced FormKiQ features
-   - Identify training opportunities based on feature underutilization
-   - Measure feature adoption trends over time
-
-### Department-Level Reporting
-
-Create reports segmented by organizational structure:
-
-1. **Configure schemas/classifications and metadata attributes** for departmental attribution
-2. **Create QuickSight analyses** filtered by department
-3. **Establish department-specific KPIs** for document management
-4. **Set up automated distribution** of department-specific reports
-
-## System Performance and Usage Statistics
-
-### API Performance Monitoring
-
-Track FormKiQ API performance metrics:
-
-1. **Configure CloudWatch Metrics** for API Gateway and Lambda functions
-2. **Set up dashboards** showing:
-   - API latency trends
-   - Error rates by endpoint
-   - Request volume patterns
-   - Cache hit ratios
-   - Throttling incidents
-
-### Storage Utilization Analysis
-
-Monitor and forecast storage needs:
-
-1. **S3 Bucket Analysis**:
-   - Growth trends by document type
-   - Storage class distribution
-   - Cost optimization opportunities
-   - Lifecycle policy effectiveness
-
-2. **DynamoDB Capacity Analysis**:
-   - Provisioned vs. consumed capacity
-   - Read/write distribution
-   - Hot partition detection
-   - Scaling recommendation reports
-
-### Workflow Performance Metrics
-
-For FormKiQ environments with workflow capabilities:
-
-1. **Process Completion Time**:
-   - Average time per workflow stage
-   - Bottleneck identification
-   - SLA compliance reporting
-   - Trend analysis over time
-
-2. **Approval Process Analytics**:
-   - Approval rates and patterns
-   - Average approval time by approver
-   - Rejection reason analysis
-   - Parallel vs. sequential approval efficiency
-
-## API for Custom Reporting Integration
-
-### Data Export APIs
-
-FormKiQ provides several API endpoints useful for custom reporting integrations:
-
-1. **Documents List**:
-   ```bash
-   curl -X GET "https://{FORMKIQ_API_URL}/documents?limit=100" \
-     -H "Authorization: {authorization}"
-   ```
-
-2. **Document Attributes**:
-   ```bash
-   curl -X GET "https://{FORMKIQ_API_URL}/documents/{documentId}/attributes" \
-     -H "Authorization: {authorization}"
-   ```
-
-3. **Document Version**:
-   ```bash
-   curl -X GET "https://{FORMKIQ_API_URL}/documents/{documentId}/versions" \
-     -H "Authorization: {authorization}"
-   ```
-
-### Building Custom ETL Processes
-
-For advanced reporting solutions:
-
-1. **AWS Lambda Functions** can:
-   - Periodically extract FormKiQ data
-   - Transform and enrich document metadata
-   - Load into reporting databases or data warehouses
-
-2. **AWS Glue Jobs** can:
-   - Perform complex ETL operations
-   - Join FormKiQ data with other enterprise data
-   - Prepare data for specialized analytics
-
-3. **AWS Step Functions** can:
-   - Orchestrate multi-stage reporting workflows
-   - Handle conditional processing logic
-   - Manage error handling and retries
-
-### Third-Party BI Tool Integration
-
-FormKiQ data can be integrated with various BI platforms:
-
-1. **Tableau** connection options:
-   - Direct connection to Amazon Athena
-   - Scheduled extracts from QuickSight
-   - Custom API data connectors
-
-2. **Power BI** integration:
-   - AWS connector configuration
-   - Direct Query vs. Import mode considerations
-   - Refresh schedule optimization
-
-3. **Looker** and other platforms:
-   - Data modeling strategies
-   - Connection pool management
-   - Performance optimization techniques
-
-## Implementation Best Practices
-
-### Performance Considerations
-
-For optimal reporting performance:
-
-1. **Use selective querying** to minimize data transfer
-2. **Create appropriate indexes** on frequently queried fields
-3. **Implement caching strategies** for report data
-4. **Schedule resource-intensive reports** during off-peak hours
-5. **Use data aggregation** for large-volume analysis
-
-### Security Recommendations
-
-Maintain security in your reporting environment:
-
-1. **Implement least-privilege access** for reporting tools
-2. **Mask or encrypt sensitive information** in reports
-3. **Audit report access and distribution**
-4. **Use IAM roles for service account access**
-5. **Implement VPC endpoints** for secure AWS service access
-
-### Cost Optimization
-
-Control costs while maintaining reporting capabilities:
-
-1. **Monitor QuickSight SPICE usage**
-2. **Optimize DynamoDB read capacity** for reporting queries
-3. **Use S3 Intelligent-Tiering** for audit logs
-4. **Implement TTL for temporary reporting data**
-5. **Schedule and batch reporting jobs** to minimize API costs
-
-## Advanced Reporting Scenarios
-
-### Machine Learning Integration
-
-Enhance reports with predictive capabilities:
-
-1. **Amazon SageMaker integration** for:
-   - Document classification predictions
-   - Anomaly detection in usage patterns
-   - Forecasting storage and usage needs
-
-2. **Amazon Comprehend** for:
-   - Entity extraction from document content
-   - Sentiment analysis of document text
-   - Key phrase extraction for document categorization
-
-### Multi-Site Aggregation
-
-For FormKiQ environments with multiple sites:
-
-1. **Create cross-site data aggregation processes**
-2. **Implement comparative site analytics**
-3. **Establish global and local KPI hierarchies**
-4. **Configure role-based access to multi-site reports**
-
-### Event-Driven Reporting
-
-Set up real-time reporting capabilities:
-
-1. **Configure EventBridge rules** for FormKiQ events
-2. **Trigger Lambda functions** for report updates
-3. **Push notifications** for critical metrics
-4. **Update dashboards in real-time** for active monitoring
-
-:::note
-FormKiQ's flexible architecture allows for continuous evolution of reporting capabilities. As your needs change, your reporting strategy can adapt to incorporate new data sources, visualization techniques, and analytical approaches.
-:::
+- Review storage architecture: [Document Storage](/docs/platform/document_storage)
+- Understand table patterns: [DynamoDB Schema](/docs/platform/database_schema)
+- Plan AWS usage: [Costs & AWS Usage](/docs/platform/costs)
+- Review document events: [Documents](/docs/features/documents#document-events-features)
+- Test API access: [API Walkthrough](/docs/getting-started/api-walkthrough)
 
 ## Additional Resources
 
 - [Amazon QuickSight Documentation](https://docs.aws.amazon.com/quicksight/)
-- [AWS CloudWatch Logs Insights Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html)
-- [FormKiQ API Documentation](/docs/category/formkiq-api)
+- [AWS Glue Documentation](https://docs.aws.amazon.com/glue/)
+- [Amazon Athena Documentation](https://docs.aws.amazon.com/athena/)
+- [CloudWatch Logs Insights Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html)
 - [DynamoDB Analytics Best Practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-analytics.html)

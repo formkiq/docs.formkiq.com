@@ -12,6 +12,18 @@ module.exports = function redirectPlugin(context, options) {
         });
 
         addRoute({
+          path: '/docs/category/api-reference',
+          component: '@site/src/components/redirects/api-reference',
+          exact: true
+        });
+
+        addRoute({
+          path: '/docs/category/error-handling',
+          component: '@site/src/components/redirects/error-handling',
+          exact: true
+        });
+
+        addRoute({
           path: '/docs/platform/backup/',
           component: '@site/src/components/redirects/backup-and-recovery',
           exact: true

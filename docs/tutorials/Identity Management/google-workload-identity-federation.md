@@ -4,29 +4,34 @@ sidebar_position: 15
 
 # Google Workload Identity Federation
 
-This tutorial show you how to setup [Google Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) and connect it to your FormKiQ installation. This will enable FormKiQ access to your documents in your Google Drive.
+This tutorial shows how to set up [Google Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) and connect it to your FormKiQ installation so FormKiQ can access documents in Google Drive.
 
-We will be:
+## What You Will Build
 
-* Configuring a New Project in your Google Cloud account
+You will create a Google Cloud project, enable the Google Drive API, configure Workload Identity Federation for your AWS account, create a service account, and download the federation configuration used by FormKiQ.
 
-* Enabling Workload Identity Federation in your Google account to give FormKiQ access to your Google documents.
+## Before You Begin
 
-* Configure FormKiQ 
+- Access to a FormKiQ Advanced or Enterprise installation, including administrative access.
+- Administrative access to Google Cloud.
+- Your 12-digit AWS account ID.
 
-## What you’ll need
+## Workflow Overview
 
-* Access to a FormKiQ Advanced or Enterprise installation, including administrative access
+1. Create a Google Cloud project.
+2. Enable Google Drive and identity federation APIs.
+3. Create a Workload Identity Pool and AWS provider.
+4. Create a Google service account.
+5. Grant the workload identity pool access to the service account.
+6. Download the configuration for FormKiQ.
 
-* Administrative access to a Google Cloud
-
-## Pre-requisite
+## Step 1: Collect Required Values
 
 You will need these specific configuration values:
 
 * AWS Account Id (12 digit number that uniquely identifies your account)
 
-## Google Cloud
+## Step 2: Create a Google Cloud Project
 
 The following steps will create a FormKiQ Google Cloud project and setup a Workload Identity Federation that will give your FormKiQ installation access to your Google docs.
 
@@ -54,7 +59,7 @@ Verify you are in your newly created project from the top menu.
 
 ![New Google Cloud Project](./img/google-cloud-select-project.png)
 
-## Configure Google Cloud Project
+## Step 3: Configure the Google Cloud Project
 
 Now that your project is created, we will now configure the project to allow FormKiQ access usiing Workload Identity Federation.
 
@@ -80,7 +85,7 @@ Click the **Enable** button to enable the Google Drive API in this project.
 
 ![Enable Google Drive API](./img/google-cloud-enable-google-drive.png)
 
-## Workload Identity Federation
+## Step 4: Configure Workload Identity Federation
 
 In this section we will use Google's [workload identity federation with other clouds](https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds) to connect the Google Cloud project we created above to our FormKiQ installation.
 
@@ -124,7 +129,7 @@ The following are the suggested provider attributes configuration to use. The se
 
 ![Configure Provider Attributes](./img/google-cloud-configure-provider-attributes.png)
 
-## Service Account Impersonation
+## Step 5: Configure Service Account Impersonation
 
 To provider FormKiQ with access to Google Cloud resources you need to setup a [service account impersonation](https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#impersonation).
 
@@ -182,10 +187,23 @@ Under the **Grant access to service account**
 
 * Finally **Download Config** as this will be used to configure your FormKiQ installation.
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to connect your Google drive to FormKiQ.
+Confirm that the service account has the expected permissions and that you downloaded the Workload Identity Federation configuration. Use the downloaded configuration when configuring the Google Drive integration in FormKiQ.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Remove test projects, test service accounts, or temporary identity pools that are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Google Drive access fails | Google Drive API or required IAM APIs are not enabled. | Confirm all APIs were enabled in the selected project. |
+| AWS principal cannot impersonate the service account | Attribute mapping or grant access settings are incorrect. | Confirm AWS account ID, provider attributes, and service account grant. |
+| Downloaded config does not work in FormKiQ | Wrong project, pool, provider, or service account was selected. | Re-download the config from the intended Workload Identity Pool. |
+
+## Next Steps
+
+- [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace)
+- [Security](/docs/platform/security)

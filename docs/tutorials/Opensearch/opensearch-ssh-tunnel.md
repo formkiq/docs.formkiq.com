@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # OpenSearch SSH Tunnel
 
+## What You Will Build
+
 OpenSearch is secured by deploying it within a private subnet of a Virtual Private Cloud (VPC), ensuring limited access and heightened security measures. This setup restricts external access to [OpenSearch](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html).
 
 Access to OpenSearch running in a private subnet can be achieved through several methods:
@@ -14,19 +16,30 @@ Access to OpenSearch running in a private subnet can be achieved through several
 
 3. **SSH Tunneling using a Bastion Host**: Set up a bastion host in a public subnet with SSH access allowed from specific IP addresses. Then, set up SSH tunneling to forward traffic from a local port to the OpenSearch instance within the private subnet, allowing secure access over SSH.
 
-Each of these options offers varying levels of security, flexibility, and ease of implementation depending on your specific requirements and infrastructure setup. This tutorial will walk through #3 ssh tunneling using a bastion host.
+Each of these options offers varying levels of security, flexibility, and ease of implementation depending on your specific requirements and infrastructure setup. This tutorial walks through SSH tunneling using a bastion host.
 
-## What you’ll need
+## Before You Begin
 
 * Access to a FormKiQ PRO / Enterprise installation with OpenSearch, i.e., the Enhanced Fulltext Search Module
+- Permission to create an EC2 key pair and CloudFormation stack.
+- Network access to SSH into the bastion host.
 
-## OpenSearch Dashboard Url
+## Workflow Overview
+
+1. Find the OpenSearch Dashboards URL.
+2. Create or select an EC2 key pair.
+3. Deploy the bastion host CloudFormation stack.
+4. Configure a browser SOCKS proxy.
+5. Start the SSH tunnel.
+6. Open OpenSearch Dashboards through the proxy.
+
+## Step 1: Find the OpenSearch Dashboard URL
 
 Visiting the [Amazon OpenSearch console](https://console.aws.amazon.com/aos/home) will allow you to get the internal DNS name of your OpenSearch Dashboards URL.
 
 ![OpenSearch Dashboard Url](./img/opensearch-dashboard-url.png)
 
-## AWS Access Key Pairs
+## Step 2: Create an AWS Key Pair
 
 An AWS Access Key Pair will be required to get access to the bastion host. To create an AWS key pair:
 
@@ -54,7 +67,7 @@ An AWS Access Key Pair will be required to get access to the bastion host. To cr
 
 You've now successfully created an AWS key pair, which can be used to securely access EC2 instances launched within your AWS account. Make sure to keep the private key file safe and use it responsibly for accessing your instances.
 
-## Setup Bastion Host
+## Step 3: Set Up the Bastion Host
 
 To install the Bastion host, select the installation link for the AWS region you want to deploy the Bastion Host to (it must be the same AWS Region has your FormKiQ installation):
 
@@ -102,7 +115,7 @@ The CloudFormation outputs will contain information to configure the SSH Tunnel.
 ![CloudFormation Bastion Host Outputs](./img/opensearch-bastion-outputs.png)
 :::
 
-## Configure the SOCKS proxy
+## Step 4: Configure the SOCKS Proxy
 
 FoxyProxy can be used to proxy requests through the SSL tunnel and to the OpenSearch dashboard.
 
@@ -126,7 +139,7 @@ Under the `Proxies`:
 
 * Pattern: `OpenSearch Domain endpoint`
 
-## Run SSH Tunnel
+## Step 5: Run the SSH Tunnel
 
 The following command will start the SSH tunnel.
 
@@ -136,10 +149,23 @@ ssh -i "mykeypair.pem" ec2-user@public_dns_name -ND 8157
 
 Now, enter the Dashboards endpoint in your browser. The Amazon Cognito login page for Dashboards should appear.
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to connect to your OpenSearch dashboard using an SSH tunnel.
+Open the OpenSearch Dashboards URL in your browser while the SSH tunnel and proxy are active. Confirm that the Cognito login page loads and that you can sign in.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our Issues Page at https://github.com/formkiq/formkiq-core or at https://formkiq.com.
+Stop the SSH command with `Ctrl+C` when you are finished. Delete the bastion host CloudFormation stack if it was only needed temporarily.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| SSH connection fails | Key pair, security group, or public DNS is incorrect. | Confirm the private key permissions, bastion public DNS, and inbound SSH rules. |
+| Browser cannot load Dashboards | Proxy is not enabled or pattern does not match the endpoint. | Confirm FoxyProxy is using SOCKS5 on `localhost:8157`. |
+| Cognito login appears but access fails | User lacks OpenSearch/Cognito permissions. | Confirm OpenSearch access groups and Cognito user membership. |
+
+## Next Steps
+
+- [Search](/docs/features/search)
+- [Platform Architecture](/docs/platform/overview)

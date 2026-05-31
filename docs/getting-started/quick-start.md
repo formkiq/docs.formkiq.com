@@ -89,17 +89,41 @@ import Head from '@docusaurus/Head';
   />
 </div>
 
-## Prerequisites
+## Before You Start
 
-For this quickstart you will need access to an AWS account with administrator access to ensure proper permissions for creating required AWS services.
+Use this checklist before opening the CloudFormation installation link:
 
-If you do not have a AWS account, you can sign up for one at https://aws.amazon.com.
+| Requirement | Why it matters |
+|-------------|----------------|
+| AWS account with administrator access | The stack creates IAM roles, Lambda functions, API Gateway resources, S3 buckets, DynamoDB tables, and other managed AWS resources. |
+| Target AWS region selected | CloudFormation templates and service quotas are region-specific. |
+| Admin email inbox access | The admin user receives an email verification link after installation. |
+| Lambda concurrent executions checked | Low Lambda concurrency can cause installation or runtime issues. |
+| ECS service-linked role created or confirmed | Required when the deployment uses ECS/Fargate-backed components such as Typesense. |
+| 15-30 minutes available | The CloudFormation stack can take time to create all resources. |
 
-### AWS Lambda Concurrent Executions
+Expected result after installation:
+
+- CloudFormation stack status is `CREATE_COMPLETE`
+- The FormKiQ Console URL is available from CloudFormation outputs
+- FormKiQ API URLs are available from CloudFormation outputs
+- The admin user can set a password and log in
+
+## Install FormKiQ {#install-formkiq}
+
+FormKiQ Core is installed into your AWS account using AWS CloudFormation. Complete the prerequisites below, then choose the installation link for your AWS region.
+
+### Prerequisites
+
+For this quick start you need access to an AWS account with administrator access to ensure proper permissions for creating required AWS services.
+
+If you do not have an AWS account, you can sign up for one at https://aws.amazon.com.
+
+#### AWS Lambda Concurrent Executions
 
 Concurrent executions refer to the number of function invocations being handled simultaneously. [AWS Lambda](https://aws.amazon.com/pm/lambda) defaults to **10** concurrent executions per region. Request an increase to **1000** before installation.
 
-#### Check Concurrent Executions
+##### Check Concurrent Executions
 
 ![Open CloudShell](./img/cloudshell.png)
 
@@ -130,7 +154,7 @@ Resulting **Value** shows the AWS Lambda Concurrent executions.
 Request this increase for each region where you'll deploy FormKiQ.
 :::
 
-#### Request Concurrent Executions Increase
+##### Request Concurrent Executions Increase
 
 Request through the Service Quotas Dashboard:
 
@@ -147,7 +171,7 @@ Request through the Service Quotas Dashboard:
 | eu-west-3 | Paris | [Request Increase](https://eu-west-3.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | eu-north-1  | Stockholm | [Request Increase](https://eu-north-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | eu-south-1  | Milan | [Request Increase](https://eu-south-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
-| ap-south-1 | Mumbai | [Request Increase](https://ap-sout-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
+| ap-south-1 | Mumbai | [Request Increase](https://ap-south-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ap-southeast-1 | Singapore | [Request Increase](https://ap-southeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ap-southeast-2 | Sydney | [Request Increase](https://ap-southeast-2.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
 | ap-northeast-1 | Tokyo | [Request Increase](https://ap-northeast-1.console.aws.amazon.com/servicequotas/home/services/lambda/quotas) |
@@ -159,9 +183,9 @@ Request through the Service Quotas Dashboard:
 
 For more information, see the [AWS Tutorial on Requesting a Quota Increase](https://aws.amazon.com/getting-started/hands-on/request-service-quota-increase/).
 
-### AWS Service Role For ECS
+#### AWS Service Role for ECS
 
-Verify that AWSServiceRoleForECS is enabled on your AWS Account before installation.
+Verify that `AWSServiceRoleForECS` is enabled on your AWS account before installation if your deployment uses ECS/Fargate-backed components such as Typesense.
 
 ![Open CloudShell](./img/cloudshell.png)
 
@@ -172,15 +196,15 @@ aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 ```
 
 :::note
-An error message "Service role name AWSServiceRoleForECS has been taken in this account" indicates this step is already complete.
+An error message such as "Service role name AWSServiceRoleForECS has been taken in this account" indicates this step is already complete.
 :::
 
-## Installation Links
+### CloudFormation Links {#installation-links}
 
 **For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g)**
 
 :::note
-Ensure you've completed the prerequisites and enabled AWSServiceRoleforECS.
+Ensure you've completed the prerequisites and, when needed, enabled `AWSServiceRoleForECS`.
 :::
 
 The FormKiQ installation uses [AWS CloudFormation](https://docs.aws.amazon.com/cloudformation) to automate resource creation and management.
@@ -217,7 +241,7 @@ Select your AWS region from the installation links below:
 - **FormKiQ Essentials, Advanced, and Enterprise users:** use your custom CloudFormation template links provided by the FormKiQ team
 :::
 
-## Install FormKiQ
+### Create the FormKiQ Stack
 
 After selecting your region, you'll see the AWS CloudFormation Console with the FormKiQ installation URL pre-populated.
 
@@ -225,7 +249,7 @@ After selecting your region, you'll see the AWS CloudFormation Console with the 
 
 Click **Next** to continue.
 
-### Set Stack Name
+#### Set Stack Name
 
 Name your stack using the format **formkiq-core-&lt;app_environment&gt;** (e.g., formkiq-prod).
 
@@ -235,17 +259,17 @@ Name your stack using the format **formkiq-core-&lt;app_environment&gt;** (e.g.,
 For production, we recommend using [AWS Organizations](https://aws.amazon.com/organizations) and separate accounts for different environments.
 :::
 
-### Installation Parameters
+#### Installation Parameters
 
 Configure your installation:
 
 ![CloudFormation Stack Parameters](./img/cf-create-stack-parameters.png)
 
-#### Required Parameters
+##### Required Parameters
 - **AdminEmail**: Administrator email address
 - **AppEnvironment**: Environment identifier (prod, staging, dev, etc.)
 
-#### Optional Parameters
+##### Optional Parameters
 - **CapacityProvider**: AWS Fargate capacity provider (for Typesense)
 - **EnablePublicUrls**: Enable public endpoints (default: false)
 - **PasswordMinimumLength**: Minimum password length
@@ -254,15 +278,17 @@ Configure your installation:
 - **TypesenseMemory**: Typesense memory allocation
 - **VpcStackName**: VPC stack name (used for Typesense or OpenSearch)
 
-### Configure Stack Options
+#### Configure Stack Options
 
-Select **ALL** checkboxes at the bottom.
+On the stack options page, keep the default values unless your AWS organization requires different tags, permissions, or stack policy settings.
+
+At the bottom of the page, select all required CloudFormation acknowledgement checkboxes. These acknowledge that the template can create IAM resources and nested resources needed by FormKiQ.
 
 ![Setup Stack Options](./img/cf-create-stack-options.png)
 
 Click **Next** to proceed.
 
-### Review and Create
+#### Review and Create
 
 Review your configuration and click **Submit**.
 
@@ -273,7 +299,7 @@ Review your configuration and click **Submit**.
 - You'll receive an admin email when complete
 :::
 
-### Configure Admin Password
+#### Configure Admin Password
 
 1. Check your admin email for the verification link
 2. Click "Verify Email" to set your password
@@ -292,7 +318,79 @@ Review your configuration and click **Submit**.
 AWS GovCloud (US) requires [manual admin user creation](/docs/platform/document_console#initial-setup).
 :::
 
-## Install VPC
+## Verify Installation
+
+After the CloudFormation stack completes, verify the installation before moving on to API testing or additional configuration.
+
+### Check Stack Status
+
+1. Open the AWS CloudFormation console in the region where you installed FormKiQ.
+2. Select the FormKiQ stack.
+3. Confirm the stack status is `CREATE_COMPLETE`.
+
+If the stack fails or remains incomplete, use the troubleshooting steps below before retrying.
+
+### CloudFormation Troubleshooting {#cloudformation-troubleshooting}
+
+If your stack does not reach `CREATE_COMPLETE`, open the CloudFormation **Events** tab and look for the first failed resource. Nested stacks can have their own events, so check child stacks if the top-level error is not specific.
+
+For a step-by-step event inspection workflow, follow the [CloudFormation Troubleshooting](/docs/getting-started/cloudformation-troubleshooting/) guide.
+
+### Review Stack Outputs
+
+Open the **Outputs** tab for the FormKiQ stack and find the values you need for initial access.
+
+Common outputs include:
+
+| Output | Use |
+|--------|-----|
+| Console URL | Opens the FormKiQ web console. |
+| HTTP API URL | Used for JWT-authenticated API calls. |
+| IAM API URL | Used for IAM-authenticated API calls. |
+| Key API URL | Used for API-key-authenticated API calls, when enabled. |
+
+### Confirm Admin Access
+
+1. Open the FormKiQ Console URL.
+2. Use the admin email verification flow to set the initial password.
+3. Log in to the FormKiQ Console.
+4. Confirm that you can view the default site and document interface.
+
+### Common Problems
+
+#### Admin Email Did Not Arrive
+
+Check the spam or quarantine folder for the admin email address. Also confirm that the `AdminEmail` stack parameter was entered correctly.
+
+If the stack completed but no email arrived, review the Cognito user pool and user status in the AWS console.
+
+#### Stack Failed or Is Stuck
+
+Open the CloudFormation stack events and look for the first failed resource. Nested stacks can have their own events, so check child stacks if the top-level error is not specific.
+
+Use the [CloudFormation Troubleshooting](#cloudformation-troubleshooting) guide for a step-by-step event inspection workflow.
+
+#### Lambda Quota Is Too Low
+
+If Lambda concurrency is too low, request a quota increase in the region where you are deploying FormKiQ and retry after the quota is approved.
+
+#### ECS Service-Linked Role Error
+
+If the stack reports an ECS service-linked role issue, run the ECS service-linked role command in the [AWS Service Role for ECS](#aws-service-role-for-ecs) section, then retry the installation.
+
+#### VPC CIDR Conflict
+
+If the VPC stack fails because of CIDR overlap, choose a CIDR range that does not conflict with existing VPCs in the same AWS account, connected networks, or AWS Organization environment strategy.
+
+#### Console URL Does Not Open
+
+Confirm the FormKiQ stack is complete and check the Console URL in the CloudFormation outputs. For AWS GovCloud (US), use the [GovCloud console instructions](#formkiq-console-for-aws-govcloud-us).
+
+### Next Step
+
+After the console is working, follow the [API Walkthrough](/docs/getting-started/api-walkthrough/) to make your first FormKiQ API requests.
+
+## Optional: Install VPC {#install-vpc}
 
 For Typesense or OpenSearch, install the VPC stack:
 
@@ -385,11 +483,17 @@ Click the **Submit** button to start the VPC installation.
 Once the installation has completed, you will need to attach this Stack to your FormKiQ installation, by updating the **VpcStackName** parameter.
 :::
 
-## Update FormKiQ
+### Attach the VPC Stack to FormKiQ {#update-formkiq}
 
 **This step is essential in order to enable access to Typesense or OpenSearch**
 
-After creating the VPC stack, the main FormKiQ CloudFormation stack needs to be updated. Select the FormKiQ CloudFormation stack and then click the **Update** button.
+After creating the VPC stack, update the main FormKiQ CloudFormation stack so its **VpcStackName** parameter points to the VPC stack.
+
+:::note
+This section is only for connecting the optional VPC stack to a FormKiQ installation. For version updates, upgrades, and rollback planning, see [Updates, Upgrades, and Rollbacks](/docs/platform/updates_upgrades_and_rollbacks).
+:::
+
+Select the FormKiQ CloudFormation stack and then click the **Update** button.
 
 When updating the stack you will want to choose **Use existing template**.
 
@@ -402,7 +506,7 @@ For the **VpcStackName** parameter, set the value to the same value you used for
 
 Click the **Next** button to move to the next pages. On the last page click the **Submit** button to update the FormKiQ stack. After the Stack completes updating, the FormKiQ installation will have the VPC features enabled.
 
-## Install with SAM CLI
+## Optional: Install with SAM CLI {#install-with-sam-cli}
 
 FormKiQ Core was built using the [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/sam/) framework.
 
@@ -430,7 +534,7 @@ template.yaml
 ...
 ```
 
-### Sam deploy
+### SAM Deploy
 
 To deploy FormKiQ Core, run the following command in the same folder as the **template.yaml** file.
 
@@ -444,7 +548,7 @@ The command will package and deploy your application to AWS, with a series of pr
 | -------- | ------- | ------- |
 | **Stack Name** | The name of the stack to deploy to CloudFormation. This should be unique to your account and region | formkiq-core-&lt;AppEnvironment&gt; |
 | **AdminEmail** | Set the admin email address. During the FormKiQ installation, this email address will be automatically set up with administrator access. |
-| **AppEnvironment** | AppEnvironment is a unique identifier for FormKiQ installations. The identifier should provider context to what kind of information is contained in the installation, IE: prod, staging, dev. | prod |
+| **AppEnvironment** | AppEnvironment is a unique identifier for FormKiQ installations. The identifier should provide context for the type of environment, e.g., prod, staging, or dev. | prod |
 | **EnablePublicUrls** | Whether to enable "/public" endpoints. | false
 | **PasswordMinimumLength** | Minimum Password Length | 8
 | **PasswordRequireLowercase** | Whether Password requires a lowercase letter | false
@@ -460,7 +564,7 @@ The command will package and deploy your application to AWS, with a series of pr
 * **Allow SAM CLI IAM role creation**: FormKiQ Core's AWS SAM templates create AWS IAM roles required for the AWS Lambda function(s) included to access AWS services. The permissions are passed in by the `sam deploy` command above. Set Value to 'Y'
 * **Save arguments to samconfig.toml**: If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application.
 
-Once you have set all of these options, SAM CLI will create a changeset and will display a list of all actions that will be performed as part of the changeset. If you have set "confirm changes before deploy" to "y", you will then be asked whether or nor to deploy this changeset. Choose "y" to complete the installation.
+Once you have set all of these options, SAM CLI will create a changeset and display a list of all actions that will be performed as part of the changeset. If you have set "confirm changes before deploy" to "y", you will be asked whether to deploy this changeset. Choose "y" to complete the installation.
 
 Once the FormKiQ Core stack has been deployed, you will be able to find your API Gateway Endpoint URL in the output values displayed after deployment.
 
@@ -470,8 +574,43 @@ Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront avai
 
 ## API Walkthrough and Reference
 
-To try out the API, try our [API Walkthrough](/docs/getting-started/api-walkthrough/). You can also check out the [FormKiQ API Reference](/docs/category/api-reference) for more endpoints you can try out.
+After installation, the best way to confirm API access is to make a small document request against your new FormKiQ environment.
 
-## CloudFormation Troubleshooting
+Use the [API Walkthrough](/docs/getting-started/api-walkthrough/) when you want a guided Postman workflow for:
 
-If your stack fails to complete, follow our [CloudFormation Troubleshooting](/docs/getting-started/cloudformation-troubleshooting/) guide.
+- configuring your FormKiQ API base URL
+- choosing an authentication method
+- adding a test document
+- retrieving document metadata
+- updating document content or tags
+- searching for documents
+
+### Find Your API URL
+
+Open the CloudFormation **Outputs** tab for your FormKiQ stack. The API URL you use depends on the authentication method:
+
+| Output | Use when |
+|--------|----------|
+| `HttpApiUrl` | You want to use JWT authentication from a signed-in FormKiQ user. |
+| `IamApiUrl` | You want to call FormKiQ using AWS IAM credentials and AWS request signing. |
+| `KeyApiUrl` | You want to use an API key, when API key authentication is enabled. |
+
+### Choose an Authentication Method
+
+Most first-time API tests should start with JWT authentication because it uses the admin user created during installation. IAM authentication is usually better for backend AWS integrations. API key authentication is useful for controlled service access or development scenarios where it has been explicitly enabled.
+
+For setup details, see [API Security Tokens](/docs/platform/security#api-security) or follow the authentication steps in the [API Walkthrough](/docs/getting-started/api-walkthrough/#acquire-access-token).
+
+### Use the API Reference
+
+After the walkthrough, use the [FormKiQ API Reference](/docs/category/formkiq-api) to explore the full set of endpoints. The reference is most useful once you already know your base URL and authentication method.
+
+Common next endpoints to review:
+
+- Documents: create, retrieve, update, delete, and search documents
+- Document uploads: upload larger files through generated upload URLs
+- Sites: manage site-level document partitions
+- Attributes and schemas: define structured metadata
+- Rulesets and workflows: automate document processing
+
+For SDK-based integrations, see [SDKs & API Integration](/docs/category/sdk-api-integration).

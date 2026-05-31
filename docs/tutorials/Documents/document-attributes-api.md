@@ -5,7 +5,7 @@ toc_max_heading_level: 2
 ---
 # Document Attributes API
 
-## Overview
+## What You Will Build
 
 Document Attributes in FormKiQ allow you to associate structured metadata with individual documents.  
 
@@ -13,11 +13,31 @@ Attributes are stored as key-value pairs and can describe properties such as dep
 
 They can be used for searching, categorizing, or driving automation and retention policies across your document repository.
 
-## Prerequisites
+By the end of this tutorial, you will define reusable attributes, attach values to a document, retrieve those values, delete an attribute, and search for documents by attribute values.
+
+## Before You Begin
 
 - A valid FormKiQ account or API environment
 - [Access credentials and FormKiQ API Endpoint URL](/docs/getting-started/api-walkthrough#acquire-access-token)
 - Familiarity with REST APIs and JSON payloads
+
+Set the variables used by the examples:
+
+```bash
+export BASE_URL="https://your-formkiq-api.example.com"
+export TOKEN="your-jwt-access-token"
+export SITE_ID="default"
+export DOC_ID="replace-with-a-document-id"
+```
+
+## Workflow Overview
+
+1. Create an attribute definition.
+2. Add or update attributes on a document.
+3. Retrieve document attributes.
+4. Delete a document attribute.
+5. Search for documents using attributes.
+6. Optionally configure composite keys or full-text search for more complex queries.
 
 ## Create Attribute
 
@@ -390,6 +410,22 @@ curl -X POST "$BASE_URL/queryFulltext?siteId=$SITE_ID" \
   }
 }
 ```
+
+## Verify the Result
+
+Confirm that the document shows the expected attributes when calling `GET /documents/{documentId}/attributes`, and confirm the search examples return the document after the attributes are applied.
+
+## Clean Up
+
+Delete the tutorial attributes from the test document if you do not want them to remain associated with the document.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Attribute search returns no results | Attribute was not applied, wrong site ID, or search index has not updated. | Retrieve the document attributes and confirm `SITE_ID`. |
+| Composite-key search does not match older documents | Existing documents were not reindexed after schema changes. | Reindex existing documents after adding composite keys. |
+| Full-text query fails | OpenSearch/full-text search is not enabled or the query body is invalid. | Use `/search` for DynamoDB-backed attribute search or validate the full-text query. |
 
 ## Next Steps
 

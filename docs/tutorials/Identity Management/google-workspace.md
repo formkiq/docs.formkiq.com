@@ -6,21 +6,30 @@ sidebar_position: 10
 
 ![Amazon Cognito to Google Workspace](./img/cognito-saml-google.png)
 
-This tutorial show you how to integrate [Google Workspace](https://workspace.google.com) as the identity management provider for your FormKiQ installation.
+This tutorial shows how to integrate [Google Workspace](https://workspace.google.com) as the identity management provider for your FormKiQ installation.
 
-We will be:
+## What You Will Build
 
-* Configuring a Web and mobile apps in Google Workspace
+You will create a Google Workspace custom SAML app, map email and group attributes, add the app as an Amazon Cognito SAML identity provider, and prepare Cognito managed login for FormKiQ SSO.
 
-* Adding an Identify Provider into [Amazon Cognito](https://aws.amazon.com/pm/cognito)
+## Before You Begin
 
-## What you’ll need
+- Access to a FormKiQ Advanced or Enterprise installation, including administrative access.
+- Administrative access to Google Workspace.
+- Access to the AWS account that hosts the FormKiQ Cognito User Pool.
+- The FormKiQ `CognitoUserPoolId`, console URL, and Cognito domain.
 
-* Access to a FormKiQ Advanced or Enterprise installation, including administrative access
+## Workflow Overview
 
-* Administrative access to a Google Workspace
+1. Collect FormKiQ Cognito values.
+2. Create a Google Workspace custom SAML app.
+3. Configure ACS URL, Entity ID, and SAML attributes.
+4. Enable user access and download Google metadata.
+5. Add Google Workspace as a Cognito SAML identity provider.
+6. Configure Cognito managed login.
+7. Verify login from the FormKiQ console.
 
-## Pre-requisite
+## Step 1: Collect FormKiQ Cognito Values
 
 You will need these specific configuration values:
 
@@ -38,7 +47,7 @@ The Cognito domain can be found by clicking on the Cognito User Pool found on th
 
 ![Cognito Domain](./img/cognito-domain.png)
 
-## Google Workspace
+## Step 2: Configure Google Workspace
 
 The next step is to create an Web and mobile apps in Google Workspace. This application will be connected to Amazon Cognito and will provide authentication for the users.
 
@@ -97,7 +106,7 @@ The app is created but **User access** is OFF for everyone. Click the **User acc
 
 ![App created](./img/google-workspace-app-enabled.png)
 
-## Amazon Cognito
+## Step 3: Add the Identity Provider in Amazon Cognito
 
 Now, we will need to configure [Amazon Cognito](https://aws.amazon.com/pm/cognito) to connect to Google Workspace.
 
@@ -154,10 +163,23 @@ You now need to configure Amazon Managed login. Amazon Cognito Managed login pro
 
 To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
 
-## Summary
+## Verify the Result
 
-And there you have it! We have shown how easy it is to use Google Workspace as your authentication provider.
+Open the FormKiQ console and use the Single Sign-On login option. Confirm the user can authenticate through Google Workspace and receives the expected FormKiQ access based on group membership.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs.
+## Clean Up
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+Remove test users, test group assignments, or temporary SAML applications that are no longer needed.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Cognito redirects fail | ACS URL or Entity ID is incorrect. | Confirm the ACS URL uses `/saml2/idpresponse` and Entity ID uses the Cognito User Pool ID. |
+| User signs in but has wrong access | Group attributes are missing or not enabled. | Confirm group membership attributes and user access for the app. |
+| Cognito provider setup fails | Metadata file or user pool ID is incorrect. | Re-download Google metadata and recheck `CognitoUserPoolId`. |
+
+## Next Steps
+
+- [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider)
+- [Security](/docs/platform/security)

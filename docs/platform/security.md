@@ -1,105 +1,143 @@
 ---
 sidebar_position: 3
+title: Security
 ---
 
 # Security
 
 ## Overview
 
-FormKiQ is designed with a robust security framework to safeguard access to documents, prioritizing protection measures at every layer of its architecture. FormKiQ supports advanced access control mechanisms using Role-Based Access Control (RBAC) with [Amazon Cognito Groups](https://aws.amazon.com/cognito) and Attribute-Based Access Control (ABAC) through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). These features ensure users have appropriate access to documents based on their roles and specific attributes.
+FormKiQ is deployed into your AWS account, so security is shared between the FormKiQ application controls and the AWS controls you configure around the stack. The platform uses AWS-native services for identity, API access, storage encryption, backups, logging, and network controls.
 
-:::note
-By default the `AdminEmail` configured during the installation process is setup as an administrator with full access
-:::
+By default, the `AdminEmail` configured during installation is created as an administrator with full access.
+
+| Security area | How FormKiQ handles it |
+| --- | --- |
+| API authentication | JWT, AWS IAM, and API key endpoints are deployed for different integration patterns. |
+| User authorization | Role-Based Access Control (RBAC) maps users and groups to FormKiQ sites and permissions. |
+| Document authorization | Attribute-Based Access Control (ABAC) can evaluate document metadata through Open Policy Agent (OPA). |
+| Data protection | Documents, metadata, and search indexes use AWS-managed encryption services. |
+| Operational recovery | DynamoDB Point-in-Time Recovery is configured for FormKiQ tables except cache tables. |
+| Network controls | VPC deployment options can be combined with customer-managed controls such as VPC Flow Logs and AWS DNS Firewall. |
 
 ## Data Security
 
-FormKiQ implements comprehensive security through encryption, access controls, and authentication:
+FormKiQ protects document content and metadata with encryption, authentication, and access control. The exact AWS resources depend on the modules and deployment options selected during installation.
 
 ### Encryption in Transit
-All data transmissions are encrypted using:
+
+All API and console traffic should use HTTPS endpoints. FormKiQ API endpoints are served through AWS API Gateway, which supports:
+
 - TLS 1.2 or higher
-- HTTPS-only endpoints
+- HTTPS-only API access
 - API Gateway managed certificates
+- Custom domain certificates when configured by the customer
 
 ### Encryption at Rest
-FormKiQ Essentials, Advanced, and Enterprise offerings use AWS-managed encryption services for:
 
-- Document Storage (S3)
-- Metadata Storage (DynamoDB)
-- Search Index (OpenSearch, part of the Enhanced Full-Text Search Add-On Module)
+FormKiQ uses AWS-managed encryption services for the primary data stores used by the platform.
+
+| Data type | AWS service | Notes |
+| --- | --- | --- |
+| Document files | Amazon S3 | Stores uploaded document content and related files. |
+| Metadata and configuration | Amazon DynamoDB | Stores document metadata, site data, permissions, queues, workflow state, and configuration records. |
+| Search indexes | Amazon OpenSearch Service | Used when enhanced full-text search is installed. |
+| Logs and execution data | Amazon CloudWatch | Stores service logs and operational events based on the deployed stack configuration. |
+
+For more detail on how documents and metadata are stored, see [Document Storage](/docs/platform/document_storage). For encryption-specific module options, see [Full Encryption](/docs/formkiq-modules/modules/full-encryption).
 
 ## API Security
 
-There are 3 APIs deployed with FormKiQ providing authorization using:
+FormKiQ deploys separate API Gateway endpoints for the supported authentication methods. This lets you choose the endpoint that matches the caller rather than forcing every integration through one authentication model.
 
-* [JWT Tokens](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html)
-* [AWS IAM Authorization](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control-iam.html)
-* API Key Authorization
+![Authentication](./img/formkiq_authentication.png)
+
+The FormKiQ API URL values are available in the CloudFormation outputs of your FormKiQ stack.
+
+![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
+
+| Authentication method | CloudFormation output | Best fit |
+| --- | --- | --- |
+| JWT token | `HttpApiUrl` | FormKiQ Console users, browser clients, interactive testing, and user-context API calls. |
+| AWS IAM | `IamApiUrl` | Machine-to-machine integrations, AWS services, backend jobs, and automation that can sign requests with AWS Signature Version 4. |
+| API key | `KeyApiUrl` | Site-scoped integrations where a generated key is easier to manage than a user token. |
+
+:::note
+[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) customers can use additional authentication options such as SAML or custom JWT authorizers. See [Single Sign-On and Custom JWT Authorizer](/docs/formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer).
+:::
 
 ### JWT Token
 
 ![JWT Authorization Architecture](./img/formkiq_jwt_authorization.png)
 
-A JWT Token can be obtained via a few different methods:
+JWT authentication is the default path for user-context API calls. By default, FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito/) as the JWT issuer, and authorization is handled through the user's assigned groups and permissions.
 
-* [FormKiQ Console](/docs/platform/security#formkiq-console)
-* [Curl CLI](/docs/platform/security#curl-cli)
-* [AWS CLI](/docs/platform/security#aws-cli)
+A JWT token can be obtained through:
 
-#### FormKiQ Console 
+- [FormKiQ Console](/docs/platform/security#formkiq-console)
+- [Curl CLI](/docs/platform/security#curl-cli)
+- [AWS CLI](/docs/platform/security#aws-cli)
 
-Access your JWT token using your browser developer tools:
+Use the `HttpApiUrl` CloudFormation output when calling the JWT-secured API.
+
+#### FormKiQ Console
+
+You can inspect the FormKiQ Console network requests in browser developer tools and copy the `Authorization` header for local testing.
 
 ![Developer Tools](./img/firefox-jwt-token.png)
 
-##### **Google Chrome**
-1. Log in to FormKiQ Web Console
-2. Open Developer Tools (`F12` or `Ctrl+Shift+I` / `Cmd+Option+I`)
-3. Select **Network** tab
-4. Refresh page
-5. Find request with token in **Authorization** header
-6. Copy token using **Copy as cURL**
+:::caution
+Browser developer tools are useful for development and troubleshooting. Do not use copied browser tokens as a production integration pattern.
+:::
 
-##### **Safari**
-1. Log in to FormKiQ Web Console
-2. Enable Develop menu:
-   - **Safari > Preferences > Advanced**
-   - Check **Show Develop menu**
-3. Open Web Inspector (`Cmd+Option+I`)
-4. Select **Network** tab
-5. Refresh page
-6. Locate and copy token from request headers
+##### Google Chrome
 
-##### **Mozilla Firefox**
-1. Log in to FormKiQ Web Console
-2. Open Developer Tools (`Ctrl+Shift+I` or `Cmd+Option+I`)
-3. Select **Network** tab
-4. Refresh page
-5. Find request with token
-6. Copy using **Copy Request Headers**
+1. Log in to the FormKiQ Console.
+2. Open Developer Tools with `F12`, `Ctrl+Shift+I`, or `Cmd+Option+I`.
+3. Select the **Network** tab.
+4. Refresh the page.
+5. Find an API request that includes an `Authorization` header.
+6. Copy the bearer token from the request headers.
+
+##### Safari
+
+1. Log in to the FormKiQ Console.
+2. Enable the Develop menu from **Safari > Preferences > Advanced**.
+3. Select **Show Develop menu**.
+4. Open Web Inspector with `Cmd+Option+I`.
+5. Select the **Network** tab.
+6. Refresh the page and copy the token from an API request header.
+
+##### Mozilla Firefox
+
+1. Log in to the FormKiQ Console.
+2. Open Developer Tools with `Ctrl+Shift+I` or `Cmd+Option+I`.
+3. Select the **Network** tab.
+4. Refresh the page.
+5. Find an API request with an `Authorization` header.
+6. Copy the bearer token from the request headers.
 
 #### Curl CLI
 
-The Cognito API Endpoint can be found in the FormKiQ CloudFormation Outputs.
+The Cognito API endpoint can be found in the FormKiQ CloudFormation outputs.
 
 ![Cognito CloudFormation Outputs](./img/cf-output-cognito.png)
 
-Using the API Endpoint you can obtain a JWT Token via:
+Use that endpoint to request a JWT token:
 
 ```bash
 curl -X POST https://COGNITO_API_ENDPOINT_URL/login \
-   -H "Content-Type: application/json" \
-   -d '{"username": "USERNAME", "password": "PASSWORD"}'
+  -H "Content-Type: application/json" \
+  -d '{"username": "USERNAME", "password": "PASSWORD"}'
 ```
 
 #### AWS CLI
 
-The Cognito **CognitoClientId** can be found in the FormKiQ CloudFormation Outputs.
+The Cognito `CognitoClientId` can be found in the FormKiQ CloudFormation outputs.
 
 ![Cognito CloudFormation Outputs](./img/cf-output-cognito.png)
 
-Using the **CognitoClientId**, you can obtain a JWT Token via:
+Use the client ID to request a JWT token:
 
 ```bash
 aws cognito-idp initiate-auth \
@@ -108,18 +146,18 @@ aws cognito-idp initiate-auth \
   --auth-parameters USERNAME=your_username,PASSWORD=your_password
 ```
 
-The results from the command should be as follows.
+The response includes an access token, ID token, refresh token, token type, and expiration:
 
-```JSON
+```json
 {
-    "ChallengeParameters": {},
-    "AuthenticationResult": {
-        "AccessToken": "eyJraWQiOiJ0W...",
-        "ExpiresIn": 86400,
-        "TokenType": "Bearer",
-        "RefreshToken": "eyJjdHkiO...",
-        "IdToken": "eyJraWQiOiI5YUpvb..."
-    }
+  "ChallengeParameters": {},
+  "AuthenticationResult": {
+    "AccessToken": "eyJraWQiOiJ0W...",
+    "ExpiresIn": 86400,
+    "TokenType": "Bearer",
+    "RefreshToken": "eyJjdHkiO...",
+    "IdToken": "eyJraWQiOiI5YUpvb..."
+  }
 }
 ```
 
@@ -127,188 +165,164 @@ The results from the command should be as follows.
 
 ![IAM Authorization Architecture](./img/formkiq_iam_authorization.png)
 
-Endpoints secured with IAM require that your API requests be signed using AWS Signature Version 4. This method leverages using AWS credentials.
+IAM authentication allows API callers to sign requests using [AWS Signature Version 4](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html). This is commonly used for backend services, scheduled jobs, AWS Lambda functions, and other machine-to-machine integrations.
 
-[More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
+Use the `IamApiUrl` CloudFormation output when calling the IAM-secured API.
+
+IAM-authenticated requests are authorized by AWS IAM before they reach the FormKiQ API. Because IAM requests do not carry normal FormKiQ user group context, they are typically treated as administrative or service-level integrations. For more detail on the production security value of IAM authentication, see [IAM Authentication Option](/docs/platform/security#iam-authentication-option).
 
 #### Setting Up IAM Authorization
 
-From AWS IAM Console, create a new user.
+From the AWS IAM Console, create a new IAM user or role for the integration.
 
-![FormKiQ Console Add API Key](./img/aws-console-createuser.png)
+![AWS Console Create User](./img/aws-console-createuser.png)
 
-Attach **AmazonAPIGatewayInvokeFullAccess** policy to user.
+For quick testing, you can attach the AWS-managed `AmazonAPIGatewayInvokeFullAccess` policy.
 
-![FormKiQ Console Add API Key](./img/aws-console-add-apigateway-permission.png)
+![AWS Console Add API Gateway Permission](./img/aws-console-add-apigateway-permission.png)
 
-Create user Access Key and generate AccessKey/SecretKey.
+For production, prefer a least-privilege IAM policy scoped to the FormKiQ API Gateway resource instead of granting access to all API Gateway invoke operations.
 
-![FormKiQ Console Add API Key](./img/aws-console-access-key.png)
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "execute-api:Invoke",
+      "Resource": "arn:aws:execute-api:<region>:<account-id>:<api-id>/*/*/*"
+    }
+  ]
+}
+```
 
-You an now use the AccessKey / SecretKey to call the FormKiQ API. 
+Create an access key only when the integration cannot use an IAM role.
+
+![AWS Console Access Key](./img/aws-console-access-key.png)
+
+You can then use the access key and secret key to sign requests to the FormKiQ IAM API. In AWS-hosted workloads, prefer IAM roles over long-lived access keys.
 
 ### API Key
 
 ![API Key Authorization Architecture](./img/formkiq_api_key_authorization.png)
 
-1. Log in to FormKiQ Console
-2. Navigate to **Administration > API Keys**
-3. Click **Create new**
-4. Set name and permissions
-5. Copy generated key immediately
+FormKiQ API keys provide site-scoped access to the API. Each API key is valid for a particular `SiteId`.
+
+Use the `KeyApiUrl` CloudFormation output when calling the API key-secured API.
+
+To create an API key from the FormKiQ Console:
+
+1. Log in to the FormKiQ Console as an administrator.
+2. Navigate to **Administration > API Keys**.
+3. Choose **Create new**.
+4. Set the key name and permissions.
+5. Copy the generated key immediately.
 
 ![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
 
-## API Endpoints 
-
-The FormKiQ API is built on top of [AWS API Gateway](https://aws.amazon.com/api-gateway/). API Gateway offers the flexibility to empowers customers to choose the most suitable authentication and authorization methods based on their specific application requirements. 
-
-By default FormKiQ API supports 3 different types of authorization:
-
-* JSON Web Token(JWT) Authorizers
-
-* Amazon Identity and Access Management (IAM) authorization
-
-* API Key authorization
-
-![Authentication](./img/formkiq_authentication.png)
-
-FormKiQ supports these different authorization mechanisms by deplying multiple copies of the API. This allows you to use the authentication mechanism that suits your needs.
-
-The FormKiQ API URL(s) can be found in the CloudFormation outputs of your FormKiQ stack.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
+API keys can also be generated through the `POST /configuration/apiKeys` API endpoint using credentials with `administrator` privileges.
 
 :::note
-[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) users have additional authentication options like Security Assertion Markup Language (SAML) or custom authentication mechanisms
+Store API keys securely, rotate them on a regular schedule, and remove unused keys. API keys should not be embedded in public client-side applications.
 :::
 
-### JSON Web Token(JWT) Authorizers
+## Authorization and Access Control
 
-JWT authentication, also known as [JSON Web Token](https://jwt.io/introduction) authentication, is a method used to verify the identity of users or systems accessing web applications or APIs. It is based on the use of digitally signed tokens containing encoded claims about the user's identity and permissions. 
+Authentication confirms who or what is calling the API. Authorization controls what that caller can do after authentication succeeds.
 
-By default, FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito) as the JWT Issuer and authorization is handled through role-based access control assigned to each user.
+FormKiQ supports:
 
-The API that uses the JWT authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `HttpApiUrl` key.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-### Amazon Identity and Access Management (IAM) authorization
-
-[IAM Authentication](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control-iam.html) allows customers to call the FormKiQ API by signing requests using [Signature Version 4](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html) with AWS credentials. 
-
-IAM Authentication is typically used for machine-to-machine authorization as there is no user information inside of the token.
-
-[More information on how IAM Authentication fits into Cloud Security best practices](/docs/platform/security#iam-authentication-option)
-
-The API that uses the IAM authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `IamApiUrl` key.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-:::note
-You need the IAM execute-api permission to be able to use IAM Authentication and all requests will be run with administration privileges.
-
-**For more information on creating this IAM User, please [see the instructions in our API Walkthrough](/docs/getting-started/api-walkthrough/#iam-authentication).**
-:::
-
-### API Key
-
-FormKiQ allows for the generating of an API key that can be used to access the FormKiQ API for a particular `SiteId`.
-
-The API key can be generated using the `POST /configuration/apiKeys` API endpoint using credentials with `administrator` privileges.
-
-The API that uses the Key authentication can be found in the CloudFormation Outputs of the FormKiQ installation under the `KeyApiUrl` key.
-
-![CloudFormation Outputs API Urls](./img/cf-outputs-apiurls.png)
-
-:::note
-Each API key is only valid for a particular SiteId.
-:::
+- Site-level and group-level permissions through Role-Based Access Control (RBAC)
+- Folder-level permissions for more specific document area controls
+- Attribute-Based Access Control (ABAC) through Open Policy Agent for metadata-driven access decisions
 
 ## Role-Based Access Control (RBAC)
 
-FormKiQ supports true multi-tenant environments by grouping users according to their roles and mapping those groups to one or more sites.
+FormKiQ supports multi-tenant environments by grouping users according to their roles and mapping those groups to one or more sites.
 
-Each user can be associated with one or more groups, reflecting their role or responsibilities within the platform. These groups, in turn, determine the user's access privileges across different sites within the platform.
+Each user can be associated with one or more groups. These groups determine the user's access across sites in the platform.
 
 You can choose between:
 
-- **Automatic Site Permissions** — sites and permissions are inferred from group names.
-
-- **Defined Site Permissions** — sites are created explicitly, and permissions are granted via API (only supported in FormKiQ Essentials / Enterprise).
+- **Automatic Site Permissions**: Sites and permissions are inferred from group names.
+- **Defined Site Permissions**: Sites are created explicitly, and permissions are granted through the API. This is supported in FormKiQ Essentials, Advanced, and Enterprise.
 
 ### Automatic Site Permissions
 
-When you use Automatic mode, any group whose name matches the pattern above will automatically create (or link to) a site of the same name, granting the corresponding permissions.
+In automatic mode, any group whose name matches the supported pattern automatically creates or links to a site with the same name and grants the corresponding permissions.
 
 :::note
-FormKiQ sites are created automatically when a user interact with the API.
+FormKiQ sites are created automatically when a user interacts with the API.
 :::
 
-| Group                   | Access Level                           |
-|-------------------------|----------------------------------------|
-| `Admins`                | Full Administrator rights on **all** sites |
-| `authentication_only`   | Can log in, but **no** site access     |
-| `<site>`                | Read/Write/Delete on `<site>`                       |
-| `<site>_read`           | Read only on `<site>`                  |
-| `<site>_govern`         | Read/Write/Delete + Govern on `<site>`              |
+| Group | Access Level |
+| --- | --- |
+| `Admins` | Full administrator rights on all sites. |
+| `authentication_only` | Can log in, but has no site access. |
+| `<site>` | Read, write, and delete access on `<site>`. |
+| `<site>_read` | Read-only access on `<site>`. |
+| `<site>_govern` | Read, write, delete, and govern access on `<site>`. |
 
-> **Example:**  
-> - `Finance` ⇒ Read/Write/Delete on **finance**  
-> - `Finance_read` ⇒ Read only on **finance**  
-> - `Finance_govern` ⇒ Read/Write/Delete + Govern on **finance**
+Example group behavior:
 
-If a user belongs to multiple groups, their permissions combine.  
-**Example user**: member of `Managers` and `Finance_read`  
-1. `Managers` ⇒ Read/Write/Delete on **managers**  
-2. `Finance_read` ⇒ Read on **finance**  
-3. **Result**: Read/Write/Delete on **managers**, Read on **finance**
+| User group | Resulting access |
+| --- | --- |
+| `Finance` | Read, write, and delete access on the `finance` site. |
+| `Finance_read` | Read-only access on the `finance` site. |
+| `Finance_govern` | Read, write, delete, and govern access on the `finance` site. |
+
+If a user belongs to multiple groups, their permissions combine.
+
+| Example user membership | Resulting access |
+| --- | --- |
+| `Managers` and `Finance_read` | Read, write, and delete access on `managers`; read-only access on `finance`. |
 
 :::note
-Govern access provides additional permissions to allow data governance or document control role access
+Govern access provides additional permissions for data governance and document control roles.
 :::
 
 #### Default Cognito Groups
 
-By default FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito/) for user authentication and comes with the following default groups.
+By default, FormKiQ uses [Amazon Cognito](https://aws.amazon.com/cognito/) for user authentication and creates these groups:
 
-| Default Group           | Permissions                                        |
-|-------------------------|----------------------------------------------------|
-| `Admins`                | Full admin privileges across **all** sites         |
-| `authentication_only`   | Can authenticate, but **no** site access           |
-| `default`               | Read/Write/Delete on the **default** site                       |
-| `default_read`          | Read only on the **default** site                  |
-
+| Default Group | Permissions |
+| --- | --- |
+| `Admins` | Full administrator privileges across all sites. |
+| `authentication_only` | Can authenticate, but has no site access. |
+| `default` | Read, write, and delete access on the `default` site. |
+| `default_read` | Read-only access on the `default` site. |
 
 ![Security Roles Example](./img/security-roles-examples.png)
 
 :::note
-The Cognito User pool can be found by visiting the [Cognito Console](https://console.aws.amazon.com/cognito) page and searching for the `AppEnvironment` name you configured during installation.
+The Cognito user pool can be found by opening the [Cognito Console](https://console.aws.amazon.com/cognito) and searching for the `AppEnvironment` name configured during installation.
 
 ![Cognito Home](./img/cognito-home.png)
 :::
 
 ##### Add Multi-Tenant Site
 
-Creating a new Multi-Tenant Site is as easy as creating a new group and adding users to the group.
+Creating a new multi-tenant site is as simple as creating a new group and adding users to that group.
 
 To add a new group:
 
-* Open the FormKiQ Console as an Administrator
-* Click on the **Groups** menu option under the **Administration** left menu
-* Click **Create New Group** and enter the name of the group
+1. Open the FormKiQ Console as an administrator.
+2. Select **Groups** under **Administration**.
+3. Choose **Create New Group**.
+4. Enter the group name.
 
 ![Console Add Group](./img/fk-console-add-group.png)
 
-The site has now been created and you can add users to this group to give them access to the finance site.
+The site is created and users can be added to the group to give them access.
 
 ##### Add User to Site
 
 To add a new user:
 
-* Open the FormKiQ Console as an Administrator
-* Click on the **Users** menu option under the **Administration** left menu
-* Click **Create New User** and enter the name of the user
+1. Open the FormKiQ Console as an administrator.
+2. Select **Users** under **Administration**.
+3. Choose **Create New User**.
+4. Enter the user details.
 
 ![Console Add User](./img/fk-console-add-user.png)
 
@@ -316,25 +330,26 @@ To add a new user:
 
 To add a user to a group:
 
-* Open the FormKiQ Console as an Administrator
-* Click on the **Groups** menu option under the **Administration** left menu
-* Click the far right menu on the Group you want to add the user to and click Add Member
+1. Open the FormKiQ Console as an administrator.
+2. Select **Groups** under **Administration**.
+3. Open the far-right menu on the group.
+4. Choose **Add Member**.
 
 ![Console Add User](./img/fk-console-add-group-add-members.png)
 
-You can search for the user and add it to the group.
+Search for the user and add them to the group.
 
 ![Console Add User](./img/fk-console-add-group-add-member.png)
 
 ### Defined Site Permissions
 
-Defined site permission requires the explicit creation of FormKiQ Sites and then user groups can be links to a site with specific permissions.
+Defined site permissions require explicit creation of FormKiQ sites. User groups can then be linked to a site with specific permissions.
 
 #### Add Site
 
-A defined site can **ONLY** be created by a user with administrator access.
+A defined site can only be created by a user with administrator access.
 
-The example below will create a FormKiQ Site called **projects**.
+The example below creates a FormKiQ site called `projects`.
 
 ##### POST /sites
 
@@ -350,38 +365,36 @@ The example below will create a FormKiQ Site called **projects**.
 
 #### Add Group Permissions
 
-The **PUT /sites/:siteId/groups/:groupName/permissions** API can be used to give a group particular permission for a site.
+Use `PUT /sites/:siteId/groups/:groupName/permissions` to give a group specific permissions for a site.
 
-For example:
+For example, if you have a group called `employees` and want members of that group to have read and write access to the `projects` site, call:
 
-If you have a group called **employees** and you want to give members of that group READ / WRITE access to the **projects** FormKiQ site, use the API
-
-**PUT /sites/projects/groups/employees/permissions**
+```http
+PUT /sites/projects/groups/employees/permissions
+```
 
 ```json
 {
-  "permissions": [
-    "READ", "WRITE"
-  ]
+  "permissions": ["READ", "WRITE"]
 }
 ```
 
-### Folders Permissions
+### Folder Permissions
 
-Beyond site-wide roles, you can lock down or share specific folders by assigning folder-scoped RBAC directly via the API. Folder permissions work **in addition** to site-level RBAC: a user must have both the site-level permission _and_ the folder-level permission to perform an action.
+Beyond site-wide roles, you can control specific folders by assigning folder-scoped RBAC through the API. Folder permissions work in addition to site-level RBAC. A user must have the required site-level permission and folder-level permission to perform an action.
 
 #### Permission Types
 
-When setting folder ACLs, you may assign any combination of:
-
-- **READ** — List or download documents in this folder  
-- **WRITE** — Create or update documents in this folder  
-- **DELETE** — Remove documents from this folder  
-- **GOVERN** — Perform governance actions (audit logs, retention holds)
+| Permission | Allows |
+| --- | --- |
+| `READ` | List or download documents in the folder. |
+| `WRITE` | Create or update documents in the folder. |
+| `DELETE` | Remove documents from the folder. |
+| `GOVERN` | Perform governance actions such as audit logs or retention holds. |
 
 #### API Endpoint
 
-Sets a folders role permissions.
+Use this endpoint to set folder role permissions:
 
 ```http
 PUT /folders/permissions
@@ -389,14 +402,15 @@ PUT /folders/permissions
 
 **Request Body Parameters**
 
-| Field   | Type | Description |
-|---------|------|-------------|
-| path | string | Folder path within the site |
-| roles | array | List of role/permission mappings to apply |
-| roleName | string | string Cognito group or custom role to grant folder permissions |
-| permissions | string[] | One or more of ["READ","WRITE","DELETE","GOVERN"] |
+| Field | Type | Description |
+| --- | --- | --- |
+| `path` | string | Folder path within the site. |
+| `roles` | array | List of role and permission mappings to apply. |
+| `roleName` | string | Cognito group or custom role to grant folder permissions to. |
+| `permissions` | string[] | One or more of `READ`, `WRITE`, `DELETE`, and `GOVERN`. |
 
 **Example Request Body**
+
 ```json
 {
   "path": "invoices/2025/Q2",
@@ -417,80 +431,81 @@ PUT /folders/permissions
 
 ![Open Policy Agent](./img/open-policy-agent.png)
 
-Attribute-Based Access Control (ABAC) is a dynamic and flexible method of managing access permissions based on the evaluation of attributes related to the user, the resource, and the environment. Unlike Role-Based Access Control (RBAC), which assigns permissions based on predefined roles, ABAC uses policies that evaluate various attributes to determine access rights.
+Attribute-Based Access Control (ABAC) evaluates attributes related to the user, document, and request context. Unlike RBAC, which assigns permissions based on predefined groups, ABAC can make access decisions from metadata such as department, document type, owner, classification, or project.
 
-FormKiQ's ABAC is implemented using [Open Policy Agent (OPA)](https://www.openpolicyagent.org/). OPA is an open-source, general-purpose policy engine that allows for fine-grained access control based on user attributes and other contextual information. ABAC enables dynamic and context-aware access control policies.
+FormKiQ's ABAC support is implemented through [Open Policy Agent (OPA)](https://www.openpolicyagent.org/).
+
+:::note
+Attribute-Based Access Control (ABAC) is supported with [FormKiQ Advanced and Enterprise](https://www.formkiq.com/products/formkiq-advanced).
+:::
 
 ### OPA Evaluation Policies
 
-[Open Policy Agent (OPA)](https://www.openpolicyagent.org/) evaluates the policies and returns decisions based on the evaluation. The evaluation outcomes in OPA are `allow`, `deny`, and `partial`.
+OPA evaluates policies and returns decisions based on policy rules. The common outcomes are `allow`, `deny`, and `partial`.
 
 #### Allow
 
-The allow policy in OPA explicitly grants access to a document. This decision is made when the conditions specified in the policy are met. For example, a policy might allow access if a user has the appropriate role or attribute, or if the request is made during certain hours.
+An allow policy grants access when the specified conditions are met.
 
-```
+```rego
 package example
 
 default allow = false
 
 allow {
-    input.user.role == "admin"
+  input.user.role == "admin"
 }
 ```
 
 #### Deny
 
-The deny policy in OPA explicitly denies access to a resource. This decision is made when the conditions specified in the policy are met. Deny policies can be used to enforce restrictions that override any allow policies.
+A deny policy blocks access when the specified conditions are met. Deny policies can enforce restrictions that override broad access.
 
-```
+```rego
 package example
 
 default deny = false
 
 deny {
-    "guest" in input.user.roles
+  "guest" in input.user.roles
 }
+
 deny {
-    "guest" in input.user.roles
-    data.documents.documentType == "private"
+  "guest" in input.user.roles
+  data.documents.documentType == "private"
 }
 ```
 
 #### Partial
 
-OPA's partial evaluation feature allows for the computation of policy decisions based on the attributes attached to a document or resource. Partial evaluation generates a list of criteria that need to be met to gain access to the document or resource.
+OPA partial evaluation can compute document criteria that must be met before a user can access a document.
 
-The OPA policy below restricts access to users in the "guest" role to documents whose `documentType` attribute is "public".
+The policy below restricts users in the `guest` role to documents whose `documentType` attribute is `public`.
 
-```
+```rego
 package example
 
 default allow = false
 
 allow {
-    "guest" in input.user.roles
-    data.documents.documentType == "public"
+  "guest" in input.user.roles
+  data.documents.documentType == "public"
 }
 ```
 
 #### Partial Limitations
 
-Due to OPA's partial evaluation flexibility there are some limitation to be aware of.
+When using `POST /search`, multiple attribute criteria may require a configured composite key so DynamoDB can search efficiently across the requested criteria. `POST /searchFulltext` uses OpenSearch and does not have the same DynamoDB composite key limitation.
 
-When using searching for documents using POST `/search`, if you are using multiple attributes criteria you will need to have an attribute `composite key` configured to enable DynamoDb to search for the criteria. Alternatively using POST `/searchFulltext` uses OpenSearch and does not have such limitation.
-
-:::note
-Attribute-Based Access Control (ABAC) is only supported when using [FormKiQ Advanced/Enterprise](https://www.formkiq.com/products/formkiq-advanced).
-:::
+For module-specific setup details, see [Open Policy Agent](/docs/formkiq-modules/modules/open_policy_agent).
 
 ### Document Attributes
 
 ![Document OPA Attributes](./img/document-abac.png)
 
-FormKiQ enables Attribute-Based Access Control (ABAC) by attaching metadata — called **Document Attributes** — to individual documents. These attributes can then be evaluated by [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) policies to determine whether a user is allowed to access, modify, or delete a document.
+FormKiQ enables ABAC by attaching metadata, called document attributes, to individual documents. These attributes can be evaluated by OPA policies to determine whether a user is allowed to access, modify, or delete a document.
 
-Each document in FormKiQ may have one or more attributes associated with it, such as:
+Common document attributes include:
 
 - `department`
 - `confidentiality`
@@ -499,11 +514,11 @@ Each document in FormKiQ may have one or more attributes associated with it, suc
 - `documentType`
 - `classification`
 
-These attributes form the **resource context** used in OPA's decision-making process. When a user makes a request, the OPA policy can evaluate both the **user attributes** (such as roles, department, or clearance level) and the **document attributes** to make a dynamic access decision.
+These attributes form the resource context used in OPA decisions. When a user makes a request, the policy can evaluate both user attributes and document attributes.
 
 #### API Endpoint
 
-This endpoint allows administrators to define or update **OPA access policies** for a specific site. These policies use **attribute-based access control (ABAC)** logic to determine document access based on user roles and document attributes.
+This endpoint allows administrators to define or update OPA access policies for a site:
 
 ```http
 PUT /sites/:siteId/opa/accessPolicy/policyItems
@@ -511,34 +526,33 @@ PUT /sites/:siteId/opa/accessPolicy/policyItems
 
 **Request Body Parameters**
 
-| Field   | Type | Description |
-|---------|------|-------------|
-| type | string | Type of policy logic. Only "ALLOW" is currently supported. |
-| allRoles | string[] | The user must belong to all listed roles to match the policy. |
-| anyRoles | string[] | The user must belong to at least one listed role to match the policy.
-| attributes | array | A list of attribute matchers used to evaluate access. |
+| Field | Type | Description |
+| --- | --- | --- |
+| `type` | string | Type of policy logic. Only `ALLOW` is currently supported. |
+| `allRoles` | string[] | The user must belong to all listed roles to match the policy. |
+| `anyRoles` | string[] | The user must belong to at least one listed role to match the policy. |
+| `attributes` | array | Attribute matchers used to evaluate access. |
 
-Each attribute object supports multiple conditional operators:
+Each attribute object supports these operators:
 
 | Operator | Description |
-|---------|-------------|
-| eq | Equal to (string, number, boolean, or username match) |
-| neq | Not equal to |
-| gt | Greater than (number only) |
-| gte | Greater than or equal to |
-| lt | Less than |
-| lte | Less than or equal to |
+| --- | --- |
+| `eq` | Equal to a string, number, boolean, or username match. |
+| `neq` | Not equal to. |
+| `gt` | Greater than, for numbers only. |
+| `gte` | Greater than or equal to. |
+| `lt` | Less than. |
+| `lte` | Less than or equal to. |
 
 :::note
-Special value for eq.input.matchUsername:
-- When true, the document attribute must equal the authenticated user’s username.
+When `eq.input.matchUsername` is `true`, the document attribute must equal the authenticated user's username.
 :::
 
 #### Example Use Cases
 
 ##### Restrict Access to Reports Only
 
-Allow users with the finance and auditor roles to access documents where documentType = report.
+Allow users with the `finance` and `auditor` roles to access documents where `documentType` is `report`.
 
 ```json
 {
@@ -557,7 +571,7 @@ Allow users with the finance and auditor roles to access documents where documen
 
 ##### Owner-Only Access
 
-Allow users to access documents only if they are the owner (based on the username in the access token).
+Allow users to access documents only if they are the owner based on the username in the access token.
 
 ```json
 {
@@ -576,90 +590,101 @@ Allow users to access documents only if they are the owner (based on the usernam
 }
 ```
 
-## Cloud Security
+## Operational Security Controls
 
-**In addition to FormKiQ's Well-Architected Framework, other security and compliance considerations should be reviewed:**
+These controls help harden a production FormKiQ deployment. Some are configured by FormKiQ automatically, while others should be reviewed as part of your AWS account and network security baseline.
 
 ### DynamoDB Point-in-Time Recovery
 
-FormKiQ automatically configures Point-in-Time Recovery for all DynamoDB tables (except cache tables) with a 35-day recovery window. This automated backup feature ensures that your document data is protected against accidental deletions, application errors, or service disruptions.
+FormKiQ automatically configures Point-in-Time Recovery for all DynamoDB tables except cache tables, with a 35-day recovery window. This protects document metadata and configuration data from accidental deletion, application errors, and service disruptions.
 
-**Why DynamoDB Backups Matter in Production**
+Point-in-Time Recovery supports:
 
-Automated backups for your DynamoDB tables provide essential data protection for your FormKiQ deployment:
+- Recovery to a specific point within the recovery window
+- Business continuity planning
+- Data protection for accidental writes or deletes
+- Compliance and retention requirements that require recoverable operational data
 
-- **Data Recovery**: Quickly restore to any point within the last 35 days in case of accidental deletion or corruption
-- **Business Continuity**: Minimize downtime and data loss in the event of application errors or service disruptions
-- **Compliance Requirements**: Meet regulatory requirements for data retention and disaster recovery capabilities
-- **Operational Peace of Mind**: Operate with confidence knowing that your document database is continuously backed up
-
-FormKiQ's implementation of Point-in-Time Recovery requires no additional configuration from customers while providing enterprise-grade data protection for your document management system.
+For broader recovery planning, see [Backup and Recovery](/docs/platform/backup_and_recovery).
 
 ### IAM Authentication Option
 
-FormKiQ supports IAM Authentication for API access, providing an enhanced security option for environments where additional access controls are required.
+IAM authentication is a strong production option for backend systems and AWS-native integrations.
 
-**Why IAM Authentication Matters in Production**
+Using IAM authentication can provide:
 
-Using IAM Authentication for your FormKiQ API access establishes strong identity-based security:
+- Fine-grained AWS IAM policies for API invocation
+- Credential management through AWS IAM roles
+- CloudTrail visibility for AWS-authenticated requests
+- Conditional access using IAM policy conditions such as source IP restrictions
+- Integration with AWS identity federation
 
-- **Fine-grained Access Control**: Leverage AWS IAM policies to define precise permissions for API operations
-- **Credential Management**: Eliminate the need to manage separate API keys by using your existing AWS identity system
-- **Audit Trail**: Benefit from detailed CloudTrail logs of all authenticated API requests
-- **Conditional Access**: Apply additional security conditions such as source IP restrictions or MFA requirements
-- **Integration with Identity Federation**: Seamlessly connect with your organization's identity provider
-
-By enabling IAM Authentication for your FormKiQ deployment, you can implement defense-in-depth security strategies while maintaining compatibility with your existing AWS security practices.
-
+Use IAM roles where possible. Use long-lived access keys only when the caller cannot assume a role.
 
 ### AWS DNS Firewall
 
-AWS DNS Firewall can be implemented by FormKiQ customers to filter and control outbound DNS traffic from their VPC. Once configured, these DNS firewall settings will not be modified by any FormKiQ updates.
+AWS DNS Firewall can be implemented by FormKiQ customers to filter and control outbound DNS traffic from their VPC. Once configured, these DNS firewall settings are customer-managed and are not modified by FormKiQ updates.
 
-**Why AWS DNS Firewall Matters in Production**
+DNS Firewall can help with:
 
-AWS DNS Firewall provides an essential layer of protection for your FormKiQ deployment by controlling DNS resolution and preventing DNS-based threats. In production environments, this service offers several important security benefits:
-
-- **Malware Prevention**: Block DNS queries to known malicious domains, helping prevent malware downloads and command-and-control communications
-- **Data Exfiltration Protection**: Prevent unauthorized data transfers that use DNS tunneling techniques to bypass standard security controls
-- **Domain Filtering**: Implement allow/deny lists to ensure your FormKiQ resources only communicate with approved domains
-- **Compliance Assurance**: Meet regulatory requirements for network security controls and demonstrate proactive threat prevention
-- **Security Monitoring**: Generate logs of DNS activity for security analysis and threat detection
-
-By implementing AWS DNS Firewall with your FormKiQ deployment, you establish preventative controls against DNS-based threats while maintaining visibility into DNS query patterns that might indicate security issues.
-
-FormKiQ respects your DNS security configurations and operates within the boundaries established by your DNS Firewall rules, providing an additional layer of security for your document management system.
+- Blocking DNS queries to known malicious domains
+- Reducing DNS-based data exfiltration risk
+- Enforcing approved domain allow or deny lists
+- Logging DNS activity for security analysis
+- Supporting network security compliance controls
 
 ### Password Policy
 
-FormKiQ allows customization of the password policy for each FormKiQ instance using the CloudFormation template. 
+FormKiQ password policy settings can be customized for each instance using the CloudFormation template.
 
-#### Why Strong Passwords Matter in Production
+A production password policy should align with your organization's security requirements and should consider:
 
-In production environments, strong passwords are your first line of defense against unauthorized access. Production systems typically contain sensitive data, customer information, and business-critical functionality that must be protected.
-A robust password policy helps safeguard against various attack vectors:
+- Minimum password length
+- Complexity requirements
+- Password reuse restrictions
+- Account recovery process
+- Identity provider requirements when SSO is used
 
-- Brute force attacks where attackers systematically attempt every possible password combination
-- Dictionary attacks that try common words and phrases
-- Credential stuffing attacks using passwords leaked from other breaches
-
-By implementing strong password requirements (length, complexity, rotation periods), you significantly reduce the risk of security breaches that could lead to data loss, service disruption, or compliance violations. For regulated industries, strong password policies are often a compliance requirement.
-
-Your FormKiQ password policy should align with your organization's security posture and industry best practices while balancing security with usability.
+Strong password policies reduce the risk from brute force attacks, dictionary attacks, and credential stuffing.
 
 ### VPC Flow Logs
 
-VPC Flow Logs can be set up by FormKiQ customers to monitor network traffic within their Virtual Private Cloud environment. Once associated with the VPC, these logs will not be modified by any FormKiQ updates.
+VPC Flow Logs can be configured by customers to monitor network traffic within their VPC. Once associated with the VPC, these logs are customer-managed and are not modified by FormKiQ updates.
 
-**Why VPC Flow Logs Matter in Production**
+VPC Flow Logs can help with:
 
-VPC Flow Logs provide valuable network traffic visibility for your FormKiQ deployment, capturing information about IP traffic going to and from network interfaces in your VPC. In production environments, these logs serve multiple critical functions:
+- Security monitoring for unusual network patterns
+- Troubleshooting connectivity issues
+- Compliance evidence for network activity monitoring
+- Operational visibility into traffic between resources
+- Integration with SIEM or log analytics systems
 
-- **Security Monitoring**: Detect suspicious traffic patterns or potential network intrusions by analyzing traffic flows to and from your FormKiQ resources
-- **Troubleshooting**: Diagnose connectivity issues between components or with external services by identifying blocked or failed connection attempts
-- **Compliance Requirements**: Meet regulatory requirements for network traffic monitoring and data access auditing
-- **Operational Insights**: Gain visibility into traffic patterns to optimize network configurations and resource allocation
+## Production Security Checklist
 
-By implementing VPC Flow Logs for your FormKiQ deployment, you create a continuous audit trail of network activity that can be integrated with security information and event management (SIEM) systems or analyzed directly for security and operational insights.
+Review these items before moving a FormKiQ deployment into production:
 
-FormKiQ operates within your configured VPC environment, respecting your network security controls and logging configurations without interference.
+- Confirm the admin user and `Admins` group membership are correct.
+- Remove or disable unused users.
+- Use `authentication_only` for users who should authenticate but should not have site access.
+- Prefer IAM authentication for AWS-hosted service integrations.
+- Scope IAM policies to the required FormKiQ API Gateway resources where possible.
+- Rotate API keys and remove unused keys.
+- Store API keys and access keys in a secure secret store.
+- Confirm site, group, and folder permissions match your tenant model.
+- Configure password policy settings to match organizational requirements.
+- Review DynamoDB Point-in-Time Recovery and broader backup requirements.
+- Review S3, DynamoDB, and OpenSearch encryption requirements.
+- Enable VPC Flow Logs for VPC deployments where network auditability is required.
+- Consider AWS DNS Firewall for VPC deployments with strict outbound DNS controls.
+- Monitor API Gateway, Lambda, Cognito, and application logs in CloudWatch.
+- Use ABAC and OPA when document metadata should affect access decisions.
+
+## Where to Go Next
+
+- [API Walkthrough](/docs/getting-started/api-walkthrough)
+- [Document Console](/docs/platform/document_console)
+- [Multi-Tenant vs Multi-Instance](/docs/platform/multi-tenant-vs-multi-instance)
+- [Compliance, Data Residency, and Data Sovereignty](/docs/platform/compliance-data-residency-and-data-sovereignty)
+- [Backup and Recovery](/docs/platform/backup_and_recovery)
+- [Full Encryption](/docs/formkiq-modules/modules/full-encryption)
+- [Single Sign-On and Custom JWT Authorizer](/docs/formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer)

@@ -6,19 +6,15 @@ sidebar_position: 50
 
 ![Serverless Application Flow](./img/rulesets-workflow.png)
 
-This guide demonstrates how to use `Rulesets` and `Rules` to automatically put documents with different content-types into different `Queues`. 
+This tutorial demonstrates how to use `Rulesets` and `Rules` to automatically place documents with different content types into different `Queues`.
 
-We will be:
+## What You Will Build
 
-* Creating two document queues
-
-* Creating two workflows that place the document in one of the queues.
-
-* Creating a ruleset rule that will place documents in each queue based on the document's content-type
+You will create two queues, create two workflows that route documents into those queues, create rules that match by content type, upload sample documents, and verify each document is routed to the expected queue.
 
 The code for the tutorial can be found on the [FormKiQ Github Tutorials](https://github.com/formkiq/tutorials/tree/master/java/ruleset)
 
-## What you’ll need
+## Before You Begin
 
 * A text editor or IDE - for example [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
 
@@ -28,7 +24,16 @@ The code for the tutorial can be found on the [FormKiQ Github Tutorials](https:/
 
 * A [JWT Authentication Token](/docs/how-tos/jwt-authentication-token)
 
-## FormKiQ Client Library
+## Workflow Overview
+
+1. Configure the Java API client.
+2. Create queues.
+3. Create workflows for each queue.
+4. Create a ruleset and content-type rules.
+5. Add documents with matching content types.
+6. Verify the documents are routed to the correct queues.
+
+## Step 1: Configure the FormKiQ Client Library
 
 FormKiQ has a client library available in [java](https://github.com/formkiq/formkiq-client-sdk-java/) and [python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
@@ -36,7 +41,7 @@ FormKiQ has a client library available in [java](https://github.com/formkiq/form
 This tutorial will be using the Java API and required the client 1.14.0 or greater, but will reference the REST API endpoints used.
 :::
 
-## Setup API
+### Setup API
 
 The Java API requires the creation of a `ApiClient` which requires a JWT `AccessToken` and the `FormKiQ url` of the FormKiQ instances to use.
 
@@ -66,7 +71,7 @@ public void setUpApi() {
 ```
 
 
-## Create Queues
+## Step 2: Create Queues
 
 Using the DocumentWorkflowsApi, create 2 queues
 
@@ -79,7 +84,7 @@ String queueBId = workflowsApi.addQueue(new AddQueueRequest().name(QUEUE_B), sit
 The REST API endpoint `POST /queues` can be used to create a document queue
 :::
 
-## Create Workflows
+## Step 3: Create Workflows
 
 Using the DocumentWorkflowsApi, create two workflows, one workflow will put documents into QUEUE_A and the other into QUEUE_B.
 
@@ -105,7 +110,7 @@ String createQueueWorkflow(String siteId, String queueId, String queueName, Stri
 The rest api: `POST /workflows` can be used to create a document workflow
 :::
 
-## Create Ruleset
+## Step 4: Create a Ruleset
 
 Using the RulesetsApi, create a ruleset that will hold both of our rules.
 
@@ -121,7 +126,7 @@ String rulesetId = addRuleset.getRulesetId();
 The REST API endpoint `POST /rulesets` can be used to create the ruleset
 :::
 
-## Create Rules
+## Step 5: Create Rules
 
 Using the RulesetsApi, create 2 rules. One rule will place all documents with a content-type of "text/plain" into one queue and documents with a content-type of "application/json" into a second queue.
 
@@ -146,7 +151,7 @@ void createContentTypeRule(final String siteId, String rulesetId, final String w
 The REST API endpoint `POST /rulesets/{rulesetId}/rule` can be used to add rules to a ruleset.
 :::
 
-## Add Documents
+## Step 6: Add Documents
 
 Finally, we will add two documents, one with the content-type of "text/plain" and the other with "application/json".
 
@@ -158,7 +163,7 @@ AddDocumentRequest req1 = new AddDocumentRequest().content("{\"content\":\"test 
 documentsApi.addDocument(req1, siteId, null).getDocumentId();
 ```
 
-## Check Queues
+## Verify the Result
 
 After the documents are added, it will take between 5-10 seconds for the documents to be placed into the correct queue. You can use the following code to check the queues for each document.
 
@@ -167,12 +172,21 @@ GetWorkflowQueueDocumentsResponse response = workflowsApi.getWorkflowQueueDocume
 List<WorkflowDocument> documents = response.getDocuments();
 ```
 
-The "text/plain" document will be in QueueA and the "application/json" document will be in QueueB.
+The `text/plain` document should be in QueueA and the `application/json` document should be in QueueB.
 
-## Summary
+## Clean Up
 
-And there you have it! We have shown how easy it is to add custom rulesets to allow for the processing of documents based on their content-type.
+Delete the test documents, workflows, queues, and ruleset if they are no longer needed.
 
-This is just the tip of the iceberg when it comes to working with the FormKiQ APIs. d
+## Troubleshooting
 
-If you have any questions, reach out to us on our https://github.com/formkiq/formkiq-core or https://formkiq.com.
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| Documents do not enter queues | Ruleset or rule is inactive, or content type does not match. | Confirm `ACTIVE` status and exact content-type values. |
+| Queue is empty immediately after upload | Ruleset processing is asynchronous. | Wait several seconds and query again. |
+| Workflow creation fails | Approval group or queue ID is invalid. | Confirm the queue ID returned by `addQueue`. |
+
+## Next Steps
+
+- [Rulesets](/docs/features/rulesets)
+- [Workflows](/docs/features/workflows)

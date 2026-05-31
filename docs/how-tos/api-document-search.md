@@ -2,164 +2,162 @@
 sidebar_position: 4
 ---
 
-# Searching for Documents
+# Search Documents
 
-This tutorial will take you through different way to search for documents using the FormKiQ API.
+Use this guide to search FormKiQ documents by tag, tag value, composite keys, and full-text content when the full-text module is enabled.
 
-## Prerequisite
+## Before You Begin
 
-* You have installed FormKiQ; see the <a href="/docs/getting-started/quick-start#install-formkiq">FormKiQ One-Click Installation Links</a> for more information
-* Install either: cURL or your favorite API Client, like https://www.postman.com.
-* Optionally install: https://stedolan.github.io/jq, a command-line JSON processor which formats JSON so it is more readable.
-* All shell commands are shown for Unix-based systems. Windows has analogous commands for each.
+Confirm you have:
 
-## Get JWT Authentication Token
+- A deployed FormKiQ environment. See [Quick Start](/docs/getting-started/quick-start#install-formkiq).
+- cURL or an API client such as Postman.
+- A JWT access token. See [Get a JWT Authentication Token](/docs/how-tos/jwt-authentication-token).
+- Documents with tags or searchable content.
+- Optional: [jq](https://jqlang.github.io/jq/) for formatting JSON responses.
 
-You first need to get an `authorization` token to access the FormKiQ API. See [Getting an JWT Authentication Token](/docs/how-tos/jwt-authentication-token) for steps on how to get the token.
+## Variables Used
 
-## CloudFormation Outputs
+| Placeholder | Description |
+| --- | --- |
+| `HTTP_API_URL` | FormKiQ API endpoint from the CloudFormation stack output, including `https://`. |
+| `AUTHORIZATION_TOKEN` | JWT access token used in the `Authorization` header. |
+| `SITE_ID` | Optional FormKiQ site ID. Use `default` unless your deployment uses multiple sites. |
+| `TAG_KEY` | Tag key to search, such as `category`. |
+| `TAG_VALUE` | Tag value to match, such as `person`. |
 
-We are going to need to know the name FormKiQ of a few AWS resources creating during the FormKiQ installation. Opening the [CloudFormation console](https://console.aws.amazon.com/cloudformation), find your FormKiQ stack and click the `Outputs` tab.
+The examples below use shell variables. Replace the values before running the commands:
+
+```bash
+export HTTP_API_URL="https://your-formkiq-api.example.com"
+export AUTHORIZATION_TOKEN="your-jwt-access-token"
+export SITE_ID="default"
+export TAG_KEY="category"
+export TAG_VALUE="person"
+```
+
+## Step 1: Find the FormKiQ API Endpoint
+
+Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation), select your FormKiQ stack, and open the **Outputs** tab.
 
 ![CloudFormation Outputs](./img/cf-outputs-apis.png)
 
-The following are outputs we'll need to know.
+Use the `HttpApiUrl` output as `HTTP_API_URL`.
 
-For all API requests the following table describes the values that need to be replaced in the API request.
+## Step 2: Search by Tag Key
 
-| Argument | Description
-| -------- | ------- |
-| `HTTP_API_URL` | The URL for the API endpoint that uses Cognito authorization.
-| `AUTHORIZATION_TOKEN` | The token retrieved from Step 1.
+Use `POST /search` to find documents with a specific tag key.
 
-## Search for a Document Tag
-
-The `POST /search` API is the primary method for search for documents with a specific tag.
-
-
-```
-curl -X POST https://HTTP_API_URL/search \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{"query":{"tag":{"key": "category"}}}'
+```bash
+curl -X POST "${HTTP_API_URL}/search?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"query": {"tag": {"key": "category"}}}'
 ```
 
-A successful response will return matching documents:
-```
+A successful response returns matching documents.
+
+```json
 {
   "documents": [
     {
       "documentId": "05c1dc43-e9f3-4bb5-9732-077c02dac2c9",
       "matchedTag": {
         "type": "USERDEFINED",
-        "value": "thing",
+        "value": "person",
         "key": "category"
       },
-      "contentType": "application/pdf",
-      ...
+      "contentType": "application/pdf"
     }
   ]
 }
 ```
 
-## Search for a Document Tag / Value
+## Step 3: Search by Tag Key and Exact Value
 
-The following example show how to search for a specific tag / value combination.
+Use `eq` to match a specific tag value.
 
-```
-curl -X POST https://HTTP_API_URL/search \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{"query":{"tag":{"key": "category","eq":"person"}}}'
-```
-
-A successful response will return matching documents:
-```
-{
-  "documents": [
-    {
-      "documentId": "05c1dc43-e9f3-4bb5-9732-077c02dac2c9",
-      "matchedTag": {
-        "type": "USERDEFINED",
-        "value": "thing",
-        "key": "category"
-      },
-      "contentType": "application/pdf",
-      ...
-    }
-  ]
-}
+```bash
+curl -X POST "${HTTP_API_URL}/search?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"query": {"tag": {"key": "category", "eq": "person"}}}'
 ```
 
-## Search for a Document Tag / Value
+## Step 4: Search by Tag Value Prefix
 
-The following example show how to search for a specific tag and where the  value starts with a specific characters.
+Use `beginsWith` when the tag value should start with specific characters.
 
-```
-curl -X POST https://HTTP_API_URL/search \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{"query":{"tag":{"key": "category","beginsWith":"p"}}}'
-```
-
-## Search for Document Composite Key
-
-FormKiQ alo includes the ability to define composite keys at the site or classification level, which allows for searching for multiple tags.
-
-```
-curl -X POST https://HTTP_API_URL/search \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{"query":{"tags":[{"key":"category","eq":"person"},{"key": "playerId","eq":"111"}]}}'
+```bash
+curl -X POST "${HTTP_API_URL}/search?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"query": {"tag": {"key": "category", "beginsWith": "p"}}}'
 ```
 
+## Step 5: Search by Composite Key
 
-## Search using Full Text Module
+If composite keys are configured at the site or classification level, use multiple tag conditions in one search request. DynamoDB-backed multiple-field searches require the relevant composite key to exist, and preceding fields usually need exact-match criteria such as `eq`.
 
-[FormKiQ Enterprise](https://www.formkiq.com/products/formkiq-enterprise) has an <a href="/docs/add-on-modules/modules/enhanced-fulltext-document-search">Enhanced Fulltext Document Search Module</a> that provides FormKiQ integration with [AWS OpenSearch](https://aws.amazon.com/opensearch-service) which is an AWS fully managed [Elasticsearch-compatible](https://www.elastic.co) service.
-
+```bash
+curl -X POST "${HTTP_API_URL}/search?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"query": {"tags": [{"key": "category", "eq": "person"}, {"key": "playerId", "eq": "111"}]}}'
 ```
-curl -X POST https://HTTP_API_URL/searchFulltext \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{"path": "test.txt","contentType": "text/plain","content": "This is sample content","tags":[{"key":"category","value":"person"}]}'
+
+## Step 6: Search Full Text
+
+Full-text search requires the enhanced full-text search module. See [Search](/docs/features/search) for feature details.
+
+```bash
+curl -X POST "${HTTP_API_URL}/searchFulltext?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"query": {"text": "sample content"}}'
 ```
 
-A successful response will return a list of documents:
-```
+A successful response returns matching documents.
+
+```json
 {
   "documents": [
     {
       "documentId": "83afd66e-9f16-4a62-a286-1e8c54c449d8",
-      "path": "sample.pdf",
-      ...
+      "path": "sample.pdf"
     }
   ]
 }
 ```
 
-## OpenSearch Custom/Complex Queries
+## Step 7: Run an OpenSearch Query
 
-The `POST /queryFulltext` allows for custom, complex queries using the OpenSearch search API.
+When OpenSearch is enabled, `POST /queryFulltext` can run a custom OpenSearch query.
 
-The request body is set to any valid [OpenSearch Search API](https://opensearch.org/docs/2.3/opensearch/query-dsl/index/) request.
-
-```
-curl -X POST https://HTTP_API_URL/documents/queryFulltext \
-   -H "Authorization: AUTHORIZATION_TOKEN" -d '{"query":{"match_all":{}}}'
-```
-
-Query Results
-```
-{
-  "result": {
-    "took": 68.0,
-    "hits": {
-      "max_score": 1.0,
-      "hits": [
-        {
-          "_index": "formkiq_bb69d12f-d598-4db5-8307-641c6d0a2b16",
-          "_id": "bf4a0257-58e0-4e54-800f-e0a060d4ebfe",
-          "_score": 1.0,
-          "_source": {
-            "content": "some test stuff",
-            "documentId": "bf4a0257-58e0-4e54-800f-e0a060d4ebfe",
-            ...
-          }
-        }
-      ]
-    }
-  }
-}
+```bash
+curl -X POST "${HTTP_API_URL}/queryFulltext?siteId=${SITE_ID}" \
+  -H "Authorization: ${AUTHORIZATION_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"query": {"match_all": {}}}'
 ```
 
+## Verify the Result
+
+Confirm the response includes the expected `documentId`, path, matched tag, or full-text result. If the document was recently added, allow time for asynchronous indexing before retrying a full-text search.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to check |
+| --- | --- | --- |
+| No documents returned | The tag key, value, or query does not match indexed documents. | Confirm the document tags and query body. |
+| Full-text search returns no results | Full-text module is not enabled or indexing is not complete. | Check module installation and document processing status. |
+| `400 Bad Request` | Search body is malformed. | Validate JSON and confirm the search operator is supported. |
+| `401 Unauthorized` | Token is missing or expired. | Get a new JWT access token. |
+| OpenSearch query fails | OpenSearch is not installed or the query DSL is invalid. | Confirm OpenSearch module status and query syntax. |
+| Documents are missing in a multi-site deployment | The request searched the wrong site. | Confirm `SITE_ID` or omit it only when using the default site. |
+
+## Next Steps
+
+- [Search](/docs/features/search)
+- [Add Document Tags](/docs/how-tos/api-add-document-tags)
+- [Optical Character Recognition](/docs/features/ocr)
