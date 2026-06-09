@@ -243,4 +243,4 @@ Use separate FormKiQ instances in separate AWS regions when documents must remai
 - [Compliance, Data Residency, and Data Sovereignty](/docs/platform/compliance-data-residency-and-data-sovereignty)
 - [Document Console](/docs/platform/document_console)
 - [API Walkthrough](/docs/getting-started/api-walkthrough)
-- [Multi-Tenant Tutorial](/docs/tutorials/multitenant)
+- [Multi-Tenant Tutorial](/docs/tutorials/solution-patterns/multitenant)

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 13
+slug: /tutorials/solution-patterns/build-scalable-solutions-using-formkiq
 ---
 
 # Building Scalable Solutions Using FormKiQ
@@ -10,7 +11,7 @@ In this tutorial, you will design a scalable AWS-native document processing solu
 
 This is an architecture tutorial rather than a single endpoint walkthrough. It shows how to combine the smaller FormKiQ workflows into a customer-ready solution pattern.
 
-![Scalable FormKiQ Reference Architecture](./img/scalable-formkiq-reference-architecture.svg)
+![Scalable FormKiQ Reference Architecture](../img/scalable-formkiq-reference-architecture.svg)
 
 ## Before You Begin
 
@@ -62,7 +63,7 @@ The examples show both Core-compatible and commercial-module patterns. FormKiQ C
 
 Start by matching the ingestion pattern to the workload. Avoid forcing every use case through the same endpoint.
 
-![FormKiQ Ingestion Patterns](./img/scalable-formkiq-ingestion-patterns.svg)
+![FormKiQ Ingestion Patterns](../img/scalable-formkiq-ingestion-patterns.svg)
 
 | Pattern | Best for | Use when |
 | --- | --- | --- |
@@ -254,7 +255,7 @@ Typesense-backed search can be a good Core option for straightforward full-text 
 
 High-volume systems need observable failure paths. A scalable solution should make it clear whether a document is uploaded, processed, indexed, failed, retried, or waiting for review.
 
-![FormKiQ Processing and Reliability Pattern](./img/scalable-formkiq-processing-reliability.svg)
+![FormKiQ Processing and Reliability Pattern](../img/scalable-formkiq-processing-reliability.svg)
 
 Build these controls early:
 
@@ -346,11 +347,11 @@ Use this as the final review before launch.
 
 | If you need to build... | Start with |
 | --- | --- |
-| A human approval process | [Build a Document Review and Approval Workflow](/docs/tutorials/build-document-review-approval-workflow) |
-| A searchable archive for scanned documents | [Build an OCR Searchable Archive](/docs/tutorials/build-ocr-searchable-archive) |
-| An external processing pipeline | [Build an Event-Driven Document Processing Pipeline](/docs/tutorials/build-event-driven-document-processing-pipeline) |
-| A tenant-aware application | [Multi-Tenant Users](/docs/tutorials/multitenant) and [Multi-Tenant and Multi-Instance Deployments](/docs/platform/multi-tenant-vs-multi-instance) |
-| A server-owned integration layer | [Using a Server-Side Proxy](/docs/tutorials/using-a-server-side-proxy) and [Manage API Keys](/docs/how-tos/manage-api-keys) |
+| A human approval process | [Build a Document Review and Approval Workflow](/docs/tutorials/solution-patterns/build-document-review-approval-workflow) |
+| A searchable archive for scanned documents | [Build an OCR Searchable Archive](/docs/tutorials/solution-patterns/build-ocr-searchable-archive) |
+| An external processing pipeline | [Build an Event-Driven Document Processing Pipeline](/docs/tutorials/event-and-integration-patterns/build-event-driven-document-processing-pipeline) |
+| A tenant-aware application | [Multi-Tenant Users](/docs/tutorials/solution-patterns/multitenant) and [Multi-Tenant and Multi-Instance Deployments](/docs/platform/multi-tenant-vs-multi-instance) |
+| A server-owned integration layer | [Using a Server-Side Proxy](/docs/tutorials/event-and-integration-patterns/using-a-server-side-proxy) and [Manage API Keys](/docs/how-tos/manage-api-keys) |
 
 ## Verify the Result
 
@@ -388,9 +389,9 @@ This tutorial creates an architecture plan rather than a fixed stack. Clean up a
 
 ## Next Steps
 
-- [Build a Document Review and Approval Workflow](/docs/tutorials/build-document-review-approval-workflow)
-- [Build an OCR Searchable Archive](/docs/tutorials/build-ocr-searchable-archive)
-- [Build an Event-Driven Document Processing Pipeline](/docs/tutorials/build-event-driven-document-processing-pipeline)
+- [Build a Document Review and Approval Workflow](/docs/tutorials/solution-patterns/build-document-review-approval-workflow)
+- [Build an OCR Searchable Archive](/docs/tutorials/solution-patterns/build-ocr-searchable-archive)
+- [Build an Event-Driven Document Processing Pipeline](/docs/tutorials/event-and-integration-patterns/build-event-driven-document-processing-pipeline)
 - [Status Monitoring and Alerting](/docs/how-tos/set-up-status-monitoring-and-alerting)
 - [Dead-Letter Queue](/docs/platform/error_handling/dlq)
 - [Costs & AWS Usage](/docs/platform/costs)

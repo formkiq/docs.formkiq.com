@@ -179,7 +179,7 @@ A typical pattern:
 
 Use this pattern when reports need to update continuously or when downstream systems need to react to document changes.
 
-For event details, see [Document Events](/docs/features/documents#document-events-features) and [Document Event Processing](/docs/tutorials/document-event-processing).
+For event details, see [Document Events](/docs/features/documents#document-events-features) and [Document Event Processing](/docs/tutorials/event-and-integration-patterns/document-event-processing).
 
 ## Optional Advanced Patterns
 

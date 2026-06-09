@@ -1,5 +1,6 @@
 ---
 sidebar_position: 30
+slug: /tutorials/event-and-integration-patterns/formkiq-document-api-with-zapier
 ---
 
 # Zapier Integration
@@ -36,7 +37,7 @@ To start:
 * Visit [sheet.new](https://sheet.new) to create your Google Sheet.
 * Add columns *SiteId* and *DocumentId*
 
-image::google-sheet-zapier.png[Zapier Google Sheet]
+![Zapier Google Sheet](../img/google-sheet-zapier.png)
 
 The Webhook contains the SiteId the document was created in, as well as the documentId assigned to the document. When we create the Zapier integration we will use these columns to map the Webhook payload to the Google Sheet.
 
@@ -51,7 +52,7 @@ Now that our Google Sheet is created, it's time to setup Zapier.
 * Under `Event`, choose `Catch Hook`
 * Click Continue
 
-![Zapier Webhook Trigger](./img/zapier-trigger-webhook.png)
+![Zapier Webhook Trigger](../img/zapier-trigger-webhook.png)
 
 The FormKiQ Webhook request's body looks like:
 ```
@@ -64,11 +65,11 @@ The FormKiQ Webhook request's body looks like:
 * Set the `Pick off a Child Key` as `documents`
 * Click Continue
 
-![Zapier Webhook Trigger](./img/zapier-setup-trigger.png)
+![Zapier Webhook Trigger](../img/zapier-setup-trigger.png)
 
 Zapier will now display the Webhook URL that was created for your Zap. This is the URL you will use for your FormKiQ Webhook action.
 
-![Zapier Webhook Url](./img/zapier-webhook-url.png)
+![Zapier Webhook Url](../img/zapier-webhook-url.png)
 
 * The last step is to send the webhook a sample of the expected request the FormKiQ Webhook will send. Using an API Client send the following request body to the `Zapier Webhool Url` using a POST request.
 
@@ -87,17 +88,17 @@ Zapier will now display the Webhook URL that was created for your Zap. This is t
 
 * Next, click on the `Action` and select `Google Sheets`.
 
-![Google Sheets Action](./img/google-sheets-action.png)
+![Google Sheets Action](../img/google-sheets-action.png)
 
 * Under `Event` select `Create Spreadsheet Row`. This will insert a new row in your Google Sheet for every document created.
 
 * Click Continue and follow the prompts to configure Zapier to have access to the Google Sheet you created in the `Create Google Sheet` step.
 
-![Zapier Setup Google Sheets](./img/zapier-setup-google-sheets.png)
+![Zapier Setup Google Sheets](../img/zapier-setup-google-sheets.png)
 
 * After your Google Sheet is configured, set the `SiteId` and `DocumentId` from the drop down as shown below. Then click Continue.
 
-![Zapier Setup Google Sheets Action](./img/zapier-google-sheet-set-up-action.png)
+![Zapier Setup Google Sheets Action](../img/zapier-google-sheet-set-up-action.png)
 
 The last step is to click the `Publish Zap` button. Once your Zap is published your Webhook is ready.
 
@@ -124,7 +125,7 @@ The last step is to click the `Publish Zap` button. Once your Zap is published y
 
 * After sending the request to the FormKiQ API, check your Google Sheet and you should see the sheet has been updated with your newly added document.
 
-![Zapier Webhook Successful](./img/zapier-webhook-success.png)
+![Zapier Webhook Successful](../img/zapier-webhook-success.png)
 
 ## Verify the Result
 

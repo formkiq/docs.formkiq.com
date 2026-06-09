@@ -103,6 +103,6 @@ Confirm that:
 
 ## Next Steps
 
-- [Using a Server-Side Proxy](/docs/tutorials/using-a-server-side-proxy)
+- [Using a Server-Side Proxy](/docs/tutorials/event-and-integration-patterns/using-a-server-side-proxy)
 - [Manage Users and Groups](/docs/how-tos/manage-users-and-groups)
 - [Security](/docs/platform/security)

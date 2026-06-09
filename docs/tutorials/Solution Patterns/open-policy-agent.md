@@ -1,5 +1,6 @@
 ---
 sidebar_position: 20
+slug: /tutorials/solution-patterns/open-policy-agent
 ---
 
 # Open Policy Agent
@@ -39,27 +40,27 @@ Goto the [Cognito Console](https://console.aws.amazon.com/cognito) and find your
 
 Filling create user form and clicking and click the `Create user` button will send a welcome email with a link that will allow you to set the password for the user. 
 
-![Cognito Create User](./img/opa-create-user.png)
+![Cognito Create User](../img/opa-create-user.png)
 
 Next, we will create a Cognito group that will be used in our OPA policy to restrict access to certain documents.
 
 Clicking the `Groups` tab and then clicking the `Create group` button will allow us to create a group called `opa`.
 
-![Cognito Create Group](./img/opa-create-group.png)
+![Cognito Create Group](../img/opa-create-group.png)
 
 Next we will add the `default` and `opa` group the newly created user.
 
 You will find the newly created user in the `Users` tab and clicking on the user will show the groups the user belongs to.
 
-![Cognito User Group Membership](./img/opa-user-groups.png)
+![Cognito User Group Membership](../img/opa-user-groups.png)
 
 Clicking the `Add user to group` will show a list of groups you can add the user to. Add the user to the `default` and `opa` group.
 
-![Cognito Add User to Group](./img/opa-add-groups-to-user.png)
+![Cognito Add User to Group](../img/opa-add-groups-to-user.png)
 
 You should now see the `default` and `opa` group listed under the user's membership.
 
-![Cognito OPA User Group Membership](./img/opa-group-membership.png)
+![Cognito OPA User Group Membership](../img/opa-group-membership.png)
 
 ## Step 2: Configure the FormKiQ Client Library
 

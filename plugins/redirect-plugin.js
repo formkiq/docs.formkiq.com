@@ -220,6 +220,56 @@ module.exports = function redirectPlugin(context, options) {
           component: '@site/src/components/redirects/site-classification-schemas',
           exact: true
         });
+        addRoute({
+          path: '/docs/tutorials/build-event-driven-document-processing-pipeline',
+          component: '@site/src/components/redirects/event-driven-document-processing-pipeline',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/document-event-processing',
+          component: '@site/src/components/redirects/document-event-processing',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/using-a-server-side-proxy',
+          component: '@site/src/components/redirects/server-side-proxy',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/formkiq-document-api-with-zapier',
+          component: '@site/src/components/redirects/zapier-integration',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/build-scalable-solutions-using-formkiq',
+          component: '@site/src/components/redirects/scalable-solutions',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/build-document-review-approval-workflow',
+          component: '@site/src/components/redirects/document-review-approval-workflow',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/build-ocr-searchable-archive',
+          component: '@site/src/components/redirects/ocr-searchable-archive',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/open-policy-agent',
+          component: '@site/src/components/redirects/tutorial-open-policy-agent',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/ruleset',
+          component: '@site/src/components/redirects/tutorial-ruleset',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/multitenant',
+          component: '@site/src/components/redirects/multitenant',
+          exact: true
+        });
       },
     };
   };

@@ -586,4 +586,4 @@ Adds a processing or integration action to a document. For action-specific param
 - [Search](/docs/features/search)
 - [Rulesets](/docs/features/rulesets)
 - [Workflows](/docs/features/workflows)
-- [Document Event Processing](/docs/tutorials/document-event-processing)
+- [Document Event Processing](/docs/tutorials/event-and-integration-patterns/document-event-processing)

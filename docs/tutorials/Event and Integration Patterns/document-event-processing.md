@@ -1,5 +1,6 @@
 ---
 sidebar_position: 12
+slug: /tutorials/event-and-integration-patterns/document-event-processing
 ---
 
 # Document Event Processing
@@ -10,7 +11,7 @@ FormKiQ's [document events](/docs/platform/overview#document-events) allow you t
 
 You will create a serverless application that listens for FormKiQ document-created events, processes those events from SQS, and calls the FormKiQ API to add a custom tag to each new document.
 
-![Serverless Application Flow](./img/document-event-processing.png)
+![Serverless Application Flow](../img/document-event-processing.png)
 
 We are going to build an application using the [AWS Serverless Application Model](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html). The AWS Serverless Application Model (AWS SAM) is an open source framework that you can use to build serverless applications on AWS. 
 
@@ -390,19 +391,19 @@ Successfully created/updated stack - document-events in us-east-1
 
 To test the integration of the Lambda function with FormKiQ document events. Log into the FormKiQ console.
 
-![FormKiQ Console](./img/document-events-console.png)
+![FormKiQ Console](../img/document-events-console.png)
 
 Upload a new document.
 
-![FormKiQ Console Document Upload](./img/document-events-console-add-document.png)
+![FormKiQ Console Document Upload](../img/document-events-console-add-document.png)
 
 Once the document has been uploaded, select the Add/edit metadata button.
 
-![FormKiQ Console Document Upload](./img/document-events-console-edit-metadata.png)
+![FormKiQ Console Document Upload](../img/document-events-console-edit-metadata.png)
 
 When viewing the document's metadata, you should see the `somekey` tag.
 
-![FormKiQ Console Document Upload](./img/document-events-console-view-metadata.png)
+![FormKiQ Console Document Upload](../img/document-events-console-view-metadata.png)
 
 ## Clean Up
 

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 40
+slug: /tutorials/solution-patterns/multitenant
 ---
 
 # Multi-Tenant Users
@@ -29,11 +30,11 @@ You will create a new tenant site ID using Cognito groups, create a user, assign
 
 To create a `SiteId`, start by visiting the [Amazon Cognito Console](https://console.aws.amazon.com/cognito) and select the `User pool name` matching your naming of your FormKiQ installation.
 
-![Cognito User Pools](./img/cognito-user-pools.png)
+![Cognito User Pools](../img/cognito-user-pools.png)
 
 Select the `Groups` tab and you'll see the Cognito groups that FormKiQ creates during installation. Each group is a `siteId` (except for the Admins) group.
 
-![FormKiQ default Cognito Groups](./img/cognito-groups-default.png)
+![FormKiQ default Cognito Groups](../img/cognito-groups-default.png)
 
 ### Create Tenant
 
@@ -45,17 +46,17 @@ The first group will be called `site1`. This group will give users read/write ac
 
 Enter the Group name of `site1` and click `Create group` button.
 
-![Cognito Group Site1](./img/cognito-group-site1.png)
+![Cognito Group Site1](../img/cognito-group-site1.png)
 
 The second group will be called `site1_read`. This group will give users read-only access to documents in the `site1` siteId. 
 
 Enter the Group name of `site1_read` and click `Create group` button.
 
-![Cognito Group Site1 Read](./img/cognito-group-site1-read.png)
+![Cognito Group Site1 Read](../img/cognito-group-site1-read.png)
 
 Now you'll see the `site1` and `site1_read` Cognito groups listed in the Cognito User Pool.
 
-![Cognito User Pools Site1](./img/cognito-user-pools-site1.png)
+![Cognito User Pools Site1](../img/cognito-user-pools-site1.png)
 
 ## Step 2: Create Cognito Users
 
@@ -63,7 +64,7 @@ The administrator created during the FormKiQ installation was placed in the `def
 
 Click the `Create user` button to add a new user.
 
-![Cognito Users Tab](./img/cognito-users-tab.png)
+![Cognito Users Tab](../img/cognito-users-tab.png)
 
 On the *Create User* page, 
 
@@ -74,23 +75,23 @@ On the *Create User* page,
 
 Click the `Create user` button to finish creating the new user. The user receive an email at the specified email address, with a link to finalize setting up their account.
 
-![Cognito Create User](./img/cognito-create-user.png)
+![Cognito Create User](../img/cognito-create-user.png)
 
 You'll now see both the user you just created and the administration user listed.
 
-![Cognito User List](./img/cognito-user-list.png)
+![Cognito User List](../img/cognito-user-list.png)
 
 Click your newly-created user and scroll down to the `User Group Membership`. At this point, the user does not belong to any groups/siteIds.
 
-![User Group Membership](./img/user-group-membership.png)
+![User Group Membership](../img/user-group-membership.png)
 
 Click `Add user to group` and select `site1`. Click the `Add` button.
 
-![Add User to Group](./img/add-user-to-group.png)
+![Add User to Group](../img/add-user-to-group.png)
 
 The user is now a member of `site1`.
 
-![Add User to Group](./img/user-group-site1.png)
+![Add User to Group](../img/user-group-site1.png)
 
 Lastly, ask your newly-created user to check their inbox for the `Welcome to FormKiQ` email. They can click the link within the email to finalize their account; this link will open the FormKiQ Console and will allow the newly-created user to set a password for their account.
 
@@ -104,11 +105,11 @@ Your account has been created. *Click this link to finalize your account*.
 
 Once logged into the FormKiQ Console, the user can click `Add Documents` from the menu on the left side of the screen. They can drag and drop a file into the `Upload New` box. Once the document has been uploaded, it will be displayed in the *Documents Added* table.
 
-![Add Document to Site1](./img/add-document-site1.png)
+![Add Document to Site1](../img/add-document-site1.png)
 
 Clicking on `Recent Documents` from the left menu will display the newly-added document.
 
-![Site 1 Documents](./img/site1-documents.png)
+![Site 1 Documents](../img/site1-documents.png)
 
 ## Verify the Result
 

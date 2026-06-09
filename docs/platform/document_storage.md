@@ -214,7 +214,7 @@ Document storage changes are part of FormKiQ's event-driven architecture.
 - SNS and SQS support fan-out, buffering, retries, and dead-letter queues.
 - EventBridge can be used for broader AWS event routing where configured.
 
-For architecture context, see [Platform Overview](/docs/platform/overview#document-events). For an integration example, see [Document Event Processing](/docs/tutorials/document-event-processing).
+For architecture context, see [Platform Overview](/docs/platform/overview#document-events). For an integration example, see [Document Event Processing](/docs/tutorials/event-and-integration-patterns/document-event-processing).
 
 ## Where to Go Next
 

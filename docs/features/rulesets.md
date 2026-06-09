@@ -339,7 +339,7 @@ Use the generated API reference for exact request and response schemas.
 
 ## Where to Go Next
 
-- [Ruleset Tutorial](/docs/tutorials/ruleset)
+- [Ruleset Tutorial](/docs/tutorials/solution-patterns/ruleset)
 - [Workflows](/docs/features/workflows)
 - [Documents](/docs/features/documents)
 - [Attributes](/docs/features/attributes)

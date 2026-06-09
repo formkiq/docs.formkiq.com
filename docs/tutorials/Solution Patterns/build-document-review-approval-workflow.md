@@ -1,5 +1,6 @@
 ---
 sidebar_position: 13
+slug: /tutorials/solution-patterns/build-document-review-approval-workflow
 ---
 
 # Build a Document Review and Approval Workflow
@@ -253,7 +254,7 @@ Use the API reference to delete the ruleset, workflow, and queue once you have c
 
 ## Next Steps
 
-- [Ruleset Processing](/docs/tutorials/ruleset)
+- [Ruleset Processing](/docs/tutorials/solution-patterns/ruleset)
 - [Rulesets](/docs/features/rulesets)
 - [Workflows](/docs/features/workflows)
 - [Audit and User Activity Reporting](/docs/how-tos/audit-user-activity-reporting)

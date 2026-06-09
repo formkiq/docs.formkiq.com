@@ -1,0 +1,11 @@
+{
+  "label": "Solution Patterns",
+  "collapsible": true,
+  "collapsed": true,
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "title": "Solution Patterns",
+    "description": "Architecture, workflow, governance, and deployment tutorials that combine FormKiQ capabilities into larger solution patterns."
+  }
+}

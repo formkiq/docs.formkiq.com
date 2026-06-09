@@ -1,5 +1,6 @@
 ---
 sidebar_position: 15
+slug: /tutorials/event-and-integration-patterns/build-event-driven-document-processing-pipeline
 ---
 
 # Build an Event-Driven Document Processing Pipeline
@@ -36,6 +37,7 @@ Confirm you have:
 | `SITE_ID` | FormKiQ site ID. Use `default` unless your deployment uses multiple sites. |
 | `EVENT_BUS_NAME` | EventBridge bus used for document processing events. |
 | `AWS_REGION` | AWS Region where EventBridge and Lambda are deployed. |
+| `APP_ENVIRONMENT` | FormKiQ application environment used in the EventBridge event source, such as `dev`, `staging`, or `prod`. |
 | `DOCUMENT_ID` | Document ID returned when the test document is uploaded. |
 
 The examples below use shell variables. Replace the values before running the commands:
@@ -45,6 +47,7 @@ export HTTP_API_URL="https://your-formkiq-api.example.com"
 export AUTHORIZATION_TOKEN="your-jwt-access-token"
 export SITE_ID="default"
 export AWS_REGION="us-east-1"
+export APP_ENVIRONMENT="dev"
 export EVENT_BUS_NAME="formkiq-document-pipeline"
 ```
 
@@ -105,15 +108,20 @@ aws lambda create-function \
 
 ## Step 3: Route Events to Lambda
 
-Create an EventBridge rule that sends all events on the bus to the Lambda function.
+Create an EventBridge rule that sends FormKiQ document events on the bus to the Lambda function.
 
 ```bash
 aws events put-rule \
   --name formkiq-document-pipeline-rule \
   --event-bus-name "${EVENT_BUS_NAME}" \
-  --event-pattern '{}' \
+  --event-pattern "{
+    \"source\": [\"formkiq.${APP_ENVIRONMENT}\"],
+    \"detail-type\": [\"Document Action Event\"]
+  }" \
   --region "${AWS_REGION}"
 ```
+
+FormKiQ sets the EventBridge `source` to `formkiq.<APP_ENVIRONMENT>`, such as `formkiq.dev`, `formkiq.staging`, or `formkiq.prod`.
 
 Get the Lambda function ARN:
 
@@ -289,7 +297,7 @@ aws events delete-event-bus \
 
 ## Next Steps
 
-- [Document Event Processing](/docs/tutorials/document-event-processing)
+- [Document Event Processing](/docs/tutorials/event-and-integration-patterns/document-event-processing)
 - [Add Document Actions](/docs/how-tos/api-document-actions)
 - [Status Monitoring and Alerting](/docs/how-tos/set-up-status-monitoring-and-alerting)
 - [Dead-Letter Queue](/docs/platform/error_handling/dlq)

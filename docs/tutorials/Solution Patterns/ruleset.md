@@ -1,10 +1,11 @@
 ---
 sidebar_position: 50
+slug: /tutorials/solution-patterns/ruleset
 ---
 
 # Ruleset Processing
 
-![Serverless Application Flow](./img/rulesets-workflow.png)
+![Serverless Application Flow](../img/rulesets-workflow.png)
 
 This tutorial demonstrates how to use `Rulesets` and `Rules` to automatically place documents with different content types into different `Queues`.
 

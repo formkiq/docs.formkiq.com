@@ -47,7 +47,7 @@ const sidebars = {
         "getting-started/quick-start-local",
         {
           type: "doc",
-          id: "tutorials/build-scalable-solutions-using-formkiq",
+          id: "tutorials/Solution Patterns/build-scalable-solutions-using-formkiq",
           label: "Scalable Solution Architecture",
         },
       ],
@@ -257,16 +257,39 @@ const sidebars = {
             "tutorials/FileSync CLI/Pre-Hook",
           ],
         },
-        "tutorials/build-scalable-solutions-using-formkiq",
-        "tutorials/build-document-review-approval-workflow",
-        "tutorials/build-ocr-searchable-archive",
-        "tutorials/build-event-driven-document-processing-pipeline",
-        "tutorials/document-event-processing",
-        "tutorials/using-a-server-side-proxy",
-        "tutorials/formkiq-document-api-with-zapier",
-        "tutorials/open-policy-agent",
-        "tutorials/ruleset",
-        "tutorials/multitenant",
+        {
+          type: "category",
+          label: "Event & Integration Patterns",
+          link: categoryIndex(
+            "Event & Integration Patterns",
+            "Tutorials for connecting FormKiQ to custom code, AWS event services, backend proxies, and external automation platforms.",
+            "/category/event--integration-patterns"
+          ),
+          items: [
+            "tutorials/Event and Integration Patterns/integrate-custom-code-with-eventbridge",
+            "tutorials/Event and Integration Patterns/build-event-driven-document-processing-pipeline",
+            "tutorials/Event and Integration Patterns/document-event-processing",
+            "tutorials/Event and Integration Patterns/using-a-server-side-proxy",
+            "tutorials/Event and Integration Patterns/formkiq-document-api-with-zapier",
+          ],
+        },
+        {
+          type: "category",
+          label: "Solution Patterns",
+          link: categoryIndex(
+            "Solution Patterns",
+            "Architecture, workflow, governance, and deployment tutorials that combine FormKiQ capabilities into larger solution patterns.",
+            "/category/solution-patterns"
+          ),
+          items: [
+            "tutorials/Solution Patterns/build-scalable-solutions-using-formkiq",
+            "tutorials/Solution Patterns/build-document-review-approval-workflow",
+            "tutorials/Solution Patterns/build-ocr-searchable-archive",
+            "tutorials/Solution Patterns/open-policy-agent",
+            "tutorials/Solution Patterns/ruleset",
+            "tutorials/Solution Patterns/multitenant",
+          ],
+        },
       ],
     },
     {

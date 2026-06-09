@@ -1,5 +1,6 @@
 ---
 sidebar_position: 14
+slug: /tutorials/solution-patterns/build-ocr-searchable-archive
 ---
 
 # Build an OCR Searchable Archive

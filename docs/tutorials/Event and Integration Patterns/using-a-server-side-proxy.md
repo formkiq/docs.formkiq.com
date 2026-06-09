@@ -1,5 +1,6 @@
 ---
 sidebar_position: 13
+slug: /tutorials/event-and-integration-patterns/using-a-server-side-proxy
 ---
 
 # Using a Server-Side Proxy
@@ -96,15 +97,15 @@ You should receive the following response:
 
 The easiest way for your server to authenticate with FormKiQ is via an API key. You can add a key with optional Read, Write, and Delete permissions using the FormKiQ Console, under the Integrations section. (It's also possible to use the API directly, as long as you are authenticated.)
 
-![Create API Key](./img/create-api-key.png)
+![Create API Key](../img/create-api-key.png)
 
 Be sure to copy the key, as you will not be able to view it in its entirety again.
 
 
 ## Step 3: Retrieve the FormKiQ Key Authentication API URL
 
-![FormKiQ CloudFormation Outputs](./img/formkiq-cloudformation-outputs-1.png)
-![FormKiQ Key Authentication API URL](./img/formkiq-cloudformation-outputs-2.png)
+![FormKiQ CloudFormation Outputs](../img/formkiq-cloudformation-outputs-1.png)
+![FormKiQ Key Authentication API URL](../img/formkiq-cloudformation-outputs-2.png)
 
 
 ## Step 4: Add your API key and your Key Auth API URL to the Node.js app
