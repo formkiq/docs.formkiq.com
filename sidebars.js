@@ -169,11 +169,6 @@ const sidebars = {
         },
         {
           type: "doc",
-          id: "formkiq-modules/modules/formkiq-cli",
-          label: "FormKiQ CLI",
-        },
-        {
-          type: "doc",
           id: "tutorials/Python/using-python-client-sdk",
           label: "Python SDK",
         },
@@ -186,6 +181,11 @@ const sidebars = {
           type: "doc",
           id: "tutorials/Java/using-java-client-sdk",
           label: "Java SDK",
+        },
+        {
+          type: "doc",
+          id: "formkiq-modules/modules/formkiq-cli",
+          label: "FormKiQ CLI",
         },
       ],
     },
