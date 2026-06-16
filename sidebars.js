@@ -145,7 +145,7 @@ const sidebars = {
             "formkiq-modules/modules/full-encryption",
             "formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer",
             "formkiq-modules/modules/open_policy_agent",
-            "formkiq-modules/modules/filesync-cli",
+            "formkiq-modules/modules/formkiq-cli",
             "formkiq-modules/modules/document-gateways",
             "formkiq-modules/modules/custom-domains",
             "formkiq-modules/modules/e-signature",
@@ -166,6 +166,11 @@ const sidebars = {
           type: "link",
           label: "API Reference",
           href: "/docs/category/formkiq-api",
+        },
+        {
+          type: "doc",
+          id: "formkiq-modules/modules/formkiq-cli",
+          label: "FormKiQ CLI",
         },
         {
           type: "doc",
@@ -245,16 +250,16 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "FileSync CLI",
+          label: "FormKiQ CLI",
           link: categoryIndex(
-            "FileSync CLI",
-            "FileSync CLI import and migration tutorials.",
-            "/category/filesync-cli"
+            "FormKiQ CLI",
+            "FormKiQ CLI import and migration tutorials.",
+            "/category/formkiq-cli"
           ),
           items: [
-            "tutorials/FileSync CLI/fk-cli-import-csv-data-migration",
-            "tutorials/FileSync CLI/dynamodb-data-migration",
-            "tutorials/FileSync CLI/Pre-Hook",
+            "tutorials/FormKiQ CLI/fk-cli-import-csv-data-migration",
+            "tutorials/FormKiQ CLI/dynamodb-data-migration",
+            "tutorials/FormKiQ CLI/pre-hook",
           ],
         },
         {

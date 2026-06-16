@@ -134,6 +134,26 @@ module.exports = function redirectPlugin(context, options) {
           component: '@site/src/components/redirects/filesync-cli',
           exact: true
         });
+        addRoute({
+          path: '/docs/formkiq-modules/modules/filesync-cli',
+          component: '@site/src/components/redirects/filesync-cli',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/category/filesync-cli',
+          component: '@site/src/components/redirects/formkiq-cli-category',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/FileSync CLI/Pre-Hook',
+          component: '@site/src/components/redirects/formkiq-cli-pre-hook',
+          exact: true
+        });
+        addRoute({
+          path: '/docs/tutorials/FileSync%20CLI/Pre-Hook',
+          component: '@site/src/components/redirects/formkiq-cli-pre-hook',
+          exact: true
+        });
         
         addRoute({
           path: '/docs/add-on-modules/modules/full-encryption',

@@ -14,7 +14,7 @@ tags:
 
 # DynamoDB Data Migration
 
-This tutorial shows how to use the `--restore-dynamodb` option in the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) and the `aws s3 sync` command in the [AWS CLI](https://aws.amazon.com/cli/) to copy documents from one FormKiQ installation to another.
+This tutorial shows how to use the `--restore-dynamodb` option in the [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) and the `aws s3 sync` command in the [AWS CLI](https://aws.amazon.com/cli/) to copy documents from one FormKiQ installation to another.
 
 ## What You Will Build
 
@@ -23,7 +23,7 @@ You will copy document metadata from one FormKiQ DynamoDB table to another, then
 ## Before You Begin
 
 - Access to a FormKiQ Advanced or Enterprise installation.
-- The latest [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) installed and configured.
+- The latest [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) installed and configured.
 - AWS CLI access to the source and destination S3 buckets.
 - Source and destination FormKiQ DynamoDB document table names.
 - Source and destination document S3 bucket names.
@@ -38,7 +38,7 @@ You will copy document metadata from one FormKiQ DynamoDB table to another, then
 
 **The first step is to sync the document metadata.**
 
-Using the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDB](https://aws.amazon.com/dynamodb) using the command:
+Using the [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDB](https://aws.amazon.com/dynamodb) using the command:
 
 ```
 fk --restore-dynamodb --from-table <source_dynamodb_tablename> --to-table <destination_dynamodb_tablename>
@@ -91,9 +91,9 @@ Remove any temporary document ID lists or migration logs created during testing.
 | --- | --- | --- |
 | DynamoDB restore fails | Incorrect table name or missing permissions. | Confirm table names, Region, and `dynamodb:Scan` / `dynamodb:BatchWriteItem`. |
 | Documents appear but cannot download | S3 objects were not copied or object keys do not match metadata. | Rerun `aws s3 sync` and compare bucket object counts. |
-| Search does not return migrated documents | Search index was not rebuilt. | Use FileSync CLI OpenSearch sync or see the Core-to-Enterprise migration guide. |
+| Search does not return migrated documents | Search index was not rebuilt. | Use FormKiQ CLI OpenSearch sync or see the Core-to-Enterprise migration guide. |
 
 ## Next Steps
 
 - [Migrate Documents from Core to Enterprise](/docs/how-tos/migration-core-to-enterprise)
-- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli)

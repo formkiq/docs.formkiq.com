@@ -125,7 +125,7 @@ Choose the upload pattern based on file size, source system, and integration req
 | Presigned upload | Most binary files, large files, PDFs, images, Office files, and browser uploads. | [`POST /documents/upload`](/docs/api-reference/add-document-upload) |
 | Existing upload URL | Uploading content for a document where metadata has already been created. | [`GET /documents/{documentId}/upload`](/docs/api-reference/get-document-upload) |
 | Deep link | Referencing external content without copying it into FormKiQ storage. | [Deep Links / External Documents](#deep-links--external-documents) |
-| FileSync or import tooling | Large imports, migrations, and bulk file movement. | [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) |
+| FormKiQ CLI or import tooling | Large imports, migrations, and bulk file movement. | [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) |
 
 For storage architecture and bucket behavior, see [Document Storage](/docs/platform/document_storage).
 

@@ -26,8 +26,8 @@ For large migrations, treat the migration process as an operational project, not
 | Migration method | Best for | Main advantages | Watch for |
 | --- | --- | --- | --- |
 | API-based migration | Custom source systems, complex transformations, application-led imports, incremental synchronization | Maximum control over mapping, validation, retries, and business logic | Requires custom scripting and careful retry/idempotency design |
-| FileSync CLI and CSV import | Structured bulk imports where documents, content locations, and attributes can be prepared as CSV files | Repeatable, batch-oriented, and easier to validate before import | Available for supported commercial installations; CSV quality matters |
-| FileSync CLI sync | Local folders or S3 locations that should be synchronized into FormKiQ | Good for file-system style migrations and ongoing sync scenarios | Metadata enrichment may require pre-hook or post-hook logic |
+| FormKiQ CLI and CSV import | Structured bulk imports where documents, content locations, and attributes can be prepared as CSV files | Repeatable, batch-oriented, and easier to validate before import | Available for supported commercial installations; CSV quality matters |
+| FormKiQ CLI sync | Local folders or S3 locations that should be synchronized into FormKiQ | Good for file-system style migrations and ongoing sync scenarios | Metadata enrichment may require pre-hook or post-hook logic |
 | FKB64 staging bucket import | Smaller documents, generated bundles, and staging-bucket based import workflows | Combines content and metadata into one import object | Base64 adds size overhead and requires strict file structure validation |
 | S3 deep links | Content that should remain in an existing S3 location | Avoids copying large content sets into FormKiQ storage | External object permissions, lifecycle, and retention stay outside FormKiQ-managed storage |
 | Stack-to-stack migration | Moving data between FormKiQ installations | Useful for environment moves or recovery workflows | Requires DynamoDB and S3 coordination; validate target stack compatibility |
@@ -105,9 +105,9 @@ Recommended practices:
 - Use presigned upload flows for large files instead of loading files into memory.
 - Separate extraction, transformation, upload, and validation so each stage can be rerun.
 
-## FileSync CLI and CSV Import
+## FormKiQ CLI and CSV Import
 
-The [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) is useful when migration data can be prepared as CSV files or when files can be synchronized from a local directory or S3 location.
+The [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) is useful when migration data can be prepared as CSV files or when files can be synchronized from a local directory or S3 location.
 
 The CSV import flow can load:
 
@@ -126,7 +126,7 @@ Recommended CSV import order:
 
 For the step-by-step CSV workflow, see [Import CSV Data Migration](/docs/tutorials/fk-cli-import-csv-data-migration).
 
-### FileSync Hooks
+### FormKiQ CLI Hooks
 
 For folder or S3 synchronization, pre-hook and post-hook logic can enrich or validate documents during migration.
 
@@ -139,7 +139,7 @@ Use a pre-hook when metadata needs to be derived before import, such as:
 
 Use a post-hook when downstream validation or reporting should happen after a document is imported.
 
-For hook details, see [Pre-Hook Option](/docs/tutorials/FileSync%20CLI/Pre-Hook).
+For hook details, see [Pre-Hook Option](/docs/tutorials/formkiq-cli/pre-hook).
 
 ## FKB64 Staging Bucket Import
 
@@ -152,7 +152,7 @@ Use FKB64 when:
 - Content and metadata should travel together.
 - A staging bucket workflow is easier than direct API calls.
 
-Avoid FKB64 for very large documents unless the size overhead and processing behavior have been tested. For larger documents, API upload or FileSync content import is usually easier to operate and monitor.
+Avoid FKB64 for very large documents unless the size overhead and processing behavior have been tested. For larger documents, API upload or FormKiQ CLI content import is usually easier to operate and monitor.
 
 More information is available in the [FKB64 File Specification](/docs/platform/document_storage#fkb64-file-specification).
 
@@ -170,7 +170,7 @@ Review [Document Storage](/docs/platform/document_storage#s3-deep-links) before 
 
 ## Stack-to-Stack Migration
 
-When moving documents between FormKiQ environments, use the FileSync CLI and AWS CLI workflows designed for FormKiQ-to-FormKiQ data movement.
+When moving documents between FormKiQ environments, use the FormKiQ CLI and AWS CLI workflows designed for FormKiQ-to-FormKiQ data movement.
 
 Common scenarios include:
 
@@ -210,7 +210,7 @@ Performance recommendations:
 - Use EC2 for large migrations instead of a local workstation or AWS CloudShell.
 - Start with a small pilot batch and increase concurrency gradually.
 - Monitor API errors, throttling, Lambda errors, SQS depth, and OpenSearch indexing behavior.
-- Use presigned S3 upload or FileSync content import for large binary files.
+- Use presigned S3 upload or FormKiQ CLI content import for large binary files.
 - Avoid running expensive actions on every document during the first bulk load unless they are required for cutover.
 - Reindex or run OCR after the content load if that gives better control over cost and throughput.
 - Keep migration batches small enough that a failed batch can be replayed without manual cleanup.
@@ -254,7 +254,7 @@ Review [Backup and Recovery](/docs/platform/backup_and_recovery) and [Updates, U
 ## Where to Go Next
 
 - [FormKiQ API Reference](/docs/category/formkiq-api)
-- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli)
 - [Import CSV Data Migration](/docs/tutorials/fk-cli-import-csv-data-migration)
 - [DynamoDB Data Migration](/docs/tutorials/dynamodb-data-migration)
 - [Document Storage](/docs/platform/document_storage)

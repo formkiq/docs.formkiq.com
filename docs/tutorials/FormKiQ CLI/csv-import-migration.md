@@ -252,5 +252,5 @@ Archive the import CSV files and CLI output logs with your migration records. Re
 
 After completing the migration, validate imported data using the FormKiQ UI or API.
 
-- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli)
 - [Migration and Data Import](/docs/platform/migration-and-data-import)

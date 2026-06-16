@@ -69,7 +69,7 @@ Start by matching the ingestion pattern to the workload. Avoid forcing every use
 | --- | --- | --- |
 | Inline `POST /documents` | Small text or JSON documents | The request payload is small and the application needs a simple synchronous create. |
 | Presigned upload | Browser uploads, large files, mobile apps | The file can be uploaded directly to S3 after FormKiQ creates the document record. |
-| FileSync CLI or batch import | Migration, high-volume loading, repeated imports | The source is a filesystem, S3 location, CSV, or migration export. |
+| FormKiQ CLI or batch import | Migration, high-volume loading, repeated imports | The source is a filesystem, S3 location, CSV, or migration export. |
 | Server-side proxy | Custom validation, product-specific authorization, internal APIs | You need your own application API between clients and FormKiQ. |
 | Public intake or webhooks | External partners, forms, integration callbacks | You need controlled intake from outside your authenticated application. |
 
@@ -125,7 +125,7 @@ For an invoice archive, a scalable metadata model might use:
 | `documentType` | Attribute, string | Separates invoices, contracts, correspondence, and forms. |
 | `documentDate` | Attribute, string or date-like string | Supports timeline and retention workflows. |
 | `reviewStatus` | Attribute or tag | Tracks whether a document is pending, approved, rejected, or failed. |
-| `sourceSystem` | Tag | Identifies migration, portal, API, partner, or FileSync origin. |
+| `sourceSystem` | Tag | Identifies migration, portal, API, partner, or FormKiQ CLI origin. |
 
 A high-volume exact lookup could be modeled as a composite key such as:
 

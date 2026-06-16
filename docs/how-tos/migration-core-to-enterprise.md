@@ -6,14 +6,14 @@ sidebar_position: 10
 
 Use this guide to migrate document metadata and document content from a FormKiQ Core deployment to a FormKiQ Enterprise deployment.
 
-This guide uses the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) for the DynamoDB metadata copy, the AWS CLI for S3 document content copy, and optional post-migration steps for timestamp repair and OpenSearch sync.
+This guide uses the [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) for the DynamoDB metadata copy, the AWS CLI for S3 document content copy, and optional post-migration steps for timestamp repair and OpenSearch sync.
 
 ## Before You Begin
 
 Confirm you have:
 
 - Access to the AWS account and Region for both the source and target FormKiQ deployments.
-- The [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) installed and configured.
+- The [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) installed and configured.
 - AWS CLI installed and configured with access to DynamoDB, S3, and any KMS keys used by both deployments.
 - [jq](https://jqlang.github.io/jq/) installed if you need to run the optional timestamp repair step.
 - The source and target FormKiQ CloudFormation stacks available in AWS.
@@ -32,7 +32,7 @@ The DynamoDB restore command performs a direct table-to-table copy. Use it only 
 
 | Placeholder | Description |
 | --- | --- |
-| `FK_PROFILE` | FileSync CLI profile configured for the target environment and permitted to read the source table. |
+| `FK_PROFILE` | FormKiQ CLI profile configured for the target environment and permitted to read the source table. |
 | `SOURCE_TABLE` | DynamoDB table that stores source FormKiQ document metadata. |
 | `TARGET_TABLE` | DynamoDB table that stores target FormKiQ document metadata. |
 | `SOURCE_BUCKET` | S3 bucket that stores source FormKiQ document content. |
@@ -74,7 +74,7 @@ Record the source table as `SOURCE_TABLE` and the target table as `TARGET_TABLE`
 
 ## Step 3: Copy Document Metadata
 
-Use the FileSync CLI `--restore-dynamodb` command to copy document metadata from the source table to the target table.
+Use the FormKiQ CLI `--restore-dynamodb` command to copy document metadata from the source table to the target table.
 
 ```bash
 fk --restore-dynamodb \
@@ -97,7 +97,7 @@ fk --restore-dynamodb \
 ```
 
 :::note
-The FileSync CLI profile must resolve AWS credentials that can read the source table and write to the target table. For cross-account migrations, use an AWS role or credentials that have access to both tables.
+The FormKiQ CLI profile must resolve AWS credentials that can read the source table and write to the target table. For cross-account migrations, use an AWS role or credentials that have access to both tables.
 :::
 
 ## Step 4: Identify the Source and Target S3 Buckets
@@ -227,7 +227,7 @@ After migration:
 
 | Problem | Likely cause | What to check |
 | --- | --- | --- |
-| `fk --restore-dynamodb` cannot find the table | Incorrect table name, Region, profile, or permissions. | Confirm the FileSync CLI profile, `SOURCE_TABLE`, `TARGET_TABLE`, and DynamoDB permissions. |
+| `fk --restore-dynamodb` cannot find the table | Incorrect table name, Region, profile, or permissions. | Confirm the FormKiQ CLI profile, `SOURCE_TABLE`, `TARGET_TABLE`, and DynamoDB permissions. |
 | DynamoDB restore is slow or throttled | Thread count is too high for the source or target table capacity. | Reduce `--thread-count`, check DynamoDB throttling metrics, and retry during a quieter window. |
 | Target records are overwritten | The target table already had matching keys. | Restore into a clean target table or selectively restore only known-safe `--pk` values. |
 | S3 sync skips objects | Incorrect bucket name, insufficient permissions, or KMS access issue. | Confirm `s3:ListBucket`, `s3:GetObject`, `s3:PutObject`, and required `kms:Decrypt` / `kms:Encrypt` permissions. |
@@ -237,7 +237,7 @@ After migration:
 
 ## Next Steps
 
-- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli)
 - [Migration and Data Import](/docs/platform/migration-and-data-import)
 - [Backup and Recovery](/docs/platform/backup_and_recovery)
 - [Status Monitoring and Alerting](/docs/how-tos/set-up-status-monitoring-and-alerting)

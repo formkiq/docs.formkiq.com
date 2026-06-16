@@ -1,19 +1,22 @@
 ---
+id: pre-hook
+title: Pre-Hook Option
 sidebar_position: 10
+slug: /tutorials/formkiq-cli/pre-hook
 ---
 
 # Pre-Hook Option
 
-This tutorial shows how to use the `--pre-hook` option in the [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) to add document tags and actions while syncing documents to FormKiQ.
+This tutorial shows how to use the `--pre-hook` option in the [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) to add document tags and actions while syncing documents to FormKiQ.
 
 ## What You Will Build
 
-You will build a small Node.js web service that receives FileSync pre-hook requests and returns document-specific tags. You will then sync two sample files and have the CLI apply different tags based on the file path.
+You will build a small Node.js web service that receives FormKiQ CLI pre-hook requests and returns document-specific tags. You will then sync two sample files and have the CLI apply different tags based on the file path.
 
 ## Before You Begin
 
 - Access to a FormKiQ Essentials, Advanced, or Enterprise installation.
-- The [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli) installed and configured.
+- The [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli) installed and configured.
 - [Node.js](https://nodejs.org/en) installed.
 - A terminal with access to run `fk` and `node`.
 
@@ -22,7 +25,7 @@ You will build a small Node.js web service that receives FileSync pre-hook reque
 1. Create a Node.js pre-hook web service.
 2. Test the pre-hook endpoint directly.
 3. Create two sample files.
-4. Run FileSync with `--pre-hook`.
+4. Run the FormKiQ CLI with `--pre-hook`.
 5. Verify the files and tags in FormKiQ.
 
 ## Step 1: Create the Pre-Hook Web Service
@@ -203,7 +206,7 @@ Expected response:
 
 ## Step 4: Create Sample Files
 
-Now create the sample files that FileSync will upload.
+Now create the sample files that the FormKiQ CLI will upload.
 
 Create a directory named `examples`, then create `example1.txt` and `example2.txt`.
 
@@ -226,7 +229,7 @@ This is example1.txt
 This is example2.txt
 ```
 
-## Step 5: Configure FileSync CLI
+## Step 5: Configure FormKiQ CLI
 
 If the CLI is not already configured, configure it using the FormKiQ CloudFormation outputs:
 
@@ -238,9 +241,9 @@ fk --configure --access-key ACCESS_KEY \
                --documents-dynamodb-tablename DOCUMENTS_TABLE_NAME
 ```
 
-## Step 6: Run FileSync CLI
+## Step 6: Run FormKiQ CLI
 
-We will now run the FileSync CLI to sync 2 sample files from the examples directory to FormKiQ.
+We will now run the FormKiQ CLI to sync 2 sample files from the examples directory to FormKiQ.
 
 ```
 fk --sync -d ./examples --pre-hook http://localhost:3000/get-payload -v
@@ -258,12 +261,12 @@ Stop the Node.js service with `Ctrl+C`. Delete the sample documents from FormKiQ
 
 | Problem | Likely cause | What to check |
 | --- | --- | --- |
-| FileSync receives a 404 from the pre-hook | The file path in the request does not match the `payloads` map. | Log `req.body.path` and update the sample keys. |
+| The FormKiQ CLI receives a 404 from the pre-hook | The file path in the request does not match the `payloads` map. | Log `req.body.path` and update the sample keys. |
 | Documents upload without tags | The pre-hook URL is wrong or the service is not running. | Confirm `node index.js` is running and `--pre-hook` points to the correct URL. |
 | Actions are not created | The returned action type or payload is invalid. | Use supported action types such as `FULLTEXT`, `OCR`, or `WEBHOOK`. |
 
 ## Next Steps
 
-- [FileSync CLI](/docs/formkiq-modules/modules/filesync-cli)
+- [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli)
 - [Add Document Actions](/docs/how-tos/api-document-actions)
 - [Add Document Tags](/docs/how-tos/api-add-document-tags)

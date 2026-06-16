@@ -2,11 +2,11 @@
 sidebar_position: 1
 ---
 
-# FileSync CLI
+# FormKiQ CLI
 
 ## Overview
 
-The FileSync CLI is a FormKiQ commercial module for moving files and document metadata into, between, and around FormKiQ environments.
+The FormKiQ CLI is a FormKiQ commercial module for moving files and document metadata into, between, and around FormKiQ environments.
 
 Use it when you need to:
 
@@ -17,7 +17,7 @@ Use it when you need to:
 - Sync or verify migrated documents in OpenSearch.
 - List, delete, purge, or remove large sets of documents.
 
-![FormKiQ File Sync Module](./img/formkiq_filesync_module.png)
+![FormKiQ CLI Module](./img/formkiq_filesync_module.png)
 
 ## Before You Begin
 
@@ -25,7 +25,7 @@ Confirm you have:
 
 - A FormKiQ Essentials, Advanced, or Enterprise installation.
 - Access to the FormKiQ deployment's AWS account and Region.
-- Access to the custom FormKiQ S3 bucket that contains the FileSync CLI package.
+- Access to the [FormKiQ CLI GitHub releases](https://github.com/formkiq/formkiq-cli/releases/latest).
 - The FormKiQ `IamApiUrl` and `DocumentsTableName` stack outputs, or permission to let the CLI discover them from CloudFormation.
 - AWS credentials or an AWS profile with the permissions required for the workflows you plan to run.
 
@@ -35,30 +35,28 @@ Use an AWS profile or CloudShell role where possible. Static access keys are sup
 
 ## Install the CLI
 
-The CLI package is available from your custom FormKiQ S3 bucket.
+The FormKiQ CLI binaries are published as release assets in the public [formkiq/formkiq-cli](https://github.com/formkiq/formkiq-cli) repository.
 
-| Platform | Location |
+| Platform | Download |
 | --- | --- |
-| Linux | `s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-linux-amd64.zip` |
-| macOS | `s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-darwin-amd64.zip` |
-| Windows | `s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-windows-amd64.zip` |
+| Linux | Download the Linux asset from the [latest FormKiQ CLI release](https://github.com/formkiq/formkiq-cli/releases/latest). |
+| macOS | Download the macOS asset from the [latest FormKiQ CLI release](https://github.com/formkiq/formkiq-cli/releases/latest). |
+| Windows | Download the Windows asset from the [latest FormKiQ CLI release](https://github.com/formkiq/formkiq-cli/releases/latest). |
 
 ### CloudShell
 
-Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home) in the same AWS account and Region as your FormKiQ deployment, then copy the Linux artifact:
+Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home) in the same AWS account and Region as your FormKiQ deployment, then download the Linux release asset from GitHub. Copy the asset URL from the [latest FormKiQ CLI release](https://github.com/formkiq/formkiq-cli/releases/latest), then run:
 
 ```bash
-aws s3 cp s3://YOUR-FORMKIQ-S3-BUCKET/cli/formkiq-filesync-cli-VERSION-linux-amd64.zip .
+curl -L -o formkiq-cli.zip "PASTE_LINUX_RELEASE_ASSET_URL"
+unzip formkiq-cli.zip
+chmod +x fk
 ```
-
-Download the file through the CloudShell Actions menu.
-
-![AWS CloudShell FormKiQ CLI Download](./img/cloudshell-cli-download.png)
 
 After extracting the package, verify the executable:
 
 ```bash
-fk --help
+./fk --help
 ```
 
 ## Configure a FormKiQ Profile

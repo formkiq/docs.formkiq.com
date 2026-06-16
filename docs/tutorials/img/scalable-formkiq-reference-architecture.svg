@@ -49,7 +49,7 @@
 
   <rect class="box blue" x="670" y="145" width="150" height="54"/>
   <text class="boxTitle" x="745" y="167" text-anchor="middle">Bulk Intake</text>
-  <text class="boxText" x="745" y="185" text-anchor="middle">FileSync, imports</text>
+  <text class="boxText" x="745" y="185" text-anchor="middle">FormKiQ CLI, imports</text>
 
   <rect class="box blue" x="870" y="145" width="150" height="54"/>
   <text class="boxTitle" x="945" y="167" text-anchor="middle">Public Intake</text>

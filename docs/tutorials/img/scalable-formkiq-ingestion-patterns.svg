@@ -38,7 +38,7 @@
   <text class="boxText" x="485" y="178" text-anchor="middle">API returns URL, client uploads bytes</text>
 
   <rect class="box green" x="670" y="110" width="240" height="84"/>
-  <text class="boxTitle" x="790" y="139" text-anchor="middle">FileSync CLI or Import</text>
+  <text class="boxTitle" x="790" y="139" text-anchor="middle">FormKiQ CLI or Import</text>
   <text class="boxText" x="790" y="160" text-anchor="middle">Bulk migration and batch import</text>
   <text class="boxText" x="790" y="178" text-anchor="middle">Repeatable high-volume loading</text>
 

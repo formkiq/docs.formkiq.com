@@ -12,7 +12,7 @@ graph_attr = {
     "margin":"-1.5, -1.5"
 }
 
-with Diagram("FormKiQ FileSync Module", graph_attr=graph_attr, show=False):
+with Diagram("FormKiQ CLI Module", graph_attr=graph_attr, show=False):
 
     with Cluster("Local / File Server / Network Share"):
         documents = CloudsearchSearchDocuments("Document(s)")

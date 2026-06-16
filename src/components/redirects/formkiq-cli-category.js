@@ -4,9 +4,9 @@ import { useHistory, useLocation } from '@docusaurus/router';
 export default function Redirect() {
   const history = useHistory();
   const location = useLocation();
-  
+
   useEffect(() => {
-    history.replace('/docs/formkiq-modules/modules/formkiq-cli' + location.hash);
+    history.replace('/docs/category/formkiq-cli' + location.hash);
   }, []);
 
   return null;

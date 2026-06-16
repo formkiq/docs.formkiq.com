@@ -8,7 +8,7 @@ sidebar_position: 1
 
 [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) is an open-source policy engine integrated with FormKiQ to provide fine-grained access control. This integration enables organizations to define and enforce attribute-based access controls (ABAC) across their document management system.
 
-![FormKiQ File Sync Module](./img/architecture_formkiq_open_policy_agent.png)
+![FormKiQ Open Policy Agent Module](./img/architecture_formkiq_open_policy_agent.png)
 
 ## Key Features
 
