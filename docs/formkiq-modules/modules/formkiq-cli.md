@@ -13,6 +13,7 @@ Use it when you need to:
 - Sync files from a local directory or S3 location into FormKiQ.
 - Watch a local directory and upload new or changed files.
 - Import documents, attributes, document content, and document attributes from CSV files.
+- Export and import site configuration such as attributes, schemas, workflows, rulesets, mappings, locales, entity types, and entities.
 - Copy FormKiQ document metadata between DynamoDB tables.
 - Sync or verify migrated documents in OpenSearch.
 - List, delete, purge, or remove large sets of documents.
@@ -355,6 +356,106 @@ fk --import-csv \
   --verify
 ```
 
+### Export and Import Configuration
+
+Use `--export-config` and `--import-config` to move configuration settings between FormKiQ installations.
+
+Configuration is exported by type into JSON files in the output directory. You can export or import one type at a time, or combine multiple type flags in the same command.
+
+Supported configuration types:
+
+| Type | Flag | Export file |
+| --- | --- | --- |
+| Attributes | `--attributes` | `attributes.json` |
+| Classifications | `--classifications` | `classifications.json` |
+| Entity types | `--entity-types` | `entityTypes.json` |
+| Entities | `--entities --entity-type-id ENTITY_TYPE_ID` | `entities-ENTITY_TYPE_ID.json` |
+| Locale resources | `--locale` | `locale.json` |
+| Mappings | `--mappings` | `mappings.json` |
+| OPA policy items | `--opa` | `opa.json` |
+| Rulesets | `--rulesets` | `rulesets.json` |
+| Schemas | `--schemas` | `schemas.json` |
+| Workflows | `--workflows` | `workflows.json` |
+
+#### Export Configuration
+
+Export selected configuration types from a site:
+
+```bash
+fk --export-config \
+  --attributes \
+  --schemas \
+  --classifications \
+  --site-id default \
+  --output ./config
+```
+
+Export entity types:
+
+```bash
+fk --export-config \
+  --entity-types \
+  --site-id default \
+  --output ./config
+```
+
+Export entities for a specific entity type:
+
+```bash
+fk --export-config \
+  --entities \
+  --entity-type-id person \
+  --site-id default \
+  --output ./config
+```
+
+#### Import Configuration
+
+Import selected configuration types into a site:
+
+```bash
+fk --import-config \
+  --attributes \
+  --schemas \
+  --classifications \
+  --site-id default \
+  --input ./config
+```
+
+Import entity types before importing entities that depend on them:
+
+```bash
+fk --import-config \
+  --entity-types \
+  --site-id default \
+  --input ./config
+```
+
+Import entities for a specific entity type:
+
+```bash
+fk --import-config \
+  --entities \
+  --entity-type-id person \
+  --site-id default \
+  --input ./config
+```
+
+Use `--dry-run` with `--import-config` to read and validate the input files without writing changes:
+
+```bash
+fk --import-config \
+  --workflows \
+  --rulesets \
+  --site-id default \
+  --input ./config \
+  --dry-run
+```
+
+:::note
+Entity imports try to add each entity first. If the add fails, the CLI updates the existing entity using the exported `entityId`.
+:::
+
 ### Migrate or Restore DynamoDB Metadata
 
 Use `--restore-dynamodb` to copy items from one FormKiQ DynamoDB document table to another.
@@ -484,6 +585,8 @@ fk --data-migration \
 | `--sync` | Upload files from local storage or S3. | `--dir`, `--siteId`, `--recursive`, `--include`, `--actions`, `--pre-hook`, `--dry-run`, `--profile` |
 | `--watch` | Watch a local directory and upload changed files. | `--dir`, `--siteId`, `--recursive`, `--syncDelay`, `--include`, `--dry-run`, `--profile` |
 | `--import-csv` | Import CSV data. | `--attributes`, `--documents`, `--document-contents`, `--document-attributes`, `--site-id`, `--verify`, `--delimiter`, `--limit`, `--profile` |
+| `--export-config` | Export site configuration to JSON files. | `--attributes`, `--classifications`, `--entities`, `--entity-type-id`, `--entity-types`, `--locale`, `--mappings`, `--opa`, `--rulesets`, `--schemas`, `--workflows`, `--site-id`, `--output`, `--profile` |
+| `--import-config` | Import site configuration from JSON files. | `--attributes`, `--classifications`, `--entities`, `--entity-type-id`, `--entity-types`, `--locale`, `--mappings`, `--opa`, `--rulesets`, `--schemas`, `--workflows`, `--site-id`, `--input`, `--dry-run`, `--profile` |
 | `--restore-dynamodb` | Copy DynamoDB items from one table to another. | `--from-table`, `--to-table`, `--pk`, `--thread-count`, `--profile` |
 | `--list-documents` | List document IDs for a site. | `--site-id`, `--limit`, `--profile` |
 | `--sync-opensearch` | Sync document records into OpenSearch. | `--site-id`, `--file`, `--content`, `--dry-run`, `--profile` |
