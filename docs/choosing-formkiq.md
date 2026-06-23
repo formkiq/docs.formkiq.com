@@ -60,10 +60,32 @@ FormKiQ may not be the right fit if you only need basic file sharing, commodity 
 
 It is best suited for organizations where document management is operationally important and where APIs, automation, governance, metadata, migration, or architectural control matter.
 
+## FormKiQ vs Building Directly on AWS
+
+AWS provides strong building blocks for document systems, including Amazon S3, DynamoDB, Lambda, API Gateway, Cognito, Textract, OpenSearch, EventBridge, SQS, SNS, CloudWatch, and CloudTrail. These services can support a custom document platform, but they do not define the document model, API contract, access-control model, metadata strategy, workflow layer, audit model, migration approach, or operating process.
+
+FormKiQ is designed for teams that want the benefits of AWS-native deployment without owning every layer of document platform development from scratch.
+
+| Evaluation area | Building directly on AWS | Using FormKiQ |
+| --- | --- | --- |
+| Initial prototype | Fast for simple upload, storage, and retrieval. | Fast when you need document APIs, console access, metadata, and search early. |
+| Production scope | Requires custom design across storage, API, authentication, authorization, metadata, search, events, monitoring, backup, and recovery. | Provides a prebuilt document platform deployed into your AWS account. |
+| Governance | Access rules, audit history, retention behavior, and review controls must be designed and maintained across services and application code. | Provides sites, groups, permissions, folder controls, attributes, activity records, and optional ABAC through Open Policy Agent. |
+| Search and metadata | Requires schema design, indexing strategy, query APIs, reindexing processes, and result-level permission checks. | Provides tags, attributes, schemas, metadata search, full-text search, and enhanced search module options. |
+| OCR and AI processing | Requires orchestration, retries, result storage, confidence handling, human review, audit trails, and cost monitoring. | Supports OCR, document actions, workflows, and commercial OCR/IDP or AI processing modules depending on edition. |
+| Migration | Requires custom extraction, mapping, import, validation, reconciliation, and cutover tooling. | Provides APIs, CLI workflows, CSV import patterns, deep links, and migration guidance. |
+| Operations | Your team owns alerts, failed jobs, retries, upgrades, security review, support, and long-term maintenance. | Provides AWS-native operating patterns, documentation, and commercial support options for supported editions. |
+
+Building directly on AWS may be a good fit when the use case is narrow, document requirements are simple, and your team is prepared to own the system long term. FormKiQ is usually a stronger fit when documents are operationally important and the system needs APIs, metadata, workflow, search, OCR, permissions, auditability, migration support, or governance controls in production.
+
+AI-assisted development can speed up custom implementation, but it does not remove the need for architecture, security review, access-control testing, audit design, failed-job handling, migration validation, or production support. For regulated or control-sensitive document operations, the harder problem is not generating code. The harder problem is maintaining a governed document system over time.
+
 ## Where To Go Next
 
 - [Quick Start (AWS)](/docs/getting-started/quick-start)
 - [Platform Overview](/docs/platform/overview)
 - [Costs](/docs/platform/costs)
 - [Security](/docs/platform/security)
+- [Regulated Production Deployment Checklist](/docs/platform/regulated-production-deployment-checklist)
+- [Migration and Data Import](/docs/platform/migration-and-data-import)
 - [API Walkthrough](/docs/getting-started/api-walkthrough)
