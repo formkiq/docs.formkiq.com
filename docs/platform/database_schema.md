@@ -238,6 +238,64 @@ Document Sync records track synchronization work between FormKiQ and an external
 | type | Type of data synced |
 | message | sync message |
 
+### Document Review
+
+Document Review records store review state for a document. They support document-centric lookup,
+category-wide review queues, and category plus status review queues using the primary key and GSI1.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "review#" + reviewId |
+| SK (artifact) | "review_art#" + artifactId + "#" + reviewId |
+| GSI1PK | "reviews#category#" + reviewCategory |
+| GSI1SK | "status#" + reviewStatus + "#" + reviewId |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| artifactId | Artifact Identifier |
+| reviewId | Review Identifier |
+| reviewCategory | Review Category |
+| reviewStatus | Review Status (PENDING / IN_PROGRESS / COMPLETED / CANCELLED / SUPERSEDED) |
+| requiredDecisions | Number of decisions required to complete the review |
+| userId | Create by user |
+| comments | Review comments |
+| inserteddate | Inserted Date |
+| lastModifiedDate | Last Modified Date |
+
+### Document Review Decision
+
+Document Review Decision records store a user's decision for a document review. They support
+retrieving a specific decision by review and decision id, and listing all decisions for a review
+using the primary key.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "review#" + reviewId + "#decision#" + decisionId |
+| SK (artifact) | "review_art#" + artifactId + "#" + reviewId + "#decision#" + decisionId |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| artifactId | Artifact Identifier |
+| reviewId | Review Identifier |
+| decisionId | Decision Identifier |
+| type | Decision Type (APPROVAL / RECOMMENDATION / ACKNOWLEDGMENT / COMMENT) |
+| decision | Review decision |
+| comment | Review decision comment |
+| userId | Create by user |
+| inserteddate | Inserted Date |
+
 
 ### Document Tag
 
