@@ -11,6 +11,8 @@ FormKiQ is deployed into your AWS account, so security is shared between the For
 
 By default, the `AdminEmail` configured during installation is created as an administrator with full access.
 
+For production planning in regulated or control-sensitive environments, use the [Regulated Production Deployment Checklist](/docs/platform/regulated-production-deployment-checklist) alongside this security reference.
+
 | Security area | How FormKiQ handles it |
 | --- | --- |
 | API authentication | JWT, AWS IAM, and API key endpoints are deployed for different integration patterns. |

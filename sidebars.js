@@ -82,6 +82,7 @@ const sidebars = {
       items: [
         "platform/security",
         "platform/compliance-data-residency-and-data-sovereignty",
+        "platform/regulated-production-deployment-checklist",
         "platform/multi-tenant-vs-multi-instance",
       ],
     },

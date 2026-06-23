@@ -11,6 +11,8 @@ FormKiQ can help organizations design document management deployments that suppo
 
 This page explains the technical controls and deployment patterns that can support compliance programs. It is not legal advice and should not be read as a certification that a specific FormKiQ deployment satisfies a law, regulation, or industry standard.
 
+For a practical pre-production review, use the [Regulated Production Deployment Checklist](/docs/platform/regulated-production-deployment-checklist) after identifying the relevant residency, sovereignty, and compliance requirements.
+
 ## Shared Responsibility
 
 Compliance depends on the way FormKiQ, AWS, and the customer environment are configured together.
@@ -233,6 +235,7 @@ Use the current [AWS Compliance Programs](https://aws.amazon.com/compliance/prog
 ## Additional Compliance Resources
 
 - [Security](/docs/platform/security)
+- [Regulated Production Deployment Checklist](/docs/platform/regulated-production-deployment-checklist)
 - [Reporting, Analytics, and Audit](/docs/platform/reporting-and-analytics)
 - [Backup and Recovery](/docs/platform/backup_and_recovery)
 - [Document Storage](/docs/platform/document_storage)
