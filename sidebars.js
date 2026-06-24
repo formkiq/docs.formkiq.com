@@ -289,6 +289,7 @@ const sidebars = {
           ),
           items: [
             "tutorials/Solution Patterns/build-scalable-solutions-using-formkiq",
+            "tutorials/Solution Patterns/build-react-app-with-codex-mcp",
             "tutorials/Solution Patterns/build-document-review-approval-workflow",
             "tutorials/Solution Patterns/build-ocr-searchable-archive",
             "tutorials/Solution Patterns/open-policy-agent",
