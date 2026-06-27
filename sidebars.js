@@ -260,6 +260,7 @@ const sidebars = {
           items: [
             "tutorials/FormKiQ CLI/fk-cli-import-csv-data-migration",
             "tutorials/FormKiQ CLI/dynamodb-data-migration",
+            "tutorials/FormKiQ CLI/weekly-opensearch-backup",
             "tutorials/FormKiQ CLI/pre-hook",
           ],
         },
