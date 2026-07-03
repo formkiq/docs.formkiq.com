@@ -15,7 +15,7 @@ Use it when you need to:
 - Import documents, attributes, document content, and document attributes from CSV files.
 - Copy FormKiQ document metadata between DynamoDB tables.
 - Sync or verify migrated documents in OpenSearch.
-- Back up and restore OpenSearch snapshots.
+- List, inspect, back up, and restore OpenSearch snapshots.
 - List, delete, purge, or remove large sets of documents.
 
 ![FormKiQ CLI Module](./img/formkiq_filesync_module.png)
@@ -413,7 +413,26 @@ fk --sync-opensearch-verify \
   --profile default
 ```
 
-### Back Up and Restore OpenSearch Snapshots
+### Manage OpenSearch Snapshots
+
+Use `--opensearch --list` to return the snapshot list JSON for a site's OpenSearch index:
+
+```bash
+fk --opensearch \
+  --list \
+  --site-id default \
+  --profile default
+```
+
+Use `--opensearch --get` to return the JSON details for a specific snapshot:
+
+```bash
+fk --opensearch \
+  --get \
+  --site-id default \
+  --snapshot-name migration-2026-06-26 \
+  --profile default
+```
 
 Use `--opensearch --backup` to create a manual snapshot for a site's OpenSearch index:
 
@@ -515,7 +534,7 @@ fk --data-migration \
 | `--list-documents` | List document IDs for a site. | `--site-id`, `--limit`, `--profile` |
 | `--sync-opensearch` | Sync document records into OpenSearch. | `--site-id`, `--file`, `--content`, `--dry-run`, `--profile` |
 | `--sync-opensearch-verify` | Verify document records in OpenSearch. | `--site-id`, `--file`, `--profile` |
-| `--opensearch` | Back up or restore OpenSearch snapshots. | `--backup`, `--restore`, `--site-id`, `--snapshot-name`, `--profile` |
+| `--opensearch` | List, inspect, back up, or restore OpenSearch snapshots. | `--list`, `--get`, `--backup`, `--restore`, `--site-id`, `--snapshot-name`, `--profile` |
 | `--delete-documents` | Delete documents listed in a file. | `--site-id`, `--file`, `--limit`, `--insecure` |
 | `--purge-documents` | Purge documents listed in a file. | `--site-id`, `--file`, `--limit`, `--insecure` |
 | `--delete-site` | Delete a site and related document/search data. | `--site-id`, `--dry-run`, `--profile` |
@@ -559,7 +578,7 @@ The exact permissions depend on the workflow.
 - `dynamodb:Scan`
 - `dynamodb:UpdateItem`
 
-### OpenSearch Snapshot Backup and Restore
+### OpenSearch Snapshot Management
 
 - `execute-api:Invoke`
 
@@ -573,7 +592,7 @@ The exact permissions depend on the workflow.
 | S3 uploads fail | Missing S3 or KMS permissions. | Confirm bucket access and `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`. |
 | CSV import creates errors | Missing required CSV headers or invalid document IDs. | Confirm headers match the required format and `DocumentId` values are UUIDs. |
 | OpenSearch sync does not show documents | The document ID file is missing IDs or sync did not run for the expected site. | Regenerate the file with `fk --list-documents --site-id SITE_ID` and rerun sync. |
-| OpenSearch snapshot backup or restore fails | Snapshot support is not enabled, OpenSearch Serverless is being used for backup, or API permissions are missing. | Confirm the OpenSearch module configuration and `execute-api:Invoke` permission. |
+| OpenSearch snapshot list, inspect, backup, or restore fails | Snapshot support is not enabled, OpenSearch Serverless is being used for backup, or API permissions are missing. | Confirm the OpenSearch module configuration and `execute-api:Invoke` permission. |
 | Large imports are slow or throttled | Thread count, API capacity, DynamoDB capacity, or downstream processing limits. | Reduce concurrency, import in batches, and review scaling settings. |
 
 ## Related Guides

@@ -360,7 +360,22 @@ After the first scheduled run:
 - Confirm the EventBridge schedule invocation succeeded.
 - Confirm the CodeBuild build completed successfully.
 - Review the CodeBuild logs for the generated snapshot name.
-- Use the FormKiQ API, OpenSearch tooling, or operational runbooks to confirm the snapshot exists.
+- Use the FormKiQ CLI to return the snapshot list JSON and confirm the snapshot exists:
+
+```bash
+fk --opensearch \
+  --list \
+  --site-id "${SITE_ID}"
+```
+
+Inspect the generated snapshot details:
+
+```bash
+fk --opensearch \
+  --get \
+  --site-id "${SITE_ID}" \
+  --snapshot-name "weekly-default-YYYY-MM-DD"
+```
 
 Document the snapshot naming pattern and the expected weekly run time in your operations handbook.
 
