@@ -1,11 +1,11 @@
 ---
-id: get-case-documents
-title: "Get list of document in a case"
-description: "Returns documents in a Case; available as an Add-On Module"
-sidebar_label: "Get list of document in a case"
+id: get-document-ai-prompt-results
+title: "Get document AI results from LLM prompt"
+description: "Retrieve document AI results from an LLM prompt; available as an Add-On Module"
+sidebar_label: "Get document AI results from LLM prompt"
 hide_title: true
 hide_table_of_contents: true
-api: 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
+api: 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
 sidebar_class_name: "get api-method"
 info_path: docs/api-reference/formkiq-api-jwt
 custom_edit_url: null
@@ -27,13 +27,13 @@ import TabItem from "@theme/TabItem";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Get list of document in a case"}
+  children={"Get document AI results from LLM prompt"}
 >
 </Heading>
 
 <MethodEndpoint
   method={"get"}
-  path={"/cases/{caseId}/documents"}
+  path={"/documents/{documentId}/ai/prompts/{llmPromptEntityName}"}
   context={"endpoint"}
 >
   
@@ -41,7 +41,7 @@ import TabItem from "@theme/TabItem";
 
 
 
-Returns documents in a Case; available as an Add-On Module
+Retrieve document AI results from an LLM prompt; available as an Add-On Module
 
 <Heading
   id={"request"}
@@ -69,7 +69,12 @@ Returns documents in a Case; available as an Add-On Module
     <ul>
       <ParamsItem
         className={"paramsItem"}
-        param={{"name":"caseId","in":"path","description":"Case Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"llmPromptEntityName","in":"path","description":"LlmPrompt Entity Name","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem>
@@ -98,12 +103,22 @@ Returns documents in a Case; available as an Add-On Module
         
       </ParamsItem><ParamsItem
         className={"paramsItem"}
-        param={{"name":"next","in":"query","description":"Next page of results token","schema":{"type":"string"},"enumDescriptions":[]}}
+        param={{"name":"artifactId","in":"query","description":"Artifact Document Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"analysisCategory","in":"query","description":"Analysis Category","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem><ParamsItem
         className={"paramsItem"}
         param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem>
@@ -252,7 +267,7 @@ Returns documents in a Case; available as an Add-On Module
                               <strong
                                 className={"openapi-schema__property"}
                               >
-                                documents
+                                aiPromptResults
                               </strong><span
                                 className={"openapi-schema__name"}
                               >
@@ -267,7 +282,7 @@ Returns documents in a Case; available as an Add-On Module
                             >
                               
                               
-                              List of documents
+                              List of document AI prompt result records
                               
                               
                             </div><li>
@@ -278,47 +293,11 @@ Returns documents in a Case; available as an Add-On Module
                               </div>
                             </li><SchemaItem
                               collapsible={false}
-                              name={"siteId"}
+                              name={"analysisCategory"}
                               required={false}
                               schemaName={"string"}
                               qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Site Identifier"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"path"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Path or Name of document"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"width"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document Content Width property"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"height"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document Content Height property"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"deepLinkPath"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Path or Name of deep link"}}
+                              schema={{"type":"string","description":"Analysis Category"}}
                             >
                               
                             </SchemaItem><SchemaItem
@@ -332,47 +311,11 @@ Returns documents in a Case; available as an Add-On Module
                               
                             </SchemaItem><SchemaItem
                               collapsible={false}
-                              name={"lastModifiedDate"}
+                              name={"content"}
                               required={false}
                               schemaName={"string"}
                               qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Last Modified Timestamp"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"checksum"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document checksum, changes when document file changes"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"checksumType"}
-                              required={false}
-                              schemaName={"ChecksumType (string)"}
-                              qualifierMessage={"**Possible values:** [`SHA1`, `SHA256`]"}
-                              schema={{"type":"string","description":"The type of checksum to use for file validation","enum":["SHA1","SHA256"],"title":"ChecksumType"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"documentId"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document Identifier"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"contentType"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document Content-Type"}}
+                              schema={{"type":"string","description":"Result content"}}
                             >
                               
                             </SchemaItem><SchemaItem
@@ -381,52 +324,7 @@ Returns documents in a Case; available as an Add-On Module
                               required={false}
                               schemaName={"string"}
                               qualifierMessage={undefined}
-                              schema={{"type":"string","description":"User who added document"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"contentLength"}
-                              required={false}
-                              schemaName={"integer"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"integer","description":"Document size"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"version"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document version"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"versionKey"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document Version Identifier"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"s3version"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Document storage version"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"belongsToDocumentId"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Parent Document Identifier"}}
+                              schema={{"type":"string","description":"UserId that created Result"}}
                             >
                               
                             </SchemaItem><SchemaItem
@@ -446,7 +344,7 @@ Returns documents in a Case; available as an Add-On Module
                                     <strong
                                       className={"openapi-schema__property"}
                                     >
-                                      metadata
+                                      values
                                     </strong><span
                                       className={"openapi-schema__name"}
                                     >
@@ -461,7 +359,7 @@ Returns documents in a Case; available as an Add-On Module
                                   >
                                     
                                     
-                                    List of document Metadata
+                                    Document AI prompt values
                                     
                                     
                                   </div><li>
@@ -472,31 +370,107 @@ Returns documents in a Case; available as an Add-On Module
                                     </div>
                                   </li><SchemaItem
                                     collapsible={false}
-                                    name={"key"}
-                                    required={false}
-                                    schemaName={"string"}
-                                    qualifierMessage={undefined}
-                                    schema={{"type":"string","description":"Metadata key"}}
+                                    name={"resultType"}
+                                    required={true}
+                                    schemaName={"DocumentAiPromptResultType (string)"}
+                                    qualifierMessage={"**Possible values:** [`KEY_VALUE`, `ENTITY`]"}
+                                    schema={{"type":"string","description":"Document AI prompt result type","enum":["KEY_VALUE","ENTITY"],"title":"DocumentAiPromptResultType"}}
                                   >
                                     
                                   </SchemaItem><SchemaItem
                                     collapsible={false}
-                                    name={"value"}
+                                    name={"entityType"}
                                     required={false}
                                     schemaName={"string"}
                                     qualifierMessage={undefined}
-                                    schema={{"type":"string","description":"Metadata value"}}
+                                    schema={{"type":"string","description":"Entity type when resultType is ENTITY"}}
                                   >
                                     
                                   </SchemaItem><SchemaItem
                                     collapsible={false}
-                                    name={"values"}
+                                    name={"entityNamespace"}
                                     required={false}
-                                    schemaName={"string[]"}
-                                    qualifierMessage={undefined}
-                                    schema={{"type":"array","description":"Metadata values","items":{"type":"string","description":"Metadata value"}}}
+                                    schemaName={"EntityTypeNamespace (string)"}
+                                    qualifierMessage={"**Possible values:** [`PRESET`, `CUSTOM`]"}
+                                    schema={{"type":"string","description":"Entity Type namespace","enum":["PRESET","CUSTOM"],"title":"EntityTypeNamespace"}}
                                   >
                                     
+                                  </SchemaItem><SchemaItem
+                                    collapsible={true}
+                                    className={"schemaItem"}
+                                  >
+                                    <details
+                                      style={{}}
+                                      className={"openapi-markdown__details"}
+                                    >
+                                      <summary
+                                        style={{}}
+                                      >
+                                        <span
+                                          className={"openapi-schema__container"}
+                                        >
+                                          <strong
+                                            className={"openapi-schema__property"}
+                                          >
+                                            attributes
+                                          </strong><span
+                                            className={"openapi-schema__name"}
+                                          >
+                                             object[]
+                                          </span><span
+                                            className={"openapi-schema__divider"}
+                                          >
+                                            
+                                          </span><span
+                                            className={"openapi-schema__required"}
+                                          >
+                                            required
+                                          </span>
+                                        </span>
+                                      </summary><div
+                                        style={{"marginLeft":"1rem"}}
+                                      >
+                                        <div
+                                          style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                                        >
+                                          
+                                          
+                                          Attributes extracted from result content
+                                          
+                                          
+                                        </div><li>
+                                          <div
+                                            style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                          >
+                                            Array [
+                                          </div>
+                                        </li><SchemaItem
+                                          collapsible={false}
+                                          name={"key"}
+                                          required={true}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"string","description":"Document AI prompt result attribute key"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"stringValues"}
+                                          required={true}
+                                          schemaName={"string[]"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"array","description":"Document AI prompt result attribute string values","items":{"type":"string"}}}
+                                        >
+                                          
+                                        </SchemaItem><li>
+                                          <div
+                                            style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                          >
+                                            ]
+                                          </div>
+                                        </li>
+                                      </div>
+                                    </details>
                                   </SchemaItem><li>
                                     <div
                                       style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
@@ -523,7 +497,7 @@ Returns documents in a Case; available as an Add-On Module
                   value={"Example (from schema)"}
                 >
                   <ResponseSamples
-                    responseExample={"{\n  \"next\": \"string\",\n  \"documents\": [\n    {\n      \"siteId\": \"string\",\n      \"path\": \"string\",\n      \"width\": \"string\",\n      \"height\": \"string\",\n      \"deepLinkPath\": \"string\",\n      \"insertedDate\": \"string\",\n      \"lastModifiedDate\": \"string\",\n      \"checksum\": \"string\",\n      \"checksumType\": \"SHA1\",\n      \"documentId\": \"string\",\n      \"contentType\": \"string\",\n      \"userId\": \"string\",\n      \"contentLength\": 0,\n      \"version\": \"string\",\n      \"versionKey\": \"string\",\n      \"s3version\": \"string\",\n      \"belongsToDocumentId\": \"string\",\n      \"metadata\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"values\": [\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ]\n}"}
+                    responseExample={"{\n  \"next\": \"string\",\n  \"aiPromptResults\": [\n    {\n      \"analysisCategory\": \"string\",\n      \"insertedDate\": \"string\",\n      \"content\": \"string\",\n      \"userId\": \"string\",\n      \"values\": [\n        {\n          \"resultType\": \"KEY_VALUE\",\n          \"entityType\": \"string\",\n          \"entityNamespace\": \"PRESET\",\n          \"attributes\": [\n            {\n              \"key\": \"string\",\n              \"stringValues\": [\n                \"string\"\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"}
                     language={"json"}
                   >
                     

@@ -1,0 +1,518 @@
+---
+id: get-document-ai-prompts-results
+title: "Get document AI results from LLM prompts"
+description: "Retrieve document AI results from LLM prompts; available as an Add-On Module"
+sidebar_label: "Get document AI results from LLM prompts"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get document AI results from LLM prompts"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{documentId}/ai/prompts"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieve document AI results from LLM prompts; available as an Add-On Module
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"artifactId","in":"query","description":"Artifact Document Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"analysisCategory","in":"query","description":"Analysis Category","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                aiPromptResults
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of document AI prompt result records
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"llmPromptEntityName"}
+                              required={true}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Name of the LLM Prompt Entity"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"analysisCategory"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Analysis Category"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"insertedDate"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Inserted Timestamp"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"content"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Result content"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"UserId that created Result"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      values
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <div
+                                    style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                                  >
+                                    
+                                    
+                                    Document AI prompt values
+                                    
+                                    
+                                  </div><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"resultType"}
+                                    required={true}
+                                    schemaName={"DocumentAiPromptResultType (string)"}
+                                    qualifierMessage={"**Possible values:** [`KEY_VALUE`, `ENTITY`]"}
+                                    schema={{"type":"string","description":"Document AI prompt result type","enum":["KEY_VALUE","ENTITY"],"title":"DocumentAiPromptResultType"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"entityType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Entity type when resultType is ENTITY"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"entityNamespace"}
+                                    required={false}
+                                    schemaName={"EntityTypeNamespace (string)"}
+                                    qualifierMessage={"**Possible values:** [`PRESET`, `CUSTOM`]"}
+                                    schema={{"type":"string","description":"Entity Type namespace","enum":["PRESET","CUSTOM"],"title":"EntityTypeNamespace"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={true}
+                                    className={"schemaItem"}
+                                  >
+                                    <details
+                                      style={{}}
+                                      className={"openapi-markdown__details"}
+                                    >
+                                      <summary
+                                        style={{}}
+                                      >
+                                        <span
+                                          className={"openapi-schema__container"}
+                                        >
+                                          <strong
+                                            className={"openapi-schema__property"}
+                                          >
+                                            attributes
+                                          </strong><span
+                                            className={"openapi-schema__name"}
+                                          >
+                                             object[]
+                                          </span><span
+                                            className={"openapi-schema__divider"}
+                                          >
+                                            
+                                          </span><span
+                                            className={"openapi-schema__required"}
+                                          >
+                                            required
+                                          </span>
+                                        </span>
+                                      </summary><div
+                                        style={{"marginLeft":"1rem"}}
+                                      >
+                                        <div
+                                          style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                                        >
+                                          
+                                          
+                                          Attributes extracted from result content
+                                          
+                                          
+                                        </div><li>
+                                          <div
+                                            style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                          >
+                                            Array [
+                                          </div>
+                                        </li><SchemaItem
+                                          collapsible={false}
+                                          name={"key"}
+                                          required={true}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"string","description":"Document AI prompt result attribute key"}}
+                                        >
+                                          
+                                        </SchemaItem><SchemaItem
+                                          collapsible={false}
+                                          name={"stringValues"}
+                                          required={true}
+                                          schemaName={"string[]"}
+                                          qualifierMessage={undefined}
+                                          schema={{"type":"array","description":"Document AI prompt result attribute string values","items":{"type":"string"}}}
+                                        >
+                                          
+                                        </SchemaItem><li>
+                                          <div
+                                            style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                          >
+                                            ]
+                                          </div>
+                                        </li>
+                                      </div>
+                                    </details>
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"aiPromptResults\": [\n    {\n      \"llmPromptEntityName\": \"string\",\n      \"analysisCategory\": \"string\",\n      \"insertedDate\": \"string\",\n      \"content\": \"string\",\n      \"userId\": \"string\",\n      \"values\": [\n        {\n          \"resultType\": \"KEY_VALUE\",\n          \"entityType\": \"string\",\n          \"entityNamespace\": \"PRESET\",\n          \"attributes\": [\n            {\n              \"key\": \"string\",\n              \"stringValues\": [\n                \"string\"\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      

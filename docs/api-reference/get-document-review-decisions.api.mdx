@@ -1,11 +1,11 @@
 ---
-id: get-case-tasks
-title: "Get list of tasks in a case"
-description: "Returns a Case; available as an Add-On Module"
-sidebar_label: "Get list of tasks in a case"
+id: get-document-review-decisions
+title: "Get document review decisions"
+description: "Get a listing of decisions for a document review"
+sidebar_label: "Get document review decisions"
 hide_title: true
 hide_table_of_contents: true
-api: eJztGG1v2jj4r1jZpG0nEtpNJ524L8dR1nFrgQO23amrKpMY8OrYme2UMcR/v+exExIGa+k+3Ket0ojt5/3dXgcqY5parmQvCVrBObMdatiEmlsTNAJL5yZoXQW4Ry6ppHOWMmmD60aQMBNrniEm4I2YzbU0hBIE/Z3QO8oFnQpGKGxK0k6ScCDJpUpywYBwRjVNmWUaya8DCQugYrhlIEYj4Ejzc870KviW0xhgSC8BKfiMMw3nmn3OuWYg/owKwxqBiRcspUFrHdhV5uhazeU82GwaW1YxiFmxyqhd7HFySn+Hk9X5kYwk+2Lv16gPECQD0xI1I5qZXFhDrLplMjiOheApf4DHBYKQkSf+GJshoRkFLNg6PQG214hsMiUNMwj+8uQEf3bZwSYZvAXkBaOJc/I6aMcxMybsKGm1EmFbCLUMB5rPUez1fYoeRr1kdqES80O4byqxvo8LyDFgYbzDKc0ywWOXKc1PRh2WWU0/sRhdkWnMK8u9jVwMHDTtkXGwwVTElKyIUK3pIT8bi+i2SGBIltQ8LCCCY/4/JCLWhXpKbDDoDNBhyRm17GECvQKaTHjKjKVphjR8HD9oH4BC3VAIxNo5fQj5rFrVaWSCSsmSsaXaHqfB0GMQh0IQp07PHE/oMAEmj7RkVyZ7yEnOjkM+y9kecg6eOSYG3gEcWS4UoUmCjqw0t7k5Sm2AczG6YB4btc5T7DP97gdYtcfj3nm/ewafvf7NcDQ4H3XHY1gN+jdvBhe43x132hftiYOBw8HFe/fZuRiM3ce7/ll3dDPqvu95ih/avUmvf37Tueh1+xM4GA8H/XEXG5nlVrAitr1wqA40J5pQezC5QXGO2lAx3M2iHThXQOrEd3fqnXZUFFSEQBjD4lxzu3K9sZ3xdg6lTvOv1Nvw6hqr8JeQpvSrkiHN+Bx8uaSrkEO5mmtapgQQwZ/XstUa51NXNGTr6br9YdxqDSH6nBabVkWgPByxuTsRNJ0mtIXtsfny5PTX8ORV+Oq0OctljKim+XR9puIcZwIDco6gq0BWm7aWmyaXd8rXS2fQnaax7SnrIm46KmG+bwQV6LA2JKzRI1Dvo/Iw8q0lur83BM9+eRY0HoW77Q3Bs44v/+EEHNv4J2ynX0PMmsaOP/Ag4+Fbtnosp7L5OSGd4zNqjF1olc8Xf7IFveNKw/FyweSNVDdQy6FeWYaFfWFt5rXEmjQYT3BaKzrD0txAef+ycnPWSiiavFY6pfY9qOWT8DQ6ccXmC6hnnIcw0m4ZRNyDcdUI7qjI2c/4+hlf98cXFqm0JDFnburAObsVNHH6Ns21H8I3zXJagc5yV14Jci0AEsVoNZsCPC0Wytj9gQdPSMLumFAZxgnxRALkXtbRMc5pPjL2q2lVtykcvAQOMzAeAm8OF1la4AOTCvnTEmWD/8EFMz7PqyLMjck9aJUnqJYBvWI1l9yqkCdZtJsakecLto5ilUIedDwodt+hUmKDMU/zhDMZM2ewivoecEcAmAWUaxzY3PgGRlG5RtTgqfZptY2lHfu4uOFyppyyRfNCf7/lf5P2sEf++oCxgZMyjV3GFbeSAgbOKleizjPYv+WfUS3s/ClcFHFayLNMaftH/dTZX6i58rWmTiRRsYlqsG6j6YLXNm94ClO0KTk5ElHmZpEpjW/nEP8y6Sjhgv/Ja/cP27qwEzeob9W7QN4gBQz+DNtzpVw7oxBT5GV0sqffcrmMqDuOlJ43C1zTvOh1ujByhIATLWwq9kZYxxbkRau2SFn3atduArOnRaWc3XMD4xUZoLeegw9eEPxC1/qi+BH+/lU5ieH2PeMwLKrcklRpuJFP8bPUkVpydcA118+L1KvtvYiQ6JMnpIdVJsnjkk9Ji/u7/rAXzriGi8hzjKhQQGV60SBTaiF4QvQQjI1JqV5aqQeIEZmAWevhBZXmDkIWKAvhRkbchCk5U9CU8H5EpjkXCVlBOJMh0zOYve41XlSXGIktqXE04OIkgV6Gs+nVIGMSD03GYrjreJt6o5ROhtFPQlkw6GbQzygCV2wwAaNmhXLBQL0VGMmAGwQjS24XYKUVqV0oAQzcUKSAcUgH+TvR8cTRdK4n4zoACUkpoabLaA688ikO9sVF1qVK4dFtesQQFM2Uglu0T6NCsfI3hKoWrWgqdrj32pf/B29O0y1viLxvY7z0o5rNoHGA5TRjBIm7GwbdgW59lASErDLGr6HqojLFAjSDTotDTq2Znf7m56UMOhDEa60OwBRPRP3OTbgklGBj+7ZVravXhEc/lxVNxkJ5akKL5u5FwJWdddFTr9yLFjbR1vZpy7dV6IOucwLIej2Fs3dabDa47Z+KsHck3CD36jnou5LvP78dlM2Pktv3vGJiDAJ8tTqe2b0vY/fwLd7cfpDrt29l9zAqX94qTte40BxZPdKyz0fFm9wLsv/yeFCGch6Tq7oIpWxFGLie7zt7bcjHeTGrS773vLUzvZ13scdjOh2al4oPvJduNv8BHNC5yA==
+api: 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
 sidebar_class_name: "get api-method"
 info_path: docs/api-reference/formkiq-api-jwt
 custom_edit_url: null
@@ -27,13 +27,13 @@ import TabItem from "@theme/TabItem";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Get list of tasks in a case"}
+  children={"Get document review decisions"}
 >
 </Heading>
 
 <MethodEndpoint
   method={"get"}
-  path={"/cases/{caseId}/tasks"}
+  path={"/documents/{documentId}/reviews/{reviewId}/decisions"}
   context={"endpoint"}
 >
   
@@ -41,7 +41,7 @@ import TabItem from "@theme/TabItem";
 
 
 
-Returns a Case; available as an Add-On Module
+Get a listing of decisions for a document review
 
 <Heading
   id={"request"}
@@ -69,7 +69,12 @@ Returns a Case; available as an Add-On Module
     <ul>
       <ParamsItem
         className={"paramsItem"}
-        param={{"name":"caseId","in":"path","description":"Case Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"reviewId","in":"path","description":"Review Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem>
@@ -98,12 +103,17 @@ Returns a Case; available as an Add-On Module
         
       </ParamsItem><ParamsItem
         className={"paramsItem"}
-        param={{"name":"next","in":"query","description":"Next page of results token","schema":{"type":"string"},"enumDescriptions":[]}}
+        param={{"name":"artifactId","in":"query","description":"Artifact Document Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem><ParamsItem
         className={"paramsItem"}
         param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
       >
         
       </ParamsItem>
@@ -252,7 +262,7 @@ Returns a Case; available as an Add-On Module
                               <strong
                                 className={"openapi-schema__property"}
                               >
-                                tasks
+                                decisions
                               </strong><span
                                 className={"openapi-schema__name"}
                               >
@@ -267,7 +277,7 @@ Returns a Case; available as an Add-On Module
                             >
                               
                               
-                              List of tasks
+                              List of document review decisions
                               
                               
                             </div><li>
@@ -278,11 +288,74 @@ Returns a Case; available as an Add-On Module
                               </div>
                             </li><SchemaItem
                               collapsible={false}
-                              name={"taskId"}
+                              name={"documentId"}
                               required={false}
                               schemaName={"string"}
                               qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Task Identifier"}}
+                              schema={{"type":"string","description":"Document Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"artifactId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Artifact Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"reviewId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Review Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"decisionId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Decision Identifier"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"type"}
+                              required={false}
+                              schemaName={"ReviewDecisionType (string)"}
+                              qualifierMessage={"**Possible values:** [`APPROVAL`, `RECOMMENDATION`, `ACKNOWLEDGMENT`, `COMMENT`]"}
+                              schema={{"type":"string","enum":["APPROVAL","RECOMMENDATION","ACKNOWLEDGMENT","COMMENT"],"title":"ReviewDecisionType"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"decision"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Review decision"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"comment"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Review decision comment"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"userId"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"User who added decision"}}
                             >
                               
                             </SchemaItem><SchemaItem
@@ -294,108 +367,6 @@ Returns a Case; available as an Add-On Module
                               schema={{"type":"string","description":"Inserted Timestamp"}}
                             >
                               
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"name"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Name of Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"description"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Description of Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"plannedStartDate"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Planned Start Date of Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"startDate"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Start Date of Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"endDate"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"End Date of Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"dueDate"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Due Date of Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"userId"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"User who added Task"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={false}
-                              name={"status"}
-                              required={false}
-                              schemaName={"TaskStatus (string)"}
-                              qualifierMessage={"**Possible values:** [`NEW`, `ASSIGNED`, `IN_PROGRESS`, `ON_HOLD`, `ESCALATED`, `RESOLVED`, `CLOSED`, `UNDER_REVIEW`, `AWAITING_CLIENT_RESPONSE`]"}
-                              schema={{"type":"string","description":"Status of the Task","enum":["NEW","ASSIGNED","IN_PROGRESS","ON_HOLD","ESCALATED","RESOLVED","CLOSED","UNDER_REVIEW","AWAITING_CLIENT_RESPONSE"],"title":"TaskStatus"}}
-                            >
-                              
-                            </SchemaItem><SchemaItem
-                              collapsible={true}
-                              className={"schemaItem"}
-                            >
-                              <details
-                                style={{}}
-                                className={"openapi-markdown__details"}
-                              >
-                                <summary
-                                  style={{}}
-                                >
-                                  <span
-                                    className={"openapi-schema__container"}
-                                  >
-                                    <strong
-                                      className={"openapi-schema__property"}
-                                    >
-                                      metadata
-                                    </strong><span
-                                      className={"openapi-schema__name"}
-                                    >
-                                       object
-                                    </span>
-                                  </span>
-                                </summary><div
-                                  style={{"marginLeft":"1rem"}}
-                                >
-                                  
-                                </div>
-                              </details>
                             </SchemaItem><li>
                               <div
                                 style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
@@ -413,7 +384,7 @@ Returns a Case; available as an Add-On Module
                   value={"Example (from schema)"}
                 >
                   <ResponseSamples
-                    responseExample={"{\n  \"next\": \"string\",\n  \"tasks\": [\n    {\n      \"taskId\": \"string\",\n      \"insertedDate\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"plannedStartDate\": \"string\",\n      \"startDate\": \"string\",\n      \"endDate\": \"string\",\n      \"dueDate\": \"string\",\n      \"userId\": \"string\",\n      \"status\": \"NEW\",\n      \"metadata\": {}\n    }\n  ]\n}"}
+                    responseExample={"{\n  \"next\": \"string\",\n  \"decisions\": [\n    {\n      \"documentId\": \"string\",\n      \"artifactId\": \"string\",\n      \"reviewId\": \"string\",\n      \"decisionId\": \"string\",\n      \"type\": \"APPROVAL\",\n      \"decision\": \"string\",\n      \"comment\": \"string\",\n      \"userId\": \"string\",\n      \"insertedDate\": \"string\"\n    }\n  ]\n}"}
                     language={"json"}
                   >
                     
