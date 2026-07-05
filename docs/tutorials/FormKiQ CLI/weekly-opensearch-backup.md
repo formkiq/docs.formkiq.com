@@ -21,7 +21,7 @@ This tutorial outlines how to run a weekly OpenSearch snapshot backup using the 
 
 The scheduled workflow uses:
 
-- The FormKiQ CLI `--opensearch --backup` command.
+- The FormKiQ CLI `--opensearch --create-snapshot` command.
 - AWS CodeBuild as the short-lived runtime for the CLI.
 - Amazon EventBridge Scheduler to start the backup once per week.
 - An IAM role that lets the CLI discover the FormKiQ deployment and call the IAM-authenticated FormKiQ API.
@@ -101,7 +101,7 @@ Create a test snapshot:
 SNAPSHOT_NAME="${SNAPSHOT_PREFIX}-manual-$(date -u +%Y-%m-%d)"
 
 fk --opensearch \
-  --backup \
+  --create-snapshot \
   --site-id "${SITE_ID}" \
   --snapshot-name "${SNAPSHOT_NAME}"
 ```
@@ -207,7 +207,7 @@ phases:
   build:
     commands:
       - SNAPSHOT_NAME="${SNAPSHOT_PREFIX}-$(date -u +%Y-%m-%d)"
-      - ./fk --opensearch --backup --site-id "${SITE_ID}" --snapshot-name "${SNAPSHOT_NAME}"
+      - ./fk --opensearch --create-snapshot --site-id "${SITE_ID}" --snapshot-name "${SNAPSHOT_NAME}"
 EOF
 ```
 
@@ -279,7 +279,7 @@ aws codebuild start-build \
   --region "${AWS_REGION}"
 ```
 
-Open the CodeBuild build logs and confirm the `fk --opensearch --backup` command completed successfully.
+Open the CodeBuild build logs and confirm the `fk --opensearch --create-snapshot` command completed successfully.
 
 ## Step 5: Create the EventBridge Scheduler Role
 
@@ -364,7 +364,7 @@ After the first scheduled run:
 
 ```bash
 fk --opensearch \
-  --list \
+  --list-snapshots \
   --site-id "${SITE_ID}"
 ```
 
@@ -372,7 +372,7 @@ Inspect the generated snapshot details:
 
 ```bash
 fk --opensearch \
-  --get \
+  --get-snapshot \
   --site-id "${SITE_ID}" \
   --snapshot-name "weekly-default-YYYY-MM-DD"
 ```
@@ -385,7 +385,7 @@ Keep the restore command in your recovery runbook:
 
 ```bash
 fk --opensearch \
-  --restore \
+  --restore-snapshot \
   --site-id "${SITE_ID}" \
   --snapshot-name "weekly-default-YYYY-MM-DD"
 ```
@@ -431,7 +431,7 @@ This cleanup removes the schedule and runner. It does not delete OpenSearch snap
 | Problem | Likely cause | What to check |
 | --- | --- | --- |
 | `fk --configure` fails in CodeBuild | The role cannot discover the FormKiQ CloudFormation stack. | Confirm `APP_ENVIRONMENT`, `AWS_REGION`, and `cloudformation:ListStacks` / `cloudformation:DescribeStacks`. |
-| `fk --opensearch --backup` fails | Snapshot support is not enabled or OpenSearch Serverless is used. | Confirm the OpenSearch module configuration and snapshot repository support. |
+| `fk --opensearch --create-snapshot` fails | Snapshot support is not enabled or OpenSearch Serverless is used. | Confirm the OpenSearch module configuration and snapshot repository support. |
 | CodeBuild cannot call the FormKiQ API | Missing API invoke permission or wrong Region/API URL. | Confirm `execute-api:Invoke`, the FormKiQ `IamApiUrl`, and CodeBuild Region. |
 | EventBridge Scheduler does not start the build | Scheduler role cannot start CodeBuild or schedule is disabled. | Confirm the scheduler target, role ARN, `codebuild:StartBuild`, and schedule state. |
 | Snapshot names collide | The generated name is not unique for your schedule frequency. | Include a date, timestamp, or build number in `SNAPSHOT_NAME`. |

@@ -415,40 +415,40 @@ fk --sync-opensearch-verify \
 
 ### Manage OpenSearch Snapshots
 
-Use `--opensearch --list` to return the snapshot list JSON for a site's OpenSearch index:
+Use `--opensearch --list-snapshots` to return the snapshot list JSON for a site's OpenSearch index:
 
 ```bash
 fk --opensearch \
-  --list \
+  --list-snapshots \
   --site-id default \
   --profile default
 ```
 
-Use `--opensearch --get` to return the JSON details for a specific snapshot:
+Use `--opensearch --get-snapshot` to return the JSON details for a specific snapshot:
 
 ```bash
 fk --opensearch \
-  --get \
-  --site-id default \
-  --snapshot-name migration-2026-06-26 \
-  --profile default
-```
-
-Use `--opensearch --backup` to create a manual snapshot for a site's OpenSearch index:
-
-```bash
-fk --opensearch \
-  --backup \
+  --get-snapshot \
   --site-id default \
   --snapshot-name migration-2026-06-26 \
   --profile default
 ```
 
-Use `--opensearch --restore` to restore a snapshot into a separate restored OpenSearch index:
+Use `--opensearch --create-snapshot` to create a manual snapshot for a site's OpenSearch index:
 
 ```bash
 fk --opensearch \
-  --restore \
+  --create-snapshot \
+  --site-id default \
+  --snapshot-name migration-2026-06-26 \
+  --profile default
+```
+
+Use `--opensearch --restore-snapshot` to restore a snapshot into a separate restored OpenSearch index:
+
+```bash
+fk --opensearch \
+  --restore-snapshot \
   --site-id default \
   --snapshot-name migration-2026-06-26 \
   --profile default
@@ -457,6 +457,8 @@ fk --opensearch \
 :::note
 OpenSearch snapshot backup and restore require the OpenSearch module and snapshot support to be enabled for the deployment. Snapshot backups are not supported for OpenSearch Serverless.
 :::
+
+The previous snapshot operation flags, `--list`, `--get`, `--backup`, and `--restore`, are still accepted as aliases.
 
 ### Bulk Document Operations
 
@@ -534,7 +536,7 @@ fk --data-migration \
 | `--list-documents` | List document IDs for a site. | `--site-id`, `--limit`, `--profile` |
 | `--sync-opensearch` | Sync document records into OpenSearch. | `--site-id`, `--file`, `--content`, `--dry-run`, `--profile` |
 | `--sync-opensearch-verify` | Verify document records in OpenSearch. | `--site-id`, `--file`, `--profile` |
-| `--opensearch` | List, inspect, back up, or restore OpenSearch snapshots. | `--list`, `--get`, `--backup`, `--restore`, `--site-id`, `--snapshot-name`, `--profile` |
+| `--opensearch` | List, inspect, create, or restore OpenSearch snapshots. | `--list-snapshots`, `--get-snapshot`, `--create-snapshot`, `--restore-snapshot`, `--site-id`, `--snapshot-name`, `--profile` |
 | `--delete-documents` | Delete documents listed in a file. | `--site-id`, `--file`, `--limit`, `--insecure` |
 | `--purge-documents` | Purge documents listed in a file. | `--site-id`, `--file`, `--limit`, `--insecure` |
 | `--delete-site` | Delete a site and related document/search data. | `--site-id`, `--dry-run`, `--profile` |
