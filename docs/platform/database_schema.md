@@ -80,6 +80,7 @@ The Document entity is the primary metadata record for a stored document. It con
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "document" |
+| SK (artifact) | "document_art#" + ULID |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
 
@@ -130,6 +131,8 @@ A soft-deleted document is moved into a separate key namespace so it no longer a
 | SK | "softdelete#document" + documentId |
 | GSI1PK | ShortDate(yyyy-MM-ddd) |
 | GSI1SK | FullDate("yyyy-MM-dd'T'HH:mm:ssZ") + "#" + documentId |
+| GSI2PK | "softdelete#docs#" |
+| GSI2SK | "date#" + "yyyy-MM-dd'T'HH:mm:ssZ" |
 
 #### Entity Attributes
 
@@ -155,12 +158,14 @@ The Document OCR entity stores OCR processing metadata for a document. It tracks
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "ocr#" |
+| SK (artifact) | "ocr_art#" + artifactId + "#" |
 
 #### Entity Attributes
 
 | Attributes | Description |
 |------------|-------------|
 | documentId | Document Identifier |
+| artifactId | Artifact Identifier |
 | inserteddate | Inserted Date |
 | userId | Create by user |
 | contentType | Mime Content Type |
@@ -179,10 +184,13 @@ Document Actions store queued or completed processing requests for a document. A
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "action#" + idx + "#" + type |
+| SK (artifact) | "action_art#" + artifactId + "#" + idx + "#" + type |
 | GSI1PK | "action#" + type + "#" + queueId |
 | GSI1SK | "action#" + documentId + "#" + yyyy-MM-dd'T'HH:mm:ssZ |
-| GSI2PK | "actions#" + status |
+| GSI1SK (artifact) | "action_art#" + documentId + "#" + artifactId + "#" + yyyy-MM-dd'T'HH:mm:ssZ |
+| GSI2PK | "actions#" + status + "#" |
 | GSI2SK | "action#" + documentId |
+| GSI2SK (artifact) | "action_art#" + documentId + "#" + artifactId |
 
 #### Entity Attributes
 
@@ -230,6 +238,64 @@ Document Sync records track synchronization work between FormKiQ and an external
 | type | Type of data synced |
 | message | sync message |
 
+### Document Review
+
+Document Review records store review state for a document. They support document-centric lookup,
+category-wide review queues, and category plus status review queues using the primary key and GSI1.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "review#" + reviewId |
+| SK (artifact) | "review_art#" + artifactId + "#" + reviewId |
+| GSI1PK | "reviews#category#" + reviewCategory |
+| GSI1SK | "status#" + reviewStatus + "#" + reviewId |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| artifactId | Artifact Identifier |
+| reviewId | Review Identifier |
+| reviewCategory | Review Category |
+| reviewStatus | Review Status (PENDING / IN_PROGRESS / COMPLETED / CANCELLED / SUPERSEDED) |
+| requiredDecisions | Number of decisions required to complete the review |
+| userId | Create by user |
+| comments | Review comments |
+| inserteddate | Inserted Date |
+| lastModifiedDate | Last Modified Date |
+
+### Document Review Decision
+
+Document Review Decision records store a user's decision for a document review. They support
+retrieving a specific decision by review and decision id, and listing all decisions for a review
+using the primary key.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "review#" + reviewId + "#decision#" + decisionId |
+| SK (artifact) | "review_art#" + artifactId + "#" + reviewId + "#decision#" + decisionId |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| artifactId | Artifact Identifier |
+| reviewId | Review Identifier |
+| decisionId | Decision Identifier |
+| type | Decision Type (APPROVAL / RECOMMENDATION / ACKNOWLEDGMENT / COMMENT) |
+| decision | Review decision |
+| comment | Review decision comment |
+| userId | Create by user |
+| inserteddate | Inserted Date |
+
 
 ### Document Tag
 
@@ -241,10 +307,11 @@ Document Tag records support legacy key-value metadata for documents. They are i
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "tags#" + tagKey |
+| SK (artifact) | "tags_art#" + ULID + "#" + tagKey |
 | GSI1PK | "tag#" + tagKey + "#" + tagValue |
 | GSI1SK | "yyyy-MM-dd'T'HH:mm:ssZ" + "#" + documentId |
 | GSI2PK | "tag#" + tagKey |
-| GSI2SK | tagValue + "#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId |
+| GSI2SK | tagValue|
 
 #### Entity Attributes
 
@@ -266,10 +333,11 @@ Document Tag (Multi-Value) records support tags where a single key can have more
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "tags#" + tagKey + "#idx" + index |
+| SK (artifact) | "tags_art#" + tagKey + "#idx" + index |
 | GSI1PK | "tag#" + tagKey + "#" + tagValue |
 | GSI1SK | "yyyy-MM-dd'T'HH:mm:ssZ" + "#" + documentId |
 | GSI2PK | "tag#" + tagKey |
-| GSI2SK | tagValue + "#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId |
+| GSI2SK | tagValue |
 
 #### Entity Attributes
 
@@ -292,6 +360,7 @@ Document Attribute records store structured metadata values attached to document
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "attr#" + key + "#" + value |
+| SK (artifact) | "attr_art#" + ULID + "#" + key + "#" + value |
 | GSI1PK | "doc#attr#" + key |
 | GSI1SK | value |
 | GSI2PK | "docs#" + documentId  |
@@ -319,6 +388,33 @@ Document Data Classification Result records store the output of classification o
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "llmresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| SK (artifact) | "llmresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| llmPromptEntityName | LLM Prompt Entity Name |
+| content | Result from the LLM Prompt |
+| attributes | List of Attributes found in the LLM prompt result |
+| inserteddate | Inserted Date |
+| userId | Create by user |
+
+### Document Llm AI Prompt Result
+
+Contains all information about Llm Result for the document.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| SK | "llmaipromptresult#" + llmPromptEntityName + "#" + TIMESTAMP |
+| SK (artifact) | "llmaipromptresult#" + artifactId + "#" + llmPromptEntityName + "#" + TIMESTAMP |
+| GSI1PK | "docs#" + documentId |
+| GSI1SK | "llmaipromptresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| GSI1SK (artifact) | "llmaipromptresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
@@ -341,8 +437,10 @@ Document Metadata Extraction Result records store extracted metadata produced fr
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "mdextractionresult#" + llmPromptEntityName + "#" + TIMESTAMP |
+| SK (artifact) | "mdextractionresult_art#" + artifactId + "#" + llmPromptEntityName + "#" + TIMESTAMP |
 | GSI1PK | "docs#" + documentId |
 | GSI1SK | "mdextractionresult#" + TIMESTAMP + "#" + llmPromptEntityName |
+| GSI1SK (artifact) | "mdextractionresult_art#" + artifactId + "#" + TIMESTAMP + "#" + llmPromptEntityName |
 
 #### Entity Attributes
 
@@ -365,6 +463,7 @@ Document MalwareScan Result records store the outcome of malware or antivirus sc
 |------------|---------|
 | PK | "docs#" + documentId |
 | SK | "malware#result#" + TIMESTAMP + "#" + ID |
+| SK (artifact) | "malware#result_art#" + artifactId "#" + TIMESTAMP + "#" + ID |
 
 #### Entity Attributes
 
@@ -444,6 +543,7 @@ Document activity keys store audit records for document actions. They support do
 | Attributes | Format |
 |------------|---------|
 | PK | "doc#" + documentId |
+| PK (artifact) | "doc#" + documentId + "#art#" + artifactId |
 | SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
 | GSI1PK | "activity#user#" + username |
 | GSI1SK | "activity#" + yyyy-MM-dd'T'HH:mm:ss + "#" + documentId + "#" + ulid|
@@ -822,6 +922,10 @@ Document Folder records maintain folder and file listing indexes for document pa
 | SK | "ff#" + path OR "fi#" + path |
 | GSI1PK (folder only) | "folder#" + documentId |
 | GSI1SK (folder only) | "folder" |
+| GSI1PK (file only - as of 1.19) | "file#" + documentId |
+| GSI1SK (file only) | "file" |
+| GSI2PK  | "global#filename#" + &lt;first 2 characters of filename&gt; + "#s" + shardId|
+| GSI2SK  | "fi#" + filename + "#" + documentId or "ff#" + folder + "#" + documentId |
 
 ### Entity Attributes
 
@@ -916,11 +1020,14 @@ The Document Workflow entity tracks a specific document's progress through a wor
 | Attributes | Format |
 |------------|---------|
 | PK | "wfdoc#" + documentId |
+| PK - as of 1.19 | "docs#" + documentId |
 | SK | "wf#" + workflowId |
+| SK (artifact) | "wf#" + workflowId + "#art#" + artifactId |
 | GSI1PK | "wfdoc#" + documentId |
+| GSI1PK (artifact) | "wfdoc#" + documentId + "#art#" + artifactId |
 | GSI1SK | "wf#" + workflowName + "#" + workflowId |
 | GSI2PK | "wf#" + workflowId |
-| GSI2SK | "wfdoc#" + documentId |
+| GSI2SK (artifact) | "wfdoc#" + documentId + "_art#" + artifactId |
 
 #### Entity Attributes
 
@@ -1163,6 +1270,7 @@ Document Activities Events store event records related to document activity. The
 |------------|---------|
 | PK | "documentEvent" |
 | SK | "event#docs#activities#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId + "#" + UUID |
+| SK (artifact) | "event#docs#activities#" + yyyy-MM-dd'T'HH:mm:ssZ + "#" + documentId + "_art#" + ULID |
 
 #### Entity Event Sourcing Attributes
 
