@@ -941,20 +941,21 @@ Document Folder records maintain folder and file listing indexes for document pa
 
 ## Document Folder Permission
 
-Document Folder Permission records store path-based permissions for folder-style document organization. They allow role permissions to be attached to a folder path and evaluated during folder browsing or document access.
+Document Folder Permission records store folder-based permissions for folder-style document organization. They allow role permissions to be attached to a folder document identifier and evaluated during folder browsing or document access.
 
 ### Entity Key Schema
 
 | Attributes | Format |
 |------------|---------|
 | PK | "global#folders#permissions" |
-| SK | "ff#" + path |
+| SK | "fp#" + folderId |
 
 ### Entity Attributes
 
 | Attributes | Description |
 |------------|-------------|
-| path | Folder path |
+| folderId | Folder Document Id |
+| path | Folder path snapshot |
 | type | Type of Share (File or Directory) |
 | inserteddate | Inserted Date |
 | userId | Create by user |
