@@ -32,7 +32,7 @@ This will create the following local services:
 - keycloak
 - typesense
 
-Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/netty-server/docker-compose.yml) file you can launch FormKiQ local using
+Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/apps/netty-server/docker-compose.yml) file you can launch FormKiQ local using
 
 ```
 docker-compose -f docker-compose.yml up -d
@@ -43,7 +43,7 @@ docker-compose -f docker-compose.yml up -d
 use the following bash script.
 
 ```bash
-curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/netty-server/docker-compose.yml && docker-compose up
+curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/apps/netty-server/docker-compose.yml && docker-compose up
 ```
 
 Please note: You may need to run "docker login" to login with your Docker credentials beforehand, if you have not done so already.
