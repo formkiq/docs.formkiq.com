@@ -80,10 +80,11 @@ AttributeKey,DataType,Type
 status,STRING,STANDARD
 priority,NUMBER,STANDARD
 reviewed,BOOLEAN,STANDARD
+reviewDate,DATE,STANDARD
 ```
 
 - AttributeKey: Unique attribute identifier
-- DataType: STRING, NUMBER, BOOLEAN, or KEY_ONLY
+- DataType: STRING, NUMBER, BOOLEAN, DATE, or KEY_ONLY
 - Type: STANDARD, GOVERNANCE, or OPA
 
 **Command**
@@ -100,19 +101,26 @@ This step registers document records in FormKiQ without uploading content yet.
 
 **CSV format**
 
-```
-DocumentId,Path,ContentType,DeepLink
-550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,
-123e4567-e89b-12d3-a456-426614174000,/reports/2025/Q1.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+```csv
+DocumentId,Path,ContentType,DeepLink,Artifacts,ArtifactCategory,ResourceType
+550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,,true,,DOCUMENT
+123e4567-e89b-12d3-a456-426614174000,/reports/2025/Q1.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,https://example.com/reports/Q1,,quarterly-report,DEEP_LINK
 ```
 
-- DocumentId: UUID v4 (user-supplied)
-- Path: Virtual FormKiQ path
-- ContentType: MIME type
-- DeepLink: Optional external URL
+| Column | Required | Description |
+| --- | --- | --- |
+| `DocumentId` | Yes | User-supplied UUID v4. |
+| `Path` | Yes | Virtual FormKiQ path or document name. |
+| `ContentType` | Yes | Document MIME type. The value may be empty. |
+| `DeepLink` | Yes | External URL for the document. The value may be empty. |
+| `Artifacts` | No | Whether the document supports artifact documents. Accepted values are `true` and `false`. |
+| `ArtifactCategory` | No | Artifact category assigned to the document. |
+| `ResourceType` | No | Document resource type. Accepted values are `DOCUMENT`, `DOSSIER`, and `DEEP_LINK`. |
 
 :::note
-Using a consistent DocumentId allows you to re-run imports without creating duplicates.
+CSV headers are case-sensitive. The `Artifacts`, `ArtifactCategory`, and `ResourceType` columns are optional and may be omitted entirely, so existing files containing only `DocumentId`, `Path`, `ContentType`, and `DeepLink` remain valid. Blank optional values are not sent to FormKiQ.
+
+Using a consistent `DocumentId` allows you to rerun imports without creating duplicates.
 :::
 
 **Command**
@@ -121,23 +129,37 @@ Using a consistent DocumentId allows you to re-run imports without creating dupl
 fk --import-csv --documents documents.csv
 ```
 
+The CLI writes successful records to a sequenced file beside the input, such as `documents.success.001.csv`. The output includes an `ArtifactId` column populated from the `POST /documents` response:
+
+```csv
+DocumentId,Path,ContentType,DeepLink,Artifacts,ArtifactCategory,ResourceType,ArtifactId
+550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,,true,,DOCUMENT,01KJ4FA17H9Q8ZJ3YV6M2C8W5X
+```
+
+Copy the returned `ArtifactId` into the following document attribute and content CSV rows that target the artifact. The value is blank for documents without artifacts.
+
 ## Step 4: Import Document Attributes
 
 This step assigns metadata values to existing documents.
 
 **CSV format**
 
-```
-DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue
-550e8400-e29b-41d4-a716-446655440000,status,approved,,
-550e8400-e29b-41d4-a716-446655440000,priority,,5,
-123e4567-e89b-12d3-a456-426614174000,isPublished,,,true
+```csv
+DocumentId,ArtifactId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue
+550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,status,approved,,,
+550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,priority,,5,,
+123e4567-e89b-12d3-a456-426614174000,,isPublished,,,true,
+123e4567-e89b-12d3-a456-426614174000,,reviewDate,,,,2026-08-14T00:00:00Z
 ```
 
 Rules:
 - DocumentId must already exist
+- ArtifactId is optional; omit the column or leave it blank to target the primary document
 - AttributeKey must be defined
-- Only one value column should be populated per row
+- Only one of StringValue, NumberValue, BooleanValue, or DateValue should be populated per row
+- DateValue accepts ISO-8601 dates or date-times; UTC date-times such as `2026-08-14T00:00:00Z` are recommended
+- Repeat a row with the same DocumentId, ArtifactId, and AttributeKey to import multiple string or date values
+- DateValue may be omitted from CSV files that do not import date attributes
 
 **Command**
 
@@ -153,15 +175,17 @@ This step uploads or links the actual binary content for each document.
 
 **CSV format**
 
-```
-DocumentId,Location
-550e8400-e29b-41d4-a716-446655440000,/path/to/file.pdf
-123e4567-e89b-12d3-a456-426614174000,s3://my-bucket/documents/report.xlsx
+```csv
+DocumentId,ArtifactId,Location
+550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,/path/to/file.pdf
+123e4567-e89b-12d3-a456-426614174000,,s3://my-bucket/documents/report.xlsx
 ```
 
 Location can be:
 - A local filesystem path
 - An S3 URI (s3://bucket/key)
+
+`ArtifactId` is optional. Omit the column or leave it blank to upload content to the primary document.
 
 **Command**
 
