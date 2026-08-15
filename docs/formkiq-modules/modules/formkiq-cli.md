@@ -277,6 +277,7 @@ AttributeKey,DataType,Type
 status,STRING,STANDARD
 priority,NUMBER,STANDARD
 reviewed,BOOLEAN,STANDARD
+reviewDate,DATE,STANDARD
 ```
 
 Command:
@@ -292,10 +293,22 @@ fk --import-csv \
 CSV format:
 
 ```csv
-DocumentId,Path,ContentType,DeepLink
-550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,
-123e4567-e89b-12d3-a456-426614174000,/reports/2025/Q1.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+DocumentId,Path,ContentType,DeepLink,Artifacts,ArtifactCategory,ResourceType
+550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,,true,,DOCUMENT
+123e4567-e89b-12d3-a456-426614174000,/reports/2025/Q1.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,https://example.com/reports/Q1,,quarterly-report,DEEP_LINK
 ```
+
+| Column | Required | Description |
+| --- | --- | --- |
+| `DocumentId` | Yes | UUID v4 for the document. Reuse the same ID to rerun an import without creating a duplicate. |
+| `Path` | Yes | Virtual FormKiQ path or document name. |
+| `ContentType` | Yes | Document MIME type. The value may be empty. |
+| `DeepLink` | Yes | External URL for the document. The value may be empty. |
+| `Artifacts` | No | Whether the document supports artifact documents. Accepted values are `true` and `false`. |
+| `ArtifactCategory` | No | Artifact category assigned to the document. |
+| `ResourceType` | No | Document resource type. Accepted values are `DOCUMENT`, `DOSSIER`, and `DEEP_LINK`. |
+
+CSV headers are case-sensitive. `Artifacts`, `ArtifactCategory`, and `ResourceType` can be omitted entirely, so the existing four-column `documents.csv` format remains valid. Blank optional values are not sent to FormKiQ.
 
 Command:
 
@@ -305,17 +318,26 @@ fk --import-csv \
   --site-id default
 ```
 
-`DocumentId` must be a UUID. Reusing the same ID lets you rerun an import without creating duplicate documents.
+The import creates a sequenced success file beside the input file, such as `documents.success.001.csv`. Its final `ArtifactId` column contains the identifier returned by `POST /documents`:
+
+```csv
+DocumentId,Path,ContentType,DeepLink,Artifacts,ArtifactCategory,ResourceType,ArtifactId
+550e8400-e29b-41d4-a716-446655440000,/invoices/2025/05/001.pdf,application/pdf,,true,,DOCUMENT,01KJ4FA17H9Q8ZJ3YV6M2C8W5X
+```
+
+Use the returned `ArtifactId` in the document content and document attribute CSV files when the operation targets that artifact. Documents without artifacts have a blank `ArtifactId`.
 
 #### Import Document Content
 
 CSV format:
 
 ```csv
-DocumentId,Location
-550e8400-e29b-41d4-a716-446655440000,/path/to/file.pdf
-123e4567-e89b-12d3-a456-426614174000,s3://my-bucket/documents/report.xlsx
+DocumentId,ArtifactId,Location
+550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,/path/to/file.pdf
+123e4567-e89b-12d3-a456-426614174000,,s3://my-bucket/documents/report.xlsx
 ```
+
+`ArtifactId` is optional. Omit the column or leave it blank to upload content to the primary document.
 
 Command:
 
@@ -332,11 +354,16 @@ Use `--mime-extract` when the source content is a MIME file and the CLI should u
 CSV format:
 
 ```csv
-DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue
-550e8400-e29b-41d4-a716-446655440000,status,approved,,
-550e8400-e29b-41d4-a716-446655440000,priority,,5,
-123e4567-e89b-12d3-a456-426614174000,isPublished,,,true
+DocumentId,ArtifactId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue
+550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,status,approved,,,
+550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,priority,,5,,
+123e4567-e89b-12d3-a456-426614174000,,isPublished,,,true,
+123e4567-e89b-12d3-a456-426614174000,,reviewDate,,,,2026-08-14T00:00:00Z
 ```
+
+`ArtifactId` is optional. Omit the column or leave it blank to assign attributes to the primary document.
+
+Populate only one of `StringValue`, `NumberValue`, `BooleanValue`, or `DateValue` in each row. Use an ISO-8601 date or date-time for `DateValue`; UTC date-times such as `2026-08-14T00:00:00Z` are recommended. Repeat a row with the same document, artifact, and attribute key to import multiple string or date values. `DateValue` may be omitted from CSV files that do not import date attributes.
 
 Command:
 
@@ -589,6 +616,42 @@ fk --purge-documents \
   --limit 1000
 ```
 
+### Delete Empty Folders
+
+The `-s/--site-id` option is required for every empty-folder cleanup command.
+
+Preview empty folders across a site without deleting anything:
+
+```bash
+fk --delete-empty-folders \
+  --site-id default \
+  --dry-run
+```
+
+The dry run prints the folders in deepest-first deletion order. This allows an empty parent folder
+to be removed after its empty children.
+
+Limit the preview to a folder branch with `--path`:
+
+```bash
+fk --delete-empty-folders \
+  --site-id default \
+  --path archive/old \
+  --dry-run
+```
+
+After reviewing the output, remove `--dry-run` to perform the cleanup:
+
+```bash
+fk --delete-empty-folders \
+  --site-id default \
+  --path archive/old
+```
+
+The CLI lists the candidates again and asks for confirmation before deleting them. When `--path`
+is supplied, that folder is also deleted if its entire branch is empty. Folders containing a
+document, or containing a descendant folder with a document, are retained.
+
 Delete all data for a site:
 
 ```bash
@@ -641,6 +704,7 @@ fk --data-migration \
 | `--sync-opensearch-verify` | Verify document records in OpenSearch. | `--site-id`, `--file`, `--profile` |
 | `--opensearch` | List, inspect, create, or restore OpenSearch snapshots. | `--list-snapshots`, `--get-snapshot`, `--create-snapshot`, `--restore-snapshot`, `--site-id`, `--snapshot-name`, `--profile` |
 | `--delete-documents` | Delete documents listed in a file. | `--site-id`, `--file`, `--limit`, `--insecure` |
+| `--delete-empty-folders` | Delete empty folder branches, deepest-first. | `--site-id` (required), `--path`, `--dry-run`, `--profile`, `--insecure` |
 | `--purge-documents` | Purge documents listed in a file. | `--site-id`, `--file`, `--limit`, `--insecure` |
 | `--delete-site` | Delete a site and related document/search data. | `--site-id`, `--dry-run`, `--profile` |
 | `--import-comprehend` | Import Amazon Comprehend output. | `--output-data-s3uri`, `--documents-s3uri`, `--site-id`, `--split-by-class-name`, `--profile` |
