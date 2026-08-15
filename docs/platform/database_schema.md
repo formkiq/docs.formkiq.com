@@ -66,6 +66,52 @@ The Group Permissions entity maps a group to the site permissions that group rec
 | siteId | Site Id |
 | permissions | List of Group permissions for site |
 
+### Numbering Sequences
+
+Numbering Sequence records define site-scoped formats for generating unique string attribute
+values, such as `CONTRACT-2026-00001`. Each definition is associated with an attribute key. The
+definition and its counters share a partition, while their sort-key prefixes keep configuration
+records separate from counter records.
+
+#### Definition Record Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "numberingSequences" |
+| SK | "sequence#" + attributeKey |
+
+#### Definition Record Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| attributeKey | Attribute key where generated values are stored |
+| pattern | Output pattern containing `{SEQUENCE}` and, for yearly sequences, `{YEAR}` |
+| startAt | First sequence number allocated for a new period |
+| padding | Minimum width of the generated sequence number, padded with leading zeroes |
+| reset | Reset frequency (`NONE` or `YEARLY`) |
+| timezone | IANA timezone used to determine the active year for `YEARLY` sequences |
+
+#### Counter Record Key Schema
+
+Counter records are created when the first number is allocated for an attribute and period. The
+`period` is `NONE` for a sequence that never resets, or the four-digit calendar year for a `YEARLY`
+sequence. Counter updates are atomic.
+
+| Attributes | Format |
+|------------|---------|
+| PK | "numberingSequences" |
+| SK | "counter#" + attributeKey + "#" + period |
+
+#### Counter Record Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| Number | Most recently allocated sequence number for the attribute and period |
+
+As with other site-scoped records, a non-default site adds the `SiteId/` prefix to the partition
+key. For example, the definition partition key for the `finance` site is
+`finance/numberingSequences`.
+
 ## Documents
 
 The following entities store document metadata, lifecycle state, processing state, tags, attributes, and document-related module results. Document content is stored in Amazon S3; DynamoDB stores the metadata and indexes required to manage and find that content.
@@ -212,6 +258,107 @@ Document Actions store queued or completed processing requests for a document. A
 | workflowId | Workflow Id |
 | workflowStepId | Workflow Step Id |
 | workflowLastStep | Workflow Last Step |
+
+### Document Notification
+
+One Document Notification record is created for each Reminder Policy occurrence or ad hoc
+notification request associated with a document or artifact. Reminder Policy occurrences are
+uniquely identified by their entity type, entity, and notification date. Ad hoc notifications use a
+ULID index encoded in the sort key and leave `entityTypeId` and `entityId` unset. The index is derived
+from the sort key when the record is read and is not stored as a separate attribute. Each record
+contains the complete normalized CC and BCC recipient lists and tracks whether a Document Action
+still needs to be created. Document Actions own delivery execution, retries, terminal delivery
+status, and delivery history.
+
+The optional `subject` and `body` attributes override the corresponding Reminder Policy values. The
+stored value is always used when it is nonblank. Any missing value is loaded from the Reminder
+Policy entity and resolved when the action is created. Ad hoc notifications store both values, so
+they do not require a Reminder Policy lookup.
+
+Pending notifications use a sparse GSI2 index. `GSI2PK` and `GSI2SK` are removed after the Document
+Action is created. If action creation does not succeed, the notification remains pending.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "docs#" + documentId |
+| PK (artifact) | "docs#" + documentId |
+| SK | "notification#" + entityTypeId + "#" + entityId + "#" + notificationDate |
+| SK (artifact) | "notification_art#" + artifactId + "#" + entityTypeId + "#" + entityId + "#" + notificationDate |
+| SK (ad hoc) | "notification#" + index |
+| SK (artifact, ad hoc) | "notification_art#" + artifactId + "#" + index |
+| GSI2PK (pending only) | "notifications#status#PENDING" |
+| GSI2SK (pending only) | "notification#" + documentId + "#" + entityTypeId + "#" + entityId + "#" + notificationDate |
+| GSI2SK (artifact, pending only) | "notification_art#" + documentId + "#" + artifactId + "#" + entityTypeId + "#" + entityId + "#" + notificationDate |
+| GSI2SK (ad hoc, pending only) | "notification#" + documentId + "#" + index |
+| GSI2SK (artifact, ad hoc, pending only) | "notification_art#" + documentId + "#" + artifactId + "#" + index |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| artifactId | Optional Artifact Identifier |
+| entityTypeId | Reminder Policy Entity Type Identifier; unset for ad hoc notifications |
+| entityId | Reminder Policy Entity Identifier; unset for ad hoc notifications |
+| cc | Normalized and deduplicated CC recipient email addresses |
+| bcc | Normalized and deduplicated BCC recipient email addresses not already present in `cc` |
+| notificationType | Notification type (`EMAIL` or `IN_APP`) |
+| subject | Optional notification subject override |
+| body | Optional notification body override |
+| notificationDate | Scheduled notification occurrence date in `yyyy-MM-dd` key format |
+| status | Notification work status (`PENDING` or `ACTION_CREATED`) |
+| actionSk | Optional sort key of the created Document Action |
+| inserteddate | Inserted Date |
+
+GSI2 is sparse and only indexes pending notification work. Its sort key supplies stable document,
+artifact, and policy occurrence or ad hoc notification identity rather than retry timing, because
+the resulting Document Action manages delivery retries. Artifact notifications use the same
+`docs#<documentId>` partition as the document; `artifactId` is represented in the sort keys.
+
+Email addresses are normalized by trimming whitespace and converting to lowercase before storage.
+Provider-specific transformations, such as removing `+` suffixes or dots, are not applied.
+Duplicate addresses are removed after normalization. When an address is present in both lists, `cc`
+takes precedence and the duplicate is removed from `bcc`.
+
+### User Notification
+
+A User Notification record provides a recipient-specific pointer to a Document Notification. One
+record is created for each distinct normalized email address in the Document Notification's `cc`
+and `bcc` lists. The record does not duplicate the notification payload. Instead, `notificationPk`
+and `notificationSk` identify the source Document Notification record, which remains the source of
+truth for its content, work status, and associated Document Action.
+
+The recipient email is the main partition-key component, allowing `GET /userNotifications` to
+query the authenticated user's notifications directly. The document identifier and source
+notification sort key form a deterministic User Notification sort key. This prevents duplicate
+pointers and uniquely identifies notifications belonging to different documents without requiring
+a separate date component.
+
+#### Entity Key Schema
+
+| Attributes | Format |
+|------------|---------|
+| PK | "userNotifications#" + email |
+| SK | "notification#" + documentId + "#" + notificationSk |
+
+#### Entity Attributes
+
+| Attributes | Description |
+|------------|-------------|
+| documentId | Document Identifier |
+| artifactId | Optional Artifact Identifier |
+| email | Normalized CC or BCC recipient email address |
+| recipientType | Recipient type (`CC` or `BCC`) |
+| notificationPk | Partition key of the referenced Document Notification record |
+| notificationSk | Sort key of the referenced Document Notification record |
+| inserteddate | Inserted Date |
+
+As with the referenced Document Notification, a non-default site adds the `SiteId/` prefix to the
+User Notification partition key. User Notification records do not contain the pending-work GSI2
+keys and are therefore not processed as additional notification work. When a source Document
+Notification is deleted, its recipient pointer records must also be deleted.
 
 ### Document Sync
 
