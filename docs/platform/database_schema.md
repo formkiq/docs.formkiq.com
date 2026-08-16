@@ -194,6 +194,21 @@ A soft-deleted document is moved into a separate key namespace so it no longer a
 | checksum | Document content checksum |
 | tagSchemaId | Tag Schema for document |
 
+#### Related Document Record Key Schema
+
+Records stored under a document partition, including document attributes, actions, and other
+supporting records, move into a document-specific soft-delete partition. Their sort keys remain
+unchanged so the keys can be restored without truncation or loss.
+
+| Attributes | Format |
+|------------|---------|
+| PK | "softdelete#" + original PK |
+| SK | original SK |
+| GSI1PK (when present) | "softdelete#" + original GSI1PK |
+| GSI1SK (when present) | original GSI1SK |
+| GSI2PK (when present) | "softdelete#" + original GSI2PK |
+| GSI2SK (when present) | original GSI2SK |
+
 ### Document OCR
 
 The Document OCR entity stores OCR processing metadata for a document. It tracks which OCR engine was used, whether the OCR request succeeded, failed, or was skipped, and any job identifier needed to connect the FormKiQ document record to asynchronous OCR processing results.
