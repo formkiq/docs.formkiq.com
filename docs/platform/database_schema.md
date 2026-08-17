@@ -441,8 +441,8 @@ using the primary key.
 | Attributes | Format |
 |------------|---------|
 | PK | "docs#" + documentId |
-| SK | "review#" + reviewId + "#decision#" + decisionId |
-| SK (artifact) | "review_art#" + artifactId + "#" + reviewId + "#decision#" + decisionId |
+| SK | "reviewdecision#" + reviewId + "#" + decisionId |
+| SK (artifact) | "reviewdecision_art#" + artifactId + "#" + reviewId + "#" + decisionId |
 
 #### Entity Attributes
 
