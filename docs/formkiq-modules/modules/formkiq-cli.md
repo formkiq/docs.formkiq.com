@@ -12,7 +12,8 @@ Use it when you need to:
 
 - Sync files from a local directory or S3 location into FormKiQ.
 - Watch a local directory and upload new or changed files.
-- Import documents, attributes, document content, and document attributes from CSV files.
+- Import documents, attributes, document content, document attributes, and site group permissions
+  from CSV files.
 - Export and import site configuration such as attributes, schemas, workflows, rulesets, mappings, locales, entity types, and entities.
 - Copy FormKiQ document metadata between DynamoDB tables.
 - Sync or verify migrated documents in OpenSearch.
@@ -120,6 +121,23 @@ fk --configure \
   --app-environment FORMKIQ_APP_ENVIRONMENT \
   --profile dev
 ```
+
+### S3 VPC Endpoint
+
+If the CLI runs in a network where public S3 endpoints are blocked, add the regional S3 interface
+VPC endpoint to the profile during configuration:
+
+```bash
+fk --configure \
+  --aws-profile AWS_PROFILE \
+  --region ap-southeast-1 \
+  --app-environment FORMKIQ_APP_ENVIRONMENT \
+  --s3-endpoint-url https://vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
+```
+
+The endpoint is stored as `s3_endpoint_url` in the selected FormKiQ profile. You can override the
+profile value for an individual document content import by supplying `--s3-endpoint-url` on the
+import command.
 
 ### Verify Configuration
 
@@ -262,7 +280,8 @@ fk --watch \
 
 ### Import Data from CSV
 
-The CSV importer supports attributes, documents, document content, and document attributes.
+The CSV importer supports attributes, documents, document content, document attributes, and site
+group permissions.
 
 :::note
 For large imports, review [Scaling FormKiQ Components](/docs/platform/overview#scaling-formkiq-components) before running production imports.
@@ -349,6 +368,38 @@ fk --import-csv \
 
 Use `--mime-extract` when the source content is a MIME file and the CLI should upload the extracted document part.
 
+##### Upload Through an S3 VPC Endpoint
+
+By default, the CLI uploads document content with an HTTP `PUT` to the presigned S3 URL returned by
+FormKiQ. If a firewall blocks that URL and requires S3 traffic to use an interface VPC endpoint, use
+direct S3 upload mode:
+
+```bash
+fk --import-csv \
+  --document-contents document-contents.csv \
+  --site-id default \
+  --direct-s3-upload \
+  --s3-endpoint-url https://vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
+```
+
+The CLI still requests the FormKiQ upload URL so FormKiQ can prepare the document version or
+artifact and provide the authoritative destination bucket and key. The CLI then discards the URL's
+presigned authentication parameters and signs a new S3 request with the AWS identity selected by
+the FormKiQ profile.
+
+| Content source | Direct upload operation |
+| --- | --- |
+| Local filesystem path | `PutObject` |
+| `s3://bucket/key` | `CopyObject` |
+| MIME content used with `--mime-extract` | `PutObject` after extraction |
+
+:::warning
+Direct upload mode does not use the authorization contained in the presigned URL. The selected AWS
+identity must have `s3:PutObject` permission on the FormKiQ documents bucket. An S3 source also
+requires `s3:GetObject`; encrypted objects may require KMS permissions. The bucket policy, VPC
+endpoint policy, endpoint security group, and network routing must allow the request.
+:::
+
 #### Import Document Attributes
 
 CSV format:
@@ -371,6 +422,52 @@ Command:
 fk --import-csv \
   --document-attributes document-attributes.csv \
   --site-id default
+```
+
+#### Import Site Group Permissions
+
+Use a CSV file to set the complete permission list for multiple site groups. The file contains one
+group per row:
+
+```csv
+GroupName,Permissions
+CMS-Users,READ
+CMS-Contract-Readers,READ
+CMS-Contract-Contributors,READ|WRITE
+CMS-Contract-Read-All,READ
+CMS-Contract-Operations,READ|WRITE|GOVERN
+CMS-Archive-Managers,READ|WRITE
+CMS-Template-Managers,READ|WRITE
+CMS-Workflow-Managers,READ|WRITE
+CMS-NonProd-Workflow-Testers,READ|WRITE
+CMS-Platform-Admins,DELETE|READ|WRITE|GOVERN
+```
+
+| Column | Required | Description |
+| --- | --- | --- |
+| `GroupName` | Yes | Group name supplied as `{groupName}` to `PUT /sites/{siteId}/groups/{groupName}/permissions`. |
+| `Permissions` | Yes | Pipe-delimited permission list. Accepted values are `ADMIN`, `DELETE`, `READ`, `WRITE`, and `GOVERN`. The value may be empty. |
+
+Permission names are case-insensitive during import, and duplicate values in a row are ignored. Each
+row replaces the group's complete permission set; permissions are not added to the existing set. An
+empty `Permissions` value clears all permissions for that group. CSV headers are case-sensitive.
+
+Command:
+
+```bash
+fk --import-csv \
+  --site-group-permissions site-group-permissions.csv \
+  --site-id default
+```
+
+Use `--dry-run` to parse the file without changing FormKiQ. Use `--verify` after importing to
+compare each CSV row with the permissions currently assigned to its group:
+
+```bash
+fk --import-csv \
+  --site-group-permissions site-group-permissions.csv \
+  --site-id default \
+  --verify
 ```
 
 #### Verify CSV Imports
@@ -588,6 +685,64 @@ OpenSearch snapshot backup and restore require the OpenSearch module and snapsho
 
 The previous snapshot operation flags, `--list`, `--get`, `--backup`, and `--restore`, are still accepted as aliases.
 
+### Get Document Metadata or Content
+
+Get a single document and print its metadata as JSON:
+
+```bash
+fk --document \
+  --get \
+  --document-id DOCUMENT_ID \
+  --site-id default
+```
+
+Omit `--site-id` to use the default site. To get an artifact document, include its artifact ID:
+
+```bash
+fk --document \
+  --get \
+  --document-id DOCUMENT_ID \
+  --artifact-id ARTIFACT_ID \
+  --site-id default
+```
+
+Without an output file, the command returns document metadata as JSON. To save the document content,
+provide `--output-file`:
+
+```bash
+fk --document \
+  --get \
+  --document-id DOCUMENT_ID \
+  --site-id default \
+  --output-file ./document.pdf
+```
+
+The CLI requests a presigned URL from FormKiQ and streams the content from that URL into the output
+file. If the file already exists, it is replaced. `--artifact-id` can also be used with
+`--output-file` to download artifact content.
+
+### Update a Document Path
+
+Change the path of an existing document:
+
+```bash
+fk --document \
+  --update \
+  --document-id DOCUMENT_ID \
+  --site-id default \
+  --path folder/document.pdf
+```
+
+To update an artifact document's path, include `--artifact-id ARTIFACT_ID`. A successful update
+prints the FormKiQ API response as JSON.
+
+Add `-v` or `--verbose` to print the PATCH endpoint and serialized request payload before the
+update:
+
+```text
+update document (PATCH /documents/DOCUMENT_ID): Payload "{"path":"folder/document.pdf",...}"
+```
+
 ### Bulk Document Operations
 
 List document IDs:
@@ -690,12 +845,14 @@ fk --data-migration \
 
 | Command | Purpose | Key options |
 | --- | --- | --- |
-| `--configure` | Configure a FormKiQ profile. | `--region`, `--app-environment`, `--aws-profile`, `--access-key`, `--secret-key`, `--iam-api-url`, `--documents-dynamodb-tablename`, `--profile` |
+| `--configure` | Configure a FormKiQ profile. | `--region`, `--app-environment`, `--aws-profile`, `--access-key`, `--secret-key`, `--iam-api-url`, `--documents-dynamodb-tablename`, `--s3-endpoint-url`, `--profile` |
 | `--status` | Test the default FormKiQ profile connection. | `--insecure` |
 | `--show` | List configured profiles. | None |
+| `--document --get` | Get document metadata or download content. | `--document-id` (required), `--site-id`, `--artifact-id`, `--output-file`, `--profile`, `--insecure` |
+| `--document --update` | Update a document path. | `--document-id` (required), `--path` (required), `--site-id`, `--artifact-id`, `--verbose`, `--profile`, `--insecure` |
 | `--sync` | Upload files from local storage or S3. | `--dir`, `--siteId`, `--recursive`, `--include`, `--actions`, `--pre-hook`, `--dry-run`, `--profile` |
 | `--watch` | Watch a local directory and upload changed files. | `--dir`, `--siteId`, `--recursive`, `--syncDelay`, `--include`, `--dry-run`, `--profile` |
-| `--import-csv` | Import CSV data. | `--attributes`, `--documents`, `--document-contents`, `--document-attributes`, `--site-id`, `--verify`, `--delimiter`, `--limit`, `--profile` |
+| `--import-csv` | Import CSV data. | `--attributes`, `--documents`, `--document-contents`, `--document-attributes`, `--site-group-permissions`, `--site-id`, `--verify`, `--delimiter`, `--limit`, `--mime-extract`, `--direct-s3-upload`, `--s3-endpoint-url`, `--profile` |
 | `--export-config` | Export site configuration to JSON files. | `--attributes`, `--classifications`, `--entities`, `--entity-type-id`, `--entity-types`, `--locale`, `--mappings`, `--opa`, `--rulesets`, `--schemas`, `--workflows`, `--site-id`, `--output`, `--profile` |
 | `--import-config` | Import site configuration from JSON files. | `--attributes`, `--classifications`, `--entities`, `--entity-type-id`, `--entity-types`, `--locale`, `--mappings`, `--opa`, `--rulesets`, `--schemas`, `--workflows`, `--site-id`, `--input`, `--dry-run`, `--profile` |
 | `--restore-dynamodb` | Copy DynamoDB items from one table to another. | `--from-table`, `--to-table`, `--pk`, `--thread-count`, `--profile` |
