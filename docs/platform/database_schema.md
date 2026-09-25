@@ -425,6 +425,7 @@ category-wide review queues, and category plus status review queues using the pr
 | reviewCategory | Review Category |
 | reviewStatus | Review Status (PENDING / IN_PROGRESS / COMPLETED / CANCELLED / SUPERSEDED) |
 | requiredDecisions | Number of decisions required to complete the review |
+| approvalGroups | Optional list of group names (strings). When groups are specified, the caller must belong to at least one listed group to submit a decision, in addition to having document access. |
 | userId | Create by user |
 | comments | Review comments |
 | inserteddate | Inserted Date |
