@@ -46,7 +46,7 @@ use the following bash script.
 curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/master/apps/netty-server/docker-compose.yml && docker-compose up
 ```
 
-Please note: You may need to run "docker login" to login with your Docker credentials beforehand, if you have not done so already.
+The local stack pulls MinIO from `formkiq/minio` on Docker Hub. If the repository is private or your Docker Hub pull limit has been reached, run `docker login` with an account that has access before starting the stack.
 
 ## Authentication
 
