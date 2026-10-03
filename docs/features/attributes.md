@@ -61,6 +61,9 @@ FormKiQ supports standard value types and special-purpose attribute types.
 | `STRING` | Text values, categories, identifiers, names, status values, and dates stored as strings. | `department = Finance` |
 | `NUMBER` | Numeric values used for sorting, filtering, comparison, reporting, or calculations. | `invoiceTotal = 1250.75` |
 | `BOOLEAN` | True/false values. | `isApproved = true` |
+| `JSON` | One structured object with nested properties and typed values. | `invoiceDetails = {"total": 1250.50, "approved": true}` |
+
+For `JSON`, send an object in `jsonValue`, without serializing it into a string or combining it with other value fields. Empty objects are accepted; top-level arrays, scalars, and null are rejected. JSON attributes can belong to schemas but cannot be composite-key members. See [Store and Search JSON Attributes](/docs/tutorials/documents/json-attributes) for object storage, typed nested-field searches, and replacement examples.
 
 ### Special Types
 

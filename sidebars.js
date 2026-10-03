@@ -209,6 +209,8 @@ const sidebars = {
           items: [
             "tutorials/Documents/documents-api",
             "tutorials/Documents/document-attributes-api",
+            "tutorials/Documents/multi-attribute-search",
+            "tutorials/Documents/json-attributes",
             "tutorials/Documents/site-classification-schemas",
             "tutorials/Documents/soft-deletes",
           ],

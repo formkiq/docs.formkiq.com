@@ -15,7 +15,8 @@ Core metadata and tag search is backed by Amazon DynamoDB. Full-text search can 
 | Need | API operation | Backend | Notes |
 | --- | --- | --- | --- |
 | Search by one tag or attribute | [`POST /search`](/docs/api-reference/document-search) | DynamoDB | Best for exact, begins-with, list, and range searches on known metadata. |
-| Search by multiple tags or attributes | [`POST /search`](/docs/api-reference/document-search) | DynamoDB | Requires configured composite keys for DynamoDB-backed multi-attribute search. |
+| Search by multiple attributes | [`POST /search`](/docs/api-reference/document-search) | DynamoDB | Combines attribute conditions with AND; composite keys can reduce candidate reads. |
+| Search by multiple tags | [`POST /search`](/docs/api-reference/document-search) | DynamoDB | Uses configured composite keys. |
 | Search document text with Typesense | [`POST /search`](/docs/api-reference/document-search) | Typesense | Uses the `query.text` parameter when Typesense is enabled. |
 | Search document text with OpenSearch | [`POST /searchFulltext`](/docs/api-reference/search-fulltext) | OpenSearch | Available when the enhanced full-text search module is installed. |
 | Run raw OpenSearch DSL | [`POST /queryFulltext`](/docs/api-reference/query-fulltext) | OpenSearch | Use for advanced filters, sorting, aggregations, and custom queries. |
@@ -204,12 +205,18 @@ Use [`POST /search`](/docs/api-reference/document-search) for most structured se
 }
 ```
 
+### JSON Attribute Search
+
+For an attribute defined with `dataType: JSON`, use a `json` filter containing a `path` and comparisons such as `eq`, `eqOr`, `beginsWith`, or numeric `gt`/`gte`/`lt`/`lte`. JSON comparisons retain string, number, and boolean types. Combine different paths under the same attribute key with separate criteria in `query.attributes`.
+
+JSON fields are filtered after candidate records are read; nested properties are not automatically indexed. Scalar composite keys can narrow candidates before JSON filters are evaluated. See [Store and Search JSON Attributes](/docs/tutorials/documents/json-attributes) for complete requests and expected results.
+
 ### Multiple Attribute Search
 
-Use multiple attributes when the document schema has a composite key that matches the fields being searched.
+Use `query.attributes` to combine multiple attribute conditions with AND. FormKiQ can search without a composite key by reading candidates from the first attribute criterion and checking the remaining conditions. A usable composite key can narrow candidates using all or part of the search attributes.
 
 :::note
-DynamoDB-backed multiple attribute search requires composite keys. All attributes except the last search field must use `eq` criteria so FormKiQ can use the configured access pattern efficiently.
+When using a composite key, supply criteria for every member attribute. Leading composite members use `eq`; the final member can use a supported equality, prefix, list, or range criterion. Conditions outside the composite remain filters. See [Search Documents with Multiple Attributes](/docs/tutorials/documents/multi-attribute-search) for a three-attribute search using a two-attribute composite key. Earlier releases can require a composite key covering all search attributes.
 :::
 
 #### Multiple Keys and Values
@@ -456,7 +463,8 @@ For complete OpenSearch query capabilities, refer to the [OpenSearch Query DSL d
 | Capability | DynamoDB via `/search` | Typesense via `/search` | OpenSearch via `/searchFulltext` or `/queryFulltext` |
 | --- | --- | --- | --- |
 | Single tag or attribute search | Yes | Indexed content only | Yes |
-| Multiple tag or attribute search | Yes, with composite keys | Indexed content only | Yes |
+| Multiple attribute search | Yes; composite keys can narrow candidates | Indexed content only | Yes |
+| Multiple tag search | Yes, with composite keys | Indexed content only | Yes |
 | Text search | No | Yes, when enabled | Yes |
 | Raw search-engine query DSL | No | No | Yes, through `/queryFulltext` |
 | Aggregations | No | No | Yes, through `/queryFulltext` |
@@ -478,7 +486,7 @@ If a search returns no results, check the following:
 - Confirm the document exists in the same `siteId` being searched.
 - Confirm the searched tag or attribute is present on the document.
 - Confirm the correct endpoint is being used for the installed backend.
-- Confirm composite keys are configured before using multiple DynamoDB-backed attributes.
+- If a composite key is selected, confirm its member attributes and operators match the query and existing documents have been reindexed.
 - Confirm OCR or full-text actions completed before searching document content.
 - Confirm OpenSearch or Typesense is installed and healthy before using full-text search.
 - Reindex existing documents after changing schemas, composite keys, mappings, or search configuration.
