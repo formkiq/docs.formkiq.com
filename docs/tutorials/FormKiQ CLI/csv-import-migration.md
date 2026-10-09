@@ -80,10 +80,12 @@ AttributeKey,DataType,Type
 status,STRING,STANDARD
 priority,NUMBER,STANDARD
 reviewed,BOOLEAN,STANDARD
+receivedOn,DATE,STANDARD
+metadata,JSON,STANDARD
 ```
 
 - AttributeKey: Unique attribute identifier
-- DataType: STRING, NUMBER, BOOLEAN, or KEY_ONLY
+- DataType: STRING, NUMBER, BOOLEAN, DATE, JSON, or KEY_ONLY
 - Type: STANDARD, GOVERNANCE, or OPA
 
 **Command**
@@ -128,16 +130,19 @@ This step assigns metadata values to existing documents.
 **CSV format**
 
 ```
-DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue
-550e8400-e29b-41d4-a716-446655440000,status,approved,,
-550e8400-e29b-41d4-a716-446655440000,priority,,5,
-123e4567-e89b-12d3-a456-426614174000,isPublished,,,true
+DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue,JsonValue
+550e8400-e29b-41d4-a716-446655440000,status,approved,,,,
+550e8400-e29b-41d4-a716-446655440000,priority,,5,,,
+123e4567-e89b-12d3-a456-426614174000,isPublished,,,true,,
+550e8400-e29b-41d4-a716-446655440000,receivedOn,,,,2026-10-08,
+550e8400-e29b-41d4-a716-446655440000,metadata,,,,,"{""customer"":{""name"":""Acme""},""tags"":[""invoice"",""paid""]}"
 ```
 
-Rules:
-- DocumentId must already exist
-- AttributeKey must be defined
-- Only one value column should be populated per row
+The required columns are `DocumentId` and `AttributeKey`. Include whichever value columns your attributes need: `StringValue`, `NumberValue`, `BooleanValue`, `DateValue`, and `JsonValue`. Add an optional `ArtifactId` column to import attributes for a document artifact.
+
+Use `JsonValue` for attributes defined with `DataType` `JSON`. The value is a JSON object and can include nested objects and arrays. In a CSV cell, enclose the object in double quotes and double each embedded quote, as shown above. Blank JSON cells are skipped; `{}` imports an empty object.
+
+The CLI parses the JSON and sends it as `jsonValue`. The server validates attribute values, including whether they match the attribute definition. Populate the value column that matches the attribute's type. Documents must already exist before their attributes are imported.
 
 **Command**
 
@@ -145,7 +150,15 @@ Rules:
 fk --import-csv --document-attributes document-attributes.csv
 ```
 
-This step performs the bulk data transfer and is the most resource-intensive part of the migration.
+By default, this command replaces the complete attribute set for each document in the CSV. To preserve other attributes and replace only the supplied keys, use `--update`:
+
+```bash
+fk --import-csv --document-attributes document-attributes.csv --update
+```
+
+JSON values support both import modes and `--verify`. Verification compares JSON objects without depending on property order. Use `--dry-run` to parse the CSV without writing attribute changes.
+
+Rows are grouped by `DocumentId`, optional `ArtifactId`, and attribute key. Repeated string or date rows become multi-value attributes; repeated JSON rows use the last object.
 
 ## Step 5: Import Document Contents
 
@@ -186,7 +199,7 @@ The verification process checks:
 
 :::note
 The `--verify` option is run **after an import has completed**.  
-It does **not** validate CSV structure or local file contents, and it does **not** modify any data.
+The CLI still parses the CSV, including any JSON cells, but `--verify` does **not** modify any data or validate local document content.
 :::
 
 **Example: verify imported attributes**

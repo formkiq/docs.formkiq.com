@@ -277,6 +277,8 @@ AttributeKey,DataType,Type
 status,STRING,STANDARD
 priority,NUMBER,STANDARD
 reviewed,BOOLEAN,STANDARD
+receivedOn,DATE,STANDARD
+metadata,JSON,STANDARD
 ```
 
 Command:
@@ -286,6 +288,8 @@ fk --import-csv \
   --attributes attributes.csv \
   --site-id default
 ```
+
+Define JSON attributes with `DataType` set to `JSON`, as shown for `metadata` above.
 
 #### Import Documents
 
@@ -332,10 +336,12 @@ Use `--mime-extract` when the source content is a MIME file and the CLI should u
 CSV format:
 
 ```csv
-DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue
-550e8400-e29b-41d4-a716-446655440000,status,approved,,
-550e8400-e29b-41d4-a716-446655440000,priority,,5,
-123e4567-e89b-12d3-a456-426614174000,isPublished,,,true
+DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue,JsonValue
+550e8400-e29b-41d4-a716-446655440000,status,approved,,,,
+550e8400-e29b-41d4-a716-446655440000,priority,,5,,,
+123e4567-e89b-12d3-a456-426614174000,isPublished,,,true,,
+550e8400-e29b-41d4-a716-446655440000,receivedOn,,,,2026-10-08,
+550e8400-e29b-41d4-a716-446655440000,metadata,,,,,"{""customer"":{""name"":""Acme""},""tags"":[""invoice"",""paid""]}"
 ```
 
 Command:
@@ -345,6 +351,21 @@ fk --import-csv \
   --document-attributes document-attributes.csv \
   --site-id default
 ```
+
+Supported value columns are `StringValue`, `NumberValue`, `BooleanValue`, `DateValue`, and `JsonValue`. Include the columns needed for your attributes; other value columns can be omitted. Add an optional `ArtifactId` column when assigning attributes to an artifact.
+
+`JsonValue` contains a JSON object, including nested objects and arrays. Enclose the CSV cell in double quotes and double each quote inside the JSON, as shown in the `metadata` row above. A blank JSON cell is skipped; `{}` imports an empty object. The CLI parses the JSON and sends it as `jsonValue`; the server validates the attribute values. For JSON attribute definitions and usage, see [Store and Search JSON Attributes](/docs/tutorials/documents/json-attributes).
+
+The default import replaces the complete attribute set for each document in the CSV. Add `--update` to replace only the supplied keys and preserve other attributes:
+
+```bash
+fk --import-csv \
+  --document-attributes document-attributes.csv \
+  --site-id default \
+  --update
+```
+
+Rows are grouped by `DocumentId`, optional `ArtifactId`, and attribute key. Repeated string or date rows become multi-value attributes; repeated JSON rows use the last JSON object. JSON attributes also support `--verify`, which compares values without depending on object key order. Use `--dry-run` to parse the CSV without writing attribute changes.
 
 #### Verify CSV Imports
 
@@ -632,7 +653,7 @@ fk --data-migration \
 | `--show` | List configured profiles. | None |
 | `--sync` | Upload files from local storage or S3. | `--dir`, `--siteId`, `--recursive`, `--include`, `--actions`, `--pre-hook`, `--dry-run`, `--profile` |
 | `--watch` | Watch a local directory and upload changed files. | `--dir`, `--siteId`, `--recursive`, `--syncDelay`, `--include`, `--dry-run`, `--profile` |
-| `--import-csv` | Import CSV data. | `--attributes`, `--documents`, `--document-contents`, `--document-attributes`, `--site-id`, `--verify`, `--delimiter`, `--limit`, `--profile` |
+| `--import-csv` | Import CSV data. | `--attributes`, `--documents`, `--document-contents`, `--document-attributes`, `--site-id`, `--update` (document attributes), `--verify`, `--dry-run`, `--delimiter`, `--limit`, `--profile` |
 | `--export-config` | Export site configuration to JSON files. | `--attributes`, `--classifications`, `--entities`, `--entity-type-id`, `--entity-types`, `--locale`, `--mappings`, `--opa`, `--rulesets`, `--schemas`, `--workflows`, `--site-id`, `--output`, `--profile` |
 | `--import-config` | Import site configuration from JSON files. | `--attributes`, `--classifications`, `--entities`, `--entity-type-id`, `--entity-types`, `--locale`, `--mappings`, `--opa`, `--rulesets`, `--schemas`, `--workflows`, `--site-id`, `--input`, `--dry-run`, `--profile` |
 | `--restore-dynamodb` | Copy DynamoDB items from one table to another. | `--from-table`, `--to-table`, `--pk`, `--thread-count`, `--profile` |
