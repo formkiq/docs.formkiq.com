@@ -296,7 +296,8 @@ AttributeKey,DataType,Type
 status,STRING,STANDARD
 priority,NUMBER,STANDARD
 reviewed,BOOLEAN,STANDARD
-reviewDate,DATE,STANDARD
+receivedOn,DATE,STANDARD
+metadata,JSON,STANDARD
 ```
 
 Command:
@@ -306,6 +307,8 @@ fk --import-csv \
   --attributes attributes.csv \
   --site-id default
 ```
+
+Define JSON attributes with `DataType` set to `JSON`, as shown for `metadata` above.
 
 #### Import Documents
 
@@ -405,11 +408,12 @@ endpoint policy, endpoint security group, and network routing must allow the req
 CSV format:
 
 ```csv
-DocumentId,ArtifactId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue
-550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,status,approved,,,
-550e8400-e29b-41d4-a716-446655440000,01KJ4FA17H9Q8ZJ3YV6M2C8W5X,priority,,5,,
-123e4567-e89b-12d3-a456-426614174000,,isPublished,,,true,
-123e4567-e89b-12d3-a456-426614174000,,reviewDate,,,,2026-08-14T00:00:00Z
+DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue,JsonValue
+550e8400-e29b-41d4-a716-446655440000,status,approved,,,,
+550e8400-e29b-41d4-a716-446655440000,priority,,5,,,
+123e4567-e89b-12d3-a456-426614174000,isPublished,,,true,,
+550e8400-e29b-41d4-a716-446655440000,receivedOn,,,,2026-10-08,
+550e8400-e29b-41d4-a716-446655440000,metadata,,,,,"{""customer"":{""name"":""Acme""},""tags"":[""invoice"",""paid""]}"
 ```
 
 `ArtifactId` is optional. Omit the column or leave it blank to assign attributes to the primary document.
