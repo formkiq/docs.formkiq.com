@@ -222,7 +222,7 @@ To create an API key from the FormKiQ Console:
 
 ![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
 
-API keys can also be generated through the `POST /configuration/apiKeys` API endpoint using credentials with `administrator` privileges.
+API keys can also be generated through `POST /sites/{siteId}/apiKeys` using `WRITE_SYSTEM_MANAGEMENT` for the selected site, or administrator access. Select a predefined `roleType` or a custom set of scoped permissions; only administrators can grant `ADMIN`.
 
 :::note
 Store API keys securely, rotate them on a regular schedule, and remove unused keys. API keys should not be embedded in public client-side applications.
@@ -244,6 +244,8 @@ FormKiQ supports multi-tenant environments by grouping users according to their 
 
 Each user can be associated with one or more groups. These groups determine the user's access across sites in the platform.
 
+The permission model supports predefined roles and scoped grants such as `READ_DOCUMENTS` and `READ_DOCUMENT_ATTRIBUTES`. User Management and System Management have dedicated permissions. See [API Permissions](/docs/platform/api-permissions) for role inheritance, group mappings, descriptions, and the permission catalog.
+
 You can choose between:
 
 - **Automatic Site Permissions**: Sites and permissions are inferred from group names.
@@ -262,8 +264,12 @@ FormKiQ sites are created automatically when a user interacts with the API.
 | `Admins` | Full administrator rights on all sites. |
 | `authentication_only` | Can log in, but has no site access. |
 | `<site>` | Read, write, and delete access on `<site>`. |
-| `<site>_read` | Read-only access on `<site>`. |
-| `<site>_govern` | Read, write, delete, and govern access on `<site>`. |
+| `<site>_read` | Ordinary read permissions on `<site>`. |
+| `<site>_write` | Ordinary read, write, and delete permissions on `<site>`. |
+| `<site>_delete` | Ordinary delete permissions on `<site>`. |
+| `<site>_govern` | Ordinary govern, read, write, and delete permissions on `<site>`. |
+| `<site>_system_management` | The three System Management permissions on `<site>`. |
+| `<site>_user_management` | The four User Management permissions on `<site>`. |
 
 Example group behavior:
 
@@ -273,7 +279,7 @@ Example group behavior:
 | `Finance_read` | Read-only access on the `finance` site. |
 | `Finance_govern` | Read, write, delete, and govern access on the `finance` site. |
 
-If a user belongs to multiple groups, their permissions combine.
+If a user belongs to multiple groups, their permissions combine for each site. Ordinary read, write, delete, and govern roles do not grant User Management or System Management permissions. Use the corresponding management role, explicit scoped grants, or `Admins` for those operations.
 
 | Example user membership | Resulting access |
 | --- | --- |
@@ -380,6 +386,16 @@ PUT /sites/projects/groups/employees/permissions
   "permissions": ["READ", "WRITE"]
 }
 ```
+
+For narrower access, the site-group service accepts scoped permission names in the JSON request:
+
+```json
+{
+  "permissions": ["READ_DOCUMENTS", "READ_DOCUMENT_ATTRIBUTES"]
+}
+```
+
+This grants those document and attribute read operations without granting write operations or management permissions. The OpenAPI schema and updated clients support these scoped names. The optional `roleType` selects a predefined role with omitted or empty permissions, or `CUSTOM` with a nonempty grant array. Without `roleType`, explicit permissions remain exact custom grants. Setting group grants requires `WRITE_SYSTEM_MANAGEMENT` for the site, while granting `ADMIN` requires administrator access. See [API Permissions](/docs/platform/api-permissions) for supported scoped names and descriptions.
 
 ### Folder Permissions
 
