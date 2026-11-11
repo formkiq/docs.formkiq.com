@@ -404,6 +404,7 @@ const sidebars = {
         id: "category-pages/changelog",
       },
       items: [
+        "changelog/v1.19.2",
         "changelog/v1.19.1",
         "changelog/v1.19.0",
         "changelog/v1.18.2",

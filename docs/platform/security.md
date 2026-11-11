@@ -222,11 +222,13 @@ To create an API key from the FormKiQ Console:
 
 ![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
 
-API keys can also be generated through `POST /sites/{siteId}/apiKeys` using `WRITE_SYSTEM_MANAGEMENT` for the selected site, or administrator access. Select a predefined `roleType` or a custom set of scoped permissions; only administrators can grant `ADMIN`.
+API keys can also be generated through `POST /sites/{siteId}/apiKeys` using `WRITE_SYSTEM_MANAGEMENT` for the selected site, or administrator access. Select a predefined `roleType` or a custom set of scoped permissions; `ADMIN` roles and grants cannot be assigned through this endpoint.
 
 :::note
 Store API keys securely, rotate them on a regular schedule, and remove unused keys. API keys should not be embedded in public client-side applications.
 :::
+
+Creating an API key without a `roleType` or nonempty `permissions` array preserves the legacy `READ`, `WRITE`, and `DELETE` grants. Specify the desired role or scoped permissions explicitly when creating a restricted key. See [API Permissions](#api-permissions) for role inheritance and grant selection.
 
 ## Authorization and Access Control
 
@@ -244,7 +246,7 @@ FormKiQ supports multi-tenant environments by grouping users according to their 
 
 Each user can be associated with one or more groups. These groups determine the user's access across sites in the platform.
 
-The permission model supports predefined roles and scoped grants such as `READ_DOCUMENTS` and `READ_DOCUMENT_ATTRIBUTES`. User Management and System Management have dedicated permissions. See [API Permissions](/docs/platform/api-permissions) for role inheritance, group mappings, descriptions, and the permission catalog.
+The permission model supports predefined roles and scoped grants such as `READ_DOCUMENTS` and `READ_DOCUMENT_ATTRIBUTES`. User Management and System Management have dedicated permissions. See [API Permissions](#api-permissions) for role inheritance, group mappings, descriptions, and the permission catalog.
 
 You can choose between:
 
@@ -395,7 +397,153 @@ For narrower access, the site-group service accepts scoped permission names in t
 }
 ```
 
-This grants those document and attribute read operations without granting write operations or management permissions. The OpenAPI schema and updated clients support these scoped names. The optional `roleType` selects a predefined role with omitted or empty permissions, or `CUSTOM` with a nonempty grant array. Without `roleType`, explicit permissions remain exact custom grants. Setting group grants requires `WRITE_SYSTEM_MANAGEMENT` for the site, while granting `ADMIN` requires administrator access. See [API Permissions](/docs/platform/api-permissions) for supported scoped names and descriptions.
+This grants those document and attribute read operations without granting write operations or management permissions. The OpenAPI schema and updated clients support these scoped names. The optional `roleType` selects a predefined role with omitted or empty permissions, or `CUSTOM` with a nonempty grant array. Without `roleType`, explicit permissions remain exact custom grants. Setting group grants requires `WRITE_SYSTEM_MANAGEMENT` for the site, and `ADMIN` roles and grants cannot be assigned through this endpoint. See [API Permissions](#api-permissions) for supported scoped names and descriptions.
+
+### API Permissions
+
+FormKiQ 1.19.2 adds operation-specific permissions for API keys and site roles. Use a predefined role for an access level with inherited permissions, or `CUSTOM` to select individual grants.
+
+#### Predefined Roles
+
+| Role | Effective access |
+| --- | --- |
+| `ADMIN` | All API permissions, including User Management and System Management. |
+| `READ` | Ordinary read permissions. |
+| `WRITE` | Ordinary read, write, and delete permissions. |
+| `DELETE` | Ordinary delete permissions. |
+| `GOVERN` | Ordinary govern, read, write, and delete permissions. |
+| `SYSTEM_MANAGEMENT` | `READ_SYSTEM_MANAGEMENT`, `WRITE_SYSTEM_MANAGEMENT`, and `DELETE_SYSTEM_MANAGEMENT`. |
+| `USER_MANAGEMENT` | `READ_USER_MANAGEMENT`, `WRITE_USER_MANAGEMENT`, `DELETE_USER_MANAGEMENT`, and `GOVERN_USER_MANAGEMENT`. |
+| `CUSTOM` | Only the explicitly supplied grants; no inherited role permissions. |
+
+Ordinary `READ`, `WRITE`, `DELETE`, and `GOVERN` roles do not include the dedicated User Management or System Management permissions. For example, the `WRITE` role can create documents but does not grant permission to create API keys.
+
+`ADMIN` appears in the permission catalog to describe administrator access. The API key creation and site-group permission endpoints reject `ADMIN` roles and grants, even when called by an administrator. The reserved `Admins` identity group provides administrator access.
+
+For a predefined role, provide `roleType` and omit `permissions` or leave it empty. For `CUSTOM`, supply a nonempty `permissions` array. A predefined role cannot be combined with a nonempty permissions array.
+
+For example, this grants the predefined User Management role through `PUT /sites/{siteId}/groups/{groupName}/permissions`:
+
+```json
+{
+  "roleType": "USER_MANAGEMENT"
+}
+```
+
+#### Role Inheritance and Explicit Grants
+
+Selecting a predefined role differs from supplying an explicit umbrella grant:
+
+| Request | Result |
+| --- | --- |
+| `{"roleType":"WRITE"}` | Inherits ordinary read, write, and delete permissions. |
+| `{"permissions":["WRITE"]}` | Grants the ordinary write category only. |
+| `{"permissions":["WRITE_DOCUMENTS"]}` | Grants only that scoped permission. |
+
+A scoped grant does not imply other grants in the same area. For example, `READ_DOCUMENTS` does not imply `READ_DOCUMENT_ATTRIBUTES`.
+
+#### Permission Catalog
+
+Use `GET /permissions/catalog` to discover supported role types and their effective scoped permissions on the deployed version. The endpoint requires authentication but no site-specific permission or `siteId`.
+
+Each role has permission groups containing names and human-readable descriptions. For example, an abbreviated response looks like:
+
+```json
+{
+  "roleTypes": [
+    {
+      "name": "READ",
+      "groups": [
+        {
+          "name": "DOCUMENTS",
+          "label": "Documents",
+          "permissions": [
+            {
+              "name": "READ_DOCUMENTS",
+              "description": "Read and search documents, their content, and related document data."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Predefined roles list their effective permissions, including inherited operation categories. `CUSTOM` lists all available scoped permissions as selectable options; it does not grant those permissions automatically. Legacy umbrella grants are omitted from the scoped lists, and empty groups are omitted.
+
+The catalog describes supported permissions, rather than the caller's current access or authority to assign grants. A listed permission does not enable a module that is not installed.
+
+#### Scoped Permission Reference
+
+The following permissions are supported by FormKiQ 1.19.2. Use the deployed permission catalog for the names and descriptions applicable to your installation.
+
+`READ_ENTITY`, `WRITE_ENTITY`, and `DELETE_ENTITY` apply to custom entities and presets without dedicated permissions. The `RetentionPolicy` and `ReminderPolicy` PRESET entity types and their definitions require their dedicated `*_RETENTION_POLICY` and `*_REMINDER_POLICY` permissions instead.
+
+| Permission | Description |
+| --- | --- |
+| `GOVERN_ACCESS_CONTROL` | Read and manage access-control policies. |
+| `READ_ATTRIBUTES` | Read attribute definitions and allowed values. |
+| `WRITE_ATTRIBUTES` | Create and update attribute definitions and allowed values. |
+| `DELETE_ATTRIBUTES` | Delete attribute definitions and allowed values. |
+| `READ_DOCUMENT_ACTIONS` | Read document actions and their status. |
+| `WRITE_DOCUMENT_ACTIONS` | Create, update, and retry document actions. |
+| `READ_DOCUMENT_ATTRIBUTES` | Read attributes assigned to documents. |
+| `WRITE_DOCUMENT_ATTRIBUTES` | Add, update, and generate attributes assigned to documents. |
+| `DELETE_DOCUMENT_ATTRIBUTES` | Remove attributes and attribute values from documents. |
+| `GOVERN_DOCUMENT_FOLDERS` | Read and manage folder access permissions. |
+| `WRITE_DOCUMENT_GENERATION` | Generate documents from templates and data. |
+| `WRITE_DOCUMENT_SHARES` | Create shares for folders and their documents. |
+| `DELETE_DOCUMENT_SHARES` | Delete document shares. |
+| `READ_DOCUMENT_TAGS` | Read tags assigned to documents. |
+| `WRITE_DOCUMENT_TAGS` | Add and update tags assigned to documents. |
+| `DELETE_DOCUMENT_TAGS` | Remove tags and tag values from documents. |
+| `READ_DOCUMENT_VERSIONS` | Read document versions. |
+| `WRITE_DOCUMENT_VERSIONS` | Set the active version of a document. |
+| `GOVERN_DOCUMENT_VERSIONS` | Delete historical document versions. |
+| `READ_DOCUMENT_WORKFLOWS` | Read workflows, queues, and document workflow status. |
+| `WRITE_DOCUMENT_WORKFLOWS` | Create and update workflows and queues, and submit document workflow decisions. |
+| `DELETE_DOCUMENT_WORKFLOWS` | Delete workflows and queues. |
+| `READ_DOCUMENTS` | Read and search documents, their content, and related document data. |
+| `WRITE_DOCUMENTS` | Create, upload, and update documents, their content, and related document data. |
+| `DELETE_DOCUMENTS` | Delete documents and related document data. |
+| `GOVERN_DOCUMENTS` | Permanently delete documents and manage document governance, including legal holds. |
+| `READ_E_SIGNATURE` | Read electronic signature requests, envelopes, and recipients. |
+| `WRITE_E_SIGNATURE` | Create and manage electronic signature envelopes, signing views, and reminders. |
+| `READ_ENTITY` | Read entities and their attributes. |
+| `WRITE_ENTITY` | Create and update entities and their attributes. |
+| `DELETE_ENTITY` | Delete entities and their attributes. |
+| `READ_EXAMINE_OBJECTS` | Upload PDFs for examination and read their details. |
+| `WRITE_GOOGLE_INTEGRATION` | Export documents through the Google Drive integration. |
+| `READ_INTELLIGENT_DOCUMENT_PROCESSING` | Read document classifications and AI processing results. |
+| `WRITE_INTELLIGENT_DOCUMENT_PROCESSING` | Classify documents and run AI prompts against document content. |
+| `READ_MAPPINGS` | Read document data mappings. |
+| `WRITE_MAPPINGS` | Create and update document data mappings. |
+| `DELETE_MAPPINGS` | Delete document data mappings. |
+| `READ_RULESETS` | Read rulesets and their rules. |
+| `WRITE_RULESETS` | Create and update rulesets and their rules. |
+| `DELETE_RULESETS` | Delete rulesets and their rules. |
+| `READ_SCHEMAS` | Read schemas and their attribute definitions. |
+| `WRITE_SCHEMAS` | Create and update schemas and their attribute definitions. |
+| `DELETE_SCHEMAS` | Delete schemas and their attribute definitions. |
+| `WRITE_SHORTLINKS` | Create short links. |
+| `READ_SYSTEM_MANAGEMENT` | Read system and site configuration, API keys, and search settings. |
+| `WRITE_SYSTEM_MANAGEMENT` | Manage system and site configuration, API keys, and search settings. |
+| `DELETE_SYSTEM_MANAGEMENT` | Delete site groups, API keys, locales, and search resources. |
+| `GOVERN_USER_ACTIVITIES` | Read user activity and audit records. |
+| `READ_USER_MANAGEMENT` | Read users, groups, and their memberships. |
+| `WRITE_USER_MANAGEMENT` | Create and update users, groups, and their memberships. |
+| `DELETE_USER_MANAGEMENT` | Delete users, groups, and their memberships. |
+| `GOVERN_USER_MANAGEMENT` | Govern access to users and groups. |
+| `READ_WEBHOOKS` | Read webhooks and their configuration. |
+| `WRITE_WEBHOOKS` | Create and update webhooks and their configuration. |
+| `DELETE_WEBHOOKS` | Delete webhooks. |
+| `READ_REMINDER_POLICY` | Read reminder policy preset entities and their entity type definitions. |
+| `WRITE_REMINDER_POLICY` | Create and update reminder policy preset entities and their entity type definitions. |
+| `DELETE_REMINDER_POLICY` | Delete reminder policy preset entities and their entity type definitions. |
+| `READ_RETENTION_POLICY` | Read retention policy preset entities and their entity type definitions. |
+| `WRITE_RETENTION_POLICY` | Create and update retention policy preset entities and their entity type definitions. |
+| `DELETE_RETENTION_POLICY` | Delete retention policy preset entities and their entity type definitions. |
 
 ### Folder Permissions
 
