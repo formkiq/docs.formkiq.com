@@ -32,7 +32,7 @@ This will create the following local services:
 - keycloak
 - typesense
 
-Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/1.19.1/apps/netty-server/docker-compose.yml) file you can launch FormKiQ local using
+Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/1.19.2/apps/netty-server/docker-compose.yml) file you can launch FormKiQ local using
 
 ```
 docker-compose -f docker-compose.yml up -d
@@ -43,7 +43,7 @@ docker-compose -f docker-compose.yml up -d
 use the following bash script.
 
 ```bash
-curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/1.19.1/apps/netty-server/docker-compose.yml && docker-compose up
+curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/1.19.2/apps/netty-server/docker-compose.yml && docker-compose up
 ```
 
 The local stack pulls MinIO from `formkiq/minio` on Docker Hub. If the repository is private or your Docker Hub pull limit has been reached, run `docker login` with an account that has access before starting the stack.
