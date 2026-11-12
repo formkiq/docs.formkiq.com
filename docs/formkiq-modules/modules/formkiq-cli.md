@@ -139,6 +139,23 @@ The endpoint is stored as `s3_endpoint_url` in the selected FormKiQ profile. You
 profile value for an individual document content import by supplying `--s3-endpoint-url` on the
 import command.
 
+:::note
+Saving `s3_endpoint_url` does not automatically redirect document uploads or downloads. To use the
+configured endpoint for CSV destination uploads, add `--direct-s3-upload`, available starting with
+CLI v1.8.1:
+
+```bash
+fk --import-csv \
+  --document-contents myfile.csv \
+  --direct-s3-upload
+```
+
+These examples use the `default` FormKiQ profile. To use a named profile, supply
+`--profile PROFILE_NAME` on both configuration and import commands. Without `--direct-s3-upload`,
+destination uploads use the presigned URL returned by FormKiQ, even when the selected profile
+contains an S3 endpoint. See [Upload Through an S3 VPC Endpoint](#upload-through-an-s3-vpc-endpoint) for details.
+:::
+
 ### Verify Configuration
 
 Check the default profile connection:
@@ -375,7 +392,7 @@ Use `--mime-extract` when the source content is a MIME file and the CLI should u
 
 By default, the CLI uploads document content with an HTTP `PUT` to the presigned S3 URL returned by
 FormKiQ. If a firewall blocks that URL and requires S3 traffic to use an interface VPC endpoint, use
-direct S3 upload mode:
+direct S3 upload mode (CLI v1.8.1 or later):
 
 ```bash
 fk --import-csv \
@@ -384,6 +401,14 @@ fk --import-csv \
   --direct-s3-upload \
   --s3-endpoint-url https://vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
 ```
+
+Omit `--s3-endpoint-url` when the selected profile already contains the endpoint you want to use.
+The flag overrides that profile value for this invocation; `--direct-s3-upload` is still required.
+
+For CSV rows with an `s3://` source, source metadata and content reads use the configured S3 client
+and endpoint even without `--direct-s3-upload`. Destination uploads still follow the API's presigned
+URL unless direct upload mode is enabled, so source reads and destination uploads can use different
+network paths.
 
 The CLI still requests the FormKiQ upload URL so FormKiQ can prepare the document version or
 artifact and provide the authoritative destination bucket and key. The CLI then discards the URL's
@@ -725,6 +750,12 @@ The CLI requests a presigned URL from FormKiQ and streams the content from that 
 file. If the file already exists, it is replaced. `--artifact-id` can also be used with
 `--output-file` to download artifact content.
 
+The profile's `s3_endpoint_url` does not override the download URL, and `--direct-s3-upload` applies
+only to CSV document content imports. Private download routing depends on your DNS/network
+configuration or the endpoint used by FormKiQ when generating the URL. A standard S3 hostname does
+not by itself establish whether traffic traverses the internet; verify the resolved addresses and
+network route. See [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html).
+
 ### Update a Document Path
 
 Change the path of an existing document:
@@ -920,6 +951,7 @@ The exact permissions depend on the workflow.
 | API connection fails | Incorrect `IamApiUrl`, Region, credentials, or API permissions. | Run `fk --status` and confirm `execute-api:Invoke`. |
 | DynamoDB connection fails | Incorrect table name, Region, or DynamoDB permissions. | Confirm the `DocumentsTableName` output and DynamoDB permissions. |
 | S3 uploads fail | Missing S3 or KMS permissions. | Confirm bucket access and `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`. |
+| CSV destination uploads use a public S3 endpoint despite `s3_endpoint_url` configuration | The import uses presigned URLs by default, or a different profile is selected. | Use CLI v1.8.1 or later with `--direct-s3-upload`. If using a named profile, select it with `--profile PROFILE_NAME`. Verify DNS and the actual network route; the hostname alone does not establish internet traversal. |
 | CSV import creates errors | Missing required CSV headers or invalid document IDs. | Confirm headers match the required format and `DocumentId` values are UUIDs. |
 | OpenSearch sync does not show documents | The document ID file is missing IDs or sync did not run for the expected site. | Regenerate the file with `fk --list-documents --site-id SITE_ID` and rerun sync. |
 | OpenSearch snapshot list, inspect, backup, or restore fails | Snapshot support is not enabled, OpenSearch Serverless is being used for backup, or API permissions are missing. | Confirm the OpenSearch module configuration and `execute-api:Invoke` permission. |
