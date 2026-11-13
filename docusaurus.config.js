@@ -73,6 +73,7 @@ const config = {
         logo: {
           alt: 'FormKiQ Docs',
           src: 'img/logo.png',
+          srcDark: 'img/logo-dark.png',
         },
         items: [
           {
