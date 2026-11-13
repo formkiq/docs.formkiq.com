@@ -1,0 +1,394 @@
+---
+id: get-numbering-sequences
+title: "Get numbering sequences"
+description: "Returns the numbering sequences configured for a site"
+sidebar_label: "Get numbering sequences"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get numbering sequences"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sites/{siteId}/numberingSequences"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the numbering sequences configured for a site
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"path","description":"Site Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          200 OK
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"next"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Next page of results token"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                numberingSequences
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span><span
+                                className={"openapi-schema__divider"}
+                              >
+                                
+                              </span><span
+                                className={"openapi-schema__required"}
+                              >
+                                required
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of numbering sequences
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"attributeKey"}
+                              required={true}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Attribute key where generated values are stored"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"pattern"}
+                              required={true}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Number format using supported tokens such as {YEAR} and {SEQUENCE}","example":"CONTRACT-{YEAR}-{SEQUENCE}"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"startAt"}
+                              required={true}
+                              schemaName={"int64"}
+                              qualifierMessage={"**Possible values:** `>= 1`"}
+                              schema={{"type":"integer","format":"int64","minimum":1,"description":"First sequence number allocated for a new period","example":1}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"padding"}
+                              required={true}
+                              schemaName={"integer"}
+                              qualifierMessage={"**Possible values:** `>= 1`"}
+                              schema={{"type":"integer","minimum":1,"description":"Minimum width of the generated sequence number, padded with leading zeroes","example":5}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"reset"}
+                              required={true}
+                              schemaName={"NumberingSequenceReset (string)"}
+                              qualifierMessage={"**Possible values:** [`NONE`, `YEARLY`]"}
+                              schema={{"type":"string","description":"Frequency at which the sequence restarts at startAt","enum":["NONE","YEARLY"],"title":"NumberingSequenceReset"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"timezone"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"IANA timezone used to determine the active period; defaults to UTC","default":"UTC","example":"America/Winnipeg"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"currentPeriod"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","nullable":true,"readOnly":true,"description":"Active sequence period, or null if no number has been allocated","example":"2026"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"currentSequence"}
+                              required={false}
+                              schemaName={"int64"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"integer","format":"int64","nullable":true,"readOnly":true,"description":"Most recently allocated sequence number, or null if none has been allocated","example":2}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"lastValue"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","nullable":true,"readOnly":true,"description":"Most recently generated attribute value, or null if none has been allocated","example":"CONTRACT-2026-00002"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"next\": \"string\",\n  \"numberingSequences\": [\n    {\n      \"attributeKey\": \"string\",\n      \"pattern\": \"CONTRACT-{YEAR}-{SEQUENCE}\",\n      \"startAt\": 1,\n      \"padding\": 5,\n      \"reset\": \"NONE\",\n      \"timezone\": \"America/Winnipeg\",\n      \"currentPeriod\": \"2026\",\n      \"currentSequence\": 2,\n      \"lastValue\": \"CONTRACT-2026-00002\"\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      
