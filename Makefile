@@ -1,6 +1,6 @@
 default : 
 	rm -r -f build
-	npm install
+	npm ci
 	npm run clean-api-docs formkiq && npm run gen-api-docs formkiq && npm run build
 
 deploy : default
