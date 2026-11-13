@@ -9,7 +9,10 @@ export default function DeploymentArchitectureDiagram() {
     <DiagramTabs
       label="FormKiQ CloudFormation deployment"
       diagram={
-        <ZoomLink href={diagram} className={styles.lightBacking}>
+        <ZoomLink
+          href={diagram}
+          diagramLabel="FormKiQ CloudFormation deployment"
+          className={styles.lightBacking}>
           <img
             src={diagram}
             alt="AWS CloudFormation provisions FormKiQ Core services and configured additional modules. Full description in the Text view."

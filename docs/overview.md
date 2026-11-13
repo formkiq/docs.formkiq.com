@@ -20,7 +20,7 @@ Read [Choosing FormKiQ](/docs/category/choosing-formkiq) to see whether it fits 
 ## Key Features
 
 - **API-first and headless.** Every capability is available through the [FormKiQ API](/docs/category/formkiq-api), with SDKs for [Python](/docs/tutorials/using-python-client-sdk), [TypeScript](/docs/tutorials/using-typescript-client-sdk) and [Java](/docs/tutorials/using-java-client-sdk), and a [CLI](/docs/formkiq-modules/modules/formkiq-cli). The web UI is separate from the backend, so you can integrate with web applications, mobile apps and backend services. The React-based [Document Console](/docs/platform/document_console) is included and serves as a reference implementation.
-- **Runs in your AWS account.** Documents and metadata stay in infrastructure you control. See [Security](/docs/platform/security).
+- **Runs in your AWS account.** Primary document content and metadata are stored in your AWS account. Configured external integrations may process or store data elsewhere. See [Security](/docs/platform/security).
 - **Serverless and scalable.** FormKiQ is built on serverless AWS services, so it scales from the smallest team to the largest corporation and you only pay for what you use. See [AWS Cost Planning](/docs/platform/costs).
 - **Structured metadata.** Organize documents with [attributes](/docs/features/attributes), [schemas](/docs/features/schemas), and [entities](/docs/features/entities).
 - **Search and OCR.** Find documents with [search](/docs/features/search) and extract text with [OCR](/docs/features/ocr).

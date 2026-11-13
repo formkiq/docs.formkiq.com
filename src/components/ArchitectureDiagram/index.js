@@ -15,7 +15,7 @@ export default function ArchitectureDiagram() {
     <DiagramTabs
       label="FormKiQ platform architecture"
       diagram={
-        <ZoomLink href={fullSize}>
+        <ZoomLink href={fullSize} diagramLabel="FormKiQ platform architecture">
           <ThemedImage
             alt="FormKiQ v1.19.2 architecture: API authentication and shared Lambda handler, S3 storage, DynamoDB metadata, SNS and SQS processing, and configured capabilities. Full description in the Text view."
             sources={{light: lightDiagram, dark: darkDiagram}}
