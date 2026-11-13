@@ -22,8 +22,9 @@ const releases = [
     '1.14.1', '1.14.0', '1.13.1', '1.13.0',
   ].map(version => ({
     docId: `changelog/v${version}`,
-    title: `FormKiQ v${version} — API & Backend`,
+    title: `FormKiQ v${version}`,
     channel: 'backend',
+    channelLabel: 'FormKiQ',
     solutions: ['1.19.0', '1.19.1'].includes(version) ? ['contract-management'] : [],
     summary: 'API, backend, and module release notes.',
   })),
