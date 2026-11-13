@@ -58,3 +58,8 @@
     display: block;
   }
 }
+
+.zoomLink {
+  cursor: zoom-in;
+  display: block;
+}
