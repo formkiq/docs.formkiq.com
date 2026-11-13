@@ -1,11 +1,11 @@
 ---
 id: get-document-review
 title: "Get document review"
-description: "Get a document review by review id"
+description: "Get a document review by review id, including its effective countedDecisionTypes policy. Reviews stored without an explicit policy return [APPROVAL]; historical completed reviews retain their status."
 sidebar_label: "Get document review"
 hide_title: true
 hide_table_of_contents: true
-api: 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
+api: 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
 sidebar_class_name: "get api-method"
 info_path: docs/api-reference/formkiq-api-jwt
 custom_edit_url: null
@@ -41,7 +41,7 @@ import TabItem from "@theme/TabItem";
 
 
 
-Get a document review by review id
+Get a document review by review id, including its effective countedDecisionTypes policy. Reviews stored without an explicit policy return [APPROVAL]; historical completed reviews retain their status.
 
 <Heading
   id={"request"}
@@ -295,7 +295,16 @@ Get a document review by review id
                               required={false}
                               schemaName={"DocumentReviewStatus (string)"}
                               qualifierMessage={"**Possible values:** [`PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`, `SUPERSEDED`]"}
-                              schema={{"type":"string","description":"Status of Document Review:\n- PENDING: Review has been created and is waiting for one or more decisions.\n- IN_PROGRESS: Review has been claimed or at least one decision has been submitted, but completion requirements are not yet satisfied.\n- COMPLETED: Completion requirements are satisfied.\n- CANCELLED: Review was cancelled before completion.\n- SUPERSEDED: Review was replaced by another review, usually because the artifact/document changed.","enum":["PENDING","IN_PROGRESS","COMPLETED","CANCELLED","SUPERSEDED"],"title":"DocumentReviewStatus"}}
+                              schema={{"type":"string","description":"Status of Document Review:\n- PENDING: Review has been created and is waiting for one or more decisions.\n- IN_PROGRESS: Review has been claimed or at least one decision has been submitted, but completion requirements are not yet satisfied.\n- COMPLETED: The required number of records matching countedDecisionTypes has been collected. This status does not imply that every decision approved the document.\n- CANCELLED: Review was cancelled before completion.\n- SUPERSEDED: Review was replaced by another review, usually because the artifact/document changed.","enum":["PENDING","IN_PROGRESS","COMPLETED","CANCELLED","SUPERSEDED"],"title":"DocumentReviewStatus"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"approvalGroups"}
+                              required={false}
+                              schemaName={"string[]"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"array","description":"Optional approval groups used for additional credential verification when submitting a decision to POST /documents/{documentId}/reviews/{reviewId}/decisions. The caller must belong to at least one of the listed groups, in addition to satisfying the existing authorization requirements.","items":{"type":"string"}}}
                             >
                               
                             </SchemaItem><SchemaItem
@@ -304,7 +313,16 @@ Get a document review by review id
                               required={false}
                               schemaName={"int64"}
                               qualifierMessage={undefined}
-                              schema={{"type":"integer","format":"int64","description":"Number of decisions required to complete the review"}}
+                              schema={{"type":"integer","format":"int64","description":"Number of decision records matching countedDecisionTypes required to complete the review. Completion does not imply a positive approval outcome."}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"countedDecisionTypes"}
+                              required={true}
+                              schemaName={"ReviewDecisionType (string)[]"}
+                              qualifierMessage={"**Possible values:** [`APPROVAL`, `RECOMMENDATION`, `ACKNOWLEDGMENT`, `COMMENT`], `>= 1`"}
+                              schema={{"type":"array","nullable":false,"minItems":1,"uniqueItems":true,"description":"Effective types of decision records that count toward requiredDecisions. Always returned by review GET and list operations, including [APPROVAL] for records stored without an explicit policy. This does not restrict which supported decision types may be submitted.","items":{"type":"string","description":"Decision type. APPROVAL identifies an approval-type response; the separate decision value represents its outcome and may be positive or negative.","enum":["APPROVAL","RECOMMENDATION","ACKNOWLEDGMENT","COMMENT"],"title":"ReviewDecisionType"}}}
                             >
                               
                             </SchemaItem><SchemaItem
@@ -354,7 +372,7 @@ Get a document review by review id
                   value={"Example (from schema)"}
                 >
                   <ResponseSamples
-                    responseExample={"{\n  \"review\": {\n    \"documentId\": \"string\",\n    \"artifactId\": \"string\",\n    \"reviewId\": \"string\",\n    \"reviewCategory\": \"string\",\n    \"reviewStatus\": \"PENDING\",\n    \"requiredDecisions\": 0,\n    \"userId\": \"string\",\n    \"comments\": \"string\",\n    \"insertedDate\": \"string\",\n    \"lastModifiedDate\": \"string\"\n  }\n}"}
+                    responseExample={"{\n  \"review\": {\n    \"documentId\": \"string\",\n    \"artifactId\": \"string\",\n    \"reviewId\": \"string\",\n    \"reviewCategory\": \"string\",\n    \"reviewStatus\": \"PENDING\",\n    \"approvalGroups\": [\n      \"string\"\n    ],\n    \"requiredDecisions\": 0,\n    \"countedDecisionTypes\": [\n      \"APPROVAL\"\n    ],\n    \"userId\": \"string\",\n    \"comments\": \"string\",\n    \"insertedDate\": \"string\",\n    \"lastModifiedDate\": \"string\"\n  }\n}"}
                     language={"json"}
                   >
                     

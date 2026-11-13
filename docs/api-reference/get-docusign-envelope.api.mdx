@@ -1,0 +1,2435 @@
+---
+id: get-docusign-envelope
+title: "Get Docusign envelope and recipient status"
+description: "Retrieves the DocuSign envelope using include=recipients and returns the DocuSign response directly, including envelope status and recipient routing information. No FormKiQ fields or wrapper are added. The envelope must be associated with the selected document or artifact. This read-only operation does not update document attributes or download the signed document. Available as an Add-On Module. Repeated status polling must be at least 15 minutes apart. Use recipients.signers[].recipientId from this response as entries in the optional recipientIds array in POST /esignature/docusign/{documentId}/envelopes/{envelopeId}/reminders to request reminders for selected signers."
+sidebar_label: "Get Docusign envelope and recipient status"
+hide_title: true
+hide_table_of_contents: true
+api: eJztXG1z2zYS/isYNjNJbkTKL8mHqnMzVW0l52ts62ynvRvXk4FISEJDEiwAWlE1+u+3C4AkKMl27N70zjdMPkQigH3DPrsLBctVIAomqeYiP0mCQfCe6WMRl4rP8lF+y1IYDXpBwlQseYGzYM4F05KzW6aInjOC0y9hOmFuPoHV+YzwPE7LhP1VspgXnOVaEZonRDJdynxjqWSqELliJOEwXafLnluOhGq6SlNdVlQcUSJFqS27qZCZUSQiZ4K8g28/8n+QKWdpooiQZCFpAboSKhmhScKSiFyBEDX5rFSaTGBMKRFzqllCFlzPjaSKpSAXPElA5Az5CiSk+ZTGGulwBTLRJBR5uiS1SWE6WCkXmpRFAhSb5VSDDSelZka0RCzyVNDE8gKLeJwiMrylPKWTFEUD7ckwScLznJyKpExZRC5YwYy0zj6FSFO0SK2PJimj8Hn/Lcl4bnjSAoSPyEcwebM/keEs1fVNVD88SchUigwEMxq6bQI5YAycQIHdjdDCOAdNibcS2EhJlzhlfH55RfoMGYCMkvUT52T9VaXnSbLuV3uh+qvqIz6WDOROQDKiBTD4rWSgTfMQNr7ZIKdDBF77JUSX+Mx/C3ENeFYSwsZkXCnnx6Ph8afRp8uT92fDq48XI1ii6UwFg+tgFF5WogY3vQCsRTOmgS4MroIcvsB6xTWIB6s4UgOp5HILK5cwh5wkoB8HT5QwXskSDKY0VawXqHjOMhoMVoFeFoYuWDafBet1r2bVGKliV1A93+J2XLnXHRy1LL+SYeXbD+k3dPPIQ6wfoWyz9Q8qi7tNqkBFzIKnaAscuRQ5yr+p7pYG20JU0a8iEZFjNqVlqo2/Wkhr9lKRpIms1dzvSMWALOYsr2eTOcXAQRJLyUJV23BVrUVgLeY8nlcD1goLWBlLExIQBXfpf6c5W5r8jEKJjGvElokEEIA8dFRw7FWSGp13KFoFCqNcLPIpn5U2SKKQLC8zxN344vz449HVyfkZPDwe/TT6cD4+HZ1dIQg11ynzBPWIw2be4FbZ8KRQ2YO9Pfzn7t1yxsII34RA4DqHMG6AvgqGccyUCo8ExDqRhsM0FYvwXPIZesjqPs/avfSU6blI1JPW/q0R6+61sBhMq9EiMArpLuWxsXH/VyV2yywmv0LgBL0hJXIbw8cSE5jmaEiLobYVr/zUDQVDA8A6QRizblcAPZf+XWqF1A07IcGDXaKrRWjou/yNSbsA8kzeYuI+r9KNN1yTNjnYoEmVaAJ4NFnWFIEN+F9WpAxdunaEOlMb35SY8SBxVlUEolFpgTD1UvT4+B06b+HZa+VHr6/CXNsfeRM9YTNtRn+YzmijRJKsEFK39e6BNSBUNMEBHgAvBG7Kb5k0D4xevcY+OBpDNYGfIMveCo51UyPa0ZzmM5YcA70rjqF0W1JblmEOg0mhxllbDgUP/WIQhVftoOYUiy0/IwAI/0i+a2TslH380tooT+Fqjfj4ldbij1/nhbQ/hPWLutD2CuwGap5/bQGhFuFIlDYg3e/EZ2U2gfJcTEk7YBjY5+jNWP42flJFPdiZUkqYcWGPAucSAuXD7I7sovoAoTQrInJKtcmn3NWaG8cMQ9ucQHiuCjCmN8W5KCxzIIaDQKnhaW6OMVAkAWMFLCBLcvAkT00SQ1ZVc3MyqQUSyAuiVaoE+D2LP2+hYcJgS6AsQDwbFp40aKsF5bphbWFry2PPPKZGx6pHs+w/5iwuLO/yk4i8s4MJnFtyjNYG6Y3kyP870nA1D0K0NsTF+I6EcNU6n9gsR+CRYli7Q8lhahcXzl+qxpQmGFqftucKu1ZtB3bvZLMj9/b88fclf2DOlRnZMcNWpDsGQCie7hyxe3p210I7PLpz+VwofediHLx7qbwXcY9IYBebKNqVwf4rUd+mxD8v5K93FrrGV2sjmVk8HwOQRX7ZIbpDdIfo/wNE09lGvdYBuQNyB+TnB2QG+BBdSu6Q3CH5mSOZ55rJDPBMpXPQDtAdoDtAP1tAx1RORH4kig7OHZw7OD97OKNnAhiSY6tch+oO1R2qnzuqF1znTKkOyx2WOyw/cywrRtMOxx2OOxw/bxznQne/gXVQ7qD83KH8NdNUi9qOnqALhxfjXl8oXoxEMf27rwHdt3/CycHBQRgfHh6GyZs3b0L2tvkTNBttNijYvLm4eYkwOAzuuO8XHATe9bbrDdQF+0GFkGCY8hgvoTpcBBS/f+/UiGKRBZv+aVbXgtYXQQNsIWizOWjY/CAmHpOJmNzP4sBnUbvdDhaHDYsjKkXqMYnx+/1sDlua2JvAwfpmvTae8WbXrfmT/BZMlJCmCwbvAps+mnzW3MdsXeoP/sBN9I371FLu/r/UtpAfOERgMSVu+j1ZqU3+M1s+HGRGSJT8CFPR3/HL1645hXMsnbXR+RNa0xjDzGljcmNQNUhzG7S/vUHDEvJgrp2F646SwMw/3DHfNBjUzSn39bZhJkxYzitqb7apVZ0/vXqRuSvutdFtX3PHi/ZTQLSlevDtNtX6SnvVzgYkmyvimJdTnnFN2JeYsYQl7c4NbFFchsOpttlloyeLgWsmRn+8IVtdo6Ug1JxJkgrxuSx2dc7g/wbOTF9TxnOeYcvKnt2Wt3sHuw1jxKXt/ZkCWEvJeqQsFN7dzazTGqtxhzXpBdi3d1ndXZe31QcmgQRvHLtjFwRJrpcmEg4Lji4iJP/dgnNwfYMNM19CmtHfRR7Sgs/ApAu6DI2ODsPAFIjgP+/yweCynBj05YMXq+HPl4PBGPcbJ64HDYFq8ILNzEhKs0lCB9jB1T/Y238b7h2Gh/v9aZnb+9D9F6vKgRTIeWG1UUOZr/tgDGFtpmwJ5PX3uHYjE0lsK4JIcI+w76eZOvYa91ZBZvpvomowsg4T3d+rE7z8y0vc8UesrXt1gpdHNgiGWLX1/hkOs99DzOu91n7gQMFDiC+9pmcRUgCbmeFQi88sf6wQVZ+Skd84aQGQ1HPIB7P5D2xObzmGsQAbZT7l4hOEyyIF0UwPlNaFNQBMwN5NeFZF34X6BBH0C0bggi6xa/WdKUZ+Ao2ta+5He7YuAM2V2Tx0QhNoH+jJ7AXg/SWy2erNxDxYkbjfa2sinfd23vtE78XomFUkZsyUDdiDOgie2sSM+QRPnK44LSXWayjpoN9PwU9SPC9tVzU4AgnYkDG52RIJUMAqxl9inrJ+tR3pV8EU7ImD69oKAhMS1pu7oETdeps5bSsL8BCljHHtC5dv6t1rsesFvy6gVPcLQSz/ygSqV1x+7YPxxepIzHKuxUdQaixEepRikbs2ykFEKK0IzQI0lwJ7xXZZyJMiagO2+vrx4sNlOZ3yL+v+Fpe1LcasKUBc617Y3mRSvavDqs6/4fiE/P3nK1fPQnGDk1z57ebAWLOdKJ8DgSvAq+IcmxHhZPq9P7rGPUjFTNho5RMBl1KRN9c86Bsf1/1PPIOqUlWcDImoMFXohMafZxJrqyORGox88878wR9kUn0FYdlT7wPyBinwCITlRqPcsKDgV+Qg2tvSb7FYRNQMR0LO+m6t6n84ORqdXY5CWBPNdZba06zvz55VB03L+CnNQRvzcQwKolLG7vZFEufoYq9gD16TdqH7C/z9lyhN89SU56b4IZkp5Sb4sWJGNbnesTU3rxz8vGevIyT6zTfkBINRUsYVn4oWt29gGJ+EUy6h6nqFMAhTCGCve2RCNThPiDvkl9NZox4stG+d8N0LAtIt4Awop6mpyPEhy5NC8Nz2U09KniZkCRgkYyanzO+332G8yJcYiWFLONLQ5jczUeBB6fq8YDkOVr+PGZtao1SbDKErh9CgcJtBPyUINycCRtUS5SpdU3pFBrYhdc2/NF8S79hn22kdBGxv507+RnQcMTTN1pNLfwIJSSWhpItoBrzKCcgh3XHTQMXtaA2PGJyin1HYFmlh5BSr/g0hDERLmqUt7ifD0z+DN6dZzRs8b9PHq30U06l5A8ZcMoavvMgU7mL7aDH4JScgZIMY+x1CIirjvoBmeJKFMsnLefvfRgcI1wKyEPirFwewwdt/N4A9lbVfwuJ+UNhA+6r5CaB7Z8zGubp7Z8z/5jtjXFmgIUv2oaDk5qdjk/1WrgK8DhqR0OOdUPBx0HpLSy0Xjng/jN7Yn8aR0Go1oYp9lOl6jY/tK0ewRkq4wr2746UjPq623y+zUwN7cqpfWFOdssyp6uuZPfCyl3s4t14n80Tu//uvWrnHAO03zDQWuMEvkqMJHrnzry6cNq8fsx3VOShf+mJUUnoO/Li92RBmx2t5niCNB5r1zbr6fc/7MQFPjoVvz63fmVvnuPcjLOMxY/o/C1dnIfcBfxpbr/8NhVZRyQ==
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import Heading from "@theme/Heading";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Docusign envelope and recipient status"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/esignature/docusign/{documentId}/envelopes/{envelopeId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the DocuSign envelope using include=recipients and returns the DocuSign response directly, including envelope status and recipient routing information. No FormKiQ fields or wrapper are added. The envelope must be associated with the selected document or artifact. This read-only operation does not update document attributes or download the signed document. Available as an Add-On Module. Repeated status polling must be at least 15 minutes apart. Use recipients.signers[].recipientId from this response as entries in the optional recipientIds array in POST /esignature/docusign/\{documentId\}/envelopes/\{envelopeId\}/reminders to request reminders for selected signers.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Path Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"envelopeId","in":"path","description":"Docusign Envelope Id","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><details
+  style={{"marginBottom":"1rem"}}
+  className={"openapi-markdown__details"}
+  data-collapsed={false}
+  open={true}
+>
+  <summary
+    style={{}}
+  >
+    <h3
+      className={"openapi-markdown__details-summary-header-params"}
+    >
+      Query Parameters
+    </h3>
+  </summary><div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"artifactId","in":"query","description":"Artifact Document Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem><ParamsItem
+        className={"paramsItem"}
+        param={{"name":"environment","in":"query","required":false,"description":"DocuSign environment. Defaults to the site's docusignEnvironment; required when the site has no default. Use the environment in which the envelope was created.","schema":{"type":"string","description":"Docusign environment. When omitted from an E-Signature request, defaults to docusignEnvironment in the site configuration.","enum":["PRODUCTION","DEVELOPMENT"],"title":"DocusignEnvironment"},"enumDescriptions":[]}}
+      >
+        
+      </ParamsItem>
+    </ul>
+  </div>
+</details><div>
+  <div>
+    <ApiTabs
+      label={undefined}
+      id={undefined}
+    >
+      <TabItem
+        label={"200"}
+        value={"200"}
+      >
+        <div>
+          
+          
+          DocuSign envelope with recipients
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Origin
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Methods
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li><li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Access-Control-Allow-Headers
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   string
+                </span>
+              </summary><div>
+                
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={false}
+                        name={"envelopeId"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"DocuSign envelope identifier"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"status"}
+                        required={false}
+                        schemaName={"string"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","description":"Envelope status reported by DocuSign, such as created, sent, delivered, signed, completed, declined, or voided."}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"statusChangedDateTime"}
+                        required={false}
+                        schemaName={"date-time"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","format":"date-time","description":"Time DocuSign reports the envelope status changed"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"sentDateTime"}
+                        required={false}
+                        schemaName={"date-time"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","format":"date-time"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"deliveredDateTime"}
+                        required={false}
+                        schemaName={"date-time"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","format":"date-time"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"completedDateTime"}
+                        required={false}
+                        schemaName={"date-time"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","format":"date-time"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"declinedDateTime"}
+                        required={false}
+                        schemaName={"date-time"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","format":"date-time"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={false}
+                        name={"voidedDateTime"}
+                        required={false}
+                        schemaName={"date-time"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"string","format":"date-time"}}
+                      >
+                        
+                      </SchemaItem><SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                recipients
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              Recipient information returned by DocuSign
+                              
+                              
+                            </div><SchemaItem
+                              collapsible={false}
+                              name={"recipientCount"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Number of recipients, represented as a DocuSign string"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"currentRoutingOrder"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Current routing step. Match this to recipient routingOrder and inspect recipient status to identify outstanding actions. Multiple recipients can share a routing order. Also check envelope status before treating a recipient as awaiting action."}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      signers
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      inPersonSigners
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      agents
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      editors
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      intermediaries
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      carbonCopies
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      certifiedDeliveries
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      witnesses
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      seals
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              collapsible={true}
+                              className={"schemaItem"}
+                            >
+                              <details
+                                style={{}}
+                                className={"openapi-markdown__details"}
+                              >
+                                <summary
+                                  style={{}}
+                                >
+                                  <span
+                                    className={"openapi-schema__container"}
+                                  >
+                                    <strong
+                                      className={"openapi-schema__property"}
+                                    >
+                                      notaries
+                                    </strong><span
+                                      className={"openapi-schema__name"}
+                                    >
+                                       object[]
+                                    </span>
+                                  </span>
+                                </summary><div
+                                  style={{"marginLeft":"1rem"}}
+                                >
+                                  <li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                                    >
+                                      Array [
+                                    </div>
+                                  </li><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientId"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientIdGuid"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"recipientType"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"name"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"email"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signerEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostName"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"hostEmail"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"routingOrder"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"status"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","description":"Recipient status reported by DocuSign"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"sentDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"deliveredDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"signedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><SchemaItem
+                                    collapsible={false}
+                                    name={"declinedDateTime"}
+                                    required={false}
+                                    schemaName={"date-time"}
+                                    qualifierMessage={undefined}
+                                    schema={{"type":"string","format":"date-time"}}
+                                  >
+                                    
+                                  </SchemaItem><li>
+                                    <div
+                                      style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                                    >
+                                      ]
+                                    </div>
+                                  </li>
+                                </div>
+                              </details>
+                            </SchemaItem><SchemaItem
+                              name={"property name*"}
+                              required={false}
+                              schemaName={"any"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"object","additionalProperties":true,"description":"Recipient information returned by DocuSign","properties":{"recipientCount":{"type":"string","description":"Number of recipients, represented as a DocuSign string"},"currentRoutingOrder":{"type":"string","description":"Current routing step. Match this to recipient routingOrder and inspect recipient status to identify outstanding actions. Multiple recipients can share a routing order. Also check envelope status before treating a recipient as awaiting action."},"signers":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"inPersonSigners":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"agents":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"editors":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"intermediaries":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"carbonCopies":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"certifiedDeliveries":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"witnesses":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"seals":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"notaries":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}}},"title":"DocusignEnvelopeRecipients"}}
+                              collapsible={false}
+                              discriminator={false}
+                            >
+                              
+                            </SchemaItem>
+                          </div>
+                        </details>
+                      </SchemaItem><SchemaItem
+                        name={"property name*"}
+                        required={false}
+                        schemaName={"any"}
+                        qualifierMessage={undefined}
+                        schema={{"type":"object","additionalProperties":true,"description":"The DocuSign Get Envelope response with include=recipients, returned without enrichment. Additional DocuSign fields are preserved. Optional fields are returned only when supplied by DocuSign. A completed envelope does not confirm that FormKiQ has stored the signed PDF.","properties":{"envelopeId":{"type":"string","description":"DocuSign envelope identifier"},"status":{"type":"string","description":"Envelope status reported by DocuSign, such as created, sent, delivered, signed, completed, declined, or voided."},"statusChangedDateTime":{"type":"string","format":"date-time","description":"Time DocuSign reports the envelope status changed"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"completedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"},"voidedDateTime":{"type":"string","format":"date-time"},"recipients":{"type":"object","additionalProperties":true,"description":"Recipient information returned by DocuSign","properties":{"recipientCount":{"type":"string","description":"Number of recipients, represented as a DocuSign string"},"currentRoutingOrder":{"type":"string","description":"Current routing step. Match this to recipient routingOrder and inspect recipient status to identify outstanding actions. Multiple recipients can share a routing order. Also check envelope status before treating a recipient as awaiting action."},"signers":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"inPersonSigners":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"agents":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"editors":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"intermediaries":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"carbonCopies":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"certifiedDeliveries":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"witnesses":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"seals":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}},"notaries":{"type":"array","items":{"type":"object","additionalProperties":true,"description":"Recipient fields returned by DocuSign. Fields depend on the recipient type; additional type-specific fields are preserved. This response schema is separate from FormKiQ's envelope creation request schemas.","properties":{"recipientId":{"type":"string"},"recipientIdGuid":{"type":"string"},"recipientType":{"type":"string"},"name":{"type":"string"},"email":{"type":"string"},"signerName":{"type":"string"},"signerEmail":{"type":"string"},"hostName":{"type":"string"},"hostEmail":{"type":"string"},"routingOrder":{"type":"string"},"status":{"type":"string","description":"Recipient status reported by DocuSign"},"sentDateTime":{"type":"string","format":"date-time"},"deliveredDateTime":{"type":"string","format":"date-time"},"signedDateTime":{"type":"string","format":"date-time"},"declinedDateTime":{"type":"string","format":"date-time"}},"title":"DocusignEnvelopeRecipient"}}},"title":"DocusignEnvelopeRecipients"}},"title":"GetDocusignEnvelopeResponse"}}
+                        collapsible={false}
+                        discriminator={false}
+                      >
+                        
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"envelopeId\": \"string\",\n  \"status\": \"string\",\n  \"statusChangedDateTime\": \"2024-07-29T15:51:28.071Z\",\n  \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n  \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n  \"completedDateTime\": \"2024-07-29T15:51:28.071Z\",\n  \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\",\n  \"voidedDateTime\": \"2024-07-29T15:51:28.071Z\",\n  \"recipients\": {\n    \"recipientCount\": \"string\",\n    \"currentRoutingOrder\": \"string\",\n    \"signers\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"inPersonSigners\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"agents\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"editors\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"intermediaries\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"carbonCopies\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"certifiedDeliveries\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"witnesses\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"seals\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ],\n    \"notaries\": [\n      {\n        \"recipientId\": \"string\",\n        \"recipientIdGuid\": \"string\",\n        \"recipientType\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"signerName\": \"string\",\n        \"signerEmail\": \"string\",\n        \"hostName\": \"string\",\n        \"hostEmail\": \"string\",\n        \"routingOrder\": \"string\",\n        \"status\": \"string\",\n        \"sentDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"deliveredDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"signedDateTime\": \"2024-07-29T15:51:28.071Z\",\n        \"declinedDateTime\": \"2024-07-29T15:51:28.071Z\"\n      }\n    ]\n  }\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem><TabItem
+                  label={"Example"}
+                  value={"Example"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"envelopeId\": \"a1111111-b222-c333-d444-e55555555555\",\n  \"status\": \"sent\",\n  \"recipients\": {\n    \"recipientCount\": \"3\",\n    \"currentRoutingOrder\": \"2\",\n    \"signers\": [\n      {\n        \"recipientId\": \"1\",\n        \"name\": \"Alice\",\n        \"email\": \"alice@example.com\",\n        \"routingOrder\": \"1\",\n        \"status\": \"completed\"\n      },\n      {\n        \"recipientId\": \"2\",\n        \"name\": \"Bob\",\n        \"email\": \"bob@example.com\",\n        \"routingOrder\": \"2\",\n        \"status\": \"delivered\"\n      },\n      {\n        \"recipientId\": \"3\",\n        \"name\": \"Carol\",\n        \"email\": \"carol@example.com\",\n        \"routingOrder\": \"3\",\n        \"status\": \"created\"\n      }\n    ]\n  }\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem><TabItem
+        label={"400"}
+        value={"400"}
+      >
+        <div>
+          
+          
+          Invalid parameters or missing DocuSign configuration
+          
+          
+        </div><div>
+          <MimeTabs
+            className={"openapi-tabs__mime"}
+            schemaType={"response"}
+          >
+            <TabItem
+              label={"application/json"}
+              value={"application/json"}
+            >
+              <SchemaTabs
+                className={"openapi-tabs__schema"}
+              >
+                <TabItem
+                  label={"Schema"}
+                  value={"Schema"}
+                >
+                  <details
+                    style={{}}
+                    className={"openapi-markdown__details response"}
+                    data-collapsed={false}
+                    open={true}
+                  >
+                    <summary
+                      style={{}}
+                      className={"openapi-markdown__details-summary-response"}
+                    >
+                      <strong>
+                        Schema
+                      </strong>
+                    </summary><div
+                      style={{"textAlign":"left","marginLeft":"1rem"}}
+                    >
+                      
+                    </div><ul
+                      style={{"marginLeft":"1rem"}}
+                    >
+                      <SchemaItem
+                        collapsible={true}
+                        className={"schemaItem"}
+                      >
+                        <details
+                          style={{}}
+                          className={"openapi-markdown__details"}
+                        >
+                          <summary
+                            style={{}}
+                          >
+                            <span
+                              className={"openapi-schema__container"}
+                            >
+                              <strong
+                                className={"openapi-schema__property"}
+                              >
+                                errors
+                              </strong><span
+                                className={"openapi-schema__name"}
+                              >
+                                 object[]
+                              </span>
+                            </span>
+                          </summary><div
+                            style={{"marginLeft":"1rem"}}
+                          >
+                            <div
+                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                            >
+                              
+                              
+                              List of errors
+                              
+                              
+                            </div><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem","paddingBottom":".5rem"}}
+                              >
+                                Array [
+                              </div>
+                            </li><SchemaItem
+                              collapsible={false}
+                              name={"key"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Error Key"}}
+                            >
+                              
+                            </SchemaItem><SchemaItem
+                              collapsible={false}
+                              name={"error"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{"type":"string","description":"Error Message"}}
+                            >
+                              
+                            </SchemaItem><li>
+                              <div
+                                style={{"fontSize":"var(--ifm-code-font-size)","opacity":"0.6","marginLeft":"-.5rem"}}
+                              >
+                                ]
+                              </div>
+                            </li>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </ul>
+                  </details>
+                </TabItem><TabItem
+                  label={"Example (from schema)"}
+                  value={"Example (from schema)"}
+                >
+                  <ResponseSamples
+                    responseExample={"{\n  \"errors\": [\n    {\n      \"key\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"}
+                    language={"json"}
+                  >
+                    
+                  </ResponseSamples>
+                </TabItem>
+              </SchemaTabs>
+            </TabItem>
+          </MimeTabs>
+        </div>
+      </TabItem><TabItem
+        label={"401"}
+        value={"401"}
+      >
+        <div>
+          
+          
+          Authentication required
+          
+          
+        </div><div>
+          
+        </div>
+      </TabItem><TabItem
+        label={"403"}
+        value={"403"}
+      >
+        <div>
+          
+          
+          Access to the selected document or artifact is denied
+          
+          
+        </div><div>
+          
+        </div>
+      </TabItem><TabItem
+        label={"404"}
+        value={"404"}
+      >
+        <div>
+          
+          
+          Document, artifact, or associated DocuSign envelope not found
+          
+          
+        </div><div>
+          
+        </div>
+      </TabItem><TabItem
+        label={"429"}
+        value={"429"}
+      >
+        <div>
+          
+          
+          Envelope polling or DocuSign rate limit exceeded
+          
+          
+        </div><details
+          style={{"textAlign":"left","marginBottom":"1rem"}}
+          className={"openapi-markdown__details"}
+          data-collapsed={true}
+          open={false}
+        >
+          <summary
+            style={{}}
+          >
+            <strong>
+              Response Headers
+            </strong>
+          </summary><ul
+            style={{"marginLeft":"1rem"}}
+          >
+            <li
+              className={"schemaItem"}
+            >
+              <summary
+                style={{}}
+              >
+                <strong>
+                  Retry-After
+                </strong><span
+                  style={{"opacity":"0.6"}}
+                >
+                   integer
+                </span>
+              </summary><div>
+                <div
+                  style={{"marginTop":".5rem","marginBottom":".5rem"}}
+                >
+                  
+                  
+                  Seconds to wait before another lookup
+                  
+                  
+                </div>
+              </div>
+            </li>
+          </ul>
+        </details><div>
+          
+        </div>
+      </TabItem><TabItem
+        label={"502"}
+        value={"502"}
+      >
+        <div>
+          
+          
+          DocuSign authentication failure, upstream error, or invalid response
+          
+          
+        </div><div>
+          
+        </div>
+      </TabItem><TabItem
+        label={"504"}
+        value={"504"}
+      >
+        <div>
+          
+          
+          DocuSign request timed out
+          
+          
+        </div><div>
+          
+        </div>
+      </TabItem>
+    </ApiTabs>
+  </div>
+</div>
+      
