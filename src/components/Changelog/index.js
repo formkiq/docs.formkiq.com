@@ -18,7 +18,7 @@ function ReleaseList({entries}) {
           <Link className={styles.card} to={`/docs/${release.docId}`}>
             <h3>{release.title}</h3>
             <p className={styles.meta}>
-              {release.channel === 'web' ? 'Web' : 'API & Backend'}
+              {release.channelLabel || (release.channel === 'web' ? 'Web' : 'API & Backend')}
               {release.solutions?.length > 0 && ' · Business Solutions · Contract Management'}
             </p>
             {release.date && (
