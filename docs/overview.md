@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+title: Overview
+description: FormKiQ is an API-first document management platform that deploys into your own AWS account. Learn what it does, how it is deployed, and where to start.
 ---
 
 import ArchitectureDiagram from '@site/src/components/ArchitectureDiagram';
@@ -7,37 +9,59 @@ import DeploymentArchitectureDiagram from '@site/src/components/DeploymentArchit
 
 # Overview
 
-Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. **FormKiQ strives to be the most flexible, customizable and cost-effective document management platform available**, whether functioning as a turnkey document management system or providing a secure and scalable document layer for multitier architectures.
+FormKiQ is an API-first document management platform that deploys into your own [Amazon Web Services](https://aws.amazon.com) account. Use it as a turnkey document management system, or as a secure and scalable document layer behind your own applications.
+
+Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. FormKiQ is designed to be flexible, customizable and cost-effective, so you can add those capabilities without building document infrastructure from scratch.
+
+:::tip New to FormKiQ?
+Read [Choosing FormKiQ](/docs/category/choosing-formkiq) to see whether it fits your use case, or go straight to the [Quick Start (AWS)](/docs/getting-started/quick-start) to install it.
+:::
+
+## Key Features
+
+- **API-first and headless.** Every capability is available through the [FormKiQ API](/docs/category/formkiq-api), with SDKs for [Python](/docs/tutorials/using-python-client-sdk), [TypeScript](/docs/tutorials/using-typescript-client-sdk) and [Java](/docs/tutorials/using-java-client-sdk), and a [CLI](/docs/formkiq-modules/modules/formkiq-cli). The web UI is separate from the backend, so you can integrate with web applications, mobile apps and backend services. The React-based [Document Console](/docs/platform/document_console) is included and serves as a reference implementation.
+- **Runs in your AWS account.** Documents and metadata stay in infrastructure you control. See [Security](/docs/platform/security).
+- **Serverless and scalable.** FormKiQ is built on serverless AWS services, so it scales from the smallest team to the largest corporation and you only pay for what you use. See [AWS Cost Planning](/docs/platform/costs).
+- **Structured metadata.** Organize documents with [attributes](/docs/features/attributes), [schemas](/docs/features/schemas), and [entities](/docs/features/entities).
+- **Search and OCR.** Find documents with [search](/docs/features/search) and extract text with [OCR](/docs/features/ocr).
+- **Automation.** Route and process documents with [workflows](/docs/features/workflows), [rulesets](/docs/features/rulesets), and [mappings](/docs/features/mappings).
+- **Add-on modules.** Extend the platform with [antivirus scanning](/docs/formkiq-modules/modules/anti-malware-antivirus), [document generation](/docs/formkiq-modules/modules/document-generation), [e-signature](/docs/formkiq-modules/modules/e-signature), [single sign-on](/docs/formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer), and more.
+
+Feature availability depends on your edition and installed modules. See [Core Concepts & Features](/docs/category/features) and [Modules & Commercial Offerings](/docs/category/formkiq-modules) for the full list.
+
+## Deployment
+
+FormKiQ deploys into your AWS account using [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) templates, giving you full control of your documents. Because the infrastructure is defined as code, deployments are repeatable, and changes can be tracked and rolled back if necessary.
+
+See the [installation links](/docs/getting-started/quick-start#installation-links) for the supported AWS regions.
+
+<DeploymentArchitectureDiagram />
 
 ## Architecture
+
 <ArchitectureDiagram />
 
 See the [Platform Overview](/docs/platform/overview) for the request flows, optional components, and diagram sources.
 
-## Key Features
-FormKiQ is an API-first document management platform that deploys to your [Amazon Web Services](https://aws.amazon.com) account. Its flexible and scalable design allows for anyone to quickly and easily add document management functionality to any application, through our robust set of document management APIs, reducing development time by up to two-thirds.
-
-## Deployment
-
-FormKiQ deploys into your AWS account and is available in most AWS regions, giving you full control of your documents 100% of the time.
-
-<DeploymentArchitectureDiagram />
-
-FormKiQ uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) which is an infrastructure-as-code service that enables the provisioning AWS resources using templates. This approach not only reduces the risk of manual errors but also ensures consistency across deployments, making it easier to manage complex architectures and adhere to best practices.
-
-The benefits of using CloudFormation include automation of the resource provisioning process, faster deployment times, and simplified management of infrastructure changes. It allows for version control of your infrastructure, meaning any changes can be tracked and rolled back if necessary. This level of control and repeatability is essential for organizations looking to implement DevOps practices and maintain compliance in dynamic cloud environments.
-
-## Technical Design
-FormKiQ uses headless architecture, separating the web UI from the backend API. This allows integration with any web application (using our ReactJS console as reference), mobile apps, and backend services.
-
-FormKiQ is built to scale, for any use case. It can be used by the largest corporation to the smallest team, employing serverless technology so you only pay for what you use.
-
 ## Licensing
-FormKiQ (https://github.com/formkiq/formkiq-core) is an Open Core product. The core document management functionality is made available through an Open Source license. Additional document management functionality, as well as add-on modules, professional services, and both on-boarding and operational support are available with FormKiQ Essentials, Advanced, and Enterprise, via [https://formkiq.com](https://formkiq.com).
+
+FormKiQ is an open core product. The core document management functionality, [FormKiQ Core](https://github.com/formkiq/formkiq-core), is available under an open source license. Additional document management functionality, add-on modules, professional services, and onboarding and operational support are available with the FormKiQ Essentials, Advanced, and Enterprise offerings. See [Modules & Commercial Offerings](/docs/category/formkiq-modules) or [formkiq.com](https://formkiq.com) for details.
 
 ## Support
-**For installation support, feedback, or updates, [please join our FormKiQ Slack Community](https://join.slack.com/t/formkiqworkspace/shared_invite/zt-22ujpnl76-Zztjyt9Zco7h2f1BYjnxyQ)**
+
+For installation support, feedback, or updates:
+
+- Join the [FormKiQ Slack Community](https://join.slack.com/t/formkiqcommunity/shared_invite/zt-2ki1i21w1-9ZYagvhY7ex1pH5Cyg2O3g).
+- Report bugs and request features through [GitHub Issues](https://github.com/formkiq/formkiq-core/issues).
 
 :::note
-Our commercially-licensed FormKiQ offerings have additional support options, including the **[FormKiQ Support Portal](https://formkiq.freshdesk.com/support/home)**, Zoom sessions, and a private Slack channel.
+Commercially licensed FormKiQ offerings have additional support options, including the [FormKiQ Support Portal](https://formkiq.freshdesk.com/support/home), Zoom sessions, and a private Slack channel.
 :::
+
+## Where to Go Next
+
+- [Choosing FormKiQ](/docs/category/choosing-formkiq): decide whether FormKiQ fits your use case.
+- [Quick Start (AWS)](/docs/getting-started/quick-start): install FormKiQ into your AWS account.
+- [API Walkthrough](/docs/getting-started/api-walkthrough): make your first API calls.
+- [Platform Overview](/docs/platform/overview): understand the request flows and components.
+- [Tutorials](/docs/category/tutorials): follow step-by-step examples.
