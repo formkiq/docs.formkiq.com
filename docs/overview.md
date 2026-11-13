@@ -2,12 +2,17 @@
 sidebar_position: 1
 ---
 
+import ArchitectureDiagram from '@site/src/components/ArchitectureDiagram';
+import DeploymentArchitectureDiagram from '@site/src/components/DeploymentArchitectureDiagram';
+
 # Overview
 
 Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. **FormKiQ strives to be the most flexible, customizable and cost-effective document management platform available**, whether functioning as a turnkey document management system or providing a secure and scalable document layer for multitier architectures.
 
 ## Architecture
-![FormKiQ Architecture](./img/formkiq_architecture.png)
+<ArchitectureDiagram />
+
+See the [Platform Overview](/docs/platform/overview) for the request flows, optional components, and diagram sources.
 
 ## Key Features
 FormKiQ is an API-first document management platform that deploys to your [Amazon Web Services](https://aws.amazon.com) account. Its flexible and scalable design allows for anyone to quickly and easily add document management functionality to any application, through our robust set of document management APIs, reducing development time by up to two-thirds.
@@ -16,7 +21,7 @@ FormKiQ is an API-first document management platform that deploys to your [Amazo
 
 FormKiQ deploys into your AWS account and is available in most AWS regions, giving you full control of your documents 100% of the time.
 
-![FormKiQ Architecture](./img/formkiq_cloudformation_architecture.png)
+<DeploymentArchitectureDiagram />
 
 FormKiQ uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) which is an infrastructure-as-code service that enables the provisioning AWS resources using templates. This approach not only reduces the risk of manual errors but also ensures consistency across deployments, making it easier to manage complex architectures and adhere to best practices.
 

@@ -1,0 +1,34 @@
+Generation tool: built-in image_gen.imagegen
+Final asset: static/img/formkiq-architecture-technical-light-v1.19.2.png
+Style reference: docs/platform/img/formkiq-architecture-v1.19.2.svg (rendered as PNG)
+Content reference: static/img/formkiq-architecture-api-first-v1.19.2.png
+
+Create a new comparison version of the FormKiQ architecture diagram.
+REFERENCE 1: the white-background original platform diagram is the STYLE reference only.
+REFERENCE 2: the latest dark API-first diagram is the CONTENT AND FLOW reference. Its latest decisions override old content in reference 1.
+
+Restyle the latest architecture into the original's clear technical-documentation aesthetic: white canvas, dark navy text, thin slate-gray orthogonal arrows, flat rectangular cards with modest corner rounding, very pale blue access cards, pale green storage cards, pale amber processing cards, restrained solid gray borders. The common API Lambda may be a single dark navy card with white text, as in the original. No glass, gradients, shadows, glow, luminous borders, 3D icons, marketing, or large decorative logos. Prefer small service labels over icon tiles. Produce a legible high-resolution landscape 3:2 technical diagram suitable for documentation and presentations.
+
+Preserve current CONTENT AND RELATIONSHIPS:
+Header: "FormKiQ Architecture", small "v1.19.2" badge.
+Top caller strip: "Console" with a small "CloudFront + S3" sublabel, then "Apps · SDKs · CLI · AWS workloads".
+One enclosing boundary "YOUR AWS ACCOUNT". Its upper edge includes small account-level notes "CloudFormation deployment" and "CloudWatch monitoring", not data-flow nodes.
+Three auth choices, either three adjacent API Gateway endpoint cards or one clearly grouped API Gateway card: "JWT / Cognito", "IAM / SigV4", "API key / custom claims".
+The caller strip feeds these API Gateway endpoints, which ALL converge on ONE "FormKiQ API Lambda", with sublabels "Site access + operation permissions" and "OPA policy checks when enabled".
+The API Lambda has three branches: left "S3 Content" / "Document storage"; centre "SNS Events" / "Document / action notifications"; right "DynamoDB" / "Metadata · JSON attributes · state".
+Below S3: "S3 Event Handlers" / "Lambda + staging / update queues". S3 -> handlers labeled "Object events"; handlers -> SNS via a separate clean route between the left and middle columns.
+Small note near S3: "Staging import: edge case".
+Below SNS: "Document Actions" / "SQS queue → Action Lambda". SNS -> Document Actions labeled "Action subscription".
+Below DynamoDB: "Dead-letter Queue" / "Failed staging / update / action work".
+Document Actions -> DynamoDB labeled "State update". Document Actions -> Dead-letter Queue.
+Lower row: "EventBridge" / "Actions + commercial audit events"; "Processing Modules" / "OCR · AI · Antivirus · Generation" / "E-signature · Workflows · Reviews"; "OpenSearch / Typesense" / "Indexing Lambda + metadata streams".
+
+Connector rules:
+All core connectors are solid SLATE GRAY for contrast against the white background.
+Keep three SOLID ORANGE configured-capability routes: Document Actions -> EventBridge, Document Actions -> Processing Modules, and DynamoDB -> OpenSearch / Typesense. The search route must run down the right outer gap, labeled "DynamoDB streams", and remain independent of the action routes. Do not connect these into a shared bus.
+Use ordinary solid borders for every capability card. NO "Optional Extensions" heading, no dashed lines or borders.
+Small understated legend: "Core paths" with slate line, "Configured capabilities" with orange line.
+No direct caller-to-S3 or presigned-file-transfer connector. No presigned-transfer label. The only external entry shown is via API Gateway. Staging is represented only by the small edge-case note.
+No bottom context ribbon: Console hosting belongs in the caller strip, OPA belongs in the API Lambda card, and deployment/monitoring belong in the account header.
+Do not reintroduce the old original's direct-transfer line, dashed purple arrows, separate footer ribbon, or other outdated technical content.
+Maintain generous whitespace, consistent alignment and font sizes, no label/arrow overlaps, carefully spelled text. Do not add new features, claims or paths. The result should feel like a clear, editable-vector-style engineering diagram, even though delivered as an image.

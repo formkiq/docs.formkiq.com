@@ -1,0 +1,15 @@
+Generation tool: built-in image_gen.imagegen
+Final asset: diagrams/architecture/alternates/formkiq-architecture-blue-v1.19.2.png
+Edit target: static/img/formkiq-architecture-integrated-v1.19.2.png
+
+Edit the supplied FormKiQ architecture diagram with one precise change to its level of abstraction.
+
+REMOVE the entire direct client-to-S3 path on the left, including the long white connector from the caller strip across the upper left, its vertical segment, its arrowhead entering S3 Content, and the "Presigned file transfer" label and pill border. Cleanly restore the matte navy background in the removed area. Do not replace that path with another arrow or label. There must be no external caller connection directly into S3.
+
+The top caller strip must now have only ONE outgoing flow: its existing central WHITE down-arrow into API Gateway. Keep that connection and API Gateway -> FormKiQ API Lambda continuous and clearly visible. This is a high-level API-first overview: presigned transfer mechanics are intentionally omitted, not a claim that file bytes are proxied through Lambda.
+
+Keep the API Lambda's existing branches to S3 Content, SNS Events and DynamoDB. Keep the S3 Content title, but change its small subtitle from "Documents + staging" to "Document storage". Add one small unobtrusive note beneath the S3 Content card, above or beside the existing Object events arrow, with the exact text "Staging import: edge case". Do not draw any separate external staging-ingestion arrow and do not invent another node. Make room for this small note without overlapping the Object events label or arrow; it can sit in the newly opened space at the left of the S3 card.
+
+Preserve EVERYTHING ELSE: title and v1.19.2, top Console/CloudFront+S3 context and other callers, AWS-account border, CloudFormation deployment and CloudWatch monitoring badges, white/orange legend, all authentication badges, OPA note inside API Lambda, core processing nodes, all existing selected white core arrows except the removed direct-client-to-S3 path, and all three independent solid orange capability routes. In particular DynamoDB -> OpenSearch/Typesense must remain separate from Document Actions -> EventBridge and Processing Modules.
+
+Preserve the same restrained dark navy style, solid muted borders, modest service icons, readable type, and landscape 3:2 dimensions. No dashed connectors, teal connectors, bottom ribbon, marketing copy, or geographic elements. Make no other changes.

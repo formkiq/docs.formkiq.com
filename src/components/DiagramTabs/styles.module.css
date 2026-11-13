@@ -1,0 +1,60 @@
+.container {
+  --diagram-tab-text-color: var(--ifm-color-primary-darkest);
+  margin-block: var(--ifm-leading);
+}
+
+:global([data-theme='dark']) .container {
+  --diagram-tab-text-color: var(--ifm-color-primary);
+}
+
+.controls {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+  margin-bottom: 1rem;
+}
+
+.tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+}
+
+.tab:hover,
+.tab[aria-selected='true'] {
+  color: var(--diagram-tab-text-color);
+}
+
+.tab[aria-selected='true'] {
+  border-bottom-color: var(--ifm-color-primary);
+}
+
+.tab:focus-visible,
+.panel:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.controls[hidden],
+.panel[hidden] {
+  display: none;
+}
+
+.panel > :last-child {
+  margin-bottom: 0;
+}
+
+@media print {
+  .controls {
+    display: none;
+  }
+
+  .panel[hidden] {
+    display: block;
+  }
+}

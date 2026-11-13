@@ -1,0 +1,12 @@
+Generation tool: built-in image_gen.imagegen
+Refinement: remove the Staging import: edge case annotation from both current diagrams.
+Final blue asset: diagrams/architecture/alternates/formkiq-architecture-blue-v1.19.2.png
+Final light asset: static/img/formkiq-architecture-technical-light-v1.19.2.png
+
+DARK VERSION PROMPT
+
+Perform a minimal, precise edit to the supplied dark FormKiQ architecture diagram. Remove ONLY the small two-line italic annotation "Staging import: edge case" below the left side of the S3 Content card. Restore the dark navy background cleanly where those words were. Do not add replacement text, reposition any elements, or alter any other pixels unnecessarily. Preserve the entire diagram: all nodes, labels, other mentions of staging within service sublabels, connectors and their directions, orange capability paths, white core paths, icons, colours, account boundary, layout, header, legend, and v1.19.2. Especially preserve the S3-to-handler Object events arrow and label beside the removed note. No new client-to-S3 connection. Same landscape 3:2 framing and resolution.
+
+LIGHT VERSION PROMPT
+
+Perform a minimal, precise edit to the supplied white-background technical FormKiQ architecture diagram. Remove ONLY the small two-line italic annotation "Staging import: edge case" below the left side of the S3 Content card. Restore the white background cleanly where those words were. Do not add replacement text, reposition any elements, or alter any other pixels unnecessarily. Preserve the entire diagram: all nodes, labels, other mentions of staging within service sublabels, connectors and their directions, orange capability paths, slate-gray core paths, flat pastel cards, typography, account boundary, layout, header, legend, and v1.19.2. Especially preserve the S3-to-handler Object events arrow and label beside the removed note. No new client-to-S3 connection. Same landscape 3:2 framing and resolution.

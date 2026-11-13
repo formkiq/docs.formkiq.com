@@ -1,0 +1,17 @@
+Generation tool: built-in image_gen.imagegen
+Final asset: static/img/formkiq-architecture-technical-dark-v1.19.2.png
+Edit target: static/img/formkiq-architecture-technical-light-v1.19.2.png
+
+Create a precisely matched DARK MODE VERSION of the supplied white-background technical FormKiQ architecture diagram. This is a colour-theme adaptation only. Preserve exact landscape 3:2 framing, layout, node positions, card sizes, typography, line breaks, text wording, service headers, all connectors and their individual routes and arrow directions, and the v1.19.2 badge.
+
+Use a restrained documentation dark theme:
+- Uniform matte charcoal background, approximately #1b1f27, with a subtly differentiated account area.
+- All dark text becomes off-white, with slightly muted but legible secondary text.
+- Replace pale blue access/caller cards with flat muted slate-blue cards; replace pale green storage/service/capability cards with flat dark desaturated green cards; replace pale amber processing cards with flat dark desaturated amber cards. Keep subtle thin borders with sufficient contrast. No new icons or decorations.
+- Keep the common FormKiQ API Lambda card as a distinct dark navy block with crisp white text.
+- Core connectors become clear light gray/white; configured capability connectors remain solid orange. Preserve all three independent orange routes exactly.
+- Keep the hierarchy, whitespace, category colours, thin flat technical borders and restrained appearance of the supplied white version. This is NOT the earlier glossy blue marketing version.
+
+Preserve ALL exact text, including API Gateway authentication badges, Console/CloudFront+S3, CloudFormation deployment and CloudWatch monitoring, site and operation permissions, OPA policy checks when enabled, storage/event/metadata descriptions, all processing/capability sublabels, connector labels, and the two legend entries.
+No text, labels, nodes, arrows or paths may be added, removed or moved. Keep the only caller entry via API Gateway. No direct caller-to-S3 connector. Do NOT add any staging-import edge-case annotation.
+No glow, neon, glass, gradients, 3D, drop shadows, marketing copy, geographic content, or decorative AWS icons. The result must be a clean, accessible dark counterpart to this exact light technical diagram, suitable for automatic light/dark switching on a documentation page. Opaque background and same resolution.

@@ -11,13 +11,39 @@ tags:
   - architecture
 ---
 
+import ArchitectureDiagram from '@site/src/components/ArchitectureDiagram';
+
 # Overview
 
 FormKiQ is a flexible, API-first document management platform deployed into your AWS account. It uses AWS managed services for document storage, metadata, APIs, identity, events, automation, and optional search so teams can build document-centric workflows without operating a traditional document management stack.
 
 At a high level, FormKiQ stores document content in Amazon S3, stores document metadata and indexes in Amazon DynamoDB, exposes APIs through Amazon API Gateway, authenticates users and services through multiple auth models, and emits document lifecycle events for automation.
 
-![FormKiQ Architecture](./img/formkiq_architecture.png)
+## Architecture
+
+<ArchitectureDiagram />
+
+This logical diagram follows the **v1.19.2 source baseline**. JWT, IAM, and API key endpoints invoke the same FormKiQ API Lambda. The API handles site access and operation permissions, document metadata, and content requests, with OPA policy checks when enabled. The diagram shows the API as the application entry point; file-transfer details are covered in [Document Storage](/docs/platform/document_storage).
+
+S3 event handlers update document state and publish document or action events to SNS. An action-event subscription feeds SQS and the document-action Lambda. EventBridge is a configured integration path: explicit `EVENTBRIDGE` actions can send events to a selected bus, and the commercial platform can route audit events through its document event bus. Optional search uses indexing Lambdas and DynamoDB streams; it does not receive raw S3 object events directly.
+
+The diagram highlights operation-specific permissions, custom API key claims, JSON attributes, and document-processing capabilities. Orange connectors identify capabilities that depend on configuration and edition. Console hosting appears with the callers, while CloudFormation deployment and CloudWatch monitoring apply across the AWS account. The view groups related resources and omits response arrows, some state updates, and individual module internals; it is not a VPC or subnet topology.
+
+<details>
+<summary>Diagram sources</summary>
+
+The source snapshots are pinned so the diagram can be reviewed independently of later changes to the development branches. The Core snapshot is the submodule commit recorded by the commercial Platform v1.10.2 branch used with FormKiQ v1.19.2.
+
+| Diagram area | Source |
+| --- | --- |
+| API endpoints and shared handler | [Core API stack](https://github.com/formkiq/formkiq-core/blob/c2507a04597ae02ac5915879d87b0227f4ff8c93/src/main/resources/cloudformation/api/template.yaml) and [API key authorizer](https://github.com/formkiq/formkiq-core/blob/c2507a04597ae02ac5915879d87b0227f4ff8c93/src/main/resources/cloudformation/api/key/security.yaml) |
+| S3, metadata, SNS, queues, handlers, and retries | [Core storage stack](https://github.com/formkiq/formkiq-core/blob/c2507a04597ae02ac5915879d87b0227f4ff8c93/src/main/resources/cloudformation/storage/template.yaml) |
+| EventBridge action | [Core EventBridge action handler](https://github.com/formkiq/formkiq-core/blob/c2507a04597ae02ac5915879d87b0227f4ff8c93/apps/lambda-s3/src/main/java/com/formkiq/stacks/lambda/s3/actions/EventBridgeAction.java) |
+| Commercial audit-event processing | [Platform storage overlay](https://github.com/formkiq/formkiq-platform/blob/990c04a13ce425600d06a9c9fb7d2d1f3df35bbb/modules/platform/src/main/resources/cloudformation/storage/module-extra-tagschema.yaml) |
+| Search indexing and secrets | [Core Typesense stack](https://github.com/formkiq/formkiq-core/blob/c2507a04597ae02ac5915879d87b0227f4ff8c93/src/main/resources/cloudformation/typesense/template.yaml) and [Platform OpenSearch stream processor](https://github.com/formkiq/formkiq-platform/blob/990c04a13ce425600d06a9c9fb7d2d1f3df35bbb/modules/module-fulltext/src/main/resources/cloudformation/api/fulltext-dynamodb-streams.yaml) |
+| Version-specific capabilities | [v1.19.2 release notes source](https://github.com/formkiq/docs.formkiq.com/blob/d6a2d75/docs/changelog/v1.19.2.md) |
+
+</details>
 
 ## Deployment Boundary
 
