@@ -1,0 +1,69 @@
+---
+id: add-docusign-envelope-reminders
+title: "Request DocuSign signing reminders"
+description: "Resends signing notifications for an in-progress DocuSign envelope; available as an Add-On Module. With no request body or an empty object, DocuSign reminds all eligible recipients at the current routing step. Supply recipientIds to remind only the selected eligible signers. Obtain IDs from recipients.signers[].recipientId in GET /esignature/docusign/{documentId}/envelopes/{envelopeId}. Every selected signer must still be awaiting action at the current routing step when this request is processed. Validate the entire selection before issuing a resend. Completed and future-step signers cannot be targeted. Invalid targeted requests never fall back to reminding all recipients. Recipient notification settings are respected; this operation does not send FormKiQ notifications to embedded-only or email-suppressed signers. Requires write access to the selected document or artifact and a matching stored envelope ID. The operation resends the existing invitation without changing recipients, documents, routing, or automatic reminder settings. Targeted responses report each selected recipient's acceptance or failure, with no overall status. Acceptance does not confirm notification delivery. Do not automatically retry after a timeout because the reminder may already have been requested."
+sidebar_label: "Request DocuSign signing reminders"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "post api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Request DocuSign signing reminders"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/esignature/docusign/{documentId}/envelopes/{envelopeId}/reminders"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Resends signing notifications for an in-progress DocuSign envelope; available as an Add-On Module. With no request body or an empty object, DocuSign reminds all eligible recipients at the current routing step. Supply recipientIds to remind only the selected eligible signers. Obtain IDs from recipients.signers[].recipientId in GET /esignature/docusign/\{documentId\}/envelopes/\{envelopeId\}. Every selected signer must still be awaiting action at the current routing step when this request is processed. Validate the entire selection before issuing a resend. Completed and future-step signers cannot be targeted. Invalid targeted requests never fall back to reminding all recipients. Recipient notification settings are respected; this operation does not send FormKiQ notifications to embedded-only or email-suppressed signers. Requires write access to the selected document or artifact and a matching stored envelope ID. The operation resends the existing invitation without changing recipients, documents, routing, or automatic reminder settings. Targeted responses report each selected recipient's acceptance or failure, with no overall status. Acceptance does not confirm notification delivery. Do not automatically retry after a timeout because the reminder may already have been requested.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./add-docusign-envelope-reminders.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./add-docusign-envelope-reminders.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./add-docusign-envelope-reminders.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"source":{"type":"string","description":"Source path"},"target":{"type":"string","description":"Target path"}},"title":"IndexFolderMoveRequest"}}}}}

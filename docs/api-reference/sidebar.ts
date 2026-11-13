@@ -328,6 +328,12 @@ const sidebar: SidebarsConfig = {
           label: "Delete document's attribute value",
           className: "api-method delete",
         },
+        {
+          type: "doc",
+          id: "api-reference/generate-document-attribute-value",
+          label: "Generate document attribute value",
+          className: "api-method post",
+        },
       ],
     },
     {
@@ -465,6 +471,30 @@ const sidebar: SidebarsConfig = {
           id: "api-reference/set-malware-scan",
           label: "MalwareScan document scan",
           className: "api-method put",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Document Notifications",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/get-document-notifications",
+          label: "Get document notifications",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-document-notification",
+          label: "Add an ad hoc document notification",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-user-notifications",
+          label: "Get user notifications",
+          className: "api-method get",
         },
       ],
     },
@@ -816,8 +846,38 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
+          id: "api-reference/get-docusign-envelope",
+          label: "Get Docusign envelope and recipient status",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-docusign-envelope-audit-events",
+          label: "Get DocuSign envelope audit events",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-docusign-envelope-reminders",
+          label: "Request DocuSign signing reminders",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/void-docusign-envelope",
+          label: "Void a DocuSign envelope",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
           id: "api-reference/add-docusign-recipient-view",
           label: "Create Docusign Recipient View request",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-docusign-sender-view",
+          label: "Create Docusign Sender View request",
           className: "api-method post",
         },
         {
@@ -842,6 +902,12 @@ const sidebar: SidebarsConfig = {
           type: "doc",
           id: "api-reference/add-folder",
           label: "Add document folder",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/move-folder",
+          label: "Move document folder",
           className: "api-method post",
         },
         {
@@ -1052,122 +1118,14 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Rulesets",
-      items: [
-        {
-          type: "doc",
-          id: "api-reference/get-rulesets",
-          label: "Get Rulesets",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/add-ruleset",
-          label: "Add New Ruleset",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api-reference/get-ruleset",
-          label: "Get Ruleset",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/update-ruleset",
-          label: "Update Ruleset",
-          className: "api-method patch",
-        },
-        {
-          type: "doc",
-          id: "api-reference/delete-ruleset",
-          label: "Delete Ruleset",
-          className: "api-method delete",
-        },
-        {
-          type: "doc",
-          id: "api-reference/get-rules",
-          label: "Get Rules",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/add-rule",
-          label: "Add New Rule",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api-reference/get-rule",
-          label: "Get Rule",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/update-rule",
-          label: "Update Rule",
-          className: "api-method patch",
-        },
-        {
-          type: "doc",
-          id: "api-reference/delete-rule",
-          label: "Delete Rule",
-          className: "api-method delete",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Document Search",
-      items: [
-        {
-          type: "doc",
-          id: "api-reference/document-search",
-          label: "Document search",
-          className: "api-method post",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Document Shares",
-      items: [
-        {
-          type: "doc",
-          id: "api-reference/get-user-shares",
-          label: "Get user shared folders",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api-reference/add-folder-share",
-          label: "Add folder share",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api-reference/delete-share",
-          label: "Delete folder share",
-          className: "api-method delete",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Shortlinks",
-      items: [
-        {
-          type: "doc",
-          id: "api-reference/add-shortlink",
-          label: "Add shortlink",
-          className: "api-method post",
-        },
-      ],
-    },
-    {
-      type: "category",
       label: "System Management",
       items: [
+        {
+          type: "doc",
+          id: "api-reference/get-permission-catalog",
+          label: "Get API permission catalog",
+          className: "api-method get",
+        },
         {
           type: "doc",
           id: "api-reference/get-sites",
@@ -1326,6 +1284,30 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
+          id: "api-reference/get-numbering-sequences",
+          label: "Get numbering sequences",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-numbering-sequence",
+          label: "Get numbering sequence",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/set-numbering-sequence",
+          label: "Set numbering sequence",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-notification-test",
+          label: "Send a test notification",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
           id: "api-reference/get-api-keys",
           label: "Get API Keys",
           className: "api-method get",
@@ -1430,6 +1412,120 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
+      label: "Rulesets",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/get-rulesets",
+          label: "Get Rulesets",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-ruleset",
+          label: "Add New Ruleset",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-ruleset",
+          label: "Get Ruleset",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/update-ruleset",
+          label: "Update Ruleset",
+          className: "api-method patch",
+        },
+        {
+          type: "doc",
+          id: "api-reference/delete-ruleset",
+          label: "Delete Ruleset",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-rules",
+          label: "Get Rules",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-rule",
+          label: "Add New Rule",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/get-rule",
+          label: "Get Rule",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/update-rule",
+          label: "Update Rule",
+          className: "api-method patch",
+        },
+        {
+          type: "doc",
+          id: "api-reference/delete-rule",
+          label: "Delete Rule",
+          className: "api-method delete",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Document Search",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/document-search",
+          label: "Document search",
+          className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Document Shares",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/get-user-shares",
+          label: "Get user shared folders",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/add-folder-share",
+          label: "Add folder share",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api-reference/delete-share",
+          label: "Delete folder share",
+          className: "api-method delete",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Shortlinks",
+      items: [
+        {
+          type: "doc",
+          id: "api-reference/add-shortlink",
+          label: "Add shortlink",
+          className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "Schemas",
       items: [
         {
@@ -1503,6 +1599,12 @@ const sidebar: SidebarsConfig = {
           id: "api-reference/get-opa-access-policy",
           label: "Get OPA Access Policy",
           className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api-reference/test-opa-access-policy",
+          label: "Test an OPA access policy, can only be requested with ADMIN privileges",
+          className: "api-method post",
         },
         {
           type: "doc",

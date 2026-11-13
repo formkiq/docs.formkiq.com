@@ -1,0 +1,71 @@
+---
+id: generate-document-attribute-value
+title: "Generate document attribute value"
+description: "Allocates the next value from the numbering sequence configured for the attribute key and stores it on the document. If the document already has a value for the attribute key, the existing value is returned."
+sidebar_label: "Generate document attribute value"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "post api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Generate document attribute value"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/documents/{documentId}/attributes/{attributeKey}/generate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Allocates the next value from the numbering sequence configured for the attribute key and stores it on the document. If the document already has a value for the attribute key, the existing value is returned.
+
+Requires WRITE_DOCUMENT_ATTRIBUTES or WRITE. ADMIN retains access.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./generate-document-attribute-value.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./generate-document-attribute-value.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./generate-document-attribute-value.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

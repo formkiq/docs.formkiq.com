@@ -1,0 +1,69 @@
+---
+id: get-docusign-envelope-audit-events
+title: "Get DocuSign envelope audit events"
+description: "Retrieves the audit history recorded by DocuSign for an associated envelope; available as an Add-On Module. Requires read access to the selected document or artifact and validates its stored envelope association before contacting DocuSign. Calls GET /restapi/v2.1/accounts/{accountId}/envelopes/{envelopeId}/audit_events, resolving the account, base URI, and OAuth token through the site's existing integration. Returns DocuSign's JSON unchanged, including auditEvents, paymentEvents, and any additional fields, without a FormKiQ wrapper. Includes reminder and resend events when recorded by DocuSign; this history does not guarantee that every reminder is recorded or confirm inbox delivery. Reminder and resend webhook subscriptions are separate from this operation."
+sidebar_label: "Get DocuSign envelope audit events"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get DocuSign envelope audit events"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/esignature/docusign/{documentId}/envelopes/{envelopeId}/auditEvents"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the audit history recorded by DocuSign for an associated envelope; available as an Add-On Module. Requires read access to the selected document or artifact and validates its stored envelope association before contacting DocuSign. Calls GET /restapi/v2.1/accounts/\{accountId\}/envelopes/\{envelopeId\}/audit_events, resolving the account, base URI, and OAuth token through the site's existing integration. Returns DocuSign's JSON unchanged, including auditEvents, paymentEvents, and any additional fields, without a FormKiQ wrapper. Includes reminder and resend events when recorded by DocuSign; this history does not guarantee that every reminder is recorded or confirm inbox delivery. Reminder and resend webhook subscriptions are separate from this operation.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./get-docusign-envelope-audit-events.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./get-docusign-envelope-audit-events.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./get-docusign-envelope-audit-events.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

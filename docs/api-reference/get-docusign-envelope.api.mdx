@@ -1,0 +1,69 @@
+---
+id: get-docusign-envelope
+title: "Get Docusign envelope and recipient status"
+description: "Retrieves the DocuSign envelope using include=recipients and returns the DocuSign response directly, including envelope status and recipient routing information. No FormKiQ fields or wrapper are added. The envelope must be associated with the selected document or artifact. This read-only operation does not update document attributes or download the signed document. Available as an Add-On Module. Repeated status polling must be at least 15 minutes apart. Use recipients.signers[].recipientId from this response as entries in the optional recipientIds array in POST /esignature/docusign/{documentId}/envelopes/{envelopeId}/reminders to request reminders for selected signers."
+sidebar_label: "Get Docusign envelope and recipient status"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api-reference/formkiq-api-jwt
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Docusign envelope and recipient status"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/esignature/docusign/{documentId}/envelopes/{envelopeId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the DocuSign envelope using include=recipients and returns the DocuSign response directly, including envelope status and recipient routing information. No FormKiQ fields or wrapper are added. The envelope must be associated with the selected document or artifact. This read-only operation does not update document attributes or download the signed document. Available as an Add-On Module. Repeated status polling must be at least 15 minutes apart. Use recipients.signers[].recipientId from this response as entries in the optional recipientIds array in POST /esignature/docusign/\{documentId\}/envelopes/\{envelopeId\}/reminders to request reminders for selected signers.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./get-docusign-envelope.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./get-docusign-envelope.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./get-docusign-envelope.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

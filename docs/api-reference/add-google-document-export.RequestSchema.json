@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"path":{"type":"string","description":"Path of exported file"},"outputType":{"type":"string","description":"Google Export Output Type","enum":["PDF"],"title":"GoogleExportOutputType"}},"title":"AddGoogleDocumentExportRequest"}}}}}

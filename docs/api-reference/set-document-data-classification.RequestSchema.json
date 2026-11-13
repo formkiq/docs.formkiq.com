@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":false,"content":{"application/json":{"schema":{"type":"object","required":["llmPromptEntityName"],"properties":{"llmPromptEntityName":{"type":"string","description":"Name of the LLM Prompt Entity"}},"title":"SetDocumentDataClassificationRequest"}}}}}
