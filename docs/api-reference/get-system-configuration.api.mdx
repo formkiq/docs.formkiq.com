@@ -11,18 +11,14 @@ info_path: docs/api-reference/formkiq-api-jwt
 custom_edit_url: null
 ---
 
-import ApiTabs from "@theme/ApiTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
-import MimeTabs from "@theme/MimeTabs";
-import ParamsItem from "@theme/ParamsItem";
-import ResponseSamples from "@theme/ResponseSamples";
-import SchemaItem from "@theme/SchemaItem";
-import SchemaTabs from "@theme/SchemaTabs";
-import Heading from "@theme/Heading";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -43,229 +39,21 @@ import TabItem from "@theme/TabItem";
 
 Returns the system configuration
 
-<div>
-  <div>
-    <ApiTabs
-      label={undefined}
-      id={undefined}
-    >
-      <TabItem
-        label={"200"}
-        value={"200"}
-      >
-        <div>
-          
-          
-          200 OK
-          
-          
-        </div><details
-          style={{"textAlign":"left","marginBottom":"1rem"}}
-          className={"openapi-markdown__details"}
-          data-collapsed={true}
-          open={false}
-        >
-          <summary
-            style={{}}
-          >
-            <strong>
-              Response Headers
-            </strong>
-          </summary><ul
-            style={{"marginLeft":"1rem"}}
-          >
-            <li
-              className={"schemaItem"}
-            >
-              <summary
-                style={{}}
-              >
-                <strong>
-                  Access-Control-Allow-Origin
-                </strong><span
-                  style={{"opacity":"0.6"}}
-                >
-                   string
-                </span>
-              </summary><div>
-                
-              </div>
-            </li><li
-              className={"schemaItem"}
-            >
-              <summary
-                style={{}}
-              >
-                <strong>
-                  Access-Control-Allow-Methods
-                </strong><span
-                  style={{"opacity":"0.6"}}
-                >
-                   string
-                </span>
-              </summary><div>
-                
-              </div>
-            </li><li
-              className={"schemaItem"}
-            >
-              <summary
-                style={{}}
-              >
-                <strong>
-                  Access-Control-Allow-Headers
-                </strong><span
-                  style={{"opacity":"0.6"}}
-                >
-                   string
-                </span>
-              </summary><div>
-                
-              </div>
-            </li>
-          </ul>
-        </details><div>
-          <MimeTabs
-            className={"openapi-tabs__mime"}
-            schemaType={"response"}
-          >
-            <TabItem
-              label={"application/json"}
-              value={"application/json"}
-            >
-              <SchemaTabs
-                className={"openapi-tabs__schema"}
-              >
-                <TabItem
-                  label={"Schema"}
-                  value={"Schema"}
-                >
-                  <details
-                    style={{}}
-                    className={"openapi-markdown__details response"}
-                    data-collapsed={false}
-                    open={true}
-                  >
-                    <summary
-                      style={{}}
-                      className={"openapi-markdown__details-summary-response"}
-                    >
-                      <strong>
-                        Schema
-                      </strong>
-                    </summary><div
-                      style={{"textAlign":"left","marginLeft":"1rem"}}
-                    >
-                      
-                    </div><ul
-                      style={{"marginLeft":"1rem"}}
-                    >
-                      <SchemaItem
-                        collapsible={true}
-                        className={"schemaItem"}
-                      >
-                        <details
-                          style={{}}
-                          className={"openapi-markdown__details"}
-                        >
-                          <summary
-                            style={{}}
-                          >
-                            <span
-                              className={"openapi-schema__container"}
-                            >
-                              <strong
-                                className={"openapi-schema__property"}
-                              >
-                                branding
-                              </strong><span
-                                className={"openapi-schema__name"}
-                              >
-                                 object
-                              </span>
-                            </span>
-                          </summary><div
-                            style={{"marginLeft":"1rem"}}
-                          >
-                            <div
-                              style={{"marginTop":".5rem","marginBottom":".5rem"}}
-                            >
-                              
-                              
-                              Branding configuration that can be set globally or for an individual site.
-                              
-                              
-                            </div><SchemaItem
-                              collapsible={false}
-                              name={"theme"}
-                              required={false}
-                              schemaName={"string"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"string","description":"Branding theme identifier."}}
-                            >
-                              
-                            </SchemaItem>
-                          </div>
-                        </details>
-                      </SchemaItem><SchemaItem
-                        collapsible={true}
-                        className={"schemaItem"}
-                      >
-                        <details
-                          style={{}}
-                          className={"openapi-markdown__details"}
-                        >
-                          <summary
-                            style={{}}
-                          >
-                            <span
-                              className={"openapi-schema__container"}
-                            >
-                              <strong
-                                className={"openapi-schema__property"}
-                              >
-                                webui
-                              </strong><span
-                                className={"openapi-schema__name"}
-                              >
-                                 object
-                              </span>
-                            </span>
-                          </summary><div
-                            style={{"marginLeft":"1rem"}}
-                          >
-                            <SchemaItem
-                              collapsible={false}
-                              name={"ssoAutomaticSignIn"}
-                              required={false}
-                              schemaName={"boolean"}
-                              qualifierMessage={undefined}
-                              schema={{"type":"boolean","description":"Enable SSO automatic sign in"}}
-                            >
-                              
-                            </SchemaItem>
-                          </div>
-                        </details>
-                      </SchemaItem>
-                    </ul>
-                  </details>
-                </TabItem><TabItem
-                  label={"Example (from schema)"}
-                  value={"Example (from schema)"}
-                >
-                  <ResponseSamples
-                    responseExample={"{\n  \"branding\": {\n    \"theme\": \"string\"\n  },\n  \"webui\": {\n    \"ssoAutomaticSignIn\": true\n  }\n}"}
-                    language={"json"}
-                  >
-                    
-                  </ResponseSamples>
-                </TabItem>
-              </SchemaTabs>
-            </TabItem>
-          </MimeTabs>
-        </div>
-      </TabItem>
-    </ApiTabs>
-  </div>
-</div>
+<ParamsDetails>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./get-system-configuration.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./get-system-configuration.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
       

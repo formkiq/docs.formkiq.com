@@ -1,0 +1,1 @@
+{"parameters":[{"name":"username","in":"path","description":"Username","required":true,"schema":{"type":"string"}}]}

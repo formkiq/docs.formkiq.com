@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"indexName":{"type":"string","description":"The name of the index to set for SiteId"}},"title":"SetOpenSearchIndiceRequest"}}}}}

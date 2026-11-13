@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"versionKey":{"type":"string","description":"VersionKey returned by the GET /documents/{documentId}/versions to revert to"}},"title":"SetDocumentVersionRequest"}}}}}

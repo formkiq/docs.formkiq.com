@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":false,"content":{"application/json":{"schema":{"required":["content"],"type":"object","properties":{"contentType":{"type":"string","description":"Document Content-Type"},"isBase64":{"type":"boolean","description":"Is the content Base64-encoded?"},"content":{"type":"string","description":"Document content"}},"title":"SetDocumentOcrRequest"}}}}}

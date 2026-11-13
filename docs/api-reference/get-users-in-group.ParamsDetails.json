@@ -1,0 +1,1 @@
+{"parameters":[{"name":"groupName","in":"path","description":"Group Name","required":true,"schema":{"type":"string"}},{"name":"limit","in":"query","description":"Limit Results","required":false,"schema":{"type":"string","default":"10"}},{"name":"next","in":"query","description":"Next page of results token","required":false,"schema":{"type":"string"}}]}
