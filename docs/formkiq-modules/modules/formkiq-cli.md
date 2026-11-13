@@ -132,8 +132,13 @@ fk --configure \
   --aws-profile AWS_PROFILE \
   --region ap-southeast-1 \
   --app-environment FORMKIQ_APP_ENVIRONMENT \
-  --s3-endpoint-url https://vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
+  --s3-endpoint-url https://bucket.vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
 ```
+
+For S3 bucket operations through an interface VPC endpoint, include the literal `bucket.` prefix
+in the endpoint URL. If the endpoint DNS name begins with `*.vpce-`, replace `*` with `bucket`.
+Here, `bucket` is a service selector; do not replace it with your actual S3 bucket name. See
+[AWS's interface endpoint examples](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#accessing-buckets-and-aps-from-interface-endpoints).
 
 The endpoint is stored as `s3_endpoint_url` in the selected FormKiQ profile. You can override the
 profile value for an individual document content import by supplying `--s3-endpoint-url` on the
@@ -399,7 +404,7 @@ fk --import-csv \
   --document-contents document-contents.csv \
   --site-id default \
   --direct-s3-upload \
-  --s3-endpoint-url https://vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
+  --s3-endpoint-url https://bucket.vpce-123.s3.ap-southeast-1.vpce.amazonaws.com
 ```
 
 Omit `--s3-endpoint-url` when the selected profile already contains the endpoint you want to use.
@@ -952,6 +957,7 @@ The exact permissions depend on the workflow.
 | DynamoDB connection fails | Incorrect table name, Region, or DynamoDB permissions. | Confirm the `DocumentsTableName` output and DynamoDB permissions. |
 | S3 uploads fail | Missing S3 or KMS permissions. | Confirm bucket access and `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`. |
 | CSV destination uploads use a public S3 endpoint despite `s3_endpoint_url` configuration | The import uses presigned URLs by default, or a different profile is selected. | Use CLI v1.8.1 or later with `--direct-s3-upload`. If using a named profile, select it with `--profile PROFILE_NAME`. Verify DNS and the actual network route; the hostname alone does not establish internet traversal. |
+| Direct S3 upload fails through an interface VPC endpoint | Incorrect endpoint DNS name or endpoint connectivity. | Include the literal `bucket.` prefix: `https://bucket.vpce-123.s3.ap-southeast-1.vpce.amazonaws.com`. Confirm DNS resolution, network routing, and endpoint access. |
 | CSV import creates errors | Missing required CSV headers or invalid document IDs. | Confirm headers match the required format and `DocumentId` values are UUIDs. |
 | OpenSearch sync does not show documents | The document ID file is missing IDs or sync did not run for the expected site. | Regenerate the file with `fk --list-documents --site-id SITE_ID` and rerun sync. |
 | OpenSearch snapshot list, inspect, backup, or restore fails | Snapshot support is not enabled, OpenSearch Serverless is being used for backup, or API permissions are missing. | Confirm the OpenSearch module configuration and `execute-api:Invoke` permission. |
