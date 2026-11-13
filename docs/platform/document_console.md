@@ -1,12 +1,15 @@
 ---
 sidebar_position: 6
+title: FormKiQ Web (Document Console)
 ---
 
-# Document Console
+# FormKiQ Web (Document Console)
 
 ## Overview
 
-The FormKiQ Document Console is the browser-based interface for working with documents, users, sites, metadata, workflows, and administration features. It is a static web application that connects to the FormKiQ API using Cognito/JWT authentication.
+FormKiQ Web (Document Console) is the browser-based interface for working with documents, users, sites, metadata, workflows, and administration features. It also hosts configured [Business Solutions](/docs/category/business-solutions), including [Contract Management](/docs/business-solutions/contract-management). It is a static web application that connects to the FormKiQ API using Cognito/JWT authentication.
+
+FormKiQ Web has its own version and release schedule. Several web releases can ship between API and backend releases. See the [changelog](/docs/category/changelog) for independent release notes and each web release's backend compatibility requirements. The deployment outputs, Docker image, and existing configuration continue to use the Console names shown below.
 
 In standard AWS regions, the console is deployed with the FormKiQ stack and served through Amazon CloudFront. In regions where CloudFront is not available, such as AWS GovCloud (US), the console can be deployed separately using Docker.
 
@@ -102,7 +105,7 @@ docker run --name formkiq-document-console \
   formkiq/document-console:<version>
 ```
 
-Use the Document Console image version that matches your FormKiQ deployment whenever possible.
+Choose a web image version compatible with your backend and enabled solutions. Start with the version bundled with your backend release, or review the compatibility and upgrade notes before installing a newer web release. The [Web v4.3.8 notes](/docs/changelog/v4.3.8#platform-compatibility) describe the version bundled with FormKiQ v1.19.2.
 
 ## Initial Setup
 
@@ -204,6 +207,8 @@ The FormKiQ Document Console is open source. You can find the source code and co
 
 ## Where to Go Next
 
+- Explore solutions: [Contract Management](/docs/business-solutions/contract-management)
+- Review web releases: [Changelog](/docs/category/changelog)
 - Install FormKiQ: [Quick Start (AWS)](/docs/getting-started/quick-start)
 - Test the API: [API Walkthrough](/docs/getting-started/api-walkthrough)
 - Review authentication: [Security](/docs/platform/security)

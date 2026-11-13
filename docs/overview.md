@@ -23,13 +23,14 @@ Read [Choosing FormKiQ](/docs/category/choosing-formkiq) to see whether it fits 
 
 ## Key Features
 
-- **API-first and headless.** Every capability is available through the [FormKiQ API](/docs/category/formkiq-api), with SDKs for [Python](/docs/tutorials/using-python-client-sdk), [TypeScript](/docs/tutorials/using-typescript-client-sdk) and [Java](/docs/tutorials/using-java-client-sdk), and a [CLI](/docs/formkiq-modules/modules/formkiq-cli). The web UI is separate from the backend, so you can integrate with web applications, mobile apps and backend services. The React-based [Document Console](/docs/platform/document_console) is included and serves as a reference implementation.
+- **API-first and headless.** Every capability is available through the [FormKiQ API](/docs/category/formkiq-api), with SDKs for [Python](/docs/tutorials/using-python-client-sdk), [TypeScript](/docs/tutorials/using-typescript-client-sdk) and [Java](/docs/tutorials/using-java-client-sdk), and a [CLI](/docs/formkiq-modules/modules/formkiq-cli). The web UI is separate from the backend, so you can integrate with web applications, mobile apps and backend services. The React-based [FormKiQ Web (Document Console)](/docs/platform/document_console) is included and serves as a reference implementation.
 - **Runs in your AWS account.** Primary document content and metadata are stored in your AWS account. Configured external integrations may process or store data elsewhere. See [Security](/docs/platform/security).
 - **Serverless and scalable.** FormKiQ is built on serverless AWS services, so it scales from the smallest team to the largest corporation and you only pay for what you use. See [AWS Cost Planning](/docs/platform/costs).
 - **Structured metadata.** Organize documents with [attributes](/docs/features/attributes), [schemas](/docs/features/schemas), and [entities](/docs/features/entities).
 - **Search and OCR.** Find documents with [search](/docs/features/search) and extract text with [OCR](/docs/features/ocr).
 - **Automation.** Route and process documents with [workflows](/docs/features/workflows), [rulesets](/docs/features/rulesets), and [mappings](/docs/features/mappings).
 - **Add-on modules.** Extend the platform with [antivirus scanning](/docs/formkiq-modules/modules/anti-malware-antivirus), [document generation](/docs/formkiq-modules/modules/document-generation), [e-signature](/docs/formkiq-modules/modules/e-signature), [single sign-on](/docs/formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer), and more.
+- **Business Solutions.** Work with purpose-built experiences in FormKiQ Web, including [Contract Management](/docs/business-solutions/contract-management) for agreements, reviews, signing, and lifecycle activity. Availability depends on your licensed offering and configuration.
 
 Feature availability depends on your edition and installed modules. See [Core Concepts & Features](/docs/category/features) and [Modules & Commercial Offerings](/docs/category/formkiq-modules) for the full list.
 

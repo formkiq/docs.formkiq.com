@@ -14,6 +14,7 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const openApiSidebar = require("./docs/api-reference/sidebar.ts");
 const openApiSidebarItems = openApiSidebar.default || openApiSidebar;
+const changelogReleases = require("./src/data/changelog");
 
 const categoryIndex = (title, description, slug) => ({
   type: "generated-index",
@@ -62,7 +63,11 @@ const sidebars = {
       items: [
         "platform/platform-overview",
         "platform/document_storage",
-        "platform/document_console",
+        {
+          type: "doc",
+          id: "platform/document_console",
+          label: "FormKiQ Web (Document Console)",
+        },
         {
           type: "doc",
           id: "platform/costs",
@@ -105,6 +110,15 @@ const sidebars = {
         "features/search",
         "features/workflows",
       ],
+    },
+    {
+      type: "category",
+      label: "Business Solutions",
+      link: {
+        type: "doc",
+        id: "category-pages/business-solutions",
+      },
+      items: ["business-solutions/contract-management"],
     },
     {
       type: "category",
@@ -391,7 +405,7 @@ const sidebars = {
         },
         {
           type: "link",
-          label: "Document Console Issues",
+          label: "FormKiQ Web Issues",
           href: "/docs/platform/document_console#troubleshooting",
         },
       ],
@@ -403,25 +417,11 @@ const sidebars = {
         type: "doc",
         id: "category-pages/changelog",
       },
-      items: [
-        "changelog/v1.19.2",
-        "changelog/v1.19.1",
-        "changelog/v1.19.0",
-        "changelog/v1.18.2",
-        "changelog/v1.18.1",
-        "changelog/v1.18.0",
-        "changelog/v1.17.1",
-        "changelog/v1.17.0",
-        "changelog/v1.16.1",
-        "changelog/v1.16.0",
-        "changelog/v1.15.1",
-        "changelog/v1.15.0",
-        "changelog/v1.14.2",
-        "changelog/v1.14.1",
-        "changelog/v1.14.0",
-        "changelog/v1.13.1",
-        "changelog/v1.13.0",
-      ],
+      items: changelogReleases.map(release => ({
+        type: "doc",
+        id: release.docId,
+        label: release.title,
+      })),
     },
   ],
   openApiSidebar: [
