@@ -13,6 +13,10 @@ FormKiQ is an API-first document management platform that deploys into your own 
 
 Document management is at the core of most organizations, with numerous documents that need to be stored, tracked, managed and organized. FormKiQ is designed to be flexible, customizable and cost-effective, so you can add those capabilities without building document infrastructure from scratch.
 
+Common use cases include document workflows in regulated industries such as healthcare, financial services, and the public sector, where teams need control over data residency, access permissions, audit trails, and retention. See [Compliance, Data Residency, and Data Sovereignty](/docs/platform/compliance-data-residency-and-data-sovereignty) and the [Regulated Production Deployment Checklist](/docs/platform/regulated-production-deployment-checklist) for guidance on configuring and operating these deployments.
+
+FormKiQ also suits companies seeking more control over their document infrastructure. Deploying in your own AWS account lets you choose regions, manage access and encryption keys, and set backup and retention policies. For example, companies serving customers in the European Union can choose an EU AWS region for primary document storage and assess where backups, replicas, and external integrations process data as part of their residency and sovereignty planning.
+
 :::tip New to FormKiQ?
 Read [Choosing FormKiQ](/docs/category/choosing-formkiq) to see whether it fits your use case, or go straight to the [Quick Start (AWS)](/docs/getting-started/quick-start) to install it.
 :::

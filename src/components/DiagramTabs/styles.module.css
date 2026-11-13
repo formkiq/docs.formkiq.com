@@ -63,10 +63,3 @@
   cursor: zoom-in;
   display: block;
 }
-
-/* Single-source diagrams drawn for a light page keep a light backing in dark mode. */
-.lightBacking {
-  background: #fff;
-  border-radius: var(--ifm-global-radius);
-  padding: 0.5rem;
-}

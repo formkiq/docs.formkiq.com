@@ -1,0 +1,99 @@
+Generation tool: built-in image_gen.imagegen
+Light asset: static/img/formkiq-deployment-technical-light-v1.19.2.png
+Dark asset: static/img/formkiq-deployment-technical-dark-v1.19.2.png
+
+Source verification
+Core source: formkiq/formkiq-core commit 79dc45e69ca0964bfe95c3c0fdb8715ac62ca8c3 (build.gradle declares version 1.19.2).
+This is the core submodule revision pinned by formkiq/formkiq-platform commit c36dc4d. Sources were read locally with git show without changing either source checkout.
+Core templates under src/main/resources/cloudformation:
+- template.yaml: main application, API, storage, Console, Cognito, conditional Typesense, monitoring.
+- api/template.yaml and api/api-lambda.yaml: authentication endpoints and shared API Lambda.
+- storage/template.yaml: SNS topic; action, staging, update and dead-letter SQS queues; object/action Lambda handlers; content buckets and DynamoDB tables/streams.
+- api/template-ocr.yaml: Tesseract layer and OCR Lambda.
+- typesense/template.yaml: conditional indexing Lambda, DynamoDB event mapping, ECS Fargate and EFS resources.
+- ssm-template.yaml and monitoring.yaml: configuration references and monitoring.
+Platform sources at c36dc4d:
+- modules/module-opa/src/main/resources/cloudformation/api/module-extra-opa-api-lambda.yaml: OPA layer in API Lambda.
+- modules/platform/src/main/resources/cloudformation/event-message.yaml: EventBridge bus.
+- modules/module-ocr, module-intelligent-data-classification, module-fulltext, module-antivirus, module-document-generation, module-esignature; platform workflow/review modules.
+Existing docs source: src/components/ArchitectureDiagram/TextView.js and module pages.
+Scope: logical deployment summary, with resources grouped by role; not a one-card-per-stack manifest. Configured capabilities depend on edition and configuration. Managed AI APIs are integrations, not services created by CloudFormation.
+
+LIGHT REVISION PROMPT
+Use case: infographic-diagram
+Asset type: revised LIGHT FormKiQ deployment diagram for the docs, exact 1536x1024 landscape 3:2.
+Input image: EDIT TARGET, the current light deployment diagram. Keep its title, technical documentation style, white background, navy text, pastel service cards, thin borders, modest corner rounding, account boundary, top CloudFormation card, two independent solid arrows (gray and orange), and footer legend. Update its technical content to match FormKiQ v1.19.2 as specified below. It is acceptable to compact the top spacing and change group/card proportions to fit more details legibly. No vertical stretching.
+Primary request: replace the older service inventory with this accurate logical deployment overview. The six core cards and four capability cards described below are the complete card inventory. Do not retain the old standalone API Gateway, Lambda, S3, DynamoDB, CloudFront or Cognito cards: those services are now grouped by role.
+Title "FormKiQ Deployment", badge "v1.19.2".
+Account boundary header "YOUR AWS ACCOUNT"; header note "CloudWatch monitoring".
+Top dark navy card with white text "AWS CloudFormation" / "Templates + deployment parameters".
+Two groups below it, core on left and configured capabilities on right. Fit all cards within the boundary with consistent readable text. The left group can use two columns and three rows. The right group should use FOUR full-width stacked cards so longer service lists fit legibly.
+Gray arrow from CloudFormation to left group header, exact label "Provision resources".
+Separate orange arrow from CloudFormation to right group header, exact label "Enable capabilities". No other arrows, no runtime inter-service connections.
+LEFT GROUP heading "Core platform"; subtitle "Resources grouped by role".
+SIX CORE CARDS, each with a bold title and TWO secondary lines, exact wording:
+1. "API access"
+"API Gateway + shared Lambda"
+"JWT · IAM / SigV4 · API keys"
+(pale blue)
+2. "Storage"
+"S3 + DynamoDB"
+"Content · metadata · state"
+(pale green)
+3. "Events + queues"
+"SNS + SQS"
+"Actions · updates · dead-letter queue"
+(pale green)
+4. "Processing"
+"Lambda + Tesseract OCR"
+"Object handlers + document actions"
+(pale amber)
+5. "Console + identity"
+"CloudFront + S3 + Cognito"
+"Web UI + user authentication"
+(pale blue)
+6. "Operations"
+"CloudWatch · IAM · SSM"
+"Logs · permissions · configuration"
+(pale blue)
+RIGHT GROUP heading "Configured capabilities"; subtitle "Edition, modules and configuration".
+FOUR full-width vertically stacked cards, exact wording:
+1. "Search"
+"Typesense / OpenSearch"
+"Indexing Lambda + DynamoDB streams"
+(pale green)
+2. "Processing integrations"
+"Textract · Bedrock · Comprehend"
+"OCR · AI · language analysis"
+(pale green)
+3. "Events + policy"
+"EventBridge · OPA"
+"Event routing + API policy checks"
+(pale amber)
+4. "Document modules"
+"Antivirus · Generation · E-signature"
+"Workflows · Reviews"
+(pale green)
+Footer legend gray line "Core resources"; orange line "Configured capabilities".
+Small footer caption "Deployment overview · runtime flows shown in the architecture diagram".
+Technical constraints: baseline processing includes Tesseract OCR, not just paid Textract. Typesense and OpenSearch are configuration-dependent alternatives; do not mark both as baseline. SNS/SQS are core. OPA is policy checks in the API when enabled, not a network entry point. Capability blocks describe configured resources and integrations; do not imply CloudFormation creates managed AI services. A logical deployment summary, not an exhaustive nested-stack manifest. Avoid new claims, invented services, icons, marketing, dashed lines, gradients, shadows, glow or geographic content. Keep precise spellings and unclipped text; do not allow connector/label overlaps.
+
+DARK ADAPTATION PROMPT
+Use case: style-transfer
+Asset type: DARK documentation deployment diagram matching the supplied LIGHT edit target.
+Input images: Image 1 is the exact EDIT TARGET: revised FormKiQ v1.19.2 deployment diagram. Image 2 is a COLOR STYLE REFERENCE only: the current dark architecture diagram.
+Change ONLY the theme colors of image 1, preserving exact 1536x1024 resolution, landscape 3:2 aspect ratio, layout, all card positions and sizes, text, line breaks, account boundary, arrows, arrow labels, legend and footer. No vertical stretching, no recomposition.
+Matte charcoal #1b1f27 canvas, slightly lighter account region, off-white text with pale gray secondary text. Group headers and API access / Console + identity / Operations cards become muted dark slate blue. Storage / Events + queues / Search / Processing integrations / Document modules become dark desaturated green. Processing and Events + policy cards become dark muted amber. CloudFormation remains deep navy with white text. Thin light-gray boundaries and card outlines. Core provisioning route and legend light gray/white; configured route and legend retain solid orange.
+Keep ALL exact words from target, especially the updated v1.19.2 content:
+API access — API Gateway + shared Lambda — JWT · IAM / SigV4 · API keys
+Processing — Lambda + Tesseract OCR — Object handlers + document actions
+Storage — S3 + DynamoDB — Content · metadata · state
+Events + queues — SNS + SQS — Actions · updates · dead-letter queue
+Console + identity — CloudFront + S3 + Cognito — Web UI + user authentication
+Operations — CloudWatch · IAM · SSM — Logs · permissions · configuration
+Search — Typesense / OpenSearch — Indexing Lambda + DynamoDB streams
+Processing integrations — Textract · Bedrock · Comprehend — OCR · AI · language analysis
+Events + policy — EventBridge · OPA — Event routing + API policy checks
+Document modules — Antivirus · Generation · E-signature — Workflows · Reviews
+Preserve title FormKiQ Deployment, badge v1.19.2, AWS account label, CloudWatch monitoring, AWS CloudFormation / Templates + deployment parameters, arrow labels Provision resources and Enable capabilities, group titles Core platform / Resources grouped by role and Configured capabilities / Edition, modules and configuration, footer Core resources / Configured capabilities and Deployment overview · runtime flows shown in the architecture diagram.
+Exactly two independent arrows to group headers, no inter-service runtime arrows. No new text, labels, services, icons, shadows, gradients, neon, marketing, geographic content or dashed lines. Match the restrained dark technical style of image 2 without borrowing its architecture layout. Opaque background.
