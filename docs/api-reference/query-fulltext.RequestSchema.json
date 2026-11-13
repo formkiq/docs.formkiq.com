@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"description":"OpenSearch search API request (https://opensearch.org/docs/latest/opensearch/rest-api/search/)","type":"object","example":{"query":{"match":{"title":"Wind"}}},"title":"QueryFulltextRequest"}}}}}

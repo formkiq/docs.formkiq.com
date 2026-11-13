@@ -1,0 +1,1 @@
+{"parameters":[{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"}},{"name":"webhookId","in":"path","required":true,"description":"Web Hook Param","schema":{"type":"string"}}]}

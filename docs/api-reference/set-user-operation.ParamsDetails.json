@@ -1,0 +1,1 @@
+{"parameters":[{"name":"username","in":"path","description":"Username","required":true,"schema":{"type":"string"}},{"name":"userOperation","in":"path","description":"Username Operation","required":true,"schema":{"type":"string","enum":["DISABLE","ENABLE","RESET_PASSWORD"]}}]}

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"shareKey","in":"path","description":"Share Identifier","required":true,"schema":{"type":"string"}}]}

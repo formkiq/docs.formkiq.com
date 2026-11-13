@@ -11,18 +11,14 @@ info_path: docs/api-reference/formkiq-api-jwt
 custom_edit_url: null
 ---
 
-import ApiTabs from "@theme/ApiTabs";
-import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
-import MimeTabs from "@theme/MimeTabs";
-import ParamsItem from "@theme/ParamsItem";
-import ResponseSamples from "@theme/ResponseSamples";
-import SchemaItem from "@theme/SchemaItem";
-import SchemaTabs from "@theme/SchemaTabs";
-import Heading from "@theme/Heading";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -47,112 +43,27 @@ Get a published document's contents. Certain content types, text/*, application/
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<details
-  style={{"marginBottom":"1rem"}}
-  className={"openapi-markdown__details"}
-  data-collapsed={false}
-  open={true}
+<ParamsDetails
+  {...require("./get-published-document-content.ParamsDetails.json")}
 >
-  <summary
-    style={{}}
-  >
-    <h3
-      className={"openapi-markdown__details-summary-header-params"}
-    >
-      Path Parameters
-    </h3>
-  </summary><div>
-    <ul>
-      <ParamsItem
-        className={"paramsItem"}
-        param={{"name":"documentId","in":"path","description":"Document Identifier","required":true,"schema":{"type":"string"},"enumDescriptions":[]}}
-      >
-        
-      </ParamsItem>
-    </ul>
-  </div>
-</details><details
-  style={{"marginBottom":"1rem"}}
-  className={"openapi-markdown__details"}
-  data-collapsed={false}
-  open={true}
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./get-published-document-content.RequestSchema.json")}
 >
-  <summary
-    style={{}}
-  >
-    <h3
-      className={"openapi-markdown__details-summary-header-params"}
-    >
-      Query Parameters
-    </h3>
-  </summary><div>
-    <ul>
-      <ParamsItem
-        className={"paramsItem"}
-        param={{"name":"siteId","in":"query","description":"Site Identifier","required":false,"schema":{"type":"string"},"enumDescriptions":[]}}
-      >
-        
-      </ParamsItem>
-    </ul>
-  </div>
-</details><div>
-  <div>
-    <ApiTabs
-      label={undefined}
-      id={undefined}
-    >
-      <TabItem
-        label={"307"}
-        value={"307"}
-      >
-        <div>
-          
-          
-          Temporary Redirect
-          
-          
-        </div><details
-          style={{"textAlign":"left","marginBottom":"1rem"}}
-          className={"openapi-markdown__details"}
-          data-collapsed={true}
-          open={false}
-        >
-          <summary
-            style={{}}
-          >
-            <strong>
-              Response Headers
-            </strong>
-          </summary><ul
-            style={{"marginLeft":"1rem"}}
-          >
-            <li
-              className={"schemaItem"}
-            >
-              <summary
-                style={{}}
-              >
-                <strong>
-                  Location
-                </strong><span
-                  style={{"opacity":"0.6"}}
-                >
-                   string
-                </span>
-              </summary><div>
-                
-              </div>
-            </li>
-          </ul>
-        </details><div>
-          
-        </div>
-      </TabItem>
-    </ApiTabs>
-  </div>
-</div>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./get-published-document-content.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
       

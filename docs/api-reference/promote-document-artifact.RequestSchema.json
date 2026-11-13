@@ -1,0 +1,1 @@
+{"title":"Body","body":{"content":{"application/json":{"schema":{"type":"object","properties":{"artifactId":{"type":"string","description":"Artifact Document Identifier. Omit to clear the promoted artifact."}},"title":"PromoteDocumentArtifactRequest"}}},"required":true}}

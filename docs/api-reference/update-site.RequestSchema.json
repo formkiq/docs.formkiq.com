@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"site":{"type":"object","properties":{"title":{"description":"Title of Site","type":"string"},"status":{"type":"string","description":"Site status","enum":["ACTIVE","INACTIVE"],"title":"SiteStatus"}},"title":"UpdateSite"}},"title":"UpdateSiteRequest"}}}}}

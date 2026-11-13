@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["modelId"],"properties":{"modelId":{"type":"string","description":"Bedrock model identifier","example":"amazon.nova-2-lite-v1:0"}},"title":"AddSystemInferenceModelAgreementRequest"}}}}}

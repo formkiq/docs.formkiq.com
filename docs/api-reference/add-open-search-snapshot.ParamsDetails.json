@@ -1,0 +1,1 @@
+{"parameters":[{"name":"siteId","in":"path","description":"Site Identifier","required":true,"schema":{"type":"string"}},{"name":"snapshotName","in":"path","description":"Snapshot Name","required":true,"schema":{"type":"string"}}]}

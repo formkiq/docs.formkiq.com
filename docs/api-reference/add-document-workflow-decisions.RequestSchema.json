@@ -1,0 +1,1 @@
+{"title":"Body","body":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"comments":{"type":"string","description":"Workflow decision comments"},"decision":{"type":"string","description":"Workflow Decisions","enum":["APPROVE","REJECT"],"title":"WorkflowDecision"}},"title":"AddDocumentWorkflowDecisionsRequest"}}}}}

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"indexName","in":"path","description":"IndexName to path","required":true,"schema":{"type":"string"}}]}
