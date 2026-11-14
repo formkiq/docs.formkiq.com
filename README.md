@@ -80,8 +80,8 @@ external consumers can be verified. SVG and PNG social card sources are in
 
 ## Deployment
 
-The main-branch workflow validates with `make`, then runs `make publish` using the configured `S3_BUCKET` and
-`DISTRIBUTION_ID` secrets. It validates the site, uploads it under the `docs/` S3
+The main-branch workflow validates with `make`, then runs `make publish` using the
+configured `S3_BUCKET` and `DISTRIBUTION_ID` secrets. It uploads the site under the `docs/` S3
 prefix, preserves extensionless URL aliases, prunes stale owned objects, and
 invalidates CloudFront. Marketplace artifacts and prior fingerprinted assets are excluded from deletion.
 

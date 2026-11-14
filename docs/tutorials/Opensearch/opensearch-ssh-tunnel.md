@@ -22,7 +22,7 @@ Each of these options offers varying levels of security, flexibility, and ease o
 
 ## Before You Begin
 
-* Access to a FormKiQ deployment with the Enhanced Search module installation with OpenSearch, i.e., the Enhanced Fulltext Search Module
+- Access to a FormKiQ deployment with the Enhanced Search module and an OpenSearch domain.
 - Permission to create an EC2 key pair and CloudFormation stack.
 - Network access to SSH into the bastion host.
 

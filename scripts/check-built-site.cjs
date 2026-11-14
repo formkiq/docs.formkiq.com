@@ -12,16 +12,18 @@ function walk(directory) {
 
 const sitemap = fs.readFileSync('build/sitemap.xml', 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert.equal(new Set(urls).size, urls.length, 'Duplicate sitemap URLs');
+const urlSet = new Set(urls);
+assert.equal(urlSet.size, urls.length, 'Duplicate sitemap URLs');
+assert.ok(urls.every(url => new URL(url).origin === 'https://docs.formkiq.com'), 'Unexpected sitemap origin');
 assert.ok(!urls.some(url => /\/blog(?:\/|$)/.test(url)), 'Unused blog in sitemap');
-assert.ok(!urls.includes('https://docs.formkiq.com/'), 'Non-canonical homepage in sitemap');
+assert.ok(!urlSet.has('https://docs.formkiq.com/'), 'Non-canonical homepage in sitemap');
 assert.ok(!fs.existsSync('build/blog/index.html'), 'Unused blog still built');
 
 for (const [from, to] of Object.entries(redirects)) {
-  assert.ok(!urls.includes(`https://docs.formkiq.com${from}`), `Redirect in sitemap: ${from}`);
+  assert.ok(!urlSet.has(`https://docs.formkiq.com${from}`), `Redirect in sitemap: ${from}`);
   const html = fs.readFileSync(path.join('build', decodeURI(from), 'index.html'), 'utf8');
   assert.match(html, /name="robots" content="noindex,follow"/);
-  assert.ok(html.includes(`rel="canonical" href="https://docs.formkiq.com${to}"`));
+  assert.equal(html.match(/<link rel="canonical" href="([^"]+)"/)?.[1], `https://docs.formkiq.com${to}`);
   assert.match(html, /http-equiv="refresh"/);
   assert.ok(fs.existsSync(path.join('build', to, 'index.html')), `Missing redirect target ${to}`);
 }
