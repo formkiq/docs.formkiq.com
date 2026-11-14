@@ -1,5 +1,6 @@
 ---
 sidebar_position: 5
+description: "Add FormKiQ document actions to trigger processing and inspect their status, permissions, and failure behavior."
 ---
 
 # Add Document Actions

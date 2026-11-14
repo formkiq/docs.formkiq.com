@@ -1,0 +1,30 @@
+name: External links
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress --include-verbatim --exclude-all-private
+            --scheme https --max-retries 2 --timeout 30
+            --exclude '^https://[^/]*console\.aws\.amazon\.com/'
+            --exclude '^https://console\.cloud\.google\.com/'
+            --exclude '^https://[^/]*(?:example\.com|yourdomain\.com|your-|localhost)'
+            --exclude 'https://[^\s]*[<>{}]'
+            --exclude '^https://your_'
+            --exclude '^https://hooks\.zapier\.com/'
+            --exclude-path docs/api-reference
+            'docs/**/*.md' 'docs/**/*.mdx' README.md
+          token: ${{ github.token }}
+          fail: true

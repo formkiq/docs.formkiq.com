@@ -1,5 +1,6 @@
 ---
 sidebar_position: 7
+description: "Manage FormKiQ users, groups, and site access and verify the permissions granted to signed-in users."
 ---
 
 # Manage Users and Groups
@@ -131,7 +132,7 @@ Confirm that:
 - The user appears in `GET /users`.
 - The group appears in `GET /groups`.
 - The user appears in `GET /groups/{groupName}/users`.
-- The group has the expected site permissions in the FormKiQ Console or API response.
+- The group has the expected site permissions in FormKiQ Web or API response.
 
 ## Troubleshooting
 

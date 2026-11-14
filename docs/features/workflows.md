@@ -1,5 +1,6 @@
 ---
 sidebar_position: 30
+description: "Coordinate FormKiQ document processing with workflow steps, decisions, actions, and configured integrations."
 ---
 
 # Workflows

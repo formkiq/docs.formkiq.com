@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+slug: /tutorials/identity-management/microsoft-entra-id
+description: "This tutorial shows how to integrate Microsoft Entra ID as the identity management provider for your FormKiQ installation."
 ---
 
 # Microsoft Entra ID
@@ -27,7 +29,7 @@ You will create a Microsoft Entra Enterprise application, configure SAML single 
 4. Add the SAML identity provider in Amazon Cognito.
 5. Configure Cognito managed login.
 6. Optionally map Entra group IDs to FormKiQ group names.
-7. Verify login from the FormKiQ console.
+7. Verify login from FormKiQ Web.
 
 ## Step 1: Collect FormKiQ Cognito Values
 
@@ -75,14 +77,14 @@ Once the single sign-on is created, you will need to fill in the **Identifier (E
 
 The format of the Identifier (Entity ID) is:
 
-```
+```text
 urn:amazon:cognito:sp:<CognitoUserPoolId>
 
 eg: urn:amazon:cognito:sp:us-east-2_MEhz4EzAZ
 ```
 
 The Reply URL is: **&lt;Your Cognito Domain&gt;**/saml2/idpresponse, for example:
-```
+```text
 https://formkiq-enterprise-dev-1111111111111.auth.us-east-2.amazoncognito.com/saml2/idpresponse
 ```
 
@@ -125,7 +127,7 @@ Open the [AWS Console](https://aws.amazon.com/) and Launch the CloudShell servic
 
 Once the CloudShell command prompt opens, use the AWS CLI to add a custom attribute. This attribute will contain the group claims attribute.
 
-```
+```bash
 aws cognito-idp add-custom-attributes \
 --user-pool-id <CognitoUserPoolId> \
 --custom-attributes Name=groups,AttributeDataType="String"
@@ -133,7 +135,7 @@ aws cognito-idp add-custom-attributes \
 
 Once again, using the AWS CLI, create the SAML identify provider:
 
-```
+```bash
 aws cognito-idp create-identity-provider \
 --user-pool-id <CognitoUserPoolId> \
 --provider-name=azureidp \
@@ -146,7 +148,7 @@ aws cognito-idp create-identity-provider \
 
 You now need to configure Amazon Managed login. Amazon Cognito Managed login provides a URL connection between Amazon Cognito and Microsoft Entra ID.
 
-To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
+To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/identity-management/cognito-saml-provider) tutorial.
 
 
 ## Step 4: Optional: Map Manual Group Claims
@@ -169,7 +171,7 @@ Click on the Lambda function and select the **Configuration** tab.
 
 To create the role mapping, add an environment variable named **ROLE_MAPPING**. The value is a JSON map, where the key is the Group Id and the value is the Group Name.
 
-```
+```json
 {  "aeb95a45-e83f-47a1-b319-717733831892":"student",
    "9bab91c3-4758-41e9-988a-2645c898ffed":"formkiq_default"
 }
@@ -184,7 +186,7 @@ To create the role mapping, add an environment variable named **ROLE_MAPPING**. 
 
 ## Verify the Result
 
-Open the FormKiQ console and use the Single Sign-On login option. Confirm the user can authenticate through Microsoft Entra ID and receives the expected FormKiQ access based on group membership.
+Open FormKiQ Web and use the Single Sign-On login option. Confirm the user can authenticate through Microsoft Entra ID and receives the expected FormKiQ access based on group membership.
 
 ## Clean Up
 
@@ -200,5 +202,5 @@ Remove test users, test group assignments, or temporary role mappings that are n
 
 ## Next Steps
 
-- [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider)
+- [Amazon Managed Login](/docs/tutorials/identity-management/cognito-saml-provider)
 - [Security](/docs/platform/security)

@@ -1,6 +1,7 @@
 ---
 sidebar_position: 40
 slug: /tutorials/solution-patterns/multitenant
+description: "Set up FormKiQ sites, user groups, and document access for a multi-tenant application."
 ---
 
 # Multi-Tenant Users
@@ -93,7 +94,7 @@ The user is now a member of `site1`.
 
 ![Add User to Group](../img/user-group-site1.png)
 
-Lastly, ask your newly-created user to check their inbox for the `Welcome to FormKiQ` email. They can click the link within the email to finalize their account; this link will open the FormKiQ Console and will allow the newly-created user to set a password for their account.
+Lastly, ask your newly-created user to check their inbox for the `Welcome to FormKiQ` email. They can click the link within the email to finalize their account; this link will open FormKiQ Web and will allow the newly-created user to set a password for their account.
 
 ````
 Welcome to FormKiQ
@@ -103,7 +104,7 @@ Your account has been created. *Click this link to finalize your account*.
 
 ## Step 3: Add a New Document as the Site User
 
-Once logged into the FormKiQ Console, the user can click `Add Documents` from the menu on the left side of the screen. They can drag and drop a file into the `Upload New` box. Once the document has been uploaded, it will be displayed in the *Documents Added* table.
+Once logged into FormKiQ Web, the user can click `Add Documents` from the menu on the left side of the screen. They can drag and drop a file into the `Upload New` box. Once the document has been uploaded, it will be displayed in the *Documents Added* table.
 
 ![Add Document to Site1](../img/add-document-site1.png)
 

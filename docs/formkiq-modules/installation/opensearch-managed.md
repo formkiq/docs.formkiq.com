@@ -1,6 +1,7 @@
 ---
 sidebar_position: 6
 title: OpenSearch Managed
+description: "Deploy an Amazon OpenSearch managed domain for FormKiQ using CloudFormation and connect it to the platform."
 ---
 
 # Amazon OpenSearch Managed

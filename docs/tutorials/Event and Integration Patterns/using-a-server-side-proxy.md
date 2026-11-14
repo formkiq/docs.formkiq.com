@@ -1,6 +1,7 @@
 ---
 sidebar_position: 13
 slug: /tutorials/event-and-integration-patterns/using-a-server-side-proxy
+description: "Build a Node.js proxy for FormKiQ document uploads and review requests, with server-side validation and API access."
 ---
 
 # Using a Server-Side Proxy
@@ -95,7 +96,7 @@ You should receive the following response:
 
 ## Step 2: Create a FormKiQ API key
 
-The easiest way for your server to authenticate with FormKiQ is via an API key. You can add a key with optional Read, Write, and Delete permissions using the FormKiQ Console, under the Integrations section. (It's also possible to use the API directly, as long as you are authenticated.)
+The easiest way for your server to authenticate with FormKiQ is via an API key. You can add a key with optional Read, Write, and Delete permissions using FormKiQ Web, under the Integrations section. (It's also possible to use the API directly, as long as you are authenticated.)
 
 ![Create API Key](../img/create-api-key.png)
 
@@ -303,13 +304,13 @@ Confirm that the proxy flow works end to end:
 * `GET /` returns the hello-world response from the Express application.
 * `POST /upload` returns a `documentId`.
 * `GET /documents` returns the uploaded document with the `approvalRequired` tag.
-* The uploaded document appears in the FormKiQ Console with the expected review metadata.
+* The uploaded document appears in FormKiQ Web with the expected review metadata.
 
 ## Clean Up
 
 When you are done testing, remove any uploaded test documents from FormKiQ and stop the local Express application with `Ctrl+C`.
 
-If you created an API key only for this tutorial, delete or disable it from the FormKiQ Console so it cannot be reused.
+If you created an API key only for this tutorial, delete or disable it from FormKiQ Web so it cannot be reused.
 
 ## Troubleshooting
 

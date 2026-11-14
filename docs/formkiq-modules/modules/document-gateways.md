@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Connect external document sources to FormKiQ using configured document gateways and automated ingestion."
 ---
 
 # Document Gateways

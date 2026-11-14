@@ -1,6 +1,7 @@
 ---
 sidebar_position: 7
 title: OpenSearch (Legacy)
+description: "Install and configure Amazon OpenSearch Service for FormKiQ enhanced document search."
 ---
 
 # OpenSearch (Amazon OpenSearch Service)

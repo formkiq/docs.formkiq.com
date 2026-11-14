@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Obtain and verify a JWT access token for authenticated FormKiQ API requests using your configured identity service."
 ---
 
 # Get a JWT Authentication Token

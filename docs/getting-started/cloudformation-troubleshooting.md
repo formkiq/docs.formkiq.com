@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 title: CloudFormation Stack Failed
+description: "Diagnose failed FormKiQ CloudFormation stacks using stack events, permissions, quotas, and deployment prerequisites."
 ---
 
 # CloudFormation Stack Failed

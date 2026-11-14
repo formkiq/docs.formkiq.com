@@ -1,5 +1,6 @@
 ---
 sidebar_position: 9
+description: "Configure FormKiQ folder access and document sharing, then verify permissions with authorized and restricted users."
 ---
 
 # Folder Permissions and Sharing

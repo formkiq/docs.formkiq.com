@@ -2,6 +2,8 @@
 sidebar_position: 1
 toc_min_heading_level: 2
 toc_max_heading_level: 2
+slug: /tutorials/document-management/documents-api
+description: "Use the FormKiQ Documents API to upload content, retrieve metadata, manage versions, and soft delete, restore, or purge documents."
 ---
 # Documents API
 
@@ -150,7 +152,7 @@ curl -X POST "$BASE_URL/documents/upload?siteId=$SITE_ID" \
 ```
 
 #### Example response (201 Created)
-```
+```json
 {
   "documentId": "f0bdf37f-5b2e-42fa-94d6-480a5536d188",
   "uploadUrl": "https://s3.amazonaws.com/formkiq-uploads/...signature...",
@@ -493,7 +495,7 @@ After completing the tutorial, confirm that:
 
 - Created documents return a `documentId`.
 - `GET /documents/{documentId}` returns the expected path, content type, and dates.
-- Large uploads can be downloaded or opened from the FormKiQ console.
+- Large uploads can be downloaded or opened from FormKiQ Web.
 - Soft-deleted documents appear when listing with `deleted=true`.
 - Restored documents appear again in normal document listings.
 
@@ -512,4 +514,4 @@ Delete or purge the test documents created during this tutorial if they are no l
 
 ## Next Steps
 
-- Explore [Document Tags, Attributes](/docs/tutorials/Documents/document-attributes-api)
+- Explore [Document Tags, Attributes](/docs/tutorials/document-management/document-attributes-api)

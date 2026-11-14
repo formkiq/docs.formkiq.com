@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 title: Attributes
+description: "Define typed FormKiQ document attributes for structured metadata, validation, search, and document processing."
 ---
 
 # Attributes
@@ -63,7 +64,7 @@ FormKiQ supports standard value types and special-purpose attribute types.
 | `BOOLEAN` | True/false values. | `isApproved = true` |
 | `JSON` | One structured object with nested properties and typed values. | `invoiceDetails = {"total": 1250.50, "approved": true}` |
 
-For `JSON`, send an object in `jsonValue`, without serializing it into a string or combining it with other value fields. Empty objects are accepted; top-level arrays, scalars, and null are rejected. JSON attributes can belong to schemas but cannot be composite-key members. See [Store and Search JSON Attributes](/docs/tutorials/documents/json-attributes) for object storage, typed nested-field searches, and replacement examples.
+For `JSON`, send an object in `jsonValue`, without serializing it into a string or combining it with other value fields. Empty objects are accepted; top-level arrays, scalars, and null are rejected. JSON attributes can belong to schemas but cannot be composite-key members. See [Store and Search JSON Attributes](/docs/tutorials/document-management/json-attributes) for object storage, typed nested-field searches, and replacement examples.
 
 ### Special Types
 
@@ -327,7 +328,7 @@ Use the generated API reference for exact request and response schemas.
 ## Where to Go Next
 
 - [Documents](/docs/features/documents)
-- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+- [Document Attributes API Tutorial](/docs/tutorials/document-management/document-attributes-api)
 - [Schemas](/docs/features/schemas)
 - [Search](/docs/features/search)
 - [Rulesets](/docs/features/rulesets)

@@ -2,6 +2,7 @@
 sidebar_position: 8
 toc_min_heading_level: 2
 toc_max_heading_level: 2
+description: "Plan and configure FormKiQ backups, point-in-time recovery, exports, and restoration for document content and metadata."
 ---
 
 # Backup and Recovery

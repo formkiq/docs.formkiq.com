@@ -1,5 +1,6 @@
 ---
 sidebar_position: 8
+description: "Understand the FormKiQ DynamoDB data model for documents, metadata, entities, workflows, reviews, and activity records."
 ---
 
 # DynamoDB Schema

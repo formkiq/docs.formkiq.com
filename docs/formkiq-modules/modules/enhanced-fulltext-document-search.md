@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Configure enhanced FormKiQ full-text search with OpenSearch indexing, document content, and structured metadata."
 ---
 
 # Enhanced Full-text Document Search
@@ -64,24 +65,24 @@ Note the OpenSearch Stack Name for FormKiQ configuration
 ### Storage Planning
 
 Calculate storage requirements using the formula:
-```
+```text
 <data size> * (1 + number of replicas) * 1.45 = minimum storage requirement
 ```
 
 Example for 100GB with 1 replica:
-```
+```text
 100 * (1 + 1) * 1.45 = 290GB
 ```
 
 ### Shard Configuration
 
 Calculate optimal shard count using:
-```
+```text
 <storage requirements> * 1.1 / <shard size>
 ```
 
 Example for 100GB with 25GB shard size:
-```
+```text
 100 * 1.1 / 25 = 5 shards
 ```
 

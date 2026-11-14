@@ -1,6 +1,7 @@
 ---
 sidebar_position: 7
 title: Locales
+description: "Manage localized FormKiQ interface text and terminology using locale resources and workspace-specific translations."
 ---
 
 # Locales
@@ -198,5 +199,5 @@ Use the generated API reference for exact request and response schemas.
 - [Attributes](/docs/features/attributes)
 - [Schemas](/docs/features/schemas)
 - [Documents](/docs/features/documents)
-- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+- [Document Attributes API Tutorial](/docs/tutorials/document-management/document-attributes-api)
 - [DynamoDB Schema](/docs/platform/database_schema)

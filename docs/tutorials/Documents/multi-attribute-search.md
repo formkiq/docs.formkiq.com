@@ -1,8 +1,9 @@
 ---
 sidebar_position: 7
-slug: /tutorials/documents/multi-attribute-search
+slug: /tutorials/document-management/multi-attribute-search
 toc_min_heading_level: 2
 toc_max_heading_level: 2
+description: "You will find approved Finance invoices using three document attributes: department, documentType, and status."
 ---
 
 # Search Documents with Multiple Attributes
@@ -270,8 +271,8 @@ Delete the four sample documents when finished. If you used an existing test sit
 
 ## Next Steps
 
-- [Document Attributes API](/docs/tutorials/Documents/document-attributes-api)
-- [Site / Classification Schemas](/docs/tutorials/Documents/site-classification-schemas)
+- [Document Attributes API](/docs/tutorials/document-management/document-attributes-api)
+- [Site / Classification Schemas](/docs/tutorials/document-management/site-classification-schemas)
 - [Search](/docs/features/search)
 - [Schemas](/docs/features/schemas)
 - [POST /search API Reference](/docs/api-reference/document-search)

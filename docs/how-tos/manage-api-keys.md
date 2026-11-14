@@ -1,5 +1,6 @@
 ---
 sidebar_position: 8
+description: "Create and manage FormKiQ API keys with site access, operation permissions, and controlled application access."
 ---
 
 # Manage API Keys

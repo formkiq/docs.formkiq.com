@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Add enhanced OCR and classification to FormKiQ using Amazon Textract, Bedrock, and Comprehend integrations."
 ---
 
 # Enhanced Document OCR and Classification

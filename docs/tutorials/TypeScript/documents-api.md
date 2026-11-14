@@ -270,11 +270,11 @@ The full TypeScript example is available in the [FormKiQ TypeScript SDK reposito
 
 ## Verify the Result
 
-Confirm that the script prints two document IDs and metadata for both documents. In the FormKiQ console, the uploaded document should appear at `examples/example.ts` in the selected site.
+Confirm that the script prints two document IDs and metadata for both documents. In FormKiQ Web, the uploaded document should appear at `examples/example.ts` in the selected site.
 
 ## Clean Up
 
-Delete the test documents from the FormKiQ console or API if you do not want to keep them in your environment.
+Delete the test documents from FormKiQ Web or API if you do not want to keep them in your environment.
 
 ## Troubleshooting
 

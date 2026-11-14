@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Configure DocuSign integration for FormKiQ, prepare envelopes, collect signatures, and track signing status."
 ---
 
 # E-Signature

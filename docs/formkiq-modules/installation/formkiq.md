@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Prepare a licensed FormKiQ deployment using customer-provided CloudFormation templates, edition settings, and onboarding requirements."
 ---
 
 # Commercial Deployment Notes

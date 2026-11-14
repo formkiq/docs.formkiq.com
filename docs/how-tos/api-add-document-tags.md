@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+description: "Add and update document tags with the FormKiQ API, verify the results, and apply the correct site and access permissions."
 ---
 
 # Add Document Tags

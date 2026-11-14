@@ -1,0 +1,19 @@
+# FormKiQ Documentation
+
+> FormKiQ is an API-first document management platform deployed in your AWS account. Feature availability depends on the edition, installed modules, and configuration.
+
+## Getting started
+- [Overview](https://docs.formkiq.com/docs/overview): Platform capabilities and common use cases.
+- [AWS Quick Start](https://docs.formkiq.com/docs/getting-started/quick-start): Deploy with CloudFormation.
+- [Local Quick Start](https://docs.formkiq.com/docs/getting-started/quick-start-local): Run a development instance with Docker Compose.
+- [API walkthrough](https://docs.formkiq.com/docs/getting-started/api-walkthrough): Authenticate and perform document operations.
+
+## Development and operations
+- [API reference](https://docs.formkiq.com/docs/category/formkiq-api): Document, metadata, search, and administration APIs.
+- [Platform architecture](https://docs.formkiq.com/docs/category/platform): Storage, processing, hosting, and operational guidance.
+- [Security and governance](https://docs.formkiq.com/docs/category/security-governance): Access controls, residency, and regulated deployment planning.
+- [SDKs and integration](https://docs.formkiq.com/docs/category/sdk-api-integration): SDK and integration guidance.
+- [Business Solutions](https://docs.formkiq.com/docs/category/business-solutions): Web experiences including Contract Management.
+- [Changelog](https://docs.formkiq.com/docs/category/changelog): Independent web and backend release notes and compatibility guidance.
+
+Treat the API reference as release-specific. Verify feature availability and compatibility against the target deployment rather than assuming every optional capability is installed.

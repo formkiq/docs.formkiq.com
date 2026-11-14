@@ -1,8 +1,9 @@
 ---
 sidebar_position: 8
-slug: /tutorials/documents/json-attributes
+slug: /tutorials/document-management/json-attributes
 toc_min_heading_level: 2
 toc_max_heading_level: 2
+description: "You will store invoice details as a JSON attribute, retrieve the object, and search its nested fields with POST /search."
 ---
 
 # Store and Search JSON Attributes
@@ -346,7 +347,7 @@ To include JSON metadata in results, add this top-level field alongside `query` 
 
 This is a request fragment, not a complete search body. Results then include the JSON value under `attributes.invoiceDetails.jsonValue`.
 
-For the full composite-key walkthrough, see [Search Documents with Multiple Attributes](/docs/tutorials/documents/multi-attribute-search).
+For the full composite-key walkthrough, see [Search Documents with Multiple Attributes](/docs/tutorials/document-management/multi-attribute-search).
 
 ## Step 6: Handle Pagination and Counts
 
@@ -427,8 +428,8 @@ Delete the four sample documents when finished. If you changed an existing test 
 
 ## Next Steps
 
-- [Document Attributes API](/docs/tutorials/Documents/document-attributes-api)
-- [Search Documents with Multiple Attributes](/docs/tutorials/documents/multi-attribute-search)
+- [Document Attributes API](/docs/tutorials/document-management/document-attributes-api)
+- [Search Documents with Multiple Attributes](/docs/tutorials/document-management/multi-attribute-search)
 - [Attributes](/docs/features/attributes)
 - [Search](/docs/features/search)
 - [POST /search API Reference](/docs/api-reference/document-search)

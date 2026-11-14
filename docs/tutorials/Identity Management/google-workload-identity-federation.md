@@ -1,5 +1,7 @@
 ---
 sidebar_position: 15
+slug: /tutorials/identity-management/google-workload-identity-federation
+description: "This tutorial shows how to set up Google Workload Identity Federation and connect it to your FormKiQ installation so FormKiQ can access documents in Google Drive."
 ---
 
 # Google Workload Identity Federation
@@ -205,5 +207,5 @@ Remove test projects, test service accounts, or temporary identity pools that ar
 
 ## Next Steps
 
-- [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace)
+- [Google Workspace](/docs/tutorials/identity-management/google-workspace)
 - [Security](/docs/platform/security)

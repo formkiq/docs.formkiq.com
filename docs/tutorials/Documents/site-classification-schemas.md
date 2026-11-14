@@ -1,5 +1,7 @@
 ---
 sidebar_position: 10
+slug: /tutorials/document-management/site-classification-schemas
+description: "This tutorial demonstrates how to organize documents using Site Schemas and Classification Schemas."
 ---
 
 # Site / Classification Schemas
@@ -36,7 +38,7 @@ The code for the tutorial can be found on the [FormKiQ Github Tutorials](https:/
 FormKiQ has a client library available in [java](https://github.com/formkiq/formkiq-client-sdk-java/) and [python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
 :::note
-This tutorial will be using the Java API and required the client 1.15.0 or greater, but will reference the REST API endpoints used.
+The linked sample project was written for Java client 1.15.0. Method signatures can differ in newer clients; use the [Java SDK guide](/docs/tutorials/using-java-client-sdk) for current installation and authentication examples, and adapt the sample calls to your deployed API version.
 :::
 
 ### Setup API
@@ -47,14 +49,14 @@ The Java API requires the creation of a `ApiClient` which requires a JWT `Access
 
 * The HTTP_API_URL can be found from the "Outputs" tab of the CloudFormation console 
 
-```
+```java
 private static final String ACCESS_TOKEN = "<ACCESS_TOKEN>";
 private static final String HTTP_API_URL = "<CloudFormation Outputs HttpApiUrl>";
 ```
 
 The API is broken into sections. In this case, we will need to use the DocumentWorkflowsApi, RulesetApi, and DocumentsApi. These APIs can be instantiated as follows:
 
-```
+```java
 /**
  * Setup API classes.
  */
@@ -74,7 +76,7 @@ public void setUpApi() {
 
 Create the attributes that will be used in the Site / Classification Schema.
 
-```
+```java
 // Add Security Level Attribute
 AddAttributeRequest req0 = new AddAttributeRequest().attribute(new AddAttribute().key("securityLevel").dataType(AttributeDataType.STRING));
 attributesApi.addAttribute(req0, siteId);
@@ -92,7 +94,7 @@ attributesApi.addAttribute(req2, siteId);
 
 Create a Site Schema that requires an attribute "securityLevel" added to each document.
 
-```
+```java
 // Site Schema requires a Security Level attribute
 SchemaAttributes schemaAttributes = new SchemaAttributes().addRequiredItem(new AttributeSchemaRequired().attributeKey("securityLevel").addAllowedValuesItem("public").addAllowedValuesItem("private"));
 SetSitesSchemaRequest req = new SetSitesSchemaRequest().name("Site Schema").attributes(schemaAttributes);
@@ -103,7 +105,7 @@ schemasApi.setSitesSchema(siteId, req);
 
 A Classification Schema overrides the Site Schema and allow for multiple kinds of document classifications.
 
-```
+```java
 // Create Document Type Classification
 SchemaAttributes schemaAttributes = new SchemaAttributes().addRequiredItem(new AttributeSchemaRequired().attributeKey("documentType")).addRequiredItem(new AttributeSchemaRequired().attributeKey("documentNo"));
 
@@ -119,7 +121,7 @@ String classificationId = schemasApi.addClassification(siteId, req).getClassific
 
 Once the Site Schema is set, any document added must follow the schema. In this case, the "securityLevel" attribute is required. Adding a document without this attribute will not be added.
 
-```
+```bash
 // add document failing Site Schema
 try {
   app.addDocument(siteId, "invalid document", "text/plain", null);
@@ -130,7 +132,7 @@ try {
 
 Adding a document with the "securityLevel" attribute set, the document will be added successfully.
 
-```
+```java
 AddDocumentAttribute att0 = new AddDocumentAttribute(new AddDocumentAttributeStandard().key("securityLevel").stringValue("private"));
 String docId0 = app.addDocument(siteId, "valid Site Schema", "text/plain", List.of(att0));
 System.out.println("Added document: " + docId0 + " with valid Site Schema");
@@ -140,7 +142,7 @@ System.out.println("Added document: " + docId0 + " with valid Site Schema");
 
 Adding a document with a Classification attribute allows to override the Site Schema and apply custom classification to a document. In the code below, a classification is used to require the "documentType" and "documentNo" attributes.
 
-```
+```java
 // add document with documentType / documentNo  Site Schema
 
 AddDocumentAttribute att1 = new AddDocumentAttribute(new AddDocumentAttributeStandard().key("documentType").stringValue("text"));
@@ -155,7 +157,7 @@ System.out.println("Added document: " + docId1 + " with valid Classification");
 
 The classification also has a component key which adds the ability to search for both attributes.
 
-```
+```java
 DocumentSearchAttribute attr0 = new DocumentSearchAttribute().key("documentType").eq(documentType);
 DocumentSearchAttribute attr1 = new DocumentSearchAttribute().key("documentNo").eq(documentNo);
 

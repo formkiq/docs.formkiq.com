@@ -1,1 +1,3 @@
-npx docusaurus start
+#!/usr/bin/env bash
+set -euo pipefail
+npm start -- "$@"

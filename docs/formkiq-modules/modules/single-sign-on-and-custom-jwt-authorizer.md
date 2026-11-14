@@ -1,12 +1,13 @@
 ---
 sidebar_position: 1
+description: "Connect FormKiQ to external identity providers using single sign-on and custom JWT authentication."
 ---
 
 # Single Sign-On and Custom JWT Authorizer
 
 ## Overview
 
-The Single Sign-On (SSO) and Custom JWT Authorizer module enables flexible authentication configuration for FormKiQ console and API endpoints. While FormKiQ uses AWS Cognito by default, this Enterprise Add-On Module allows integration with various authentication providers.
+The Single Sign-On (SSO) and Custom JWT Authorizer module enables flexible authentication configuration for FormKiQ Web and API endpoints. While FormKiQ uses AWS Cognito by default, this Enterprise Add-On Module allows integration with various authentication providers.
 
 ![SAML Architecture](./img/saml-architecture.svg)
 
@@ -71,12 +72,12 @@ Requirements:
 
 ### 3. Test Integration
 
-1. Access FormKiQ Console
+1. Access FormKiQ Web
 2. Select external provider login
 3. Choose Corporate ID
 4. Sign in with AD credentials
 
-![FormKiQ Console External Provider Login](./img/formkiq-console-external-provider-login.png)
+![FormKiQ Web External Provider Login](./img/formkiq-console-external-provider-login.png)
 
 ## User Access Configuration
 

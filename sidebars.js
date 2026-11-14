@@ -245,7 +245,7 @@ const sidebars = {
           link: categoryIndex(
             "Identity Management",
             "Identity provider and SSO tutorials for FormKiQ.",
-            "/category/identify-management"
+            "/category/identity-management"
           ),
           items: [
             "tutorials/Identity Management/microsoft-entra-id",

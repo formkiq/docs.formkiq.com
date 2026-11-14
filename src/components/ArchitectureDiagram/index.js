@@ -3,8 +3,8 @@ import {useColorMode} from '@docusaurus/theme-common';
 import ThemedImage from '@theme/ThemedImage';
 import DiagramTabs from '@site/src/components/DiagramTabs';
 import ZoomLink from '@site/src/components/DiagramTabs/ZoomLink';
-import lightDiagram from '@site/static/img/formkiq-architecture-technical-light-v1.19.2.png';
-import darkDiagram from '@site/static/img/formkiq-architecture-technical-dark-v1.19.2.png';
+import lightDiagram from '@site/static/img/formkiq-architecture-technical-light-v1.19.2.webp';
+import darkDiagram from '@site/static/img/formkiq-architecture-technical-dark-v1.19.2.webp';
 import TextView from './TextView';
 
 export default function ArchitectureDiagram() {

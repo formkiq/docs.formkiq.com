@@ -2,6 +2,8 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 import {themes as prismThemes} from 'prism-react-renderer';
+const release = require('./config/release.cjs');
+const redirects = require('./config/redirects.json');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -13,6 +15,7 @@ const config = {
   organizationName: 'FormKiQ',
   projectName: 'formkiq',
   onBrokenLinks: 'throw',
+  onBrokenAnchors: 'throw',
   headTags: [
     {
       tagName: 'script',
@@ -45,13 +48,14 @@ const config = {
         },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/formkiq/docs.formkiq.com/tree/main/',
+          showLastUpdateTime: true,
+          editUrl: 'https://github.com/formkiq/docs.formkiq.com/edit/main/',
           docRootComponent: "@theme/DocRoot",
           docItemComponent: "@theme/ApiItem",
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        blog: false,
+        sitemap: {
+          ignorePatterns: ['/'],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -63,6 +67,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: 'img/formkiq-social-card.png',
       docs: {
         sidebar: {
           hideable: true
@@ -77,15 +82,9 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Home',
-            href: 'https://formkiq.com',
-            logo: {
-              alt: 'FormKiQ Docs',
-              src: 'img/logo.png',
-            }
+            href: 'https://formkiq.com'
           },
           {
             type: 'docSidebar',
@@ -129,6 +128,7 @@ const config = {
         searchPagePath: 'search',
       },
       prism: {
+        additionalLanguages: ['java', 'groovy', 'rego', 'csv'],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
@@ -142,7 +142,7 @@ const config = {
         docsPluginId: "classic",
         config: {
           formkiq: {
-            specPath: "https://raw.githubusercontent.com/formkiq/formkiq-core/master/docs/openapi/openapi-jwt.yaml",
+            specPath: `https://raw.githubusercontent.com/formkiq/formkiq-core/${release.tag}/docs/openapi/openapi-jwt.yaml`,
             outputDir: "docs/api-reference",
             sidebarOptions: {
               groupPathsBy: "tag",
@@ -152,7 +152,9 @@ const config = {
         }
       }
     ],
-    require.resolve('./plugins/redirect-plugin.js')
+    ['@docusaurus/plugin-client-redirects', {
+      redirects: Object.entries(redirects).map(([from, to]) => ({from: decodeURI(from), to})),
+    }]
   ],
 
   themes: ["docusaurus-theme-openapi-docs"]

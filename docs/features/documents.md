@@ -1,6 +1,7 @@
 ---
 sidebar_position: 5
 title: Documents
+description: "Manage FormKiQ document content, metadata, uploads, versions, artifacts, deletion, and lifecycle operations."
 ---
 
 # Documents
@@ -13,8 +14,8 @@ FormKiQ stores document content in Amazon S3 and stores document metadata in Ama
 
 Use this page to understand how documents work conceptually. For implementation examples, use the tutorials and generated API reference:
 
-- [Documents API Tutorial](/docs/tutorials/Documents/documents-api)
-- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+- [Documents API Tutorial](/docs/tutorials/document-management/documents-api)
+- [Document Attributes API Tutorial](/docs/tutorials/document-management/document-attributes-api)
 - [Full Documents API Reference](/docs/category/formkiq-api)
 - [Document Storage](/docs/platform/document_storage)
 
@@ -218,7 +219,7 @@ Use:
 - [`PUT /documents/{documentId}/restore`](/docs/api-reference/set-document-restore) to restore a soft-deleted document.
 - [`DELETE /documents/{documentId}/purge`](/docs/api-reference/purge-document) when permanent deletion is required and allowed.
 
-For walkthrough details, see [Soft Deletes](/docs/tutorials/Documents/soft-deletes).
+For walkthrough details, see [Soft Deletes](/docs/tutorials/document-management/soft-deletes).
 
 ### Document User Activities
 
@@ -579,9 +580,9 @@ Adds a processing or integration action to a document. For action-specific param
 
 ## Where to Go Next
 
-- [Documents API Tutorial](/docs/tutorials/Documents/documents-api)
-- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
-- [Soft Deletes Tutorial](/docs/tutorials/Documents/soft-deletes)
+- [Documents API Tutorial](/docs/tutorials/document-management/documents-api)
+- [Document Attributes API Tutorial](/docs/tutorials/document-management/document-attributes-api)
+- [Soft Deletes Tutorial](/docs/tutorials/document-management/soft-deletes)
 - [Document Storage](/docs/platform/document_storage)
 - [Search](/docs/features/search)
 - [Rulesets](/docs/features/rulesets)

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 13
+description: "Query FormKiQ user and document activity to investigate access, review operational history, and support audit reporting."
 ---
 
 # Audit and User Activity Reporting

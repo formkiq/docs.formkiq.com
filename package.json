@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "docusaurus build && node scripts/finalize-build.cjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -15,10 +15,15 @@
     "gen-api-docs": "docusaurus gen-api-docs",
     "clean-api-docs": "docusaurus clean-api-docs",
     "gen-api-docs:version": "docusaurus gen-api-docs:version",
-    "clean-api-docs:version": "docusaurus clean-api-docs:version"
+    "clean-api-docs:version": "docusaurus clean-api-docs:version",
+    "test": "node --test scripts/*.test.cjs && python3 scripts/deploy-site.test.py",
+    "check:build": "node scripts/check-built-site.cjs",
+    "build:hosting": "node scripts/build-cloudfront-function.cjs",
+    "audit:assets": "node scripts/audit-assets.cjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.2",
+    "@docusaurus/plugin-client-redirects": "3.10.2",
     "@docusaurus/plugin-google-gtag": "^3.10.2",
     "@docusaurus/preset-classic": "^3.10.2",
     "@mdx-js/react": "^3.0.0",

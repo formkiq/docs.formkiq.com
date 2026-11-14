@@ -1,6 +1,7 @@
 ---
 sidebar_position: 9
 title: Regulated Production Deployment Checklist
+description: "Review identity, encryption, residency, audit, recovery, retention, and operational readiness for regulated FormKiQ workloads."
 ---
 
 # Regulated Production Deployment Checklist

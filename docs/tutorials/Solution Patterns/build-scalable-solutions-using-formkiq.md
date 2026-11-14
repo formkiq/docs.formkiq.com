@@ -1,6 +1,7 @@
 ---
 sidebar_position: 13
 slug: /tutorials/solution-patterns/build-scalable-solutions-using-formkiq
+description: "In this tutorial, you will design a scalable AWS-native document processing solution using FormKiQ as the document layer."
 ---
 
 # Building Scalable Solutions Using FormKiQ

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 7
+description: "Plan FormKiQ release upgrades, CloudFormation updates, validation, recovery, and rollback procedures."
 ---
 
 # Updates, Upgrades, and Rollbacks
@@ -245,7 +246,7 @@ Deploying and testing in non-production first is the best way to reduce producti
 | CloudFormation | Root and nested stacks are `UPDATE_COMPLETE` or otherwise expected. |
 | Stack outputs | API URLs, console URL, Cognito details, and module outputs are present. |
 | Version | [`GET /version`](/docs/api-reference/get-version) returns the expected version and environment. |
-| Console | FormKiQ Console loads and administrator login works. |
+| Console | FormKiQ Web loads and administrator login works. |
 | Authentication | JWT, IAM, API key, SSO, or custom authorizer paths used by your environment still work. |
 | Documents | Create, upload, download, update, and delete a test document. |
 | Storage | S3 uploads and downloads work through presigned URLs. |

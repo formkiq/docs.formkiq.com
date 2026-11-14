@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Run FormKiQ locally with Docker Compose and test document uploads, metadata, search, and authenticated API requests."
 ---
 
 # Quick Start (Local)
@@ -32,10 +33,10 @@ This will create the following local services:
 - keycloak
 - typesense
 
-Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/1.19.2/apps/netty-server/docker-compose.yml) file you can launch FormKiQ local using
+Using the following [docker-compose.yml](https://raw.githubusercontent.com/formkiq/formkiq-core/refs/tags/v1.19.2/apps/netty-server/docker-compose.yml) file you can launch FormKiQ local using
 
-```
-docker-compose -f docker-compose.yml up -d
+```bash
+docker compose -f docker-compose.yml up -d
 ```
 
 **OR**
@@ -43,7 +44,7 @@ docker-compose -f docker-compose.yml up -d
 use the following bash script.
 
 ```bash
-curl -O https://raw.githubusercontent.com/formkiq/formkiq-core/refs/heads/1.19.2/apps/netty-server/docker-compose.yml && docker-compose up
+curl --fail --location --remote-name https://raw.githubusercontent.com/formkiq/formkiq-core/refs/tags/v1.19.2/apps/netty-server/docker-compose.yml && docker compose up
 ```
 
 The local stack pulls MinIO from `formkiq/minio` on Docker Hub. If the repository is private or your Docker Hub pull limit has been reached, run `docker login` with an account that has access before starting the stack.
@@ -147,7 +148,7 @@ Login credentials:
 
 Stop and remove containers:
 ```bash
-docker-compose down
+docker compose down
 ```
 
 Remove persistent data:
@@ -164,7 +165,7 @@ Common issues and solutions:
    - Solution: Stop services using ports 80, 8080, 9000, or 8108
 
 2. Container startup failure
-   - Check logs: `docker-compose logs`
+   - Check logs: `docker compose logs`
    - Ensure sufficient system resources
 
 For additional help:

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+description: "Authenticate to FormKiQ, upload a document, query metadata, search documents, and retrieve a download URL."
 ---
 
 # API Walkthrough
@@ -100,7 +101,7 @@ Each Postman collection uses a different authentication method. Use one collecti
 
 ### JWT Authentication
 
-JWT authentication is the recommended first test after installation. Sign in to the FormKiQ Console with the admin user, acquire a [JWT token](/docs/platform/security#jwt-token), and use the `HttpApiUrl` stack output as the API base URL.
+JWT authentication is the recommended first test after installation. Sign in to FormKiQ Web with the admin user, acquire a [JWT token](/docs/platform/security#jwt-token), and use the `HttpApiUrl` stack output as the API base URL.
 
 ### IAM Authentication
 
@@ -337,8 +338,8 @@ If a later request fails because the document ID is missing, rerun **Add new Doc
 
 ## Next Steps
 
-- For more document examples, see the [Documents API Tutorial](/docs/tutorials/Documents/documents-api)
-- For structured metadata, see the [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+- For more document examples, see the [Documents API Tutorial](/docs/tutorials/document-management/documents-api)
+- For structured metadata, see the [Document Attributes API Tutorial](/docs/tutorials/document-management/document-attributes-api)
 - For SDK-based integrations, see [SDKs & API Integration](/docs/category/sdk-api-integration)
 - For endpoint details, review the [API Reference](/docs/category/formkiq-api)
 - For broader examples, explore [FormKiQ Tutorials](/docs/category/tutorials)

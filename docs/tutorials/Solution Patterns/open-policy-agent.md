@@ -1,11 +1,12 @@
 ---
 sidebar_position: 20
 slug: /tutorials/solution-patterns/open-policy-agent
+description: "This tutorial uses the FormKiQ Open Policy Agent module to demonstrate how to protect documents using access attributes."
 ---
 
 # Open Policy Agent
 
-This tutorial uses the FormKiQ [Open Policy Agent module](/docs/add-on-modules/modules/open_policy_agent) to demonstrate how to protect documents using access attributes.
+This tutorial uses the FormKiQ [Open Policy Agent module](/docs/formkiq-modules/modules/open_policy_agent) to demonstrate how to protect documents using access attributes.
 
 ## What You Will Build
 
@@ -67,7 +68,7 @@ You should now see the `default` and `opa` group listed under the user's members
 FormKiQ has a client library available in [Java](https://github.com/formkiq/formkiq-client-sdk-java/) and [Python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
 :::note
-This tutorial will be using the Java API and requires a client of version 1.14.0 or greater, but we will also reference the REST API endpoints used.
+The linked sample project was written for Java client 1.14.0. Method signatures can differ in newer clients; use the [Java SDK guide](/docs/tutorials/using-java-client-sdk) for current installation and authentication examples, and adapt the sample calls to your deployed API version.
 :::
 
 ### Setup API
@@ -80,7 +81,7 @@ The Java API requires the creation of a `ApiClient` which requires a JWT `Access
 
 The code sample supports ADMIN and USER access token, so the step above should be repeated for both a USER and an ADMIN user.
 
-```
+```java
 private static final String ADMIN_ACCESS_TOKEN = "<ADMIN_ACCESS_TOKEN>";
 private static final String USER_ACCESS_TOKEN = "<USER_ACCESS_TOKEN>";
 private static final String HTTP_API_URL = "<CloudFormation Outputs HttpApiUrl>";
@@ -88,7 +89,7 @@ private static final String HTTP_API_URL = "<CloudFormation Outputs HttpApiUrl>"
 
 The API is broken into sections. In this case, we will need to use the DocumentWorkflowsApi, RulesetApi, and DocumentsApi. These APIs can be instantiated as follows:
 
-```
+```java
 /**
  * Setup API classes.
  */
@@ -115,7 +116,7 @@ We will now configure an OPA policy that will restrict users with the "opa" role
 
 The following policy shows how this can be implemented using OPA.
 
-```
+```rego
 package formkiq
 
 import future.keywords.if
@@ -131,7 +132,7 @@ allow if {
 
 By converting the policy above to a String object, you can use the `AccessControlApi` to set the OpaConfiguration.
 
-```
+```java
 String policy = "...";
 adminControlApi.setOpaConfiguration(new SetOpaConfigurationRequest().siteId(siteId).policy(policy));
 ```
@@ -150,7 +151,7 @@ Finally, we will add three documents:
 
 * one document will have a access attribute of "documentType" and string value of "bill"
 
-```
+```java
 private String addDocument(String siteId, String path, String content, String contentType,
       List<AddAccessAttribute> accessAttributes) throws ApiException {
 
@@ -186,7 +187,7 @@ String documentId2 = app.addDocument(siteId, "protected2.txt", "my protected con
 
 Running the application, you will receive an output similar to the following, expect the documentIds will change.
 
-```
+```text
 added document e234f1eb-33a7-46a1-aa1c-aaeb54e823ff with access attributes
 added document 467a0982-85a7-4b3b-bfda-8e85ab9107fc without access attributes
 added document 68e787a5-c745-4168-ab7c-def8ea53c911 with access attributes

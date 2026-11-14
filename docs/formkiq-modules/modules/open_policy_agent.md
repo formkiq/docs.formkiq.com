@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Use Open Policy Agent policies with FormKiQ to evaluate fine-grained document and API access rules."
 ---
 
 # Open Policy Agent (OPA)
@@ -86,7 +87,7 @@ Example input for document access:
 ### Role-Based Access Control (RBAC)
 
 Example RBAC policy:
-```
+```rego
 package formkiq
 
 import future.keywords.if
@@ -130,7 +131,7 @@ Access attribute endpoints require Admin role
 :::
 
 Example ABAC policy:
-```
+```rego
 package formkiq
 
 import future.keywords.if

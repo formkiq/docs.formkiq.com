@@ -1,5 +1,6 @@
 ---
 sidebar_position: 30
+description: "Search FormKiQ documents using metadata and attributes, with configured full-text engines for additional search capabilities."
 ---
 
 # Search
@@ -209,14 +210,14 @@ Use [`POST /search`](/docs/api-reference/document-search) for most structured se
 
 For an attribute defined with `dataType: JSON`, use a `json` filter containing a `path` and comparisons such as `eq`, `eqOr`, `beginsWith`, or numeric `gt`/`gte`/`lt`/`lte`. JSON comparisons retain string, number, and boolean types. Combine different paths under the same attribute key with separate criteria in `query.attributes`.
 
-JSON fields are filtered after candidate records are read; nested properties are not automatically indexed. Scalar composite keys can narrow candidates before JSON filters are evaluated. See [Store and Search JSON Attributes](/docs/tutorials/documents/json-attributes) for complete requests and expected results.
+JSON fields are filtered after candidate records are read; nested properties are not automatically indexed. Scalar composite keys can narrow candidates before JSON filters are evaluated. See [Store and Search JSON Attributes](/docs/tutorials/document-management/json-attributes) for complete requests and expected results.
 
 ### Multiple Attribute Search
 
 Use `query.attributes` to combine multiple attribute conditions with AND. FormKiQ can search without a composite key by reading candidates from the first attribute criterion and checking the remaining conditions. A usable composite key can narrow candidates using all or part of the search attributes.
 
 :::note
-When using a composite key, supply criteria for every member attribute. Leading composite members use `eq`; the final member can use a supported equality, prefix, list, or range criterion. Conditions outside the composite remain filters. See [Search Documents with Multiple Attributes](/docs/tutorials/documents/multi-attribute-search) for a three-attribute search using a two-attribute composite key. Earlier releases can require a composite key covering all search attributes.
+When using a composite key, supply criteria for every member attribute. Leading composite members use `eq`; the final member can use a supported equality, prefix, list, or range criterion. Conditions outside the composite remain filters. See [Search Documents with Multiple Attributes](/docs/tutorials/document-management/multi-attribute-search) for a three-attribute search using a two-attribute composite key. Earlier releases can require a composite key covering all search attributes.
 :::
 
 #### Multiple Keys and Values
