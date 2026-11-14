@@ -2,6 +2,7 @@
 sidebar_position: 8
 title: Reporting, Analytics, and Audit
 sidebar_label: Reporting and Analytics
+description: "Build FormKiQ operational, audit, and analytics reports using document metadata, activity records, and AWS services."
 ---
 
 # Reporting, Analytics, and Audit

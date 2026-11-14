@@ -31,7 +31,7 @@ This walkthrough uses JWT authentication. If you need a token, see [JWT Authenti
 
 ## Before You Begin
 
-- Java 8 or later
+- Java 11 or later (required by the published v1.19.2 SDK artifact)
 - Maven 3.8.3 or later, or Gradle 7.2 or later
 - A FormKiQ API base URL
 - A valid JWT access token, not an ID token
@@ -56,7 +56,7 @@ For Maven projects, add the SDK dependency:
 <dependency>
   <groupId>com.formkiq</groupId>
   <artifactId>client</artifactId>
-  <version>1.18.1</version>
+  <version>1.19.2</version>
 </dependency>
 ```
 
@@ -64,7 +64,7 @@ For Gradle projects:
 
 ```groovy
 dependencies {
-  implementation "com.formkiq:client:1.18.1"
+  implementation "com.formkiq:client:1.19.2"
 }
 ```
 
@@ -93,11 +93,11 @@ import com.formkiq.client.api.DocumentsApi;
 import com.formkiq.client.invoker.ApiClient;
 import com.formkiq.client.invoker.ApiException;
 import com.formkiq.client.invoker.Configuration;
-import com.formkiq.client.invoker.models.AddDocumentRequest;
-import com.formkiq.client.invoker.models.AddDocumentResponse;
-import com.formkiq.client.invoker.models.AddDocumentUploadRequest;
-import com.formkiq.client.invoker.models.GetDocumentResponse;
-import com.formkiq.client.invoker.models.GetDocumentUrlResponse;
+import com.formkiq.client.model.AddDocumentRequest;
+import com.formkiq.client.model.AddDocumentResponse;
+import com.formkiq.client.model.AddDocumentUploadRequest;
+import com.formkiq.client.model.GetDocumentResponse;
+import com.formkiq.client.model.GetDocumentUrlResponse;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -128,8 +128,6 @@ public class FormKiQJavaSdkExample {
   }
 ```
 
-If you are using Java 8, replace `value.isBlank()` with `value.trim().isEmpty()`.
-
 ## Step 3: Create an Inline Document
 
 Use `addDocument` for small documents where sending content through the API is appropriate.
@@ -141,7 +139,7 @@ Use `addDocument` for small documents where sending content through the API is a
         .contentType("text/plain")
         .content("Hello World");
 
-    AddDocumentResponse response = api.addDocument(request, siteId, null);
+    AddDocumentResponse response = api.addDocument(request, siteId, null, null);
     String documentId = response.getDocumentId();
 
     if (documentId == null || documentId.isEmpty()) {
@@ -162,7 +160,7 @@ Use `getDocument` to retrieve the document record.
       String siteId,
       String documentId
   ) throws ApiException {
-    return api.getDocument(documentId, siteId, null);
+    return api.getDocument(documentId, siteId, null, null);
   }
 ```
 
@@ -186,6 +184,7 @@ For larger files, request a presigned S3 upload URL. This sends file bytes direc
         request,
         siteId,
         contentLength,
+        null,
         null,
         null
     );
@@ -278,15 +277,13 @@ This example creates one inline document, uploads one local file through S3, and
 }
 ```
 
-For Java 8, replace `Path.of("example.txt")` with `Paths.get("example.txt")` and add `import java.nio.file.Paths;`.
-
 ## Verify the Result
 
-Confirm that the program prints two document IDs and metadata for both documents. In the FormKiQ console, the uploaded document should appear at `examples/example.txt` in the selected site.
+Confirm that the program prints two document IDs and metadata for both documents. In FormKiQ Web, the uploaded document should appear at `examples/example.txt` in the selected site.
 
 ## Clean Up
 
-Delete the test documents from the FormKiQ console or API if you do not want to keep them in your environment.
+Delete the test documents from FormKiQ Web or API if you do not want to keep them in your environment.
 
 ## Troubleshooting
 

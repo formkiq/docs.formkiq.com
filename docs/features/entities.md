@@ -1,6 +1,7 @@
 ---
 sidebar_position: 6
 title: Entity Types and Entities
+description: "Model customers, projects, cases, and related records with FormKiQ entity types, entities, and linked documents."
 ---
 
 # Entity Types and Entities
@@ -113,7 +114,7 @@ This pattern is useful when:
 - External systems use stable IDs that should be preserved.
 - Reporting needs to group documents by customer, case, project, or asset.
 
-For a walkthrough, see [Entity Types, Entities, and Documents](/docs/tutorials/Entities/entity-api).
+For a walkthrough, see [Entity Types, Entities, and Documents](/docs/tutorials/entity-management/entity-api).
 
 ## Common Use Cases
 
@@ -247,7 +248,7 @@ Use the generated API reference for exact request and response schemas.
 
 ## Where to Go Next
 
-- [Entity Types, Entities, and Documents Tutorial](/docs/tutorials/Entities/entity-api)
+- [Entity Types, Entities, and Documents Tutorial](/docs/tutorials/entity-management/entity-api)
 - [Documents](/docs/features/documents)
 - [Attributes](/docs/features/attributes)
 - [Schemas](/docs/features/schemas)

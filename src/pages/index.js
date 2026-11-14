@@ -1,13 +1,16 @@
 import React from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import {Redirect} from '@docusaurus/router';
+import Head from '@docusaurus/Head';
+import Overview from '@site/docs/overview.md';
 
-import styles from './index.module.css';
-
+// Render the full overview on the server, with the existing docs URL canonical.
 export default function Home() {
-  return <Redirect to="/docs/overview" />;
+  return (
+    <Layout title="FormKiQ Documentation" description="Deploy, integrate, and operate FormKiQ document management in your AWS account.">
+      <Head><link rel="canonical" href="https://docs.formkiq.com/docs/overview" /></Head>
+      <main className="container margin-vert--lg">
+        <article className="markdown"><Overview /></article>
+      </main>
+    </Layout>
+  );
 }

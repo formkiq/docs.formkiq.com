@@ -1,6 +1,7 @@
 ---
 sidebar_position: 15
 slug: /tutorials/event-and-integration-patterns/build-event-driven-document-processing-pipeline
+description: "In this tutorial, you will build an event-driven processing pipeline that sends document events to Amazon EventBridge and processes them with a Lambda function."
 ---
 
 # Build an Event-Driven Document Processing Pipeline

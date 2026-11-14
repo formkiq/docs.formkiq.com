@@ -1,6 +1,7 @@
 ---
 sidebar_position: 10
 title: Mappings
+description: "Map extracted data and document attributes into structured metadata for FormKiQ classification and automated processing."
 ---
 
 # Mappings
@@ -355,4 +356,4 @@ Use the generated API reference for exact request and response schemas.
 - [Rulesets](/docs/features/rulesets)
 - [Workflows](/docs/features/workflows)
 - [Enhanced Document OCR and Classification](/docs/formkiq-modules/modules/enhanced-document-ocr-and-classification)
-- [Document Attributes API Tutorial](/docs/tutorials/Documents/document-attributes-api)
+- [Document Attributes API Tutorial](/docs/tutorials/document-management/document-attributes-api)

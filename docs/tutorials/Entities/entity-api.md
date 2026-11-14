@@ -2,6 +2,8 @@
 sidebar_position: 1
 toc_min_heading_level: 2
 toc_max_heading_level: 2
+slug: /tutorials/entity-management/entity-api
+description: "You will create an entity type, create an entity instance, and link that entity to a document through document attributes."
 ---
 # Entity Types, Entities, and Documents
 
@@ -147,4 +149,4 @@ Remove the test document attribute or delete the test entity if it is no longer 
 
 ## Next Steps
 
-- Explore [Document Tags, Attributes](/docs/tutorials/Documents/document-attributes-api)
+- Explore [Document Tags, Attributes](/docs/tutorials/document-management/document-attributes-api)

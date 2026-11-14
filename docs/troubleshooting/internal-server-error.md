@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 title: Internal Server Error
+description: "This error means API Gateway received the request but the backend integration did not complete successfully."
 ---
 
 # `{"message":"Internal Server Error"}`

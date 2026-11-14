@@ -1,5 +1,7 @@
 ---
 sidebar_position: 10
+slug: /tutorials/identity-management/google-workspace
+description: "This tutorial shows how to integrate Google Workspace as the identity management provider for your FormKiQ installation."
 ---
 
 # Google Workspace
@@ -27,7 +29,7 @@ You will create a Google Workspace custom SAML app, map email and group attribut
 4. Enable user access and download Google metadata.
 5. Add Google Workspace as a Cognito SAML identity provider.
 6. Configure Cognito managed login.
-7. Verify login from the FormKiQ console.
+7. Verify login from FormKiQ Web.
 
 ## Step 1: Collect FormKiQ Cognito Values
 
@@ -72,13 +74,13 @@ Now configure the SAML application by entering an Application name, description 
 Once the single sign-on is created, you will need to fill in the **ACS URL** and the **Entity ID**.
 
 The ACS URL is: **&lt;Your Cognito Domain&gt;**/saml2/idpresponse, for example:
-```
+```text
 https://formkiq-enterprise-dev-1111111111111.auth.us-east-2.amazoncognito.com/saml2/idpresponse
 ```
 
 The format of the Identifier (Entity ID) is:
 
-```
+```text
 urn:amazon:cognito:sp:<CognitoUserPoolId>
 
 eg: urn:amazon:cognito:sp:us-east-2_MEhz4EzAZ
@@ -88,13 +90,13 @@ eg: urn:amazon:cognito:sp:us-east-2_MEhz4EzAZ
 
 Setup the Primary email with the App attribute of
 
-```
+```text
 http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
 ```
 
 Under the group membership select all the Group google you want to be part of the access token and set the App attribute to be:
 
-```
+```text
 http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 ```
 
@@ -120,7 +122,7 @@ Open the [AWS Console](https://aws.amazon.com/) and Launch the CloudShell servic
 
 Once the CloudShell command prompt opens, use the AWS CLI to add a custom attribute. This attribute will contain the group claims attribute.
 
-```
+```bash
 aws cognito-idp add-custom-attributes \
 --user-pool-id <CognitoUserPoolId> \
 --custom-attributes Name=groups,AttributeDataType="String"
@@ -145,13 +147,13 @@ Configure the SAML attributes.
 
 For the email attribute, set the SAML attribute to
 
-```
+```text
 http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
 ```
 
 For the custom:groups attribute, set the SAML attribute to
 
-```
+```text
 http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 ```
 
@@ -161,11 +163,11 @@ http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 
 You now need to configure Amazon Managed login. Amazon Cognito Managed login provides a URL connection between Amazon Cognito and Microsoft Entra ID.
 
-To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
+To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/identity-management/cognito-saml-provider) tutorial.
 
 ## Verify the Result
 
-Open the FormKiQ console and use the Single Sign-On login option. Confirm the user can authenticate through Google Workspace and receives the expected FormKiQ access based on group membership.
+Open FormKiQ Web and use the Single Sign-On login option. Confirm the user can authenticate through Google Workspace and receives the expected FormKiQ access based on group membership.
 
 ## Clean Up
 
@@ -181,5 +183,5 @@ Remove test users, test group assignments, or temporary SAML applications that a
 
 ## Next Steps
 
-- [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider)
+- [Amazon Managed Login](/docs/tutorials/identity-management/cognito-saml-provider)
 - [Security](/docs/platform/security)

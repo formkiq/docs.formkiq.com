@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Configure FormKiQ encryption and AWS key management for document storage, metadata, queues, and supporting services."
 ---
 
 # Full Encryption

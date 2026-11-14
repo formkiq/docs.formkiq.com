@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+description: "Plan and validate a migration from FormKiQ Core to a commercial deployment while preserving documents and metadata."
 ---
 
 # Migrate Documents from Core to Enterprise
@@ -217,7 +218,7 @@ After migration:
 
 1. Compare document counts between the source and target DynamoDB tables.
 2. Compare S3 object counts and total bucket size.
-3. Open the target FormKiQ console and confirm migrated documents are visible.
+3. Open the target FormKiQ Web and confirm migrated documents are visible.
 4. Retrieve several migrated documents through the API.
 5. Download sampled documents and confirm content opens correctly.
 6. Confirm tags, attributes, metadata, and `lastModifiedDate` values are correct for sampled documents.

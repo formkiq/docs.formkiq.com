@@ -1,6 +1,7 @@
 ---
 sidebar_position: 8
 title: Compliance, Data Residency, and Data Sovereignty
+description: "Plan FormKiQ data residency, sovereignty, and compliance controls across AWS regions, accounts, backups, and integrations."
 ---
 
 # Compliance, Data Residency, and Data Sovereignty

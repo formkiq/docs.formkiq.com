@@ -1,6 +1,7 @@
 ---
 sidebar_position: 13
 slug: /tutorials/solution-patterns/build-document-review-approval-workflow
+description: "In this tutorial, you will build a document review workflow that routes newly uploaded PDF documents into an approval queue."
 ---
 
 # Build a Document Review and Approval Workflow

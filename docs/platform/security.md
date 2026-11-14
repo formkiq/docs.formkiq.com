@@ -1,6 +1,7 @@
 ---
 sidebar_position: 3
 title: Security
+description: "Configure FormKiQ API authentication, users, groups, permissions, encryption, and network security controls."
 ---
 
 # Security
@@ -60,7 +61,7 @@ The FormKiQ API URL values are available in the CloudFormation outputs of your F
 
 | Authentication method | CloudFormation output | Best fit |
 | --- | --- | --- |
-| JWT token | `HttpApiUrl` | FormKiQ Console users, browser clients, interactive testing, and user-context API calls. |
+| JWT token | `HttpApiUrl` | FormKiQ Web users, browser clients, interactive testing, and user-context API calls. |
 | AWS IAM | `IamApiUrl` | Machine-to-machine integrations, AWS services, backend jobs, and automation that can sign requests with AWS Signature Version 4. |
 | API key | `KeyApiUrl` | Site-scoped integrations where a generated key is easier to manage than a user token. |
 
@@ -76,15 +77,15 @@ JWT authentication is the default path for user-context API calls. By default, F
 
 A JWT token can be obtained through:
 
-- [FormKiQ Console](/docs/platform/security#formkiq-console)
+- [FormKiQ Web](/docs/platform/security#formkiq-console)
 - [Curl CLI](/docs/platform/security#curl-cli)
 - [AWS CLI](/docs/platform/security#aws-cli)
 
 Use the `HttpApiUrl` CloudFormation output when calling the JWT-secured API.
 
-#### FormKiQ Console
+#### FormKiQ Web {#formkiq-console}
 
-You can inspect the FormKiQ Console network requests in browser developer tools and copy the `Authorization` header for local testing.
+You can inspect FormKiQ Web network requests in browser developer tools and copy the `Authorization` header for local testing.
 
 ![Developer Tools](./img/firefox-jwt-token.png)
 
@@ -94,7 +95,7 @@ Browser developer tools are useful for development and troubleshooting. Do not u
 
 ##### Google Chrome
 
-1. Log in to the FormKiQ Console.
+1. Log in to FormKiQ Web.
 2. Open Developer Tools with `F12`, `Ctrl+Shift+I`, or `Cmd+Option+I`.
 3. Select the **Network** tab.
 4. Refresh the page.
@@ -103,7 +104,7 @@ Browser developer tools are useful for development and troubleshooting. Do not u
 
 ##### Safari
 
-1. Log in to the FormKiQ Console.
+1. Log in to FormKiQ Web.
 2. Enable the Develop menu from **Safari > Preferences > Advanced**.
 3. Select **Show Develop menu**.
 4. Open Web Inspector with `Cmd+Option+I`.
@@ -112,7 +113,7 @@ Browser developer tools are useful for development and troubleshooting. Do not u
 
 ##### Mozilla Firefox
 
-1. Log in to the FormKiQ Console.
+1. Log in to FormKiQ Web.
 2. Open Developer Tools with `Ctrl+Shift+I` or `Cmd+Option+I`.
 3. Select the **Network** tab.
 4. Refresh the page.
@@ -212,15 +213,15 @@ FormKiQ API keys provide site-scoped access to the API. Each API key is valid fo
 
 Use the `KeyApiUrl` CloudFormation output when calling the API key-secured API.
 
-To create an API key from the FormKiQ Console:
+To create an API key from FormKiQ Web:
 
-1. Log in to the FormKiQ Console as an administrator.
+1. Log in to FormKiQ Web as an administrator.
 2. Navigate to **Administration > API Keys**.
 3. Choose **Create new**.
 4. Set the key name and permissions.
 5. Copy the generated key immediately.
 
-![FormKiQ Console Add API Key](./img/fk-console-api-key.png)
+![FormKiQ Web Add API Key](./img/fk-console-api-key.png)
 
 API keys can also be generated through `POST /sites/{siteId}/apiKeys` using `WRITE_SYSTEM_MANAGEMENT` for the selected site, or administrator access. Select a predefined `roleType` or a custom set of scoped permissions; `ADMIN` roles and grants cannot be assigned through this endpoint.
 
@@ -316,7 +317,7 @@ Creating a new multi-tenant site is as simple as creating a new group and adding
 
 To add a new group:
 
-1. Open the FormKiQ Console as an administrator.
+1. Open FormKiQ Web as an administrator.
 2. Select **Groups** under **Administration**.
 3. Choose **Create New Group**.
 4. Enter the group name.
@@ -329,7 +330,7 @@ The site is created and users can be added to the group to give them access.
 
 To add a new user:
 
-1. Open the FormKiQ Console as an administrator.
+1. Open FormKiQ Web as an administrator.
 2. Select **Users** under **Administration**.
 3. Choose **Create New User**.
 4. Enter the user details.
@@ -340,7 +341,7 @@ To add a new user:
 
 To add a user to a group:
 
-1. Open the FormKiQ Console as an administrator.
+1. Open FormKiQ Web as an administrator.
 2. Select **Groups** under **Administration**.
 3. Open the far-right menu on the group.
 4. Choose **Add Member**.
@@ -848,7 +849,7 @@ Review these items before moving a FormKiQ deployment into production:
 ## Where to Go Next
 
 - [API Walkthrough](/docs/getting-started/api-walkthrough)
-- [Document Console](/docs/platform/document_console)
+- [FormKiQ Web](/docs/platform/document_console)
 - [Multi-Tenant vs Multi-Instance](/docs/platform/multi-tenant-vs-multi-instance)
 - [Compliance, Data Residency, and Data Sovereignty](/docs/platform/compliance-data-residency-and-data-sovereignty)
 - [Backup and Recovery](/docs/platform/backup_and_recovery)

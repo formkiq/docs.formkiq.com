@@ -40,7 +40,7 @@ You will copy document metadata from one FormKiQ DynamoDB table to another, then
 
 Using the [FormKiQ CLI](/docs/formkiq-modules/modules/formkiq-cli), you can sync the FormKiQ metadata that is stored in [Amazon DynamoDB](https://aws.amazon.com/dynamodb) using the command:
 
-```
+```bash
 fk --restore-dynamodb --from-table <source_dynamodb_tablename> --to-table <destination_dynamodb_tablename>
 ```
 
@@ -50,7 +50,7 @@ fk --restore-dynamodb --from-table <source_dynamodb_tablename> --to-table <desti
 
 ### Example
 
-```
+```bash
 fk --restore-dynamodb --from-table formkiq-enterprise-dev1-documents --to-table formkiq-enterprise-dev2-documents
 ```
 
@@ -60,7 +60,7 @@ fk --restore-dynamodb --from-table formkiq-enterprise-dev1-documents --to-table 
 
 Using the [AWS CLI](https://aws.amazon.com/cli/), you can sync the document contents from one S3 bucket to another.
 
-```
+```bash
 aws s3 sync s3://<source-bucket> s3://<destination-bucket>
 ```
 
@@ -70,7 +70,7 @@ The --dry-run can be used with this command to see the output from the CLI
 
 ### Example
 
-```
+```bash
 aws s3 sync s3://formkiq-enterprise-dev1-documents-1111111111 s3://formkiq-enterprise-dev2-documents-1111111111
 ```
 
@@ -78,7 +78,7 @@ aws s3 sync s3://formkiq-enterprise-dev1-documents-1111111111 s3://formkiq-enter
 
 - Compare source and destination DynamoDB document counts.
 - Compare S3 object counts and total size.
-- Open the destination FormKiQ console and confirm migrated documents are visible.
+- Open the destination FormKiQ Web and confirm migrated documents are visible.
 - Download several documents to confirm metadata and content are in sync.
 
 ## Clean Up

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 4
+description: "Search FormKiQ documents with API queries, site selection, pagination, and metadata filters."
 ---
 
 # Search Documents

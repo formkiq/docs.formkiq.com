@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Track and manage document content and metadata changes with the FormKiQ Document Versioning module."
 ---
 
 # Document Versioning

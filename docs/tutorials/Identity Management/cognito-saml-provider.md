@@ -1,5 +1,7 @@
 ---
 sidebar_position: 20
+slug: /tutorials/identity-management/cognito-saml-provider
+description: "This tutorial shows how to connect Amazon Cognito managed login to a SAML provider such as Microsoft Entra ID, Okta, or Google Workspace."
 ---
 
 # Amazon Managed Login
@@ -14,17 +16,17 @@ You will configure an Amazon Cognito managed login page, assign it to a Cognito 
 
 - A SAML provider already configured for your Amazon Cognito User Pool.
 - Administrative access to the AWS account that hosts the FormKiQ stack.
-- The FormKiQ console URL.
+- FormKiQ Web URL.
 
 Related identity provider tutorials:
 
-- [Microsoft Entra ID](/docs/tutorials/Identity%20Management/microsoft-entra-id)
-- [Okta](/docs/tutorials/Identity%20Management/okta)
-- [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace)
+- [Microsoft Entra ID](/docs/tutorials/identity-management/microsoft-entra-id)
+- [Okta](/docs/tutorials/identity-management/okta)
+- [Google Workspace](/docs/tutorials/identity-management/google-workspace)
 
 ## Workflow Overview
 
-1. Collect the FormKiQ console URL.
+1. Collect FormKiQ Web URL.
 2. Create a Cognito managed login style.
 3. Assign the managed login page to the app client.
 4. Enable the SAML identity provider and OAuth settings.
@@ -35,7 +37,7 @@ Related identity provider tutorials:
 
 You will need these specific configuration values:
 
-* FormKiQ Console URL
+* FormKiQ Web URL
 
 The CognitoUserPoolId and Console URL can be found in the **Outputs** tab of your FormKiQ [CloudFormation](https://console.aws.amazon.com/cloudformation) installation.
 
@@ -68,7 +70,7 @@ On the **Edit managed login pages configuration** page, set the following config
 
 **Allowed callback URLs**
 
-* Set the **FormKiQ Console Url** as an allowed callback. This will allow the user to be redirected to the FormKiQ console after a successful login.
+* Set the **FormKiQ Web Url** as an allowed callback. This will allow the user to be redirected to FormKiQ Web after a successful login.
 
 **Identity providers**
 
@@ -110,13 +112,13 @@ When updating the CloudFormation, you will update the following parameters:
 
 ![CloudFormation Cognito Single Sign On Url](./img/formkiq-cf-update-saml.png)
 
-Continue through the stack update process. After it completes, you will see the **Single Sign-On** login button on the FormKiQ console login page, this link will allow you to login through your SSO provider.
+Continue through the stack update process. After it completes, you will see the **Single Sign-On** login button on FormKiQ Web login page, this link will allow you to login through your SSO provider.
 
 ![Console Single Cognito Single Sign On](./img/entra-id-console-single-sign-on.png)
 
 ## Verify the Result
 
-Open the FormKiQ console login page and confirm the Single Sign-On button appears. Click it and verify that Cognito redirects to your SAML provider and then back to the FormKiQ console.
+Open FormKiQ Web login page and confirm the Single Sign-On button appears. Click it and verify that Cognito redirects to your SAML provider and then back to FormKiQ Web.
 
 ## Clean Up
 
@@ -132,6 +134,6 @@ Remove test app clients, test styles, or temporary SAML providers that are no lo
 
 ## Next Steps
 
-- [Microsoft Entra ID](/docs/tutorials/Identity%20Management/microsoft-entra-id)
-- [Okta](/docs/tutorials/Identity%20Management/okta)
-- [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace)
+- [Microsoft Entra ID](/docs/tutorials/identity-management/microsoft-entra-id)
+- [Okta](/docs/tutorials/identity-management/okta)
+- [Google Workspace](/docs/tutorials/identity-management/google-workspace)

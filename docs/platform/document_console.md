@@ -1,6 +1,7 @@
 ---
 sidebar_position: 6
 title: FormKiQ Web (Document Console)
+description: "Deploy and configure FormKiQ Web, authenticate users, and access document management and Business Solutions."
 ---
 
 # FormKiQ Web (Document Console)
@@ -35,7 +36,7 @@ Common outputs include:
 
 | Output | Purpose |
 |--------|---------|
-| `ConsoleUrl` | Opens the FormKiQ Document Console. |
+| `ConsoleUrl` | Opens FormKiQ Web. |
 | `HttpApiUrl` | API endpoint used by JWT-authenticated console and API requests. |
 | `CognitoUserPoolId` | Cognito user pool used for users and groups. |
 | `CognitoClientId` | Cognito app client used by console login. |
@@ -168,7 +169,7 @@ Console-adjacent configuration is usually handled through commercial modules or 
 
 - For custom console and API domains, see [Custom Domains](/docs/formkiq-modules/modules/custom-domains).
 - For SSO and custom JWT options, see [Single Sign-On and Custom JWT Authorizer](/docs/formkiq-modules/modules/single-sign-on-and-custom-jwt-authorizer).
-- For identity-provider tutorials, see [Microsoft Entra ID](/docs/tutorials/Identity%20Management/microsoft-entra-id), [Google Workspace](/docs/tutorials/Identity%20Management/google-workspace), and [Okta](/docs/tutorials/Identity%20Management/okta).
+- For identity-provider tutorials, see [Microsoft Entra ID](/docs/tutorials/identity-management/microsoft-entra-id), [Google Workspace](/docs/tutorials/identity-management/google-workspace), and [Okta](/docs/tutorials/identity-management/okta).
 
 ## Troubleshooting
 
@@ -203,7 +204,7 @@ Check whether the console is pointed at `HttpApiUrl`, not `IamApiUrl` or `KeyApi
 
 ## Customization
 
-The FormKiQ Document Console is open source. You can find the source code and contribution guidelines on [GitHub](https://github.com/formkiq/formkiq-document-console).
+FormKiQ Web is open source. You can find the source code and contribution guidelines on [GitHub](https://github.com/formkiq/formkiq-document-console).
 
 ## Where to Go Next
 

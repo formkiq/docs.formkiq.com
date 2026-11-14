@@ -1,6 +1,7 @@
 ---
 sidebar_position: 50
 slug: /tutorials/solution-patterns/ruleset
+description: "Configure FormKiQ rulesets to route documents into processing queues based on content type and metadata."
 ---
 
 # Ruleset Processing
@@ -39,7 +40,7 @@ The code for the tutorial can be found on the [FormKiQ Github Tutorials](https:/
 FormKiQ has a client library available in [java](https://github.com/formkiq/formkiq-client-sdk-java/) and [python](https://github.com/formkiq/formkiq-client-sdk-python) which makes communicating with the FormKiQ application easier.
 
 :::note
-This tutorial will be using the Java API and required the client 1.14.0 or greater, but will reference the REST API endpoints used.
+The linked sample project was written for Java client 1.14.0. Method signatures can differ in newer clients; use the [Java SDK guide](/docs/tutorials/using-java-client-sdk) for current installation and authentication examples, and adapt the sample calls to your deployed API version.
 :::
 
 ### Setup API
@@ -50,14 +51,14 @@ The Java API requires the creation of a `ApiClient` which requires a JWT `Access
 
 * The HTTP_API_URL can be found from the "Outputs" tab of the CloudFormation console 
 
-```
+```java
 private static final String ACCESS_TOKEN = "<ACCESS_TOKEN>";
 private static final String HTTP_API_URL = "<CloudFormation Outputs HttpApiUrl>";
 ```
 
 The API is broken into sections. In this case, we will need to use the DocumentWorkflowsApi, RulesetApi, and DocumentsApi. These APIs can be instantiated as follows:
 
-```
+```java
 /**
  * Setup API classes.
  */
@@ -76,7 +77,7 @@ public void setUpApi() {
 
 Using the DocumentWorkflowsApi, create 2 queues
 
-```
+```java
 String queueAId = workflowsApi.addQueue(new AddQueueRequest().name(QUEUE_A), siteId).getQueueId();
 String queueBId = workflowsApi.addQueue(new AddQueueRequest().name(QUEUE_B), siteId).getQueueId();
 ```
@@ -89,7 +90,7 @@ The REST API endpoint `POST /queues` can be used to create a document queue
 
 Using the DocumentWorkflowsApi, create two workflows, one workflow will put documents into QUEUE_A and the other into QUEUE_B.
 
-```
+```java
 String workflowAId = app.createQueueWorkflow(siteId, queueAId, QUEUE_A, "finance");
 String workflowBId = app.createQueueWorkflow(siteId, queueBId, QUEUE_B, "management");
 
@@ -115,7 +116,7 @@ The rest api: `POST /workflows` can be used to create a document workflow
 
 Using the RulesetsApi, create a ruleset that will hold both of our rules.
 
-```
+```java
 AddRulesetRequest req = new AddRulesetRequest().ruleset(new AddRuleset().description("Ruleset 1").priority(new BigDecimal(1)).version(new BigDecimal(1)).status(RulesetStatus.ACTIVE));
 
 AddRulesetResponse addRuleset = api.addRuleset(req, siteId);
@@ -131,7 +132,7 @@ The REST API endpoint `POST /rulesets` can be used to create the ruleset
 
 Using the RulesetsApi, create 2 rules. One rule will place all documents with a content-type of "text/plain" into one queue and documents with a content-type of "application/json" into a second queue.
 
-```
+```java
 createContentTypeRule(siteId, rulesetId, workflowAId, "application/json");
 createContentTypeRule(siteId, rulesetId, workflowBId, "text/plain");
 
@@ -156,7 +157,7 @@ The REST API endpoint `POST /rulesets/{rulesetId}/rule` can be used to add rules
 
 Finally, we will add two documents, one with the content-type of "text/plain" and the other with "application/json".
 
-```
+```java
 AddDocumentRequest req0 = new AddDocumentRequest().content("test data").contentType("text/plain");
 documentsApi.addDocument(req0, siteId, null).getDocumentId();
 
@@ -168,7 +169,7 @@ documentsApi.addDocument(req1, siteId, null).getDocumentId();
 
 After the documents are added, it will take between 5-10 seconds for the documents to be placed into the correct queue. You can use the following code to check the queues for each document.
 
-```
+```text
 GetWorkflowQueueDocumentsResponse response = workflowsApi.getWorkflowQueueDocuments(queueId, siteId, null, null);
 List<WorkflowDocument> documents = response.getDocuments();
 ```

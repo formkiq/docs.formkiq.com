@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 toc_max_heading_level: 2
+description: "Deploy FormKiQ in your AWS account using release-specific CloudFormation links, configure access, and verify the installation."
 ---
 # Quick Start (AWS)
 
@@ -9,22 +10,9 @@ toc_max_heading_level: 2
 Deploy and configure FormKiQ in your AWS account in approximately 15 minutes using AWS CloudFormation. The automated setup process provisions and connects all required resources through a streamlined installation workflow.
 
 import Head from '@docusaurus/Head';
+import InstallationLinks from '@site/src/components/InstallationLinks';
 
 <Head>
-
-  {/* VideoObject Schema for the embedded YouTube video */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "VideoObject",
-      "name": "Deploying FormKiQ Core's Document Management Platform into Your AWS Account",
-      "description": "Learn how to deploy and configure FormKiQ in your AWS account in approximately 15 minutes using AWS CloudFormation.",
-      "thumbnailUrl": "https://i.ytimg.com/vi/G5R6ldbHYKs/hqdefault.jpg",
-      "uploadDate": "2023-01-01T08:00:00+08:00",
-      "contentUrl": "https://www.youtube.com/watch?v=G5R6ldbHYKs",
-      "embedUrl": "https://www.youtube.com/embed/G5R6ldbHYKs"
-    })}
-  </script>
 
   {/* HowTo Schema for the installation process */}
   <script type="application/ld+json">
@@ -105,7 +93,7 @@ Use this checklist before opening the CloudFormation installation link:
 Expected result after installation:
 
 - CloudFormation stack status is `CREATE_COMPLETE`
-- The FormKiQ Console URL is available from CloudFormation outputs
+- FormKiQ Web URL is available from CloudFormation outputs
 - FormKiQ API URLs are available from CloudFormation outputs
 - The admin user can set a password and log in
 
@@ -211,28 +199,7 @@ The FormKiQ installation uses [AWS CloudFormation](https://docs.aws.amazon.com/c
 
 Select your AWS region from the installation links below:
 
-| AWS Region | Location | Install Link |
-|------------|-----------|------------|
-| us-east-1 | N. Virginia | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| us-east-2 | Ohio | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.19.2/template.yaml) |
-| us-west-2 | Oregon | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.19.2/template.yaml) |
-| ca-central-1 | Canada (Central) | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| ca-west-1 | Canada (West) | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ca-west-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ca-west-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| eu-central-1 | Frankfurt | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| eu-west-1 | Ireland | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| eu-west-2 | London | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-west-2.s3.amazonaws.com/1.19.2/template.yaml) |
-| eu-west-3 | Paris | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-west-3.s3.amazonaws.com/1.19.2/template.yaml) |
-| eu-north-1 | Stockholm | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-north-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-north-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| eu-south-1 | Milan | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=eu-south-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-eu-south-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| ap-south-1 | Mumbai | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| ap-southeast-1 | Singapore | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| ap-southeast-2 | Sydney | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.19.2/template.yaml) |
-| ap-northeast-1 | Tokyo | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-northeast-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| ap-northeast-2 | Seoul | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.19.2/template.yaml) |
-| af-south-1 | Cape Town | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=af-south-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-af-south-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| sa-east-1 | São Paulo | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| me-central-1 | Middle East (UAE) | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=me-central-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-me-central-1.s3.amazonaws.com/1.19.2/template.yaml) |
-| me-south-1 | Bahrain | [Install FormKiQ](https://console.aws.amazon.com/cloudformation/home?region=me-south-1#/stacks/new?stackName=formkiq-prod&templateURL=https://formkiq-core-distribution-me-south-1.s3.amazonaws.com/1.19.2/template.yaml) |
+<InstallationLinks />
 
 :::note
 - For unlisted regions, use [SAM CLI installation](#install-with-sam-cli)
@@ -310,9 +277,9 @@ Review your configuration and click **Submit**.
 
 ![Set Admin Password](./img/fk-console-setpassword.png)
 
-4. Access the FormKiQ Console
+4. Access FormKiQ Web
 
-![FormKiQ Console Home](./img/fk-console-home.png)
+![FormKiQ Web Home](./img/fk-console-home.png)
 
 :::note
 AWS GovCloud (US) requires [manual admin user creation](/docs/platform/document_console#initial-setup).
@@ -351,9 +318,9 @@ Common outputs include:
 
 ### Confirm Admin Access
 
-1. Open the FormKiQ Console URL.
+1. Open FormKiQ Web URL.
 2. Use the admin email verification flow to set the initial password.
-3. Log in to the FormKiQ Console.
+3. Log in to FormKiQ Web.
 4. Confirm that you can view the default site and document interface.
 
 ### Common Problems
@@ -396,28 +363,7 @@ For Typesense or OpenSearch, install the VPC stack:
 
 Select your region's VPC template:
 
-| AWS Region | Location | Install Link |
-|------------|-----------|------------|
-| us-east-1 | N. Virginia | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| us-east-2 | Ohio | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-east-2.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| us-west-2 | Oregon | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-us-west-2.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ca-central-1 | Canada (Central) | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-central-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ca-west-1 | Canada (West) | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ca-west-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ca-west-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| eu-central-1 | Frankfurt | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-central-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| eu-west-1 | Ireland | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| eu-west-2 | London | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-2.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| eu-west-3 | Paris | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-west-3#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-west-3.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| eu-north-1 | Stockholm | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-north-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-north-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| eu-south-1 | Milan | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=eu-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-eu-south-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ap-south-1 | Mumbai | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-south-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ap-southeast-1 | Singapore | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ap-southeast-2 | Sydney | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-southeast-2.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ap-northeast-1 | Tokyo | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-northeast-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| ap-northeast-2 | Seoul | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-ap-northeast-2.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| af-south-1 | Cape Town | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=af-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-af-south-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| sa-east-1 | São Paulo | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=sa-east-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-sa-east-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| me-central-1 | Middle East (UAE) | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=me-central-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-me-central-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
-| me-south-1 | Bahrain | [Install VPC](https://console.aws.amazon.com/cloudformation/home?region=me-south-1#/stacks/new?stackName=formkiq-vpc&templateURL=https://formkiq-core-distribution-me-south-1.s3.amazonaws.com/1.19.2/vpc.yaml) |
+<InstallationLinks vpc />
 
 ### Create CloudFormation Stack
 
@@ -527,7 +473,7 @@ Download the file with the naming convention of: `formkiq-core-X.X.X.zip`
 
 Once downloaded, unzip the file in its own directory.
 
-```
+```text
 INSTALL.md
 LICENSE
 template.yaml
@@ -568,9 +514,9 @@ Once you have set all of these options, SAM CLI will create a changeset and disp
 
 Once the FormKiQ Core stack has been deployed, you will be able to find your API Gateway Endpoint URL in the output values displayed after deployment.
 
-### FormKiQ Console for AWS GovCloud (US)
+### FormKiQ Web for AWS GovCloud (US) {#formkiq-console-for-aws-govcloud-us}
 
-Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, the FormKiQ Document Console is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-deployment).
+Due to restrictions related to AWS GovCloud (US) and the lack of CloudFront availability, FormKiQ Web is not installed as part of the deployment. Instead, you can deploy a docker image into GovCloud for internal or external access. [More information can be found here](/docs/platform/document_console#docker-deployment).
 
 ## API Walkthrough and Reference
 

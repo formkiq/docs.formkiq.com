@@ -75,7 +75,7 @@ Attributes define the metadata fields that can later be assigned to documents.
 
 **CSV format**
 
-```
+```csv
 AttributeKey,DataType,Type
 status,STRING,STANDARD
 priority,NUMBER,STANDARD
@@ -145,7 +145,7 @@ This step assigns metadata values to existing documents.
 
 **CSV format**
 
-```
+```csv
 DocumentId,AttributeKey,StringValue,NumberValue,BooleanValue,DateValue,JsonValue
 550e8400-e29b-41d4-a716-446655440000,status,approved,,,,
 550e8400-e29b-41d4-a716-446655440000,priority,,5,,,

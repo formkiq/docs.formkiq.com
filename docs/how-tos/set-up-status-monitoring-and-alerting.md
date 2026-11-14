@@ -1,6 +1,7 @@
 ---
 sidebar_position: 10
 title: Status Monitoring and Alerting
+description: "Monitor FormKiQ API and processing health with CloudWatch metrics, logs, alarms, and operational checks."
 ---
 
 # Status Monitoring and Alerting

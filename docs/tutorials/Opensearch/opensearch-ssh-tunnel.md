@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+slug: /tutorials/opensearch/ssh-tunnel
+description: "Connect securely to a private FormKiQ OpenSearch domain through an SSH tunnel and browser proxy."
 ---
 
 # OpenSearch SSH Tunnel
@@ -20,7 +22,7 @@ Each of these options offers varying levels of security, flexibility, and ease o
 
 ## Before You Begin
 
-* Access to a FormKiQ PRO / Enterprise installation with OpenSearch, i.e., the Enhanced Fulltext Search Module
+* Access to a FormKiQ deployment with the Enhanced Search module installation with OpenSearch, i.e., the Enhanced Fulltext Search Module
 - Permission to create an EC2 key pair and CloudFormation stack.
 - Network access to SSH into the bastion host.
 
@@ -143,7 +145,7 @@ Under the `Proxies`:
 
 The following command will start the SSH tunnel.
 
-```
+```bash
 ssh -i "mykeypair.pem" ec2-user@public_dns_name -ND 8157
 ```
 

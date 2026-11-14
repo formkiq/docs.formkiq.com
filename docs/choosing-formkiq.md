@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 slug: /category/choosing-formkiq
+description: "Evaluate FormKiQ for API-first document management, customer-controlled AWS infrastructure, and governed document workflows."
 ---
 
 # Choosing FormKiQ

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 11
+description: "Inspect FormKiQ dead-letter queue messages, identify processing failures, and plan safe retries and recovery."
 ---
 
 # Dead-Letter Queue (DLQ)

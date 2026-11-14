@@ -2,6 +2,8 @@
 sidebar_position: 5
 toc_min_heading_level: 2
 toc_max_heading_level: 2
+slug: /tutorials/document-management/document-attributes-api
+description: "Document Attributes in FormKiQ allow you to associate structured metadata with individual documents."
 ---
 # Document Attributes API
 
@@ -313,7 +315,7 @@ curl -X POST "$BASE_URL/search?siteId=$SITE_ID" \
 
 Using the `POST /searchFulltext` allow for multi-attribute searching without composite keys.
 
-```
+```bash
 curl -X POST "$BASE_URL/searchFulltext?siteId=$SITE_ID" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
@@ -429,4 +431,4 @@ Delete the tutorial attributes from the test document if you do not want them to
 
 ## Next Steps
 
-- Explore [Document Tags, Attributes](/docs/tutorials/Documents/document-attributes-api)
+- Explore [Document Tags, Attributes](/docs/tutorials/document-management/document-attributes-api)

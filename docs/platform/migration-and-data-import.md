@@ -1,5 +1,6 @@
 ---
 sidebar_position: 8
+description: "Plan FormKiQ migrations and imports with metadata mapping, content validation, permissions, and recovery procedures."
 ---
 
 # Migration and Data Import

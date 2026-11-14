@@ -1,6 +1,7 @@
 ---
 sidebar_position: 20
 title: Rulesets
+description: "Use FormKiQ rulesets to select document actions based on metadata and automate document processing."
 ---
 
 # Rulesets

@@ -1,6 +1,7 @@
 ---
 sidebar_position: 5
 title: OpenSearch Serverless
+description: "Deploy OpenSearch Serverless for FormKiQ and configure the collection, access policies, and platform integration."
 ---
 
 # OpenSearch Serverless

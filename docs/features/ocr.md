@@ -1,6 +1,7 @@
 ---
 sidebar_position: 15
 title: Optical Character Recognition (OCR)
+description: "Extract searchable text from FormKiQ documents with core OCR and configured enhanced processing services."
 ---
 
 # Optical Character Recognition (OCR)

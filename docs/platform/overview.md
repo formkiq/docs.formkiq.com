@@ -82,7 +82,7 @@ Unlike traditional document management systems, FormKiQ is:
 
 ## Core Capabilities
 
-- Document storage and retrieval through APIs and the FormKiQ Console
+- Document storage and retrieval through APIs and FormKiQ Web
 - Metadata management with tags, attributes, schemas, and classifications
 - Search by metadata, attributes, tags, and optional full-text indexes
 - Document processing workflows, rulesets, queues, OCR, and classification
@@ -154,11 +154,11 @@ Search capability affects:
 
 For search behavior, see [Search](/docs/features/search). For cost impact, see [Costs](/docs/platform/costs).
 
-### Document Console
+### FormKiQ Web
 
-The FormKiQ Document Console provides a web interface for document access, administration, and user workflows. In most AWS regions it is deployed with the main FormKiQ stack. AWS GovCloud (US) has separate console deployment considerations.
+FormKiQ Web provides a web interface for document access, administration, and user workflows. In most AWS regions it is deployed with the main FormKiQ stack. AWS GovCloud (US) has separate console deployment considerations.
 
-For details, see [Document Console](/docs/platform/document_console).
+For details, see [FormKiQ Web](/docs/platform/document_console).
 
 ## Request and Document Flow
 
@@ -180,7 +180,7 @@ FormKiQ supports multiple authentication models because different integrations n
 
 | Authentication model | Common use |
 |----------------------|------------|
-| JWT | Interactive users, the FormKiQ Console, and first API tests. |
+| JWT | Interactive users, FormKiQ Web, and first API tests. |
 | AWS IAM | Server-side AWS workloads, automation, and service-to-service access. |
 | API key | Controlled service access where API keys are enabled. |
 | SSO and custom identity options | Commercial deployments with enterprise identity requirements. |

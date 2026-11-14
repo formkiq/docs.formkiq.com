@@ -1,6 +1,7 @@
 ---
 sidebar_position: 30
 slug: /tutorials/event-and-integration-patterns/formkiq-document-api-with-zapier
+description: "You will create a Zapier webhook that receives FormKiQ document webhook events and writes new document IDs into a Google Sheet."
 ---
 
 # Zapier Integration
@@ -54,8 +55,8 @@ Now that our Google Sheet is created, it's time to setup Zapier.
 
 ![Zapier Webhook Trigger](../img/zapier-trigger-webhook.png)
 
-The FormKiQ Webhook request's body looks like:
-```
+FormKiQ Webhook request's body looks like:
+```json
 {
   "documents":[{...}]
 }
@@ -71,9 +72,9 @@ Zapier will now display the Webhook URL that was created for your Zap. This is t
 
 ![Zapier Webhook Url](../img/zapier-webhook-url.png)
 
-* The last step is to send the webhook a sample of the expected request the FormKiQ Webhook will send. Using an API Client send the following request body to the `Zapier Webhool Url` using a POST request.
+* The last step is to send the webhook a sample of the expected request FormKiQ Webhook will send. Using an API Client send the following request body to the `Zapier Webhool Url` using a POST request.
 
-```
+```json
 {
   "documents":[
      {
@@ -106,7 +107,7 @@ The last step is to click the `Publish Zap` button. Once your Zap is published y
 
 * Following the https://docs.formkiq.com/docs/latest/api/index.html#tag/Documents/operation/AddDocument[FormKiQ Add Document API], we can create a request to create a new document and send it to the FormKiQ API endpoint. For the request, we will use the `actions` section in the request to specify the Zapier Webhook URL we want to be called after the document is created.
 
-```
+```json
 {
   "path": "test.txt",
   "contentType": "text/plain",
@@ -146,4 +147,4 @@ Turn off or delete the Zap if it was only created for testing. Delete the test s
 ## Next Steps
 
 - [Add Document Actions](/docs/how-tos/api-document-actions)
-- [Documents API](/docs/tutorials/Documents/documents-api)
+- [Documents API](/docs/tutorials/document-management/documents-api)

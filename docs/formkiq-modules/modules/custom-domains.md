@@ -1,12 +1,13 @@
 ---
 sidebar_position: 1
+description: "Configure custom domains and certificates for FormKiQ API endpoints and the web application."
 ---
 
 # Custom Domains
 
 ## Overview
 
-The Custom Domains module enables you to use your own domain names for FormKiQ console and API endpoints, replacing the default AWS domains with your branded URLs. This Enterprise Add-On Module leverages AWS services including Route 53 and Certificate Manager to provide secure, customized access points.
+The Custom Domains module enables you to use your own domain names for FormKiQ Web and API endpoints, replacing the default AWS domains with your branded URLs. This Enterprise Add-On Module leverages AWS services including Route 53 and Certificate Manager to provide secure, customized access points.
 
 ## Default vs Custom Domains
 
@@ -27,7 +28,7 @@ The Custom Domains module enables you to use your own domain names for FormKiQ c
 
 | Parameter | Description | Example |
 |-----------|-------------|----------|
-| ConsoleDomain | FormKiQ Console URL | console.yourdomain.com |
+| ConsoleDomain | FormKiQ Web URL | console.yourdomain.com |
 | HttpApiDomain | HTTP API endpoint | api.yourdomain.com |
 | IamApiDomain | IAM API endpoint | iamapi.yourdomain.com |
 | KeyApiDomain | Key API endpoint | keyapi.yourdomain.com |

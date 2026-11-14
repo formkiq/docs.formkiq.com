@@ -1,10 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy to S3
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Deploy only reviewed changes on main
   push:
     branches: [ main ]
 
@@ -16,6 +14,10 @@ permissions:
   contents: read
   id-token: write
 
+concurrency:
+  group: docs-production
+  cancel-in-progress: false
+
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -26,6 +28,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -33,7 +37,10 @@ jobs:
           node-version: '24'
           cache: npm
 
-      # Runs a single command using the runners shell
+      - name: Validate and build
+        run: make
+
+      # AWS credentials are only available during publishing.
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
@@ -46,4 +53,4 @@ jobs:
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
           DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
         run: |
-          make deploy
+          make publish

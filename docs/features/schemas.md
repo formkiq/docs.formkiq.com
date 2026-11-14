@@ -1,6 +1,7 @@
 ---
 sidebar_position: 25
 title: Schemas
+description: "Define document schemas with required attributes, validation, and classifications for consistent FormKiQ metadata."
 ---
 
 # Schemas
@@ -381,4 +382,4 @@ Use the generated API reference for exact request and response schemas.
 - [Search](/docs/features/search)
 - [Documents](/docs/features/documents)
 - [Mappings](/docs/features/mappings)
-- [Site Classification Schemas Tutorial](/docs/tutorials/Documents/site-classification-schemas)
+- [Site Classification Schemas Tutorial](/docs/tutorials/document-management/site-classification-schemas)

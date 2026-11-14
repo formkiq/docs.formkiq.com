@@ -3,6 +3,7 @@ id: pre-hook
 title: Pre-Hook Option
 sidebar_position: 10
 slug: /tutorials/formkiq-cli/pre-hook
+description: "This tutorial shows how to use the --pre-hook option in the FormKiQ CLI to add document tags and actions while syncing documents to FormKiQ."
 ---
 
 # Pre-Hook Option
@@ -211,7 +212,7 @@ Now create the sample files that the FormKiQ CLI will upload.
 Create a directory named `examples`, then create `example1.txt` and `example2.txt`.
 
 Create a new directory:
-```
+```bash
 mkdir examples
 ```
 
@@ -219,13 +220,13 @@ Create two files in the `examples` directory.
 
 **examples/example1.txt**
 
-```
+```text
 This is example1.txt
 ```
 
 **examples/example2.txt**
 
-```
+```text
 This is example2.txt
 ```
 
@@ -233,7 +234,7 @@ This is example2.txt
 
 If the CLI is not already configured, configure it using the FormKiQ CloudFormation outputs:
 
-```
+```bash
 fk --configure --access-key ACCESS_KEY \
                --secret-key ACCESS_SECRET \
                --region AWS_REGION \
@@ -245,13 +246,13 @@ fk --configure --access-key ACCESS_KEY \
 
 We will now run the FormKiQ CLI to sync 2 sample files from the examples directory to FormKiQ.
 
-```
+```bash
 fk --sync -d ./examples --pre-hook http://localhost:3000/get-payload -v
 ```
 
 ## Verify the Result
 
-Open the FormKiQ console and confirm that `example1.txt` and `example2.txt` were uploaded. Check each document's tags and queued actions to confirm the pre-hook response was applied.
+Open FormKiQ Web and confirm that `example1.txt` and `example2.txt` were uploaded. Check each document's tags and queued actions to confirm the pre-hook response was applied.
 
 ## Clean Up
 

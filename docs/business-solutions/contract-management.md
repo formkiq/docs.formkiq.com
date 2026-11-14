@@ -45,7 +45,7 @@ Administrators configure agreement types, lifecycle behavior, workflows, access,
 
 For implementation details, see:
 
-- [FormKiQ Web (Document Console)](/docs/platform/document_console) for hosting, login, and deployment configuration
+- [FormKiQ Web (FormKiQ Web)](/docs/platform/document_console) for hosting, login, and deployment configuration
 - [Commercial installation](/docs/formkiq-modules/installation/formkiq) for licensed deployment and onboarding
 - [Workflows](/docs/features/workflows), [entities](/docs/features/entities), and [schemas](/docs/features/schemas) for the supporting process and data models
 - [E-Signature](/docs/formkiq-modules/modules/e-signature) and [Document Generation](/docs/formkiq-modules/modules/document-generation) for configured document services

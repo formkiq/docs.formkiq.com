@@ -1,6 +1,7 @@
 ---
 sidebar_position: 14
 slug: /tutorials/solution-patterns/build-ocr-searchable-archive
+description: "In this tutorial, you will build a searchable archive for scanned or image-based documents."
 ---
 
 # Build an OCR Searchable Archive

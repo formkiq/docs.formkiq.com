@@ -1,5 +1,6 @@
 ---
 sidebar_position: 12
+description: "Configure a FormKiQ OCR and full-text search pipeline, process a test document, and verify searchable results."
 ---
 
 # OCR and Full-Text Search Pipeline

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 5
+description: "Understand FormKiQ S3 document storage, upload and download flows, versions, metadata, and storage configuration."
 ---
 
 # Document Storage
@@ -41,7 +42,7 @@ Most users should not need to interact with either bucket directly. Application 
 | `.fkb64` staging upload | Bulk migration or controlled import workflows. | Uploads a JSON package to the staging bucket for processing. |
 | S3 Deep Link | Documents that already live in another S3 bucket. | References external S3 objects without copying them into FormKiQ managed storage. |
 
-For API examples, see the [Documents API Tutorial](/docs/tutorials/Documents/documents-api). For endpoint details, see [Add Document](/docs/api-reference/add-document), [Add Document Upload](/docs/api-reference/add-document-upload), and [Get Document Upload](/docs/api-reference/get-document-upload).
+For API examples, see the [Documents API Tutorial](/docs/tutorials/document-management/documents-api). For endpoint details, see [Add Document](/docs/api-reference/add-document), [Add Document Upload](/docs/api-reference/add-document-upload), and [Get Document Upload](/docs/api-reference/get-document-upload).
 
 ## S3 Key Structure
 

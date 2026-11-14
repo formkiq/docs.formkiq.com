@@ -2,6 +2,7 @@
 sidebar_position: 7
 title: AWS Cost Planning
 sidebar_label: Costs & AWS Usage
+description: "Estimate FormKiQ AWS costs across storage, APIs, processing, search, logs, and optional services."
 ---
 
 # AWS Cost Planning

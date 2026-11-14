@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "Use the FormKiQ CLI for document uploads, synchronization, metadata imports, migrations, and operational tasks."
 ---
 
 # FormKiQ CLI

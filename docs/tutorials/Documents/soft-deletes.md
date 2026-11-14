@@ -1,5 +1,7 @@
 ---
 sidebar_position: 70
+slug: /tutorials/document-management/soft-deletes
+description: "You will soft delete a document, list soft-deleted documents, restore the document, and understand when permanent deletion should be used."
 ---
 
 # Understanding Soft Delete in FormKiQ
@@ -128,4 +130,4 @@ await fetch(`/documents/${documentId}/restore`, {
 ## Next Steps
 
 - [Documents](/docs/features/documents)
-- [Documents API](/docs/tutorials/Documents/documents-api)
+- [Documents API](/docs/tutorials/document-management/documents-api)

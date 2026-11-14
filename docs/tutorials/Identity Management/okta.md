@@ -1,5 +1,7 @@
 ---
 sidebar_position: 5
+slug: /tutorials/identity-management/okta
+description: "This tutorial shows how to integrate Okta as the identity management provider for your FormKiQ installation."
 ---
 
 # Okta
@@ -27,7 +29,7 @@ You will create an Okta SAML application, configure Amazon Cognito as the servic
 4. Assign users or groups to the Okta app.
 5. Add Okta as a Cognito SAML identity provider.
 6. Configure Cognito managed login.
-7. Verify login from the FormKiQ console.
+7. Verify login from FormKiQ Web.
 
 ## Step 1: Collect FormKiQ Cognito Values
 
@@ -71,13 +73,13 @@ To add an Application:
 
 * Set the Single sign-on URL is: **&lt;Your Cognito Domain&gt;**/saml2/idpresponse, for example:
 
-```
+```text
 https://formkiq-enterprise-dev-1111111111111.auth.us-east-2.amazoncognito.com/saml2/idpresponse
 ```
 
 * Set the Audience URI using:
 
-```
+```text
 urn:amazon:cognito:sp:<CognitoUserPoolId>
 
 eg: urn:amazon:cognito:sp:us-east-2_MEhz4EzAZ
@@ -132,7 +134,7 @@ Open the [AWS Console](https://aws.amazon.com/) and Launch the CloudShell servic
 
 Once the CloudShell command prompt opens, use the AWS CLI to add a custom attribute. This attribute will contain the group claims attribute.
 
-```
+```bash
 aws cognito-idp add-custom-attributes \
 --user-pool-id <CognitoUserPoolId> \
 --custom-attributes Name=groups,AttributeDataType="String"
@@ -140,7 +142,7 @@ aws cognito-idp add-custom-attributes \
 
 Once again, using the AWS CLI, create the SAML identify provider:
 
-```
+```bash
 aws cognito-idp create-identity-provider \
 --user-pool-id <CognitoUserPoolId> \
 --provider-name=oktaidp \
@@ -153,12 +155,12 @@ aws cognito-idp create-identity-provider \
 
 You now need to configure Amazon Managed login. Amazon Cognito Managed login provides a URL connection between Amazon Cognito and Okta.
 
-To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider) tutorial.
+To configure Cognito Managed login, see [Amazon Managed Login](/docs/tutorials/identity-management/cognito-saml-provider) tutorial.
 
 
 ## Verify the Result
 
-Open the FormKiQ console and use the Single Sign-On login option. Confirm the user can authenticate through Okta and receives the expected FormKiQ access based on group membership.
+Open FormKiQ Web and use the Single Sign-On login option. Confirm the user can authenticate through Okta and receives the expected FormKiQ access based on group membership.
 
 ## Clean Up
 
@@ -174,5 +176,5 @@ Remove test users, test app assignments, or temporary SAML applications that are
 
 ## Next Steps
 
-- [Amazon Managed Login](/docs/tutorials/Identity%20Management/cognito-saml-provider)
+- [Amazon Managed Login](/docs/tutorials/identity-management/cognito-saml-provider)
 - [Security](/docs/platform/security)

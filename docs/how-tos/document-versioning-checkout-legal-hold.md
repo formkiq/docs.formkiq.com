@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+description: "Use FormKiQ document versions, checkout, and legal hold to coordinate edits and preserve records."
 ---
 
 # Document Versioning, Checkout, and Legal Hold

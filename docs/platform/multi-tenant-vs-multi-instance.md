@@ -1,6 +1,7 @@
 ---
 sidebar_position: 4
 title: Multi-Tenant and Multi-Instance Deployments
+description: "Compare FormKiQ sites and separate instances for tenant isolation, administration, data residency, and operational control."
 ---
 
 # Multi-Tenant and Multi-Instance Deployments
@@ -81,7 +82,7 @@ The group name determines the site and permission level.
 
 ### Creating a New Tenant
 
-The simplest way to create a new tenant is to create a group in the user pool. This can be done through the FormKiQ Console, FormKiQ API, or Amazon Cognito.
+The simplest way to create a new tenant is to create a group in the user pool. This can be done through FormKiQ Web, FormKiQ API, or Amazon Cognito.
 
 For example:
 
@@ -121,7 +122,7 @@ After switching to Defined Sites, users will no longer automatically have access
 
 You can create one or more new sites using an administrator user through the JWT API or through the IAM API if IAM access has been configured. For IAM setup, see [Setting Up IAM Authorization](/docs/platform/security#setting-up-iam-authorization).
 
-At this time, the FormKiQ Document Console does not provide access to users without sites. If the administrator user has no site after switching to Defined Sites, log in through the API. See [Logging in for JWT Authentication](/docs/how-tos/jwt-authentication-token).
+At this time, FormKiQ Web does not provide access to users without sites. If the administrator user has no site after switching to Defined Sites, log in through the API. See [Logging in for JWT Authentication](/docs/how-tos/jwt-authentication-token).
 
 Once authorization is ready, create a new site using [`POST /sites`](/docs/api-reference/add-site).
 
@@ -241,6 +242,6 @@ Use separate FormKiQ instances in separate AWS regions when documents must remai
 
 - [Security](/docs/platform/security)
 - [Compliance, Data Residency, and Data Sovereignty](/docs/platform/compliance-data-residency-and-data-sovereignty)
-- [Document Console](/docs/platform/document_console)
+- [FormKiQ Web](/docs/platform/document_console)
 - [API Walkthrough](/docs/getting-started/api-walkthrough)
 - [Multi-Tenant Tutorial](/docs/tutorials/solution-patterns/multitenant)

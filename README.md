@@ -1,28 +1,40 @@
-# Website
+# FormKiQ documentation
 
-This website is built using [Docusaurus 3](https://docusaurus.io/), a modern static website generator. Node.js 20 or newer is required.
+This site uses Docusaurus 3 and the committed API reference. Use Node.js 24 and
+npm, matching CI. `package-lock.json` is the dependency source of truth.
 
-### Installation
-
-```
-$ yarn
-```
-
-### Local Development
-
-```
-$ yarn start
+```bash
+npm ci
+npm start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Validation
 
-### Build
-
+```bash
+npm test
+npm run build
+npm run check:build
 ```
-$ yarn build
+
+Pull requests run the same checks without AWS credentials. Broken internal links
+and anchors fail the build. Scheduled external-link checks run separately because
+network, authentication, and rate limits can affect third-party URLs.
+
+## Releases and API reference
+
+`config/release.cjs` pins both the documented FormKiQ release and the OpenAPI tag.
+The install tables use its version. Deployment builds the committed API reference
+without fetching unreleased changes. To update it deliberately:
+
+```bash
+npm ci
+make api
+npm run build
+npm run check:build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+Review and commit the generated changes with the release update. A normal deploy
+never runs API regeneration.
 
 ### Adding release notes
 
@@ -44,18 +56,34 @@ shares the web version. Link to web notes from the backend release that bundles
 that version; keep individual backend module versions in their existing sections.
 Only state minimum backend versions or tested pairings when verified.
 
-### Deployment
 
-Using SSH:
+## URLs, redirects, and metadata
 
+Hand-written pages require useful, page-specific descriptions. New tutorial slugs
+use lowercase paths. Keep every replaced path in `config/redirects.json` and update
+active links to the canonical URL. The maintained redirect plugin writes static
+meta-refresh redirects; the finalizer adds absolute canonicals and `noindex`.
+Redirects are production-only, so test them using `npm run serve` after a build.
+The homepage renders the Overview content on the server with the docs URL canonical.
+
+## Assets
+
+```bash
+npm run audit:assets -- reports/image-assets.md
 ```
-$ USE_SSH=true yarn deploy
-```
 
-Not using SSH:
+The report identifies candidates and duplicates; it is not permission to delete
+public URLs. Original PNGs remain available while the diagrams use optimized WebP
+copies. Marketplace version files and configuration are retained until their
+external consumers can be verified. SVG and PNG social card sources are in
+`static/img/formkiq-social-card.*`.
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
+## Deployment
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The main-branch workflow validates with `make`, then runs `make publish` using the configured `S3_BUCKET` and
+`DISTRIBUTION_ID` secrets. It validates the site, uploads it under the `docs/` S3
+prefix, preserves extensionless URL aliases, prunes stale owned objects, and
+invalidates CloudFront. Marketplace artifacts and prior fingerprinted assets are excluded from deletion.
+
+CloudFront activation is intentionally separate. See [hosting instructions](hosting/README.md)
+for the tested viewer-request function, IAM scope, caching, and rollout checks.

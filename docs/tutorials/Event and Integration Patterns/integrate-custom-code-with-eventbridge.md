@@ -1,6 +1,7 @@
 ---
 sidebar_position: 16
 slug: /tutorials/event-and-integration-patterns/integrate-with-amazon-eventbridge
+description: "In this tutorial, you will use Amazon EventBridge and AWS Lambda to run custom Python code when FormKiQ publishes a document event."
 ---
 
 # Integrate with Amazon EventBridge
@@ -24,7 +25,7 @@ This workflow combines:
 
 Confirm you have:
 
-- A deployed FormKiQ Core, Explore, Advanced, or Enterprise environment.
+- A deployed FormKiQ Core, Essentials, Advanced, or Enterprise environment.
 - The `HttpApiUrl` and `IamApiUrl` CloudFormation stack outputs for your FormKiQ deployment.
 - A JWT access token with permission to add documents and add document actions for the manual setup steps. See [Get a JWT Authentication Token](/docs/how-tos/jwt-authentication-token).
 - AWS CLI configured for the AWS account and Region where the Lambda function will run.
